@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Hague Couloir</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1 onclick="location.href='index.html'">The Hague Couloir</h1>
+        </div>
+    </header>
+    
+    <main>
+        <div class="sort-button">
+            <span>Sort:</span>
+            <button class="sort-option" data-type="all" onclick="filterItems('all')">All</button>
+            <button class="sort-option" data-type="news" onclick="filterItems('news')">News</button>
+            <button class="sort-option" data-type="articles" onclick="filterItems('articles')">Articles</button>
+            <button class="sort-option" data-type="opinion" onclick="filterItems('opinion')">Opinion</button>
+        </div>
+        <div class="content-grid">
+            <article class="news-item" data-type="news">
+                <a href="news/00001.html">
+                    <img src="images/00001_1.jpg" alt="News Image 1">
+                    <div class="content">
+                        <p class="type news">NEWS</p>
+                        <p class="date">June 11, 2024</p>
+                        <h3>News Title 1</h3>
+                    </div>
+                </a>
+            </article>
+            <article class="article-item" data-type="articles">
+                <a href="articles/00002.html">
+                    <img src="images/00002_1.jpg" alt="Article Image 1">
+                    <div class="content">
+                        <p class="type article">ARTICLE</p>
+                        <p class="date">June 11, 2024</p>
+                        <h3>Article Title 1</h3>
+                    </div>
+                </a>
+            </article>
+            <article class="news-item" data-type="news">
+                <a href="news/00003.html">
+                    <img src="images/00003_1.jpg" alt="News Image 2">
+                    <div class="content">
+                        <p class="type news">NEWS</p>
+                        <p class="date">June 10, 2024</p>
+                        <h3>News Title 2</h3>
+                    </div>
+                </a>
+            </article>
+            <article class="article-item" data-type="articles">
+                <a href="articles/00004.html">
+                    <img src="images/00004_1.jpg" alt="Article Image 2">
+                    <div class="content">
+                        <p class="type article">ARTICLE</p>
+                        <p class="date">June 9, 2024</p>
+                        <h3>Article Title 2</h3>
+                    </div>
+                </a>
+            </article>
+            <!-- More news, articles, and opinion items -->
+        </div>
+    </main>
+
+    <footer>
+        <p>The Hague Couloir</p>
+    </footer>
+
+    <script>
+        function filterItems(type) {
+            const items = document.querySelectorAll('.content-grid article');
+            items.forEach(item => {
+                if (type === 'all' || item.getAttribute('data-type') === type) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            // Update button styles
+            const buttons = document.querySelectorAll('.sort-option');
+            buttons.forEach(button => {
+                if (button.getAttribute('data-type') === type) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            filterItems('all'); // Default to showing all items
+        });
+    </script>
+</body>
+</html>
