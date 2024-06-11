@@ -8,15 +8,27 @@
 </head>
 <body>
     <header>
-        <div class="logo">
-            <h1 onclick="location.href='index.html'">The Hague Couloir</h1>
+    <div class="logo">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <h1 onclick="location.href='index.html'">The Hague Couloir</h1>
+    </div>
+    <div class="language-selector">
+    <div class="dropdown">
+        <button class="dropbtn">Language <i class="fa fa-caret-down"></i></button>
+        <div class="dropdown-content">
+            <a href="#" onclick="changeLanguage('ru')">Russian</a>
+            <a href="#" onclick="changeLanguage('ua')">Ukrainian</a>
+            <a href="#" onclick="changeLanguage('en')">English</a>
         </div>
-    </header>
+    </div>
+</div>
+</header>
+
     
     <main>
         <div class="sort-button">
             <span>Sort:</span>
-            <button class="sort-option" data-type="all" onclick="filterItems('all')">All</button>
+            <button class="sort-option active" data-type="all" onclick="filterItems('all')">All</button>
             <button class="sort-option" data-type="news" onclick="filterItems('news')">News</button>
             <button class="sort-option" data-type="articles" onclick="filterItems('articles')">Articles</button>
             <button class="sort-option" data-type="opinion" onclick="filterItems('opinion')">Opinion</button>
@@ -42,58 +54,128 @@
                     </div>
                 </a>
             </article>
+            <article class="opinion-item" data-type="opinion">
+                <a href="opinion/00003.html">
+                    <img src="images/00003_1.jpg" alt="Opinion Image 1">
+                    <div class="content">
+                        <p class="type opinion">OPINION</p>
+                        <p class="date">June 10, 2024</p>
+                        <h3>Opinion Title 1</h3>
+                    </div>
+                </a>
+            </article>
             <article class="news-item" data-type="news">
-                <a href="news/00003.html">
-                    <img src="images/00003_1.jpg" alt="News Image 2">
+                <a href="news/00004.html">
+                    <img src="images/00004_1.jpg" alt="News Image 2">
                     <div class="content">
                         <p class="type news">NEWS</p>
-                        <p class="date">June 10, 2024</p>
+                        <p class="date">June 9, 2024</p>
                         <h3>News Title 2</h3>
                     </div>
                 </a>
             </article>
             <article class="article-item" data-type="articles">
-                <a href="articles/00004.html">
-                    <img src="images/00004_1.jpg" alt="Article Image 2">
+                <a href="articles/00005.html">
+                    <img src="images/00005_1.jpg" alt="Article Image 2">
                     <div class="content">
                         <p class="type article">ARTICLE</p>
-                        <p class="date">June 9, 2024</p>
+                        <p class="date">June 8, 2024</p>
                         <h3>Article Title 2</h3>
                     </div>
                 </a>
             </article>
-            <!-- More news, articles, and opinion items -->
+            <article class="opinion-item" data-type="opinion">
+                <a href="opinion/00006.html">
+                    <img src="images/00006_1.jpg" alt="Opinion Image 2">
+                    <div class="content">
+                        <p class="type opinion">OPINION</p>
+                        <p class="date">June 7, 2024</p>
+                        <h3>Opinion Title 2</h3>
+                    </div>
+                </a>
+            </article>
+            <article class="news-item" data-type="news">
+                <a href="news/00007.html">
+                    <img src="images/00007_1.jpg" alt="News Image 3">
+                    <div class="content">
+                        <p class="type news">NEWS</p>
+                        <p class="date">June 6, 2024</p>
+                        <h3>News Title 3</h3>
+                    </div>
+                </a>
+            </article>
+            <article class="article-item" data-type="articles">
+                <a href="articles/00008.html">
+                    <img src="images/00008_1.jpg" alt="Article Image 3">
+                    <div class="content">
+                        <p class="type article">ARTICLE</p>
+                        <p class="date">June 5, 2024</p>
+                        <h3>Article Title 3</h3>
+                    </div>
+                </a>
+            </article>
+            <article class="opinion-item" data-type="opinion">
+                <a href="opinion/00009.html">
+                    <img src="images/00009_1.jpg" alt="Opinion Image 3">
+                    <div class="content">
+                        <p class="type opinion">OPINION</p>
+                        <p class="date">June 4, 2024</p>
+                        <h3>Opinion Title 3</h3>
+                    </div>
+                </a>
+            </article>
         </div>
     </main>
 
     <footer>
-        <p>The Hague Couloir</p>
+        <p>Hryhorii Bavykin</p>
     </footer>
 
-    <script>
-        function filterItems(type) {
-            const items = document.querySelectorAll('.content-grid article');
-            items.forEach(item => {
-                if (type === 'all' || item.getAttribute('data-type') === type) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-            // Update button styles
-            const buttons = document.querySelectorAll('.sort-option');
-            buttons.forEach(button => {
-                if (button.getAttribute('data-type') === type) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
-                }
-            });
+   <script>
+    function filterItems(type) {
+        const items = document.querySelectorAll('.content-grid article');
+        items.forEach(item => {
+            if (type === 'all' || item.getAttribute('data-type') === type) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        // Update button styles
+        const buttons = document.querySelectorAll('.sort-option');
+        buttons.forEach(button => {
+            if (button.getAttribute('data-type') === type) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        filterItems('all'); // Default to showing all items
+    });
+
+    function changeLanguage(language) {
+        // Get the current URL
+        var currentUrl = window.location.href;
+
+        // Determine the base URL
+        var baseUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/') + 1);
+
+        // Determine the new URL based on the selected language
+        var newUrl;
+        if (language === 'ru') {
+            newUrl = baseUrl + 'ru/';
+        } else if (language === 'ua') {
+            newUrl = baseUrl + 'ua/';
+        } else {
+            newUrl = baseUrl + 'en/';
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            filterItems('all'); // Default to showing all items
-        });
-    </script>
+        // Redirect the user to the new URL
+        window.location.href = newUrl;
+    }
+</script>
 </body>
 </html>
