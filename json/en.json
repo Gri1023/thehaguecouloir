@@ -1,0 +1,28 @@
+﻿{
+  "siteTitle": "The Hague Couloir",
+  "footerText": "Hryhorii Bavykin",
+  "types": {
+    "news": "NEWS",
+    "article": "ARTICLE",
+    "opinion": "OPINION"
+  },
+  "news": [
+    {
+      "id": "00001",
+      "date": "June 11, 2024",
+      "title": "Turkey is preparing for a new operation against the Kurdistan Workers' Party in northern Iraq.",
+      "content": [
+        { "type": "heading-text", "value": "Turkey's Operation Against PKK" },
+        { "type": "subheading-text", "value": "A New Chapter in Regional Politics" },
+        { "type": "info-text", "value": "Hryhorii Bavykin, April 18, 2024" },
+        { "type": "text", "value": "In December last year, Erdogan stated that the PKK threat would be eliminated by summer. After this, active preparations for the implementation of the plan began." },
+        { "type": "main-image", "value": "images/00001_1.jpg" },
+        { "type": "caption-text", "value": "Turkish military preparations near the border." },
+        { "type": "text", "value": "On March 14, a meeting of the Turkish-Iraqi commission on joint efforts to eliminate Kurdish separatism and return territories under the control of the Iraqi government took place. More details can be found in the [full report](https://www.example.com)." },
+        { "type": "quote", "value": "https://www.middleeasteye.net/news/turkey-iraq-development-road-project-launch-military-operation" },
+        { "type": "warning", "value": "This operation may lead to increased regional tensions." },
+        { "type": "text", "value": "Yesterday, information appeared that Kurdish units began to withdraw their detachments from the line of contact to the rear and mountainous areas in preparation for the Turkish offensive." }
+      ]
+    }
+  ]
+}
