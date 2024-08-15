@@ -42,6 +42,7 @@ function getCurrentLanguage() {
 }
 
 // Function to load content from JSON file
+// Function to load content from JSON file
 function loadContent(jsonFile) {
     fetch(jsonFile)
         .then(response => response.json())
@@ -55,14 +56,14 @@ function loadContent(jsonFile) {
                     articleElement.classList.add(`${type}-item`);
                     articleElement.setAttribute('data-type', type);
 
-                    // Try loading both jpg and png versions of the image
-                    let imageSrc = `images/${item.id}_1.jpg`;
+                    // Load the main image path from the JSON data
+                    let imageSrc = item.content.find(contentItem => contentItem.type === 'main-image').value;
                     let altText = `${type.charAt(0).toUpperCase() + type.slice(1)} Image ${item.id}`;
-                    
-                    // Check if png version exists, fallback to jpg if not
+
+                    // Check if the image exists and fallback to the other format if it doesn't
                     const img = new Image();
                     img.onload = function() {
-                        imageSrc = `images/${item.id}_1.png`;
+                        // If the original image exists, load it
                         articleElement.innerHTML = `
                             <a href="article.html?id=${item.id}&type=${type}">
                                 <img src="${imageSrc}" alt="${altText}">
@@ -76,9 +77,11 @@ function loadContent(jsonFile) {
                         contentGrid.appendChild(articleElement);
                     };
                     img.onerror = function() {
+                        // If the original image does not exist, fallback to the alternative format
+                        const fallbackImageSrc = imageSrc.replace(/\.png$/, '.jpg').replace(/\.jpg$/, '.png');
                         articleElement.innerHTML = `
                             <a href="article.html?id=${item.id}&type=${type}">
-                                <img src="${imageSrc}" alt="${altText}">
+                                <img src="${fallbackImageSrc}" alt="${altText}">
                                 <div class="content">
                                     <p class="${type}">${data.types[type]}</p>
                                     <p class="date">${item.date}</p>
@@ -88,7 +91,7 @@ function loadContent(jsonFile) {
                         `;
                         contentGrid.appendChild(articleElement);
                     };
-                    img.src = `images/${item.id}_1.png`;  // Try loading png version
+                    img.src = imageSrc;  // Try loading the image from the path provided in the JSON
                 });
             });
         })

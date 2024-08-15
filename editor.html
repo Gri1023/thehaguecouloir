@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/editor-script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="Logo">
+        </div>
+        <div class="site-title">
+            <h1>Article Editor</h1>
+        </div>
+        <div class="language-selector" id="languageSelector">
+            <!-- Dynamic language button will be inserted here -->
+        </div>
+    </header>
+    <div class="background">
+        <div class="container">
+            <div id="article-meta">
+                <input type="text" id="article-id" placeholder="Enter ID" required>
+                <input type="text" id="article-heading" placeholder="Enter Heading Text" required>
+                <input type="text" id="article-date" placeholder="Enter Date" required>
+            </div>
+                <main>
+                    <div id="article-type" class="article-type"></div>
+                    <div id="editor-content" class="article-content">
+                        <!-- Editable content will be added here -->
+                    </div>
+                </main>
+            <button id="add-content">Add Content</button>
+            <button id="export-json">Export JSON</button>
+        </div>
+    </div>
+    <footer>
+        <p>Article Editor Footer</p>
+    </footer>
+</body>
+</html>

@@ -1,21 +1,44 @@
-body {
-    font-family: 'Aptos', Arial, sans-serif;
+/* Remove default margin and padding from body and html */
+html, body {
     margin: 0;
     padding: 0;
-    background-color: #e6e6fc; /* Slight purple background */
-    color: #333;
+    width: auto;
+    height: auto;
+    overflow-x: hidden; /* Hide horizontal overflow */
+}
+
+.background {
+    background-color: #e6e6fc; /* Slight purple background to match body */
+    min-width: 100vw; /* Ensure background extends to the viewport width */
+    padding: 0; /* No padding needed for the background container */
+    display: flex;
+    justify-content: center; /* Center the container horizontally */
+}
+
+.container {
+    max-width: 950px; /* Max width for the content area */
+    width: calc(100% - 40px); /* Ensure it takes up full width minus padding */
+    background-color: #fff; /* White background for the content area */
+    border-radius: 17px; /* Rounded corners */
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Added shadow */
+    margin: 10px 20px; /* Margin to provide space around the container */
+    padding: 20px 0px;
+    overflow: auto;
 }
 
 header {
     background-color: black;
     color: white;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    padding: 1% 1%;
     top: 0;
-    z-index: 1000;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 2000;
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 }
 
 header .logo {
@@ -48,7 +71,6 @@ header .site-title h1 {
 .dropbtn {
     background-color: transparent;
     color: white;
-    padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
@@ -76,15 +98,6 @@ header .site-title h1 {
     margin-left: auto; /* This will push the language selector to the right */
 }
 
-main {
-    max-width: 900px;
-    padding: 20px 40px; /* Increased padding for larger distance from sides */
-    margin: 10px auto; /* Added margin to separate from edges */
-    background-color: #fff;
-    border-radius: 17px; /* Rounded corners */
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Added shadow */
-}
-
 .sort-button {
     text-align: center;
     margin-bottom: 20px;
@@ -92,12 +105,14 @@ main {
     justify-content: flex-end;
     align-items: center;
     gap: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .sort-option {
     background-color: transparent;
     border: none;
-    padding: 10px 20px;
+    padding: 8px 15px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
@@ -121,6 +136,8 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 /* General styling for news, article, and opinion items */
@@ -133,7 +150,6 @@ main {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     text-decoration: none;
-    padding-bottom: 20px; /* Extra space at the bottom */
     overflow: hidden; /* Ensure content doesn't overflow the container */
 }
 
@@ -162,7 +178,10 @@ main {
 }
 
 .content {
-    padding: 15px;
+    font-family: 'Aptos', Arial, sans-serif;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 3%;
 }
 
 /* Styles for different text types */
@@ -174,8 +193,6 @@ main {
 main-text .news {
     color: red;
     font-weight: bold;
-    padding: 0 80px; 
-    padding-top: 10px; 
 }
 
 .opinion {
@@ -186,8 +203,6 @@ main-text .news {
 main-text .opinion {
     color: orange;
     font-weight: bold;
-    padding: 0 80px; 
-    padding-top: 10px; 
 }
 
 .article {
@@ -195,47 +210,67 @@ main-text .opinion {
     font-weight: bold;
 }
 
-main-text {
-    padding: 0 80px;
-}
-
 main-text .article {
     color: blue;
     font-weight: bold;
-    padding: 0 80px;
-    padding-top: 10px; 
 }
 
+main-text {
+    font-family: 'Aptos', Arial, sans-serif;
+}
+
+/* Base styles for padding with responsive adjustment */
+main-text .opinion,
+main-text .article,
+main.text .news,
+main-text .caption-text,
+main-text .warning,
+main-text .quote,
+main-text .heading-text,
+main-text .subheading-text,
+main-text .sub-subheading-text,
+main-text .info-text,
+main-text p {
+    margin-left: clamp(4px, 5vw + 1rem, 80px);
+    margin-right: clamp(4px, 5vw + 1rem, 80px);
+}
+
+
 main-text .heading-text {
+    font-family: 'Aptos', Arial, sans-serif;
     font-size: 24px;
     margin-bottom: 10px;
     font-weight: bold;
-    padding: 0px 80px; 
 }
 
 main-text .subheading-text {
+    font-family: 'Aptos', Arial, sans-serif;
     font-size: 22px;
     margin-bottom: 10px;
-    padding: 0 80px; 
 }
 
 main-text .sub-subheading-text {
-    font-size: 20px;
-    margin-bottom: 10px;
-    padding: 0 80px; 
+    font-family: 'Aptos', Arial, sans-serif;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+main-text p {
+    font-family: 'Aptos', Arial, sans-serif;
+    color: #333;
+    font-size: 18px;
+    line-height: 150%;
 }
 
 main-text .info-text {
     font-size: 14px;
     color: #7f8c8d;
     margin-bottom: 10px;
-    padding: 0 80px; 
 }
 
 main-text .main-image {
     display: block;
-    max-width: 735px;
-    border-radius: 5px;
+    max-width: 100%; /* Ensure the image is responsive */
     margin-bottom: 10px;
     margin: auto;
 }
@@ -244,23 +279,25 @@ main-text .image {
     display: block;
     align-content: center;
     margin: auto;
-    max-width: 425px;
+    max-width: 90%;
+    max-height: 500px;
     border-radius: 5px;
     margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 main-text .caption-text {
     text-align: center;
+    line-height: 50%;
     font-size: 14px;
     color: #7f8c8d;
-    padding: 10px 80px; 
 }
 
 main-text .quote {
     background-color: #0091ff37;
     padding: 10px 20px; /* Adjusted padding for the entire quote block */
     border-radius: 7px;
-    margin: 10px 80px;
     position: relative;
 }
 
@@ -272,16 +309,15 @@ main-text .quote::before {
     bottom: 0;
     width: 7px; /* Adjust the width of the border as needed */
     background-color: #00aaff;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 main-text .warning {
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
+    padding: 10px 20px; /* Adjusted padding for the entire quote block */
     border-radius: 7px;
-    margin: 10px 0;
-    padding: 5px 20px; /* Adjusted padding for the entire warning block */
     position: relative;
 }
 
@@ -297,22 +333,131 @@ main-text .warning::before {
     border-bottom-left-radius: 5px;
 }
 
-
-
-main-text p {
-    font-family: 'Aptos', Arial, sans-serif;
-    color: #333;
-    font-size: 18px;
-    line-height: 150%;
-    padding: 10px 80px; 
-}
-
 footer {
     background-color: black;
     color: white;
     text-align: center;
-    padding: 10px 0;
+    padding: 2% 1%;
     position: relative;
     bottom: 0;
     width: 100%;
 }
+
+/* Gallery Container */
+.gallery-container {
+    position: relative;
+    max-width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+/* Main Image Display */
+.gallery-main-image {
+    display: block;
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Thumbnail Container */
+.gallery-thumbnails {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Individual Thumbnail */
+.gallery-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.gallery-thumbnail:hover, .gallery-thumbnail.active {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Navigation Buttons */
+.gallery-nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.gallery-nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.gallery-nav-button.left {
+    left: 10px;
+}
+
+.gallery-nav-button.right {
+    right: 10px;
+}
+
+/* Zoom Overlay */
+.gallery-zoom-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.gallery-zoom-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.gallery-zoom-overlay.active {
+    display: flex;
+}
+
+/* Styles for the video container */
+.video-container {
+    display: block;
+    margin: auto;
+    max-width: 90%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+
+
+

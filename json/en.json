@@ -1,27 +1,76 @@
 ﻿{
   "siteTitle": "The Hague Couloir",
-  "footerText": "Hryhorii Bavykin",
+  "footerText": "Hryhorii Bavykin 2024",
   "types": {
     "news": "NEWS",
-    "article": "ARTICLE",
+    "article": "ANALYSIS",
     "opinion": "OPINION"
   },
   "news": [
     {
       "id": "00001",
       "date": "June 11, 2024",
-      "title": "Turkey is preparing for a new operation against the Kurdistan Workers' Party in northern Iraq.",
+      "title": "Turkey prepares for a new operation against the Kurdistan Workers' Party in northern Iraq.",
       "content": [
-        { "type": "heading-text", "value": "Turkey's Operation Against PKK" },
-        { "type": "subheading-text", "value": "A New Chapter in Regional Politics" },
+        { "type": "heading-text", "value": "Turkey's Operation against PKK" },
+        { "type": "subheading-text", "value": "A new chapter in regional politics" },
         { "type": "info-text", "value": "Hryhorii Bavykin, April 18, 2024" },
-        { "type": "text", "value": "In December last year, Erdogan stated that the PKK threat would be eliminated by summer. After this, active preparations for the implementation of the plan began." },
-        { "type": "main-image", "value": "images/00001_1.jpg" },
-        { "type": "caption-text", "value": "Turkish military preparations near the border." },
-        { "type": "text", "value": "On March 14, a meeting of the Turkish-Iraqi commission on joint efforts to eliminate Kurdish separatism and return territories under the control of the Iraqi government took place. More details can be found in the [full report](https://www.example.com)." },
+        { "type": "text", "value": "In December of last year, Erdogan stated that the threat from the PKK would be eliminated by summer. Subsequently, active preparations for the implementation of the plan began." },
+        { "type": "main-image", "value": "images/00001_1.png" },
+        { "type": "caption-text", "value": "Preparation of the Turkish army near the border." },
+        { "type": "text", "value": "On March 14, a meeting of the Turkish-Iraqi commission was held on joint efforts to eliminate Kurdish separatism and return territories under the control of the Iraqi government. More detailed information can be found in the [full report](https://www.example.com)." },
         { "type": "quote", "value": "https://www.middleeasteye.net/news/turkey-iraq-development-road-project-launch-military-operation" },
-        { "type": "warning", "value": "This operation may lead to increased regional tensions." },
-        { "type": "text", "value": "Yesterday, information appeared that Kurdish units began to withdraw their detachments from the line of contact to the rear and mountainous areas in preparation for the Turkish offensive." }
+        { "type": "warning", "value": "This operation could lead to increased regional tensions." },
+        { "type": "text", "value": "Yesterday, information appeared that Kurdish units began to withdraw their detachments from the contact line to rear and mountainous areas in anticipation of the Turkish offensive." }
+      ]
+    }
+  ],
+  "article": [
+    {
+      "id": "00253",
+      "date": "December 30, 2023",
+      "title": "Essequibo: Between Jungles and Oil - History, Conflict, and Prospects",
+      "content": [
+        { "type": "heading-text", "value": "Essequibo: Between Jungles and Oil - History, Conflict, and Prospects" },
+        { "type": "info-text", "value": "Grigory Bavykin, December 30, 2023" },
+        { "type": "main-image", "value": "images/00253_1.png" },
+        { "type": "subheading-text", "value": "History of the conflict and the region" },
+        { "type": "text", "value": "Guyana-Essequibo (also Western Guyana) is a region claimed by Venezuela and under the control of Guyana, with an area of ​​159,500 km² west of the Essequibo River (70% of the country's territory). The population is approximately 128,000 people (16% of the total population) and is concentrated mainly in the southern part along the border with Brazil. It is predominantly represented by indigenous tribes." },
+        { "type": "image", "value": "images/00253_2.png" },
+        { "type": "caption-text", "value": "The Guyana-Essequibo region claimed by Venezuela in the lower left corner on the map of the territorial division of Venezuela" },
+        { "type": "text", "value": "The territory was explored by the Spaniards and then became part of both Greater Colombia on one side (although Spanish-speaking population did not form here), and the Netherlands on the other. In 1814, the British acquired 51,700 km² of territory to the east of the Essequibo (all other Guyana) as a result of an agreement with the Netherlands, which did not establish the western border of the purchased colony. Therefore, colonial authorities appointed Robert Herman Schomburg, who worked for the Royal Geographical Society, responsible for defining the border. He conducted a botanical and geographical study of British Guyana, the result of which was the concept of a border that, according to Schomburg, corresponded to the boundaries of the lands claimed by the Dutch, and then the British. Britain officially recognized the Essequibo River as the border until gold was discovered in the Yuruari River basin. 17 years later, taking advantage of the confusion in the newly separated Gran Colombia Venezuela, in 1831 the English seized most of the modern region. In 1841 the government of José Antonio Paes condemned the British Empire's invasion of Venezuelan territory. Thus began the long 180-year territorial dispute over the territory of Guyana-Essequibo. In such a state, in which Great Britain unofficially occupied most of the territory, this low-intensity conflict lasted more than 50 years, when at the request of Venezuela the United States intervened in the conflict through the Monroe Doctrine in 1865. As a result, in 1899, the \"Schomburg Line,\" with slight deviations in favor of Venezuela (Britain retained all gold mines), was recognized by the international Paris arbitration group as the border between British Guiana and Venezuela (in the middle of the 20th century there were disputes that the British bribed a Russian judge who made decisions on the lawsuit)." },
+        { "type": "image", "value": "images/00253_3.png" },
+        { "type": "caption-text", "value": "The map shows: Gold mines, extreme border claimed by Great Britain, Schomburg Line, enlarged Schomburg Line, and extreme border claimed by Venezuela." },
+        { "type": "text", "value": "Historically, the dispute did not concern the influx of the Amazon River and the Pirara area, which were transferred to British Guiana only in 1904 during the arbitration process with Brazil. The status of the territory is regulated by the Geneva Agreement, signed by the United Kingdom, Venezuela, and British Guiana on February 17, 1966, and made the latter the successor of the British Empire in resolving its territorial disputes (Guyana became an independent state just 4 months after the agreement) The new exacerbation of the old territorial conflict in the XXI century began in 2015, when significant oil reserves were explored in the maritime exclusive economic zone of the region. The first oil began to be pumped in Guyana in 2019, and since then the economy of this tiny country has been booming - for three consecutive years it has grown by more than 40% per year." },
+        { "type": "image", "value": "images/00253_4.png" },
+        { "type": "caption-text", "value": "Guyana's exclusive economic zone and recently discovered oil reserves." },
+        { "type": "subheading-text", "value": "What happened now?" },
+        { "type": "text", "value": "The current escalation is due to two main events:<br> The first is the decision of the UN International Court to reject Venezuela's application to consider objections regarding the ownership of the disputed territory of Essequibo in April 2023, thereby ignoring Venezuela's call to resolve the issue through negotiations. <br> The second was the completion by the Guyanese authorities in September 2023 of the first round of oil exploration trades in 11 Guyanese-owned shelves due to control over Essequibo. Maduro opposes the extraction of oil in the disputed region by foreign companies, while the Guyanese authorities have granted the right to extract oil to a number of companies from the USA, Qatar, the UK, France, China, Saudi Arabia, and Malaysia.<br> In connection with this, in conditions of relative hopelessness of further attempts to settle the issue through international mediators, the Venezuelan authorities began to take unilateral actions. The most noticeable of these was the decision of the Venezuelan National Assembly to hold a consultative referendum on Venezuela's right to the disputed territory of Essequibo.<br> The referendum held on December 3 contained 5 questions concerning support or rejection of compliance with the decisions of the Paris Arbitration and Geneva Agreement, non-recognition of the jurisdiction of the UN International Court, and the most key - the opinion of the Venezuelan people about the government's plan to create a state of Guyana-Essequibo with immediate provision of Venezuelan citizenship to its population.<br> " },
+        { "type": "text", "value": "According to the statement of the National Electoral Council of Venezuela (actually controlled by Maduro, like other branches of government), more than 95% of the population voted \"for\" on each of the five questions of the ballot, which means that practically the vast majority of participating Venezuelans (about 95%) voted in favor of joining part of the territory of the neighboring state. On December 6, 2023, Venezuela announced the mobilization of troops and the beginning of the annexation of Western Guyana." },
+        { "type": "quote", "value": "\"We have taken the first steps in a new historical stage of the struggle for what belongs to us\" - these were the words of President Maduro immediately after the referendum." },
+        { "type": "subheading-text", "value": "Reactions" },
+        { "type": "text", "value": "Guyana's reaction to the announcement of the referendum was sharply negative. The country's president, Irfaan Ali, called Venezuela's actions an act of aggression and violation of international law, adding that this could lead to unpredictable consequences for the entire region. The American government also condemned the holding of a referendum and called the annexation of Western Guyana a crime, but at the same time said it would not provide military assistance to Georgetown in case of conflict with Caracas." },
+        { "type": "warning", "value": "According to the South American experts, the events of the last few months (the new stage of the territorial conflict between Venezuela and Guyana) have sharply increased the likelihood of a major military conflict in the continent." }
+      ]
+    }
+  ],
+  "opinion": [
+    {
+      "id": "00022",
+      "date": "August 15, 2023",
+      "title": "Does the time come for the successful resolution of the Eastern Mediterranean conflict?",
+      "content": [
+        { "type": "heading-text", "value": "Does the time come for the successful resolution of the Eastern Mediterranean conflict?" },
+        { "type": "info-text", "value": "Grigory Bavykin, August 15, 2023" },
+        { "type": "subheading-text", "value": "A new level of the battle, the fight to stop the aggression" },
+        { "type": "text", "value": "In August 2023, it was reported that as many as eight Turkish military aircraft were shot down near the southern Mediterranean coast, including F-16s and drones. In the incident, the aircraft were engaged in a high-intensity battle against Israeli and Greek warplanes." },
+        { "type": "image", "value": "images/00022_1.png" },
+        { "type": "caption-text", "value": "A Turkish Bayraktar TB2 drone, one of the eight aircraft that Israel has shot down over the Mediterranean Sea since August 12, 2023" },
+        { "type": "text", "value": "In April 2023, in response to the Turkish operations in the Gaza Strip, the Security Council urged Turkey and Israel to end the persecution and conflict in the region in the event of the October 8 rocket attack. Turkey has entered the civil war between the anti-government forces in Syria." },
+        { "type": "quote", "value": "https://www.euronews.com/2024/02/18/israel-turkey-shoots-down-turkish-jet-claims" },
+        { "type": "text", "value": "On March 11, Turkey reported that a number of actions have been completed to alleviate the extent of the Syrian-Turkish border. Further plans of this are one of the greatest threats of hope to those that are now the Turkish operation within the country." },
+        { "type": "warning", "value": "The Security Council also sent Turkey and the conflict, it could have been Turkey, but that is the Security and Syrian conflict." },
+        { "type": "text", "value": "On March 14, plan of the violent anti-gain one the country." }
       ]
     }
   ]

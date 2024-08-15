@@ -15,3 +15,32 @@
         `;
     }
 })();
+
+// Function to set localized text
+function setLocalizedText() {
+    const language = getCurrentLanguage();
+    fetch(`json/${language}.json`)
+        .then(response => response.json())
+        .then(data => {
+            document.title = data.siteTitle;
+            document.querySelector('header .site-title h1').textContent = data.siteTitle;
+            document.querySelector('footer p').textContent = data.footerText;
+        })
+        .catch(error => console.error('Error loading localized text:', error));
+}
+
+function getCurrentLanguage() {
+    return localStorage.getItem('language') || 'en';
+}
+
+// Function to change language
+function changeLanguage(language) {
+    localStorage.setItem('language', language);
+    window.location.reload(); // Reload the page to apply the new language settings
+}
+
+// Ensure that setLocalizedText is called on page load
+document.addEventListener('DOMContentLoaded', () => {
+    setLocalizedText(); // Update header and footer text based on the current language
+    // Call other initialization functions here if needed
+});
