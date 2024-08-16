@@ -270,14 +270,16 @@ main-text .info-text {
 
 main-text .main-image {
     display: block;
-    max-width: 100%; /* Ensure the image is responsive */
-    margin-bottom: 10px;
     margin: auto;
+    max-width: 95%;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 13px;
 }
 
 main-text .image {
     display: block;
-    align-content: center;
     margin: auto;
     max-width: 90%;
     max-height: 500px;
