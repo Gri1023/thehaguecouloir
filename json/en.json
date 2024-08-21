@@ -52,8 +52,85 @@
         { "type": "text", "value": "Guyana's reaction to the announcement of the referendum was sharply negative. The country's president, Irfaan Ali, called Venezuela's actions an act of aggression and violation of international law, adding that this could lead to unpredictable consequences for the entire region. The American government also condemned the holding of a referendum and called the annexation of Western Guyana a crime, but at the same time said it would not provide military assistance to Georgetown in case of conflict with Caracas." },
         { "type": "warning", "value": "According to the South American experts, the events of the last few months (the new stage of the territorial conflict between Venezuela and Guyana) have sharply increased the likelihood of a major military conflict in the continent." }
       ]
+    },
+    {
+      "id": "65932",
+      "date": "15 august 2024 г.",
+      "title": "Targets of the AFU operation in Kursk region: «ANALYSIS»",
+      "content": [
+        { "type": "heading-text", "value": "The offensive of the AFU in the Kursk region - goals and prospects. «Analysis»" },
+        { "type": "info-text", "value": "Hryhorii Bavykin, 15th August 2024." },
+        { "type": "main-image", "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.png" },
+        { "type": "subheading-text", "value": "Context" },
+        { "type": "text", "value": "On the morning of 6 August, Ukrainian troops launched an attack on the Suja checkpoint. They quickly broke through the border guards' defences, moving more than 5 km deep into the frontline on the first day. Over the next few days, encountering only a small force of mostly conscripts (which also explains the relatively large number of Russian military personnel taken at the beginning of the offensive), the Ukrainian troops advanced 10-15 kilometres a day. Thus, as early as 8 August morning, a Ukrainian tank was reported in the village of Ivnytsia, halfway between Suja and Lgov, which is 37 km in a straight line to the Ukrainian border, or 45 km by road, and at a petrol station at the entrance to Korenevo (20 km to the border)." },
+
+        { "type": "text", "value": "This rapid advance is due to ‘wandering DRGs’, a tactic already used by the Ukrainian armed forces during their previous offensives, for example in Balakleya. The standard scenario of this attack was very successfully demonstrated in a video by the Russian military public group «Rybar»:" },
+
+        {
+          "type": "video",
+          "value": "media/65932/scheme_r2+sound.mp4"
+        },
+
+        { "type": "text", "value": "As a rule, one DRG consists of three to six armoured vehicles of the «Humvee» or «Kozak» type, sometimes accompanied by several APCs or one tank. While one-third of the group was fighting a Russian Armed Forces stronghold, the other part was moving further along the road, shooting at Russian reinforcements on the way. Thus, the combat-restrained soldiers reported on the enemy's ‘large-scale offensive’ while others saw AFU equipment in literally every village, although they were the same DRGs visiting village after village. As a result, such tactics allow the AFU to achieve the main task - panic and exit to the operational space where there are no Russian defence positions. The situation was also affected by the Ukrainian electronic warfare units, which, in addition to fighting against FPV drones, also blocked mobile communications, making communication between the Russian army forces, which exchange information using mobile devices, very difficult." },
+
+        { "type": "text", "value": "As of the evening of 15 August, the front line is still not completely stabilized. Yesterday, 14 August, the Ukrainian armed forces opened another point of entry across the Russian border 8 km to the left of the main direction, advancing 5 km inland and reaching the village of Vneszapnoye. A little earlier, on the night of 9-10 August, another direction was also opened, 12 km to the east of the nearest occupied village, where a 12 km breakthrough was made overnight to the village of Giryi. Globally, the last few days have been characterised by the gradual occupation by the Ukrainian armed forces of new settlements on a wide front, already on a more permanent basis by regular troops. At the moment, it seems that without the arrival of substantial reinforcements for the Russian forces, this trend may continue for quite some time." },
+
+        { "type": "gallery",
+        "images": [
+            "media/65932/20240815230802-a97c495a.jpg",
+            "media/65932/GU5zmUAX0AAUVFE.jpg",
+            "media/65932/UAF Kursk Incursion August 14, 2024.png",
+            "media/65932/Screenshot 2024-08-16 105528.png"
+        ] 
+      },
+      { "type": "caption-text", "value": "Latest maps of the Kursk front as of the evening of 15 August from various sources." },
+
+
+        { "type": "text", "value": "It is worth noting that all information about the configuration of the front line up until 11-12 August came from Russian war correspondents and z-publics. The Ukrainian army and military blogs hardly commented on the situation. For example, the Ukrainian military telegram channel Deep State described and showed on a map what was happening on the first day of the attack on the Kursk region only on 9 August. And the first official mention of the events in Kursk was made only on 10 August, in Zelensky's evening address, where he said that today several times Chief Syrsky had already reported «on the displacement of the war into the territory of the aggressor»."},
+
+        { "type": "subheading-text", "value": "Цели" },
+
+        { "type": "text", "value": "In assessments of the AFU offensive in the Kursk region, both in Russia, the West, and even in Ukraine, the prevailing view is that these actions have more of an informational and political significance than a military one. To show that Ukraine can attack, to raise morale in Ukrainian society and among Western partners (whose support is critical for Ukraine), while in Russian society, on the contrary, to undermine the belief in victory in this war among the population, at the same time causing discord among Russian elites and in the information space (which is very much facilitated by various z-publics for two weeks already stirring up ‘betrayal’).)." },
+        
+        { "type": "text", "value": "All these goals are certainly in front of the AFU, but some facts indicate that the AFU may also have more ambitious goals, also discussed online."},
+        
+        { "type": "text", "value": "First of all, it is worth noting the fundamental differences between the current rush across the border and those that took place earlier in border villages in Belgorod Oblast. First of all, the scale. If then we were talking about no more than 20-30 people DRG (and then the main task was really media), now we are talking about at least 1000 Ukrainian soldiers, already deep in the territory of the Russian Federation " },    
+        
+        { "type": "text", "value": "Second is the concept. Previous attacks inside Russia were led by a group of volunteers, such as the legion ‘Freedom of Russia’ created by the Ukrainian authorities or the RDK, which is not directly linked to the Ukrainian military, but in this attack, it is AFU soldiers armed with Western weapons who are involved."},
+
+        { "type": "sub-subheading-text", "value": "Pulling back the forces" },
+        { "type": "text", "value": "One of the goals of the Kursk operation, apart from the media one, is often referred to as forcing the Russian army to transfer some of its forces from the Donbass direction (where the AFU has been doing really badly lately). Thus weakening the enemy's onslaught in the most difficult areas."},
+        { "type": "text", "value": "But such a goal can hardly be considered strategic. Because, sooner or later, it is obvious that Russian troops will be able to accumulate enough forces to stop the offensive of the AFU, and the transition to a potential counter-offensive operation. And then the AFU will have to use its reserves to prevent the loss of acquired positions, or even the transition of the combat zone to its own territory. After all, nothing will be able to stop the already formed group from deciding to move on, if they can push the Ukrainian troops back to the border."},
+
+        { "type": "sub-subheading-text", "value": "Creation of a buffer zone" },
+        { "type": "text", "value": "Another military goal could be the creation of a so-called buffer zone (similar to the goals of the Russian Armed Forces' offensive on Kharkiv Oblast) to ease the pressure of enemy shelling on the border territories. But it cannot strategically justify such a dangerous operation either, for essentially the same reasons as the pullback of forces. Artiukh, head of the OVA in Sumy region, recently reported that the intensity of shelling has increased ‘dozens of times’. More than 100 guided aerial bombs were dropped over the last two days, while in the past 7 months - 750. This fact proves that without achieving a significant breakthrough of at least 50-60 kilometres in all directions, this operation will only bring harm to this target."},
+
+        { "type": "sub-subheading-text", "value": "Stronger negotiating position" },
+        { "type": "text", "value": "Another common interpretation of this offensive, linked to the idea that the negotiations are no longer for the Gormai and everything is heading towards them, is that the captured territory will be added to the so-called ‘exchange fund’ in order to exchange it for parts of Kharkiv and other regions in the future. Naturally, in order to implement this strategy, the AFU will have to hold this territory until the end of the negotiations, and suppress all attempts to return it, which will require considerable effort and resources. Such a strategy is fraught with high risks, as success will depend not only on military action, but also on the political will of both sides to negotiate and compromise, which, according to another explanation, this offensive has only alienated."},
+
+        { "type": "sub-subheading-text", "value": "To get to the nuclear power plant" },
+        { "type": "text", "value": "The most obvious and largest strategic target located in the direction of the current offensive is the Kursk nuclear power plant. Located only 60 kilometres from the Ukrainian border and 35km from the nearest point where Ukrainian troops have been spotted (40km to the point of absolute control) in the city of Kurchatov, control over it would give Ukraine the opportunity to ‘trade’ it for, for example, the Zaporozhye NPP, or blackmail it. For example, Kiev could claim that it could blow up the power plant if Russia uses nuclear weapons (although this is unlikely to happen)."},
+
+        { "type": "sub-subheading-text", "value": "No red lines" },
+        { "type": "text", "value": "The 8 August Bloomberg article places great emphasis on the fact that for Ukraine, the operation reinforces its arguments that Western allies should not be afraid to cross the Kremlin's so-called ‘red lines’ and that they should allow Ukraine to fight Putin in any way it wants and therefore lift restrictions on arms transfers."},
+        { "type": "text", "value": "Regardless, if this strategy actually works and can convince even sceptics like Trump that defeating Russia is not a dream, but a more than realistic goal. And so we just need to give Ukraine more weapons. Of course, apart from the fear of escalation, there are other things that influence the motivation of Western countries to increase their support for Ukraine."},
+
+        { "type": "sub-subheading-text", "value": "Internal destabilisation" },
+        { "type": "text", "value": "The prospect of internal destabilisation, as the story of Prigozhin's mutiny last summer showed, is quite real. In addition to Ukrainian actions, Russian z-publics, which have created panic, hysteria and chaos in the Russian Federation's information space by spreading ‘zrada. This gives the supporters of the ‘war to the victorious end’ in Ukraine and in the West an excuse to say - ‘Putin does not control the situation, even among the Z-bloggers and their handlers from the “Kremlin towers” he cannot restore order, and therefore confusion and a new rebellion are inevitable’."},
+
+        { "type": "text", "value": "Obviously, all these calculations may turn out to be wrong (as well as calculations on the success of the offensive and turmoil in the Russian Federation in 2023). The offensive of the AFU in the Kursk region can be stopped in time, the Kremlin (including Z-publics) can quickly take the information space under the tightest possible control. And Ukraine will end up with a simply extended front, which will require large reserves to hold, while the Russian army's offensive in eastern Ukraine will continue."},
+
+        { "type": "subheading-text", "value": "Outcomes" },
+        { "type": "text", "value": "Summarising all the goals that this operation could potentially pursue, without having a complete picture of what is happening and having only(!) 1.5 weeks from the beginning of the operation, it is impossible to draw unambiguous conclusions neither on the success nor on the ultimate goals of the Kursk offensive (and there are certainly several of them). While some see this gesture as an aggressive preparation for negotiations, aiming to strengthen their future negotiating positions, others think that this is just the beginning of a new stage of escalation. As the Russian military website Rybar wrote in one of its latest reports:"
+        },
+        
+        { "type": "quote", "value": "«It is possible that in the next few days the enemy will introduce a second echelon in order to expand the zone of control and move further east.»"},
+
+        { "type": "text", "value": "which basically means that the situation is far from being resolved. Ukraine has taken a huge risk by depriving the tired eastern front of much-needed reserves, where, as an AFU officer writes, ‘everything is very sad, no exaggeration. Perhaps if Ukraine manages to divert resources from Donetsk Oblast and if Ukraine itself can gain a foothold in Kursk Oblast, the AFU operation could be called a success. However, if, as Konrad Muzyka, a military analyst with the Polish security group Rochan Consulting, has written, ‘Ukrainian forces will be pushed back from Russian territory without any tangible results with heavy losses’ and Russian forces continue to approach Pokrovsk at the current pace, Ukraine will probably be considered to have lost a costly military adventure."} 
+      ]
     }
-  ],
+  ],  
+  
   "opinion": [
     {
       "id": "00022",

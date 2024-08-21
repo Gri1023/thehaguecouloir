@@ -51,7 +51,7 @@ function loadArticleContent() {
 
                 initializeGallery();
             } else {
-                document.getElementById('article-content').innerHTML = '<p>Article not found.</p>';
+                document.getElementById('article-content').innerHTML = '<p>Публикация не найдена. Попробуйте поменять язык в правом верхнем углу. Все ещё не работает? Сообщите автору: thehaguecouloir@gmail.com. </p> <p> Publication not found. Try changing the language in the top right corner. Still not working? Let the author know: thehaguecouloir@gmail.com. </p>';
             }
         })
         .catch(error => console.error('Error loading article content:', error));
