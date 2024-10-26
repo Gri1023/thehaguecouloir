@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    setLocalizedText();
+    setBaseLocalizedText();
     loadArticleContent();
 });
 
@@ -7,9 +7,8 @@ function loadArticleContent() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get('id');
     const articleType = urlParams.get('type');
-    const language = getCurrentLanguage();
 
-    fetch(`json/${language}.json`)
+    fetch(`json/${currentLanguage}.json`)
         .then(response => response.json())
         .then(data => {
             const articleData = data[articleType].find(item => item.id === articleId);
@@ -32,14 +31,15 @@ function loadArticleContent() {
                     } else if (item.type === 'info-text') {
                         articleContent.innerHTML += `<p class="info-text">${item.value}</p>`;
                     } else if (item.type === 'text') {
-                        const textWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+                        const textWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-with-link">$1</a>');
                         articleContent.innerHTML += `<p>${textWithLinks}</p>`;
                     } else if (item.type === 'main-image') {
                         articleContent.innerHTML += `<img src="${item.value}" alt="" class="main-image">`;
                     } else if (item.type === 'image') {
                         articleContent.innerHTML += `<img src="${item.value}" alt="" class="image">`;
                     } else if (item.type === 'caption-text') {
-                        articleContent.innerHTML += `<p class="caption-text">${item.value}</p>`;
+                        const captionTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="caption-text-with-link">$1</a>');
+                        articleContent.innerHTML += `<p class="caption-text">${captionTextWithLinks}</p>`;
                     } else if (item.type === 'quote') {
                         articleContent.innerHTML += `<div class="quote">${item.value}</div>`;
                     } else if (item.type === 'warning') {
@@ -51,7 +51,7 @@ function loadArticleContent() {
 
                 initializeGallery();
             } else {
-                document.getElementById('article-content').innerHTML = '<p>Публикация не найдена. Попробуйте поменять язык в правом верхнем углу. Все ещё не работает? Сообщите автору: thehaguecouloir@gmail.com. </p> <p> Publication not found. Try changing the language in the top right corner. Still not working? Let the author know: thehaguecouloir@gmail.com. </p>';
+                document.getElementById('article-content').innerHTML = '<p>Публикация не найдена. Попробуйте поменять язык в правом верхнем углу, перевод некоторых из них может занять до 2 дней. Все ещё не работает? Сообщите автору: thehaguecouloir@gmail.com. </p> <p> Publication not found. Try changing the language in the top right corner, some may take up to 2 days to translate. Still not working? Let the author know: thehaguecouloir@gmail.com.</p>';
             }
         })
         .catch(error => console.error('Error loading article content:', error));

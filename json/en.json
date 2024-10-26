@@ -1,7 +1,13 @@
 ﻿{
   "siteTitle": "The Hague Couloir",
   "footerText": "Hryhorii Bavykin 2024",
+  "highlightedArticleId": "65932",
+  "readMoreButton": "Read more",
+  "moreInfoText": "Or find more yourself",
+  "allPublications": "All publications",
+  "filterBy": "Filter by:",
   "types": {
+    "all": "ALL",
     "news": "NEWS",
     "article": "ANALYSIS",
     "opinion": "OPINION"
@@ -9,6 +15,7 @@
   "news": [
     {
       "id": "00001",
+      "visible": "no",
       "date": "June 11, 2024",
       "title": "Turkey prepares for a new operation against the Kurdistan Workers' Party in northern Iraq.",
       "content": [
@@ -28,12 +35,16 @@
   "article": [
     {
       "id": "00253",
+      "visible": "yes",
       "date": "December 30, 2023",
       "title": "Essequibo: Between Jungles and Oil - History, Conflict, and Prospects",
       "content": [
         { "type": "heading-text", "value": "Essequibo: Between Jungles and Oil - History, Conflict, and Prospects" },
         { "type": "info-text", "value": "Grigory Bavykin, December 30, 2023" },
-        { "type": "main-image", "value": "images/00253_1.png" },
+        {
+          "type": "main-image",
+          "value": "media/00253_1.png"
+        },
         { "type": "subheading-text", "value": "History of the conflict and the region" },
         { "type": "text", "value": "Guyana-Essequibo (also Western Guyana) is a region claimed by Venezuela and under the control of Guyana, with an area of ​​159,500 km² west of the Essequibo River (70% of the country's territory). The population is approximately 128,000 people (16% of the total population) and is concentrated mainly in the southern part along the border with Brazil. It is predominantly represented by indigenous tribes." },
         { "type": "image", "value": "images/00253_2.png" },
@@ -55,9 +66,11 @@
     },
     {
       "id": "65932",
+      "visible": "yes",
       "date": "15 august 2024 г.",
       "title": "Targets of the AFU operation in Kursk region: «ANALYSIS»",
       "content": [
+        { "type": "raw-main-image", "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.jpg"},
         { "type": "heading-text", "value": "The offensive of the AFU in the Kursk region - goals and prospects. «Analysis»" },
         { "type": "info-text", "value": "Hryhorii Bavykin, 15th August 2024." },
         { "type": "main-image", "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.png" },
@@ -130,24 +143,14 @@
       ]
     }
   ],  
-  
   "opinion": [
     {
-      "id": "00022",
-      "date": "August 15, 2023",
-      "title": "Does the time come for the successful resolution of the Eastern Mediterranean conflict?",
+      "id": "",
+      "visible": "no",
+      "date": "",
+      "title": "",
       "content": [
-        { "type": "heading-text", "value": "Does the time come for the successful resolution of the Eastern Mediterranean conflict?" },
-        { "type": "info-text", "value": "Grigory Bavykin, August 15, 2023" },
-        { "type": "subheading-text", "value": "A new level of the battle, the fight to stop the aggression" },
-        { "type": "text", "value": "In August 2023, it was reported that as many as eight Turkish military aircraft were shot down near the southern Mediterranean coast, including F-16s and drones. In the incident, the aircraft were engaged in a high-intensity battle against Israeli and Greek warplanes." },
-        { "type": "image", "value": "images/00022_1.png" },
-        { "type": "caption-text", "value": "A Turkish Bayraktar TB2 drone, one of the eight aircraft that Israel has shot down over the Mediterranean Sea since August 12, 2023" },
-        { "type": "text", "value": "In April 2023, in response to the Turkish operations in the Gaza Strip, the Security Council urged Turkey and Israel to end the persecution and conflict in the region in the event of the October 8 rocket attack. Turkey has entered the civil war between the anti-government forces in Syria." },
-        { "type": "quote", "value": "https://www.euronews.com/2024/02/18/israel-turkey-shoots-down-turkish-jet-claims" },
-        { "type": "text", "value": "On March 11, Turkey reported that a number of actions have been completed to alleviate the extent of the Syrian-Turkish border. Further plans of this are one of the greatest threats of hope to those that are now the Turkish operation within the country." },
-        { "type": "warning", "value": "The Security Council also sent Turkey and the conflict, it could have been Turkey, but that is the Security and Syrian conflict." },
-        { "type": "text", "value": "On March 14, plan of the violent anti-gain one the country." }
+        
       ]
     }
   ]
