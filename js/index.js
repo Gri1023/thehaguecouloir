@@ -3,7 +3,7 @@
 
         // Load content for index.html
         if (document.querySelector('.content-grid')) {
-            loadContent(`/json/${currentLanguage}.json`);
+            loadContent(`json/${currentLanguage}.json`);
         }
     });
 
