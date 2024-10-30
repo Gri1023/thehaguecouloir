@@ -43,7 +43,7 @@ function changeLanguage(language) {
 // Function to set localized text
 function setBaseLocalizedText() {
     const language = getCurrentLanguage();
-    fetch(`/json/${language}.json`)
+    fetch(`json/${language}.json`)
         .then(response => response.json())
         .then(data => {
             document.title = data.siteTitle;
