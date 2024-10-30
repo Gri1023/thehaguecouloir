@@ -8,7 +8,7 @@ function loadArticleContent() {
     const articleId = urlParams.get('id');
     const articleType = urlParams.get('type');
 
-    fetch(`json/${currentLanguage}.json`)
+    fetch(`/json/${currentLanguage}.json`)
         .then(response => response.json())
         .then(data => {
             const articleData = data[articleType].find(item => item.id === articleId);
@@ -23,18 +23,22 @@ function loadArticleContent() {
                     if (item.type === 'gallery') {
                         createGallery(articleContent, item.images);
                     } else if (item.type === 'heading-text') {
-                        articleContent.innerHTML += `<h1 class="heading-text">${item.value}</h1>`;
+                        const headingTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="heading-text-with-link">$1</a>');
+                        articleContent.innerHTML += `<h1 class="heading-text">${headingTextWithLinks}</h1>`;
                     } else if (item.type === 'subheading-text') {
                         articleContent.innerHTML += `<h2 class="subheading-text">${item.value}</h2>`;
                     } else if (item.type === 'sub-subheading-text') {
                         articleContent.innerHTML += `<h3 class="sub-subheading-text">${item.value}</h3>`;
                     } else if (item.type === 'info-text') {
-                        articleContent.innerHTML += `<p class="info-text">${item.value}</p>`;
+                        const infoTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="info-text-with-link">$1</a>');
+                        articleContent.innerHTML += `<p class="info-text">${infoTextWithLinks}</p>`;
                     } else if (item.type === 'text') {
                         const textWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-with-link">$1</a>');
                         articleContent.innerHTML += `<p>${textWithLinks}</p>`;
                     } else if (item.type === 'main-image') {
                         articleContent.innerHTML += `<img src="${item.value}" alt="" class="main-image">`;
+                    }else if (item.type === 'main-video') {
+                        articleContent.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${item.value}"></video></div>`;
                     } else if (item.type === 'image') {
                         articleContent.innerHTML += `<img src="${item.value}" alt="" class="image">`;
                     } else if (item.type === 'caption-text') {
