@@ -44,7 +44,7 @@
         { "type": "info-text", "value": "[Hryhorii Bavykin](about.html), December 30, 2023" },
         {
           "type": "main-image",
-          "value": "/media/00253_1.png"
+          "value": "media/00253_1.png"
         },
         { "type": "subheading-text", "value": "History of the conflict and the region" },
         { "type": "text", "value": "Guyana-Essequibo (also Western Guyana) is a region claimed by Venezuela and under the control of Guyana, with an area of ​​159,500 km² west of the Essequibo River (70% of the country's territory). The population is approximately 128,000 people (16% of the total population) and is concentrated mainly in the southern part along the border with Brazil. It is predominantly represented by indigenous tribes." },
@@ -72,20 +72,20 @@
       "date": "2024-10-26T21:40:00",
       "title": "Presidential elections in Moldova: what it was and what it means.",
       "content": [
-        { "type": "raw-main-image", "value": "/media/23104/vlcsnap-2024-10-23-20h59m49s410_raw.png"},
+        { "type": "raw-main-image", "value": "media/23104/vlcsnap-2024-10-23-20h59m49s410_raw.png"},
         { "type": "heading-text", "value": "Presidential elections in Moldova: what it was and what it means." },
         { "type": "info-text", "value": "[Hryhorii Bavykin](about.html), 26 october 2024" },
-        { "type": "main-image", "value": "/media/23104/vlcsnap-2024-10-23-20h59m49s410_raw.png" },
+        { "type": "main-image", "value": "media/23104/vlcsnap-2024-10-23-20h59m49s410_raw.png" },
         { "type": "text", "value": "On 20 October, Moldova held presidential elections and a referendum on the consolidation of the course towards the European Union. Internally and externally, both events were seen as a moment that could end Moldova's longstanding swings between East and West. The outcome of the referendum was particularly dramatic: a minimal margin of only 0.76 per cent makes it one of the most tense votes in the country's history, which could seriously affect its foreign policy and economic course in the coming years." },
 
         { "type": "subheading-text", "value": "Context" },
         { "type": "text", "value": "Since Maia Sandu came to power in December 2020 (36% in favour in the first round and 57 in the second), Moldovan politics has been characterised by the country's pro-European course. Almost a year later, PAS (the country's main pro-European party, from whom Maia Sandu ran), won 52.8% of the vote, and thus obtained a supermajority - a situation where one party wins more than half of the votes and doesn't have to form a majority with other parties to pass laws. The main reforms since coming to power have been the reform of the judiciary and a number of anti-corruption laws. Also one of the key developments was the granting of candidate status for EU membership to Moldova along with Ukraine in 2022. "},
-        { "type": "image", "value": "/media/23104/Screenshot 2024-10-24 211736.png"},
+        { "type": "image", "value": "media/23104/Screenshot 2024-10-24 211736.png"},
         { "type": "caption-text", "value": "Current distribution of seats in the Moldovan Parliament"},
         { "type": "text", "value": "Despite an unusually high level of electoral support, Sandu and her government continued to face opposition and popular resistance, mainly related to economic difficulties, blaming the reorientation of economic ties to the West as one of the key factors."},
         
         { "type": "subheading-text", "value": "Elections" },
-        { "type":"image", "value": "/media/23104/Opinion_polling_for_the_2024_Moldovan_presidential_election.svg.png"},
+        { "type":"image", "value": "media/23104/Opinion_polling_for_the_2024_Moldovan_presidential_election.svg.png"},
         {"type": "caption-text", "value": " Chart of public opinion poll results before the presidential election in 2024."},
         { "type": "text", "value": "On this background, Sandu's rivals could have co-ordinated and increased the chances of defeating her, but this didn't happen. In fact, the opposition went to the polls in fragmented columns, occasionally competing with each other. In addition, most of the opposition has a much higher anti-rating than Sandu. And that is why, also taking into account the results of the polls, the last months before the elections the question was not whether the current president would win at all, it's whether Sandu wins the first round or will need a second round." },
 
@@ -101,7 +101,7 @@
 
         { "type": "text", "value": "However, things turned out differently. According to the results of the vote count, the supporters of European integration are ahead of the opponents by less than 0.8 per cent. This margin emerged only after the last few per cent of the protocols were processed - before that, the EU opponents were in the lead. The margin in favour of European integration was achieved mainly due to the votes of the diaspora, where 75% voted in favour and which counted last, while the majority of Moldovans voted against. For comparison, the highest proportion of those who voted in one of the Moldovan regions is 67.7%(next 62%), while in the capital Chisinau only 55.9% voted in favour. In autonomous Gagauzia, in fact, almost 95% of voters were against it. In any case, such an insignificant margin between the ‘for’ and ‘against’ votes puts into question the legitimacy of the referendum itself and, in fact, does not allow us to say that the people expressed their support for a certain course. In addition, it is difficult to perceive the results as a vote of confidence in Sandu. Rather, it can be seen as a failure and a sign of public disappointment with her policies." },
 
-        { "type":"image", "value": "/media/23104/Buletin_de_vot_Referendum_Republican_Constituțional_2024_română.pdf.jpg"},
+        { "type":"image", "value": "media/23104/Buletin_de_vot_Referendum_Republican_Constituțional_2024_română.pdf.jpg"},
         {"type": "caption-text", "value": "Ballot paper for the constitutional referendum 2024 in Romanian"},
 
         { "type": "subheading-text", "value": "«Foreign interference»" },
@@ -117,7 +117,7 @@
         { "type": "caption-text", "value": "Examples of pro-European orientated media [Politico](https://www.politico.com/news/2024/10/19/moldova-election-protection-biden-russia-00184429), [Washinton Post](https://www.washingtonpost.com/world/2024/10/21/moldava-eu-referendum-russia-influence/), [The New York Times](https://www.nytimes.com/2024/10/20/world/europe/moldova-election-russia-eu.html), [DW](https://www.dw.com/en/moldova-narrowly-votes-yes-to-eu-membership/a-70544401), covering the Russian interference." },
         
         { "type": "subheading-text", "value": "Predictions" },
-        {"type": "image", "value": "/media/23104/Screenshot 2024-10-26 110351.png"},
+        {"type": "image", "value": "media/23104/Screenshot 2024-10-26 110351.png"},
         {"type": "caption-text", "value": "[Results](https://en.wikipedia.org/wiki/2020_Moldovan_presidential_election)  2020 Moldovan presidential elections, first and second rounds (other candidates scored less than 4 percent)."},
         { "type": "text", "value": "Although the second round on 3 November is still ahead, some predictions can be made. With a gap of more than 20%, it is hard to imagine that Stoianoglo could overtake Sandu in the second round, but it is theoretically possible. To understand where the remaining 31.5% of votes will go, we can make an analogy with the previous presidential elections, which took place in 2020. Back then, instead of Stoianoglo, PSRM was represented by Igor Dodon, who was only 3.5% behind Sandu in the first round. Third place went to Renato Usatii, the former mayor of the large city of Balti - who, although he claims to support Moldova's full neutrality, is in fact [is](https://www.rferl.org/a/moldova-elections-east-or-west/26713779.html) and is perceived by the population as slightly pro-Russian. Violeta Ivanov, a representative of the radically pro-Russian party Shor, which was banned last year, came 4th. As can be seen from the results of the second round, despite Sandu being the only pro-European candidate, the gap between Sandu and Dodon increased 4 times, reaching 4%. From this we can conclude that despite the great importance of the candidate's foreign policy orientation, the fact that Sandu was able to present herself as a candidate who cares about the welfare of citizens and fights corruption ensured her victory in the last elections, and although Moldovan voters are concerned about foreign policy issues, they were primarily worried about the internal problems of the country, which probably will not change this time." },
 
@@ -129,7 +129,7 @@
 
         { "type": "text", "value": "In both cases, undeniably, the developments are also significantly influenced by Russia, which acts through local politicians. Such political manoeuvres by Moscow prove to be more effective in correcting the course of post-Soviet countries than military intervention, as in the case of Ukraine, which only pushed it as far away from Russia as possible."},
 
-        {"type": "image", "value": "/media/23104/photo_2024-09-26_13-23-32.png"},
+        {"type": "image", "value": "media/23104/photo_2024-09-26_13-23-32.png"},
         {"type": "caption-text", "value": "«Say no to war! Choose peace!» - billboard advert of the ruling party of Georgia"},
 
         { "type": "text", "value": "At the same time, the factor of the Russian-Ukrainian war is actively used by forces loyal to Moscow (especially clearly seen in Georgia) to pursue the line: ‘a tough pro-Western European and anti-Russian course will lead to war, as in Ukraine’."},
@@ -143,10 +143,10 @@
       "date": "2024-08-15T17:54:54",
       "title": "The offensive of the AFU in the Kursk region - goals and prospects.",
       "content": [
-        { "type": "raw-main-image", "value": "/media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.jpg"},
+        { "type": "raw-main-image", "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.jpg"},
         { "type": "heading-text", "value": "The offensive of the AFU in the Kursk region - goals and prospects." },
         { "type": "info-text", "value": "[Hryhorii Bavykin](about.html), 15th August 2024." },
-        { "type": "main-image", "value": "/media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.png" },
+        { "type": "main-image", "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.png" },
         { "type": "subheading-text", "value": "Context" },
         { "type": "text", "value": "On the morning of 6 August, Ukrainian troops launched an attack on the Suja checkpoint. They quickly broke through the border guards' defences, moving more than 5 km deep into the frontline on the first day. Over the next few days, encountering only a small force of mostly conscripts (which also explains the relatively large number of Russian military personnel taken at the beginning of the offensive), the Ukrainian troops advanced 10-15 kilometres a day. Thus, as early as 8 August morning, a Ukrainian tank was reported in the village of Ivnytsia, halfway between Suja and Lgov, which is 37 km in a straight line to the Ukrainian border, or 45 km by road, and at a petrol station at the entrance to Korenevo (20 km to the border)." },
 
@@ -154,7 +154,7 @@
 
         {
           "type": "video",
-          "value": "/media/65932/scheme_r2+sound.mp4"
+          "value": "media/65932/scheme_r2+sound.mp4"
         },
 
         { "type": "text", "value": "As a rule, one DRG consists of three to six armoured vehicles of the «Humvee» or «Kozak» type, sometimes accompanied by several APCs or one tank. While one-third of the group was fighting a Russian Armed Forces stronghold, the other part was moving further along the road, shooting at Russian reinforcements on the way. Thus, the combat-restrained soldiers reported on the enemy's ‘large-scale offensive’ while others saw AFU equipment in literally every village, although they were the same DRGs visiting village after village. As a result, such tactics allow the AFU to achieve the main task - panic and exit to the operational space where there are no Russian defence positions. The situation was also affected by the Ukrainian electronic warfare units, which, in addition to fighting against FPV drones, also blocked mobile communications, making communication between the Russian army forces, which exchange information using mobile devices, very difficult." },
