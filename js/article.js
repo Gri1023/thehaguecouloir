@@ -8,7 +8,7 @@ function loadArticleContent() {
     const articleId = urlParams.get('id');
     const articleType = urlParams.get('type');
 
-    fetch(`/json/${currentLanguage}.json`)
+    fetch(`json/${currentLanguage}.json`)
         .then(response => response.json())
         .then(data => {
             const articleData = data[articleType].find(item => item.id === articleId);
