@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +9,160 @@
     <link rel="icon" href="media/skull 2-enchanced-cropped 128x141.png" type="image/png">
     <script src="js/base.js" defer></script>
     <script src="js/about.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <div class="logo">
-            <img src="media/logo.png" alt="Logo">
-        </div>
-        <div class="site-title">
-            <h1></h1> <!-- Header title will be inserted here dynamically -->
-        </div>
+    <div class="index-layout">
         <div class="language-selector" id="languageSelector">
-            <!-- Dynamic language button will be inserted here -->
+            <button class="dropdown-button"><img src="language-icon-white.png" class="language-icon" /></button>
+            <div class="dropdown-menu">
+                <a href="#">English</a>
+            </div>
         </div>
-    </header>
-    <div class="background">
+        <div class="sidebars-left">
+            <div class="sidebars-left-grid">
+                <div class="sidebars-left-item" id="navContainer">
+                    <a href="index.html" id="logo-link">
+                        <img src="media/logo.png" alt="Logo" class="logo">
+                    </a>
+                    <a href="index.html" class="navigation-title-text">The Hague Couloir</a>
+                    <ul>
+                        <li>
+                            <a href="index.html" class="navigation-link">
+                                <img src="home-icon-white.png" class="navigation-icon">
+                                <span class="navigation-option-text">Highlights</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.html#catalogue-anchor" class="navigation-link">
+                                <img src="catalogue-icon-white.png" class="navigation-icon">
+                                <span class="navigation-option-text">Catalogue</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="all-publications.html" class="navigation-link">
+                                <img src="search_icon.png" class="navigation-icon">
+                                <span class="navigation-option-text">All Publications</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about.html" class="navigation-link">
+                                <img src="info-icon-white.png" class="navigation-icon">
+                                <span class="navigation-option-text">About</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="sidebars-left-item" id="sidebars-left-item1">
+                    <img src="Telegram_Logo_old.png" class="telegram-3d-icon">
+                    <a href="https://t.me/grycko_the_hague_couloir">Join my Telegram channel for regular updates,
+                        author's <br> notes and memes! <br> (in Russian)
+                        <div class="join-telegram-button">
+                            <a href="https://t.me/grycko_the_hague_couloir">Join</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebars-right-full">
+
+        </div>
+        <div class="center-content">
+            <div id="about-naming-anchor"></div>
+            <p class="about-heading-text">About</p>
+            <p class="about-subheading-text">Naming</p>
+            <p class="about-text">"The Hague Couloir" comes from two main parts:</p>
+            <p class="about-text">⦿ "The Hague" - the city author currently lives and studies in,</p>
+            <p class="about-text">⦿ and "Couloir", very rarely used in English in this context (not to be confused with
+                couloir as a mountanious terrain), originating from the french word <a
+                    href="https://fr.wiktionary.org/wiki/couloir#fr" class="about-text-with-link">"couloir"</a>, which
+                means corridor. </p>
+            <p class="about-text">In its original context, the name was conceived in Russian, where the French word
+                couloir (transliterated in Cyrillic as “кулуары”) is exclusively used to refer to the auxiliary rooms,
+                corridors, and side halls within the buildings of parliaments, institutions, theatres, and concert
+                halls. These spaces are where informal meetings and exchanges of opinions commonly occur, often behind
+                the scenes.</p>
+            <p class="about-text">The term also carries a more specific political meaning. It is used to describe
+                the hidden spaces where key political and diplomatic negotiations take place, away from the public eye,
+                beyond formal ceremonies, and outside the official spotlight. The expression “behind the scenes” or
+                terms like “behind-the-scenes deal” are often used to refer to the informal and confidential decisions
+                made in these settings, particularly by those close to government officials, deputies, or political
+                elites.</p>
+            <p class="about-text">
+                Thus, couloir in this context symbolizes a space of subtle influence and unseen processes where many
+                significant agreements are made.</p>
+            <div id="about-author-anchor"></div>
+            <p class="about-subheading-text">Author</p>
+            <div class="about-author-container">
+                <p class="about-text">On the right you can see the author of this website and all the publications made
+                    on it - his name is Hryhorii Bavykin, he is currently a second-year bachelor student in the Hague
+                    University of Applied Sciences, and that's him who has too much free time continuing writing articles,
+                    which would not be read by almost anyone. But don't worry about him, he will write them until it will be interesting, so he is fine.
+                </p>
+                <div class="about-author-image-container">
+                    <div class="about-author-images">
+                        <img class="about-author-image" src="author-image-1.jpg" alt="Author Image 1">
+                        <img class="about-author-image" src="author-image-2.jpg" alt="Author Image 2">
+                    </div>
+                    <p class="about-caption-text">Author emotionally explaining to his Telegram-channel subscribers why
+                        he doesn't need to write any new articles while laying down in the mountains in Montenegro
+                        (<a href="https://fr.wiktionary.org/wiki/couloir#fr" class="about-caption-text-with-link">link
+                            to the video</a>)
+                    </p>
+                </div>
+            </div>
+            
+            <div id="about-contact-anchor"></div>
+            <p class="about-subheading-text">Contact</p>
+            <p class="about-text">For comments, ideas and questions you can always contact the author by writing to this
+                email (not checked super often):</p>
+            <p class="about-text">thehaguecoulour@gmail.com</p>
+            <p class="about-text">Also, you can always have a discussion about the publicationsby writing your thoughts
+                or questions in comments section under the appropriate post in authors <a
+                    href="https://t.me/grycko_the_hague_couloir/882" class="about-text-with-link">Telegram channel</a>.
+            </p>
+        </div>
     </div>
-    <footer>
-        <p><!-- Dynamic --></p>
-    </footer>
 </body>
+<footer>
+    <div class="footer-grid">
+        <div class="footer-grid-item" id="footer-grid-item1">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Socials</a></li>
+                <li><a href="https://t.me/grycko_the_hague_couloir" class="footer-text">Highlights</a></li>
+                <li><a href="https://x.com/TheHagueCouloir" class="footer-text">Highlights</a></li>
+                <li><a href="https://www.linkedin.com/in/hryhorii-bavykin/" class="footer-text">Highlights</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item2">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Highlights</a></li>
+                <li><a href="index.html" class="footer-text">Highlights</a></li>
+                <li><a href="all-publications.html" class="footer-text">Highlights</a></li>
+                <li><a href="about.html" class="footer-text">Highlights</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item3">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Highlights</a></li>
+                <li><a href="about.html#about-naming-anchor" class="footer-text">Highlights</a></li>
+                <li><a href="about.html#about-author-anchor" class="footer-text">Highlights</a></li>
+                <li><a href="about.html#about-contact-anchor" class="footer-text">Highlights</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item4">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Highlights</a></li>
+                <li><a href="#" onclick="changeLanguage('en')" class="footer-text">Highlights</a></li>
+                <li><a href="#" onclick="changeLanguage('ru')" class="footer-text">Highlights</a></li>
+            </ul>
+        </div>
+    </div>
+    <p class="footer-below-text">Something</p>
+</footer>
+
 </html>

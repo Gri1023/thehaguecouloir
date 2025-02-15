@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,54 +9,172 @@
     <link rel="icon" href="media/skull 2-enchanced-cropped 128x141.png" type="image/png">
     <script src="js/base.js" defer></script>
     <script src="js/index.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
-<body>    
-    <header>
-        <div class="logo">
-            <img src="media/logo.png" alt="Logo">
-        </div>
-        <div class="site-title">
-            <h1><a href="index.html">The Hague Couloir</a></h1>
-        </div>
-        <div class="language-selector" id="languageSelector">
-            <!-- Dynamic language button will be inserted here -->
-        </div>
-    </header>
 
-    <!-- New highlighted article section -->
-    <section class="highlighted-article" id="highlighted-article">
-        <div class="highlighted-content">
-            <span class="highlighted-type"><!-- Dynamic --></span>
-            <h2 class="highlighted-title"><!-- Dynamic --></h2>
-            <span class="highlighted-date"><!-- Dynamic --></span>
-            <div class="highlighted-button">
-                <!-- Button will be added here by JS -->
+<body>
+    <div class="index-layout">
+        <div class="language-selector" id="languageSelector">
+            <button class="dropdown-button"><img src="language-icon-white.png" class="language-icon" /></button>
+            <div class="dropdown-menu">
+                <a href="#">English</a>
             </div>
         </div>
-        <div class="more-info">
-            <p><!-- Dynamic --> </p>
-            <img src="media/down-arrow-icon.png" alt="Down Arrow" class="down-arrow">
-        </div>
-        
-    </section>
 
-    <div class="background">
-    <div class="container">
-    <tiles>
-    <main>
-        <div class="all-publications">
-            <p style="margin-top: 5px;margin-bottom: 0px;"> All publications </p>
-        </div>  
-        <div class="sort-button">
-                <!-- Dynamic -->
+
+        <!-- New highlighted article div -->
+        <div class="center-right-content">
+            <div class="highlighted-article" id="highlighted-article">
+                <img class="highlighted-image">
+                <div class="highlighted-content">
+                    <span class="highlighted-type"><!-- Dynamic --></span>
+                    <h2 class="highlighted-title"><!-- Dynamic --></h2>
+                    <span class="highlighted-date"><!-- Dynamic --></span>
+                    <!-- New highlighted articles grid div -->
+                </div>
+                <div class="highlighted-button">
+                    <!-- Button will be added here by JS -->
+                </div>
+                <div class="highlighted-articles-grid" id="highlighted-articles-grid">
+                    <div class="grid-container">
+                        <!-- Articles will be added here by JS -->
+                    </div>
+                </div>
+                <!-- <div class="more-info">
+                    <p> </p>
+                    <img src="media/down-arrow-icon.png" alt="Down Arrow" class="down-arrow">
+                </div> -->
+            </div>
         </div>
-        <div id="content-grid" class="content-grid"></div>
-    </main>
-    </tiles>
+        <div class="sidebars-left">
+            <div class="nav-container-background">
+                <div class="sidebars-left-grid">
+                    <div class="sidebars-left-item" id="navContainer">
+                        <a href="index.html" id="logo-link">
+                            <img src="media/logo.png" alt="Logo" class="logo">
+                        </a>
+                        <a href="index.html" class="navigation-title-text">The Hague Couloir</a>
+                        <ul>
+                            <li>
+                                <a href="index.html" class="navigation-link">
+                                    <img src="home-icon-white.png" class="navigation-icon">
+                                    <span class="navigation-option-text">Highlights</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="index.html#catalogue-anchor" class="navigation-link">
+                                    <img src="catalogue-icon-white.png" class="navigation-icon">
+                                    <span class="navigation-option-text">Catalogue</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="all-publications.html" class="navigation-link">
+                                    <img src="search_icon.png" class="navigation-icon">
+                                    <span class="navigation-option-text">All Publications</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="about.html" class="navigation-link">
+                                    <img src="info-icon-white.png" class="navigation-icon">
+                                    <span class="navigation-option-text">About</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sidebars-left-item" id="sidebars-left-item1">
+                        <img src="Telegram_Logo_old.png" class="telegram-3d-icon">
+                        <a href="https://t.me/grycko_the_hague_couloir">Join my Telegram channel for regular updates,
+                            author's <br> notes and memes! <br> (in Russian)
+                            <div class="join-telegram-button">
+                                <a href="https://t.me/grycko_the_hague_couloir">Join</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sidebars-right-partial">
+
+        </div>
+
+        <div class="center-content">
+            <div class="background">
+                <main>
+                    <!-- Section for "News" -->
+                    <section id="news-section" class="publication-section">
+                        <div id="catalogue-anchor"></div>
+                        <h2 class="publication-section-heading">News</h2>
+                        <p class="publication-section-subheading">Latest news with authors perspective in the end.</p>
+                        <div class="content-grid" id="news-grid"></div>
+                        <a href="all-publications.html" class="publication-section-button-text">
+                            <div class="publication-section-button">Explore all publications</div>
+                        </a>
+                    </section>
+
+                    <!-- Section for "Articles" -->
+                    <section id="articles-section" class="publication-section">
+                        <h2 class="publication-section-heading">Articles</h2>
+                        <p class="publication-section-subheading">In-depth analyses of various topics, that are trying
+                            to be as objective as possible.</p>
+                        <div class="content-grid" id="article-grid"></div>
+                        <a href="all-publications.html" class="publication-section-button-text">
+                            <div class="publication-section-button">Explore all publications</div>
+                        </a>
+                    </section>
+
+                    <!-- Section for "Opinions" -->
+                    <section id="opinions-section" class="publication-section">
+                        <h2 class="publication-section-heading">Opinions</h2>
+                        <p class="publication-section-subheading">Opinion-based articles where author tries to
+                            objectively prove his point.</p>
+                        <div class="content-grid" id="opinion-grid"></div>
+                        <a href="all-publications.html" class="publication-section-button-text">
+                            <div class="publication-section-button">Explore all publications</div>
+                        </a>
+                    </section>
+                </main>
+            </div>
+        </div>
     </div>
-    </div>
-    <footer>
-        <p><!-- Dynamic --> </p>
-    </footer>
 </body>
+<footer>
+    <div class="footer-grid">
+        <div class="footer-grid-item" id="footer-grid-item1">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Socials</a></li>
+                <li><a href="https://t.me/grycko_the_hague_couloir" class="footer-text">Highlights</a></li>
+                <li><a href="https://x.com/TheHagueCouloir" class="footer-text">Highlights</a></li>
+                <li><a href="https://www.linkedin.com/in/hryhorii-bavykin/" class="footer-text">Highlights</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item2">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Highlights</a></li>
+                <li><a href="index.html" class="footer-text">Highlights</a></li>
+                <li><a href="all-publications.html" class="footer-text">Highlights</a></li>
+                <li><a href="about.html" class="footer-text">Highlights</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item3">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Highlights</a></li>
+                <li><a href="about.html#about-naming-anchor" class="footer-text">Highlights</a></li>
+                <li><a href="about.html#about-author-anchor" class="footer-text">Highlights</a></li>
+                <li><a href="about.html#about-contact-anchor" class="footer-text">Highlights</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item4">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Highlights</a></li>
+                <li><a href="#" onclick="changeLanguage('en')" class="footer-text">Highlights</a></li>
+                <li><a href="#" onclick="changeLanguage('ru')" class="footer-text">Highlights</a></li>
+            </ul>
+        </div>
+    </div>
+    <p class="footer-below-text">Something</p>
+</footer>
+
 </html>

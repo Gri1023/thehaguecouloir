@@ -1,7 +1,50 @@
 ﻿{
   "siteTitle": "The Hague Couloir",
-  "footerText": "Hryhorii Bavykin 2024",
-  "highlightedArticleId": "23104",
+  "footer": [
+    {
+      "footer-grid-item1": [
+        "Socials",
+        "Telegram (in Russian)",
+        "X(Twitter)",
+        "Author's LinkedIn"
+      ]
+    },
+    {
+      "footer-grid-item2": [
+        "Navigation",
+        "Highlights",
+        "All publications",
+        "About"
+      ]
+    },
+    {
+      "footer-grid-item3": [
+        "About",
+        "Naming",
+        "Author",
+        "Contact"
+      ]
+    },
+    {
+      "footer-grid-item4": [
+        "Language",
+        "English",
+        "Русский"
+      ]
+    },
+    {
+      "footer-grid-item-below": [
+        "This website does not collect any of your data. Stay safe! © Hryhorii Bavykin 2025"
+      ]
+    }
+  ],
+  "sortBy": "Sort by:",
+  "newest": "Newest",
+  "oldest": "Oldest",
+  "highlightedArticle1Id": "09015",
+  "highlightedArticle2Id": "08015",
+  "highlightedArticle3Id": "23104",
+  "highlightedArticle4Id": "19094",
   "readMoreButton": "Read more",
   "moreInfoText": "Or find more yourself",
   "allPublications": "All publications",
@@ -20,121 +63,633 @@
       "date": "2024-06-11T15:34:34",
       "title": "Turkey prepares for a new operation against the Kurdistan Workers' Party in northern Iraq.",
       "content": [
-        { "type": "heading-text", "value": "Turkey's Operation against PKK" },
-        { "type": "subheading-text", "value": "A new chapter in regional politics" },
-        { "type": "info-text", "value": "[Hryhorii Bavykin](about.html), April 18, 2024" },
-        { "type": "text", "value": "In December of last year, Erdogan stated that the threat from the PKK would be eliminated by summer. Subsequently, active preparations for the implementation of the plan began." },
-        { "type": "main-image", "value": "images/00001_1.png" },
-        { "type": "caption-text", "value": "Preparation of the Turkish army near the border." },
-        { "type": "text", "value": "On March 14, a meeting of the Turkish-Iraqi commission was held on joint efforts to eliminate Kurdish separatism and return territories under the control of the Iraqi government. More detailed information can be found in the [full report](https://www.example.com)." },
-        { "type": "quote", "value": "https://www.middleeasteye.net/news/turkey-iraq-development-road-project-launch-military-operation" },
-        { "type": "warning", "value": "This operation could lead to increased regional tensions." },
-        { "type": "text", "value": "Yesterday, information appeared that Kurdish units began to withdraw their detachments from the contact line to rear and mountainous areas in anticipation of the Turkish offensive." }
+        {
+          "type": "heading-text",
+          "value": "Turkey's Operation against PKK"
+        },
+        {
+          "type": "subheading-text",
+          "value": "A new chapter in regional politics"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), April 18, 2024"
+        },
+        {
+          "type": "text",
+          "value": "In December of last year, Erdogan stated that the threat from the PKK would be eliminated by summer. Subsequently, active preparations for the implementation of the plan began."
+        },
+        {
+          "type": "main-image",
+          "value": "images/00001_1.png"
+        },
+        {
+          "type": "caption-text",
+          "value": "Preparation of the Turkish army near the border."
+        },
+        {
+          "type": "text",
+          "value": "On March 14, a meeting of the Turkish-Iraqi commission was held on joint efforts to eliminate Kurdish separatism and return territories under the control of the Iraqi government. More detailed information can be found in the [full report](https://www.example.com)."
+        },
+        {
+          "type": "quote",
+          "value": "https://www.middleeasteye.net/news/turkey-iraq-development-road-project-launch-military-operation"
+        },
+        {
+          "type": "warning",
+          "value": "This operation could lead to increased regional tensions."
+        },
+        {
+          "type": "text",
+          "value": "Yesterday, information appeared that Kurdish units began to withdraw their detachments from the contact line to rear and mountainous areas in anticipation of the Turkish offensive."
+        }
+      ]
+    },
+    {
+      "id": "08015",
+      "visible": "yes",
+      "date": "2025-01-08T21:35:00",
+      "title": "🗣Durov stated that he is proud to have supported free speech long before it was politically safe to do so.",
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "🗣Durov stated that he is proud to have supported free speech long before it was politically safe to do so."
+        },
+        {
+          "type": "main-image",
+          "value": "media/08015/{9BB45469-09A1-456F-8B56-ACBBD4C3E4E2}.png"
+        },
+        {
+          "type": "caption-text",
+          "value": ""
+        },
+        {
+          "type": "quote",
+          "value": "Today, other platforms are announcing they’ll now have less censorship. But the real test of their newly discovered values will come once the political winds change again."
+        },
+        {
+          "type": "text",
+          "value": "Yesterday, Mark Zuckerberg announced that he is changing the content moderation rules on Facebook and Instagram to ‘restore freedom of expression’. At the end of August, he [admitted](https://abcnews.go.com/Technology/unpacking-mark-zuckerbergs-letter-congress-biden-facebook/story?id=113212652) that he censored information about Biden's covid and corruption ties at the request of Democrats."
+        },
+        {
+          "type": "text",
+          "value": "While in America it is becoming less and less risky to support free speech, in Europe the clouds are only thickening. Just a week ago, Durov [confirmed](https://t.me/durov/387) the massive blocking of Russian propagandist Telegram channels in the EU because of sanctions."
+        },
+        {
+          "type": "text",
+          "value": "«Who would have thought that in 2025 Russian Telegram users would enjoy more freedom than European users?», Durov wrote at the time."
+        },
+        {
+          "type": "text",
+          "value": "Telegram began cooperating with European authorities after Pavel Durov was detained on 24 August in France, where he was threatened with criminal prosecution for refusing to moderate content."
+        },
+        {
+          "type": "text",
+          "value": "<i>Freedom of speech is an incredible thing. Its value is recognised by everyone, but any support for it ends when it becomes inconvenient to the current system. Freedom of speech never benefits any government in the world, only civil society."
+        },
+        {
+          "type": "text",
+          "value": "<i>But the worst begins when society starts to consider new restrictions as the new norm. When censorship in the name of freedom no longer raises questions. Blocking a few servants of the Kremlin will not make your life better, but an alternative view, whatever it may be, will disappear, along with a piece of that very freedom."
+        },
+        {
+          "type": "text",
+          "value": "<i>And one day we may wake up in a world where it is not only unsafe, but pointless to express our opinions. Because no one will listen."
+        }
+      ]
+    },
+    {
+      "id": "19094",
+      "visible": "yes",
+      "date": "2024-09-19T18:54:00",
+      "title": "🇺🇦Zaluzhny was against an offensive on Russian territory when Zelensky first talked about and insisted on an offensive - Politico",
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "🇺🇦ЗZaluzhny was against an offensive on Russian territory when Zelensky first talked about and insisted on an offensive - [Politico](https://www.politico.eu/article/kursk-russia-incursion-objections-war-in-ukraine-volodymyr-zelenskyy/)"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 19 сентября 2024"
+        },
+        {
+          "type": "main-image",
+          "value": "media/19094/photo_2024-10-30_14-43-09.jpg"
+        },
+        {
+          "type": "text",
+          "value": "Also opposed to this operation was Emil Ishkulov, commander of the elite 80th Airborne Assault Brigade. They were both dismissed - Zaluzhny in February and Ishkulov in July"
+        },
+        {
+          "type": "text",
+          "value": "Против отставки последнего публично [выступали](https://x.com/sternenko/status/1817874842797932933) многие командиры:"
+        },
+        {
+          "type": "quote",
+          "value": "We do not understand why commanders who have unquestionable authority among the personnel, who have a victorious combat record and experience of a great war, are in disfavour with the top leadership of the armed forces <br>- said battalion commanders of the 80th Brigade in an appeal to Zelensky."
+        },
+        {
+          "type": "text",
+          "value": "The media reported that the reason for Ishkulkov's dismissal was that he «resisted performing a task that did not correspond to the brigade's strength»."
+        },
+        {
+          "type": "text",
+          "value": "Politico reported, citing sources, that Zaluzhny was against the invasion because he didn't see a well-thought-out plan of action in case of success.  Zaluzhny asked: now that you've taken the bridgehead, what then? «He never got a clear answer from Zelensky,» one of the officials said."
+        },
+        {
+          "type": "text",
+          "value": "During the Cossack uprising of 1648, the Polish-Lithuanian Commonwealth suffered many defeats because its commanders were appointed for loyalty and titles rather than for military merit. Ignoring these basic lessons of history, politicians continue to entrust war not to those who know how to fight best, but to those who will obey them."
+        },
+        {
+          "type": "text",
+          "value": "The Economist [wrote](https://www.economist.com/europe/2024/09/04/as-his-popularity-fades-volodymyr-zelensky-culls-his-cabinet) recently that Dmytro Kuleba, who had been foreign minister since 2020, was sacked for refusing to be ‘rude’ to Western diplomats and was ‘ready to question and challenge’. He was replaced by Andriy Sibiga, who had previously signed an illegal letter to foreign consulates not to provide services to male Ukrainians abroad."
+        },
+        {
+          "type": "text",
+          "value": "These and similar reshuffles in the government and army of recent months, labelled by the government as the ‘biggest perestroika’, in fact only represent the culmination of Zelensky's autocratic rule, where all the undesirables are replaced by ‘his own people’, and his dependence on a narrow circle of confidants led by Yermak."
+        },
+        {
+          "type": "text",
+          "value": "<i>Trusting politicians to run the military is the greatest mistake of many political systems and is responsible for a great many military failures, one of which could be this one. But nothing becomes fatal until politicians are no longer resisted.</i>"
+        }
       ]
     }
   ],
   "article": [
+    {
+      "id": "08124",
+      "visible": "no",
+      "date": "2024-12-08T18:05:00",
+      "title": "The Fall of the Assad Regime: A New Chapter in Syria’s Turmoil",
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "The Fall of the Assad Regime: A New Chapter in Syria’s Turmoil"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 8 December 2024"
+        },
+        {
+          "type": "main-image",
+          "value": "media/08124/241208-syria-mn-0850-bb23a4.png"
+        },
+        {
+          "type": "subheading-text",
+          "value": "Current Situation"
+        },
+        {
+          "type": "text",
+          "value": "After more than a decade of brutal conflict, the Assad regime has crumbled under the pressure of an unprecedented rebel offensive. The collapse, which seemed unthinkable just months ago, began with a well-coordinated assault on key regime strongholds, including Damascus. Leveraging support from defected military officers and external backers, the opposition quickly overwhelmed government forces, many of whom surrendered or fled as the frontlines dissolved."
+        },
+        {
+          "type": "text",
+          "value": "Damascus fell after weeks of heavy fighting, during which the city's infrastructure was devastated, and thousands of civilians were caught in the crossfire. Rebel flags now fly over the Presidential Palace and other symbolic landmarks, signaling the end of the Assad family's decades-long grip on power. Despite the initial euphoria among opposition forces, the situation on the ground remains volatile. Reports of looting, sporadic violence, and competing claims of authority underscore the fragility of the rebel coalition’s victory."
+        },
+        {
+          "type": "image",
+          "value": "media/08124/Northwestern_Syria_offensive_(2024).jpg"
+        },
+        {
+          "type": "caption",
+          "value": "Current control zones in Syria. Arrows represent advances from 27th Novermber"
+        },
+        {
+          "type": "subheading-text",
+          "value": "Who Are the Rebels?"
+        },
+        {
+          "type": "text",
+          "value": "The coalition that toppled Assad is dominated by factions with origins in radical Islamist movements. Chief among them is a group that split from Al-Qaeda in 2016, rebranding itself as a nationalist force. While this rebranding earned them a degree of international backing, their ideological roots remain anchored in a strict and uncompromising interpretation of Islam. Over time, the group has cultivated a reputation for military efficiency, but questions about their political vision persist."
+        },
+        {
+          "type": "text",
+          "value": "For years, they operated as a disciplined and fiercely autonomous militia, exploiting the weaknesses of both the Assad regime and rival opposition groups. Their rhetoric emphasizes justice, freedom, and the end of tyranny, but their governance in areas they have controlled paints a more complex picture. Sharia law has been strictly enforced, and dissent is often met with harsh punishment."
+        },
+        {
+          "type": "text",
+          "value": "Despite these realities, the group has sought to project a more moderate image on the international stage. By framing their fight as one of liberation rather than ideology, they have garnered crucial support from regional actors looking to expand their influence in Syria."
+        },
+        {
+          "type": "subheading-text",
+          "value": "What to Expect"
+        },
+        {
+          "type": "text",
+          "value": "The rebel victory marks a seismic shift, but it also opens a Pandora’s box of uncertainties. While they have proven their ability to wage war, the rebels have limited experience in governance. Syria’s infrastructure lies in ruins, its economy is in freefall, and its population is deeply divided along ethnic, sectarian, and political lines."
+        },
+        {
+          "type": "text",
+          "value": "Observers suggest that the new leadership may attempt to adopt a pragmatic approach in the short term, seeking to consolidate power and gain international legitimacy. This could mean softening their rhetoric and temporarily accommodating Syria's minority groups to present a united front. However, analysts warn that such moderation may be more about optics than substance."
+        },
+        {
+          "type": "text",
+          "value": "The rebels’ lack of administrative expertise raises the specter of chaos, as rival factions within the coalition vie for control. Corruption, power struggles, and ideological rigidity could further erode their ability to govern effectively. Furthermore, their hardline policies, particularly toward women, religious minorities, and secular institutions, could alienate large segments of the population and trigger new cycles of unrest."
+        },
+        {
+          "type": "subheading-text",
+          "value": "End of a New Beginning"
+        },
+        {
+          "type": "text",
+          "value": "Even as the Assad regime collapses, Syria’s civil war shows no signs of abating. In the Kurdish-controlled regions of the north and northeast, the power vacuum left by Assad has emboldened opposition factions to launch attacks. Early reports suggest clashes between Kurdish militias and rebel forces, with civilians once again caught in the middle."
+        },
+        {
+          "type": "text",
+          "value": "The Kurds, who have long sought greater autonomy, now face a renewed existential threat. The rebel leadership has made it clear that they view Kurdish self-rule as incompatible with their vision for Syria. This development risks reigniting old conflicts and further fragmenting the country."
+        },
+        {
+          "type": "text",
+          "value": "The situation is equally dire in other regions, where tribal and sectarian divisions threaten to undermine any attempts at national unity. What was once a war against a common enemy now threatens to devolve into a multi-front struggle for power and resources."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Global View"
+        },
+        {
+          "type": "text",
+          "value": "The fall of Assad carries profound implications for the regional and international balance of power. Iran, a staunch ally of the Assad regime, faces a major strategic defeat. Its investment of troops, resources, and political capital in propping up Assad has yielded little, leaving Tehran scrambling to maintain its influence in Syria. This loss also disrupts Iran’s so-called “Shia Crescent,” weakening its ability to project power across the Middle East."
+        },
+        {
+          "type": "text",
+          "value": "For Russia, Assad’s ousting represents a significant blow to its geopolitical ambitions. Moscow’s military intervention in 2015 was instrumental in stabilizing the regime, but its failure to secure a lasting victory undermines its credibility as a regional powerbroker. Russian bases in Syria may remain operational, but their strategic value diminishes without a stable partner in Damascus."
+        },
+        {
+          "type": "text",
+          "value": "The West, meanwhile, faces a complex dilemma. The removal of Assad aligns with long-standing Western calls for democratic reform in Syria, but the rebel coalition’s ideological leanings raise red flags. Supporting the new government risks empowering hardline elements, while withholding aid could lead to a humanitarian disaster and further destabilize the region."
+        },
+        {
+          "type": "text",
+          "value": "Neighboring countries, including Turkey, Israel, and Gulf states, are also recalibrating their strategies. Turkey, which has supported certain rebel factions, may push for a larger role in shaping Syria’s future, while Israel monitors the situation closely for potential threats to its security."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Conclusion"
+        },
+        {
+          "type": "text",
+          "value": "Syria stands at a crossroads. The fall of the Assad regime marks the end of an era, but it also signals the beginning of a turbulent new chapter. As the country grapples with the challenges of post-conflict reconstruction, regional powers and the international community face critical decisions. Whether this marks the start of a long-awaited path to peace or the continuation of chaos remains uncertain. What is clear is that the road ahead will be fraught with challenges, both for Syria and for the world."
+        }
+      ]
+    },
+    {
+      "id": "09015",
+      "visible": "yes",
+      "date": "2025-01-09T14:43:00",
+      "title": "Семь выборов за 4 года: как Болгария застряла в политическом тупике и виден ли выход?",
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "Семь выборов за 4 года: как Болгария застряла в политическом тупике и виден ли выход?"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 9 января 2024"
+        },
+        {
+          "type": "main-image",
+          "value": "media/09015/3a97e727-683b-4e0d-b702-eab9d01d6219_w1023_r1_s.jpeg"
+        },
+        {
+          "type": "text",
+          "value": "Предыстория"
+        },
+        {
+          "type": "text",
+          "value": "Для начала, давайте начнем с важного контекста. С 2009 по 2021 год Болгарией руководило правительство партии ГЕРБ(Граждане за европейское развитие Болгарии) во главе с её лидером - Бойком Борисовым. Партия придерживается консерваторских, правоцентристких и проевропейских взгядов. Эта партия 5 последовательных парламентских выборов и правило с парой непродолжительных пауз."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Обзор главных политической системы и главных партий Болгарии"
+        },
+        {
+          "type": "text",
+          "value": "Чтобы понять всю сложность политической ситуации в Болгарии, нужно взглянуть на главные политические партии страны. Вот краткий обзор каждой из них:"
+        },
+        {
+          "type": "subheading-text",
+          "value": "Как все началось"
+        },
+        {
+          "type": "text",
+          "value": "Несмотря на то что Борисов [строил](https://www.telegraph.co.uk/expat/expatnews/6207022/Bulgarian-prime-minister-rides-wave-of-popularity.html)свои кампании на анти-корупционных лозунгах, его третье (2017-2021) правительство было замешано в многочисленных коррупционных скандалах, особенно касающихся распледелению европейских денег, инфраструктурных проектов и государсвенных субсидий. Нарастающее недовольство населения привело к массовым протестам, которые начались в летом 2020 года и продолжались до 16 апреля 2021, когда срок правления правительства подошел к концу."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Апрельские выборы 2021 года"
+        },
+        {
+          "type": "text",
+          "value": "Выборы в парламент прошли 4 апреля 2021 года и были запланированными выборами спустя 4 года после последний выборов в 2017. Партия ГЕРБ потеряла большинство в парламенте(95↦75), но осталась самой крупной партией. Партия ИТН(Има такъв народ), созданная в 2020 году стала второй по количеству голосов и мест(51) в парламенте и возглавлялась Слави Трифоновым, популярным телеведущим и музыкантом. Третье место заняла БСП(Българска социалистическа партия) с 43 местами. Партия ДПС(Движение за права и свободы) заняла 4 место с 30 местами. Партия Демократическа България заняла 5 место с 27 местами. Вставайте! Мафия вон! заняло 6 место с 14 местами."
+        },
+        {
+          "type": "text",
+          "value": "Но парламент оказался настолько фрагментирован что не смог сформировать большинства. Сначала, Президент Румен Радев(независимый, поддерживаемый БСП) дал первый мандат на формирование правительства ГЕРБу, как крупнейшей партии, которая не смогла сформировать коалицию (минимум 121 место) ни с одной из партия. После неудачи ГЕРБа, Радев дал второй мандат на формирование правительства ИТН, которая не имела поддержки для формирования большинства и моментально отвергла мандат. После этого Радев дал финальный мандат на которая отказалась формировать правительство после того как «партии перемен» отказались сотрудничать с ней. После этого Стефан Янев был назначен лидером временного правительства и новые выборы были назначены на 11 июля 2021 года."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Июльские выборы 2021 года"
+        },
+        {
+          "type": "text",
+          "value": "После неудачных попыток сформировать коалицию, ИТН начали терять позиции "
+        },
+        {
+          "type": "text",
+          "value": ""
+        },
+        {
+          "type": "subheading-text",
+          "value": "Ноябрьские выборы 2021 года (Коалиция!)"
+        },
+        {
+          "type": "text",
+          "value": ""
+        },
+        {
+          "type": "text",
+          "value": ""
+        },
+        {
+          "type": "subheading-text",
+          "value": "Развал коалиции и серия новых выборов"
+        },
+        {
+          "type": "text",
+          "value": "Однако, эта нестабильная коалиция смогла продержаться лишь 7 месяцев, до того как ИТН вышла из коалиции и правительство рухнуло, вызывая новые выборы на октябрь 2022 года. Эти выборы вернули Борисова назад на 1 место, так как ГЕРБ выиграла 67 и снова стала крупнейшей партией страны, но снова провалила формирование правительства, и новые выборы были назначены на апрель 2023."
+        },
+        {
+          "type": "text",
+          "value": "ГЕРБ снова выиграла выборы(69), но ПП пришли рядом вторыми (64), и в конечном итоге две партии пришли к соглашению сформировать меняющуюся коалицию, которая должна была закончить многолетний политический паралич."
+        },
+        {
+          "type": "subheading-text",
+          "value": "А почему именно сейчас?"
+        },
+        {
+          "type": "subheading-text",
+          "value": "А почему именно сейчас?"
+        },
+        {
+          "type": "subheading-text",
+          "value": "А почему именно сейчас?"
+        }
+      ]
+    },
     {
       "id": "00253",
       "visible": "yes",
       "date": "2023-12-30T23:24:34",
       "title": "Essequibo: Between Jungles and Oil - History, Conflict, and Prospects",
       "content": [
-        { "type": "heading-text", "value": "Essequibo: Between Jungles and Oil - History, Conflict, and Prospects" },
-        { "type": "info-text", "value": "[Hryhorii Bavykin](about.html), December 30, 2023" },
+        {
+          "type": "heading-text",
+          "value": "Essequibo: Between Jungles and Oil - History, Conflict, and Prospects"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), December 30, 2023"
+        },
         {
           "type": "main-image",
-          "value": "media/00253_1.png"
+          "value": "media/00253/00253_1.png"
         },
-        { "type": "subheading-text", "value": "History of the conflict and the region" },
-        { "type": "text", "value": "Guyana-Essequibo (also Western Guyana) is a region claimed by Venezuela and under the control of Guyana, with an area of ​​159,500 km² west of the Essequibo River (70% of the country's territory). The population is approximately 128,000 people (16% of the total population) and is concentrated mainly in the southern part along the border with Brazil. It is predominantly represented by indigenous tribes." },
-        { "type": "image", "value": "images/00253_2.png" },
-        { "type": "caption-text", "value": "The Guyana-Essequibo region claimed by Venezuela in the lower left corner on the map of the territorial division of Venezuela" },
-        { "type": "text", "value": "The territory was explored by the Spaniards and then became part of both Greater Colombia on one side (although Spanish-speaking population did not form here), and the Netherlands on the other. In 1814, the British acquired 51,700 km² of territory to the east of the Essequibo (all other Guyana) as a result of an agreement with the Netherlands, which did not establish the western border of the purchased colony. Therefore, colonial authorities appointed Robert Herman Schomburg, who worked for the Royal Geographical Society, responsible for defining the border. He conducted a botanical and geographical study of British Guyana, the result of which was the concept of a border that, according to Schomburg, corresponded to the boundaries of the lands claimed by the Dutch, and then the British. Britain officially recognized the Essequibo River as the border until gold was discovered in the Yuruari River basin. 17 years later, taking advantage of the confusion in the newly separated Gran Colombia Venezuela, in 1831 the English seized most of the modern region. In 1841 the government of José Antonio Paes condemned the British Empire's invasion of Venezuelan territory. Thus began the long 180-year territorial dispute over the territory of Guyana-Essequibo. In such a state, in which Great Britain unofficially occupied most of the territory, this low-intensity conflict lasted more than 50 years, when at the request of Venezuela the United States intervened in the conflict through the Monroe Doctrine in 1865. As a result, in 1899, the \"Schomburg Line,\" with slight deviations in favor of Venezuela (Britain retained all gold mines), was recognized by the international Paris arbitration group as the border between British Guiana and Venezuela (in the middle of the 20th century there were disputes that the British bribed a Russian judge who made decisions on the lawsuit)." },
-        { "type": "image", "value": "images/00253_3.png" },
-        { "type": "caption-text", "value": "The map shows: Gold mines, extreme border claimed by Great Britain, Schomburg Line, enlarged Schomburg Line, and extreme border claimed by Venezuela." },
-        { "type": "text", "value": "Historically, the dispute did not concern the influx of the Amazon River and the Pirara area, which were transferred to British Guiana only in 1904 during the arbitration process with Brazil. The status of the territory is regulated by the Geneva Agreement, signed by the United Kingdom, Venezuela, and British Guiana on February 17, 1966, and made the latter the successor of the British Empire in resolving its territorial disputes (Guyana became an independent state just 4 months after the agreement) The new exacerbation of the old territorial conflict in the XXI century began in 2015, when significant oil reserves were explored in the maritime exclusive economic zone of the region. The first oil began to be pumped in Guyana in 2019, and since then the economy of this tiny country has been booming - for three consecutive years it has grown by more than 40% per year." },
-        { "type": "image", "value": "images/00253_4.png" },
-        { "type": "caption-text", "value": "Guyana's exclusive economic zone and recently discovered oil reserves." },
-        { "type": "subheading-text", "value": "What happened now?" },
-        { "type": "text", "value": "The current escalation is due to two main events:<br> The first is the decision of the UN International Court to reject Venezuela's application to consider objections regarding the ownership of the disputed territory of Essequibo in April 2023, thereby ignoring Venezuela's call to resolve the issue through negotiations. <br> The second was the completion by the Guyanese authorities in September 2023 of the first round of oil exploration trades in 11 Guyanese-owned shelves due to control over Essequibo. Maduro opposes the extraction of oil in the disputed region by foreign companies, while the Guyanese authorities have granted the right to extract oil to a number of companies from the USA, Qatar, the UK, France, China, Saudi Arabia, and Malaysia.<br> In connection with this, in conditions of relative hopelessness of further attempts to settle the issue through international mediators, the Venezuelan authorities began to take unilateral actions. The most noticeable of these was the decision of the Venezuelan National Assembly to hold a consultative referendum on Venezuela's right to the disputed territory of Essequibo.<br> The referendum held on December 3 contained 5 questions concerning support or rejection of compliance with the decisions of the Paris Arbitration and Geneva Agreement, non-recognition of the jurisdiction of the UN International Court, and the most key - the opinion of the Venezuelan people about the government's plan to create a state of Guyana-Essequibo with immediate provision of Venezuelan citizenship to its population.<br> " },
-        { "type": "text", "value": "According to the statement of the National Electoral Council of Venezuela (actually controlled by Maduro, like other branches of government), more than 95% of the population voted \"for\" on each of the five questions of the ballot, which means that practically the vast majority of participating Venezuelans (about 95%) voted in favor of joining part of the territory of the neighboring state. On December 6, 2023, Venezuela announced the mobilization of troops and the beginning of the annexation of Western Guyana." },
-        { "type": "quote", "value": "\"We have taken the first steps in a new historical stage of the struggle for what belongs to us\" - these were the words of President Maduro immediately after the referendum." },
-        { "type": "subheading-text", "value": "Reactions" },
-        { "type": "text", "value": "Guyana's reaction to the announcement of the referendum was sharply negative. The country's president, Irfaan Ali, called Venezuela's actions an act of aggression and violation of international law, adding that this could lead to unpredictable consequences for the entire region. The American government also condemned the holding of a referendum and called the annexation of Western Guyana a crime, but at the same time said it would not provide military assistance to Georgetown in case of conflict with Caracas." },
-        { "type": "warning", "value": "According to the South American experts, the events of the last few months (the new stage of the territorial conflict between Venezuela and Guyana) have sharply increased the likelihood of a major military conflict in the continent." }
+        {
+          "type": "subheading-text",
+          "value": "History of the conflict and the region"
+        },
+        {
+          "type": "text",
+          "value": "Guyana-Essequibo (also Western Guyana) is a region claimed by Venezuela and under the control of Guyana, with an area of ​​159,500 km² west of the Essequibo River (70% of the country's territory). The population is approximately 128,000 people (16% of the total population) and is concentrated mainly in the southern part along the border with Brazil. It is predominantly represented by indigenous tribes."
+        },
+        {
+          "type": "image",
+          "value": "images/00253_2.png"
+        },
+        {
+          "type": "caption-text",
+          "value": "The Guyana-Essequibo region claimed by Venezuela in the lower left corner on the map of the territorial division of Venezuela"
+        },
+        {
+          "type": "text",
+          "value": "The territory was explored by the Spaniards and then became part of both Greater Colombia on one side (although Spanish-speaking population did not form here), and the Netherlands on the other. In 1814, the British acquired 51,700 km² of territory to the east of the Essequibo (all other Guyana) as a result of an agreement with the Netherlands, which did not establish the western border of the purchased colony. Therefore, colonial authorities appointed Robert Herman Schomburg, who worked for the Royal Geographical Society, responsible for defining the border. He conducted a botanical and geographical study of British Guyana, the result of which was the concept of a border that, according to Schomburg, corresponded to the boundaries of the lands claimed by the Dutch, and then the British. Britain officially recognized the Essequibo River as the border until gold was discovered in the Yuruari River basin. 17 years later, taking advantage of the confusion in the newly separated Gran Colombia Venezuela, in 1831 the English seized most of the modern region. In 1841 the government of José Antonio Paes condemned the British Empire's invasion of Venezuelan territory. Thus began the long 180-year territorial dispute over the territory of Guyana-Essequibo. In such a state, in which Great Britain unofficially occupied most of the territory, this low-intensity conflict lasted more than 50 years, when at the request of Venezuela the United States intervened in the conflict through the Monroe Doctrine in 1865. As a result, in 1899, the \"Schomburg Line,\" with slight deviations in favor of Venezuela (Britain retained all gold mines), was recognized by the international Paris arbitration group as the border between British Guiana and Venezuela (in the middle of the 20th century there were disputes that the British bribed a Russian judge who made decisions on the lawsuit)."
+        },
+        {
+          "type": "image",
+          "value": "images/00253_3.png"
+        },
+        {
+          "type": "caption-text",
+          "value": "The map shows: Gold mines, extreme border claimed by Great Britain, Schomburg Line, enlarged Schomburg Line, and extreme border claimed by Venezuela."
+        },
+        {
+          "type": "text",
+          "value": "Historically, the dispute did not concern the influx of the Amazon River and the Pirara area, which were transferred to British Guiana only in 1904 during the arbitration process with Brazil. The status of the territory is regulated by the Geneva Agreement, signed by the United Kingdom, Venezuela, and British Guiana on February 17, 1966, and made the latter the successor of the British Empire in resolving its territorial disputes (Guyana became an independent state just 4 months after the agreement) The new exacerbation of the old territorial conflict in the XXI century began in 2015, when significant oil reserves were explored in the maritime exclusive economic zone of the region. The first oil began to be pumped in Guyana in 2019, and since then the economy of this tiny country has been booming - for three consecutive years it has grown by more than 40% per year."
+        },
+        {
+          "type": "image",
+          "value": "images/00253_4.png"
+        },
+        {
+          "type": "caption-text",
+          "value": "Guyana's exclusive economic zone and recently discovered oil reserves."
+        },
+        {
+          "type": "subheading-text",
+          "value": "What happened now?"
+        },
+        {
+          "type": "text",
+          "value": "The current escalation is due to two main events:<br> The first is the decision of the UN International Court to reject Venezuela's application to consider objections regarding the ownership of the disputed territory of Essequibo in April 2023, thereby ignoring Venezuela's call to resolve the issue through negotiations. <br> The second was the completion by the Guyanese authorities in September 2023 of the first round of oil exploration trades in 11 Guyanese-owned shelves due to control over Essequibo. Maduro opposes the extraction of oil in the disputed region by foreign companies, while the Guyanese authorities have granted the right to extract oil to a number of companies from the USA, Qatar, the UK, France, China, Saudi Arabia, and Malaysia.<br> In connection with this, in conditions of relative hopelessness of further attempts to settle the issue through international mediators, the Venezuelan authorities began to take unilateral actions. The most noticeable of these was the decision of the Venezuelan National Assembly to hold a consultative referendum on Venezuela's right to the disputed territory of Essequibo.<br> The referendum held on December 3 contained 5 questions concerning support or rejection of compliance with the decisions of the Paris Arbitration and Geneva Agreement, non-recognition of the jurisdiction of the UN International Court, and the most key - the opinion of the Venezuelan people about the government's plan to create a state of Guyana-Essequibo with immediate provision of Venezuelan citizenship to its population.<br> "
+        },
+        {
+          "type": "text",
+          "value": "According to the statement of the National Electoral Council of Venezuela (actually controlled by Maduro, like other branches of government), more than 95% of the population voted \"for\" on each of the five questions of the ballot, which means that practically the vast majority of participating Venezuelans (about 95%) voted in favor of joining part of the territory of the neighboring state. On December 6, 2023, Venezuela announced the mobilization of troops and the beginning of the annexation of Western Guyana."
+        },
+        {
+          "type": "quote",
+          "value": "\"We have taken the first steps in a new historical stage of the struggle for what belongs to us\" - these were the words of President Maduro immediately after the referendum."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Reactions"
+        },
+        {
+          "type": "text",
+          "value": "Guyana's reaction to the announcement of the referendum was sharply negative. The country's president, Irfaan Ali, called Venezuela's actions an act of aggression and violation of international law, adding that this could lead to unpredictable consequences for the entire region. The American government also condemned the holding of a referendum and called the annexation of Western Guyana a crime, but at the same time said it would not provide military assistance to Georgetown in case of conflict with Caracas."
+        },
+        {
+          "type": "warning",
+          "value": "According to the South American experts, the events of the last few months (the new stage of the territorial conflict between Venezuela and Guyana) have sharply increased the likelihood of a major military conflict in the continent."
+        }
       ]
     },
-    
     {
       "id": "23104",
-      "visible": "yes", 
+      "visible": "yes",
       "date": "2024-10-26T21:40:00",
       "title": "Presidential elections in Moldova: what it was and what it means.",
       "content": [
-        { "type": "raw-main-image", "value": "media/23104/vlcsnap-2024-10-23-20h59m49s410_raw.png"},
-        { "type": "heading-text", "value": "Presidential elections in Moldova: what it was and what it means." },
-        { "type": "info-text", "value": "[Hryhorii Bavykin](about.html), 26 october 2024" },
-        { "type": "main-image", "value": "media/23104/vlcsnap-2024-10-23-20h59m49s410_raw.png" },
-        { "type": "text", "value": "On 20 October, Moldova held presidential elections and a referendum on the consolidation of the course towards the European Union. Internally and externally, both events were seen as a moment that could end Moldova's longstanding swings between East and West. The outcome of the referendum was particularly dramatic: a minimal margin of only 0.76 per cent makes it one of the most tense votes in the country's history, which could seriously affect its foreign policy and economic course in the coming years." },
-
-        { "type": "subheading-text", "value": "Context" },
-        { "type": "text", "value": "Since Maia Sandu came to power in December 2020 (36% in favour in the first round and 57 in the second), Moldovan politics has been characterised by the country's pro-European course. Almost a year later, PAS (the country's main pro-European party, from whom Maia Sandu ran), won 52.8% of the vote, and thus obtained a supermajority - a situation where one party wins more than half of the votes and doesn't have to form a majority with other parties to pass laws. The main reforms since coming to power have been the reform of the judiciary and a number of anti-corruption laws. Also one of the key developments was the granting of candidate status for EU membership to Moldova along with Ukraine in 2022. "},
-        { "type": "image", "value": "media/23104/Screenshot 2024-10-24 211736.png"},
-        { "type": "caption-text", "value": "Current distribution of seats in the Moldovan Parliament"},
-        { "type": "text", "value": "Despite an unusually high level of electoral support, Sandu and her government continued to face opposition and popular resistance, mainly related to economic difficulties, blaming the reorientation of economic ties to the West as one of the key factors."},
-        
-        { "type": "subheading-text", "value": "Elections" },
-        { "type":"image", "value": "media/23104/Opinion_polling_for_the_2024_Moldovan_presidential_election.svg.png"},
-        {"type": "caption-text", "value": " Chart of public opinion poll results before the presidential election in 2024."},
-        { "type": "text", "value": "On this background, Sandu's rivals could have co-ordinated and increased the chances of defeating her, but this didn't happen. In fact, the opposition went to the polls in fragmented columns, occasionally competing with each other. In addition, most of the opposition has a much higher anti-rating than Sandu. And that is why, also taking into account the results of the polls, the last months before the elections the question was not whether the current president would win at all, it's whether Sandu wins the first round or will need a second round." },
-
-        { "type": "text", "value": "In the end, Sandu received only 42.49% of the vote, putting her in a second round with Stoianoglo, who got 25.95%. The consequences of the second round are easy to underestimate. Firstly, there is a very small chance that because of her pro-Western stance, she will lose the second round due to the consolidation of neutral or pro-Russian votes around Stoianoglo. Second, because of the same consolidation, a diverse opposition may choose to form a unified coalition of anti-European parties, which would significantly increase the chances of success. This would create a risk that undecided voters who previously supported different opposition parties could rally around a single candidate who would represent more moderate or pro-Russian sentiments." },
-
-        { "type": "text", "value": "And the Parliament, which appoints the Prime Minister and the Government, has more power in the country than the President. Therefore, next year will decide who will basically govern Moldova for the next 4 years. And the current elections are essentially a rehearsal for the main battle a year from now."},
-        { "type": "text", "value": "The prospects for Sandu's PAS party to retain the same single majority in parliament do not look very promising as it is. And if the opposition will have a single candidate, or even worse, a coalition of parties that will go to the elections as a single entity, these chances are reduced almost to a minimum. All the more so because the popular mayor of Chisinau, former socialist Ion Ciaban, is also in the ‘reserve’. Although he is not running in the presidential elections, it is likely that he will take part in the parliamentary elections. This could lead to him collecting a significant number of votes, including taking them away from the presidential party PAS." },
-
-        { "type": "subheading-text", "value": "Referendum" },
-        { "type": "text", "value": "The results of the referendum, if not a complete surprise, were at least a very unpleasant outcome for Sandu and her pro-European citizens. Sandu was absolutely sure of its positive outcome, and it was only intended to consolidate the people's decision in the constitution, similar to the referendum that took place in Ukraine before Petro Poroshenko left power. She also probably wanted to use it as one of the main arguments of her campaign for the parliamentary elections and beyond. That is, from Sandus perspective, since the majority of the population voted in favour of European integration, and I and my party are the main representatives of this idea, you should vote for me. This can be seen from her words at the press conference in spring:" },
-
-        {"type": "quote", "value": "It is important to hold a referendum now because it is a historic occasion, awaited for three decades. The European Union member states are more open than ever, we have the necessary political will for this step, and our citizens want to be part of the EU. <br> - Maia Sandu, 18 March 2024 "},
-
-        { "type": "text", "value": "However, things turned out differently. According to the results of the vote count, the supporters of European integration are ahead of the opponents by less than 0.8 per cent. This margin emerged only after the last few per cent of the protocols were processed - before that, the EU opponents were in the lead. The margin in favour of European integration was achieved mainly due to the votes of the diaspora, where 75% voted in favour and which counted last, while the majority of Moldovans voted against. For comparison, the highest proportion of those who voted in one of the Moldovan regions is 67.7%(next 62%), while in the capital Chisinau only 55.9% voted in favour. In autonomous Gagauzia, in fact, almost 95% of voters were against it. In any case, such an insignificant margin between the ‘for’ and ‘against’ votes puts into question the legitimacy of the referendum itself and, in fact, does not allow us to say that the people expressed their support for a certain course. In addition, it is difficult to perceive the results as a vote of confidence in Sandu. Rather, it can be seen as a failure and a sign of public disappointment with her policies." },
-
-        { "type":"image", "value": "media/23104/Buletin_de_vot_Referendum_Republican_Constituțional_2024_română.pdf.jpg"},
-        {"type": "caption-text", "value": "Ballot paper for the constitutional referendum 2024 in Romanian"},
-
-        { "type": "subheading-text", "value": "«Foreign interference»" },
-        { "type": "text", "value": "Despite the loud statements of the Western media and the current government about Russian interference in the elections on the side of Alexandru Stoianoglo through financing (examples from below), which is easy to believe despite the lack of direct evidence, many people miss how much the representatives of the EU countries and the USA did for the victory of the favoured candidate Sandu. It is enough just to look at the frequency of visits to Moldova by Western officials to the Moldovan capital during the last month before the elections. Thus, just 5 days before the vote, 8 foreign ministers from the Nordic-Baltic G8 [visited](https://radiomoldova.md/p/41425/eight-foreign-ministers-from-the-nordic-baltic-eight-on-a-visit-to-chisinau) the republic, signing a ‘Memorandum of Understanding’ with Moldova. This was a good reinforcement of the recent [visit](https://www.infotag.md/m9_economics/319452/) of the head of the European Commission Ursula von der Leyen. At that time she announced the largest EU aid package of 1.8 billion euros (10 per cent of the country's GDP) for the next three years, which will allow, in Sandu's words, to «build a strong economy»." },
-        { "type": "gallery",
-        "images": [
+        {
+          "type": "raw-main-image",
+          "value": "media/23104/vlcsnap-2024-10-23-20h59m49s410_raw.png"
+        },
+        {
+          "type": "heading-text",
+          "value": "Presidential elections in Moldova: what it was and what it means."
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 26 october 2024"
+        },
+        {
+          "type": "main-image",
+          "value": "media/23104/vlcsnap-2024-10-23-20h59m49s410_raw.png"
+        },
+        {
+          "type": "text",
+          "value": "On 20 October, Moldova held presidential elections and a referendum on the consolidation of the course towards the European Union. Internally and externally, both events were seen as a moment that could end Moldova's longstanding swings between East and West. The outcome of the referendum was particularly dramatic: a minimal margin of only 0.76 per cent makes it one of the most tense votes in the country's history, which could seriously affect its foreign policy and economic course in the coming years."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Context"
+        },
+        {
+          "type": "text",
+          "value": "Since Maia Sandu came to power in December 2020 (36% in favour in the first round and 57 in the second), Moldovan politics has been characterised by the country's pro-European course. Almost a year later, PAS (the country's main pro-European party, from whom Maia Sandu ran), won 52.8% of the vote, and thus obtained a supermajority - a situation where one party wins more than half of the votes and doesn't have to form a majority with other parties to pass laws. The main reforms since coming to power have been the reform of the judiciary and a number of anti-corruption laws. Also one of the key developments was the granting of candidate status for EU membership to Moldova along with Ukraine in 2022. "
+        },
+        {
+          "type": "image",
+          "value": "media/23104/Screenshot 2024-10-24 211736.png"
+        },
+        {
+          "type": "caption-text",
+          "value": "Current distribution of seats in the Moldovan Parliament"
+        },
+        {
+          "type": "text",
+          "value": "Despite an unusually high level of electoral support, Sandu and her government continued to face opposition and popular resistance, mainly related to economic difficulties, blaming the reorientation of economic ties to the West as one of the key factors."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Elections"
+        },
+        {
+          "type": "image",
+          "value": "media/23104/Opinion_polling_for_the_2024_Moldovan_presidential_election.svg.png"
+        },
+        {
+          "type": "caption-text",
+          "value": " Chart of public opinion poll results before the presidential election in 2024."
+        },
+        {
+          "type": "text",
+          "value": "On this background, Sandu's rivals could have co-ordinated and increased the chances of defeating her, but this didn't happen. In fact, the opposition went to the polls in fragmented columns, occasionally competing with each other. In addition, most of the opposition has a much higher anti-rating than Sandu. And that is why, also taking into account the results of the polls, the last months before the elections the question was not whether the current president would win at all, it's whether Sandu wins the first round or will need a second round."
+        },
+        {
+          "type": "text",
+          "value": "In the end, Sandu received only 42.49% of the vote, putting her in a second round with Stoianoglo, who got 25.95%. The consequences of the second round are easy to underestimate. Firstly, there is a very small chance that because of her pro-Western stance, she will lose the second round due to the consolidation of neutral or pro-Russian votes around Stoianoglo. Second, because of the same consolidation, a diverse opposition may choose to form a unified coalition of anti-European parties, which would significantly increase the chances of success. This would create a risk that undecided voters who previously supported different opposition parties could rally around a single candidate who would represent more moderate or pro-Russian sentiments."
+        },
+        {
+          "type": "text",
+          "value": "And the Parliament, which appoints the Prime Minister and the Government, has more power in the country than the President. Therefore, next year will decide who will basically govern Moldova for the next 4 years. And the current elections are essentially a rehearsal for the main battle a year from now."
+        },
+        {
+          "type": "text",
+          "value": "The prospects for Sandu's PAS party to retain the same single majority in parliament do not look very promising as it is. And if the opposition will have a single candidate, or even worse, a coalition of parties that will go to the elections as a single entity, these chances are reduced almost to a minimum. All the more so because the popular mayor of Chisinau, former socialist Ion Ciaban, is also in the ‘reserve’. Although he is not running in the presidential elections, it is likely that he will take part in the parliamentary elections. This could lead to him collecting a significant number of votes, including taking them away from the presidential party PAS."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Referendum"
+        },
+        {
+          "type": "text",
+          "value": "The results of the referendum, if not a complete surprise, were at least a very unpleasant outcome for Sandu and her pro-European citizens. Sandu was absolutely sure of its positive outcome, and it was only intended to consolidate the people's decision in the constitution, similar to the referendum that took place in Ukraine before Petro Poroshenko left power. She also probably wanted to use it as one of the main arguments of her campaign for the parliamentary elections and beyond. That is, from Sandus perspective, since the majority of the population voted in favour of European integration, and I and my party are the main representatives of this idea, you should vote for me. This can be seen from her words at the press conference in spring:"
+        },
+        {
+          "type": "quote",
+          "value": "It is important to hold a referendum now because it is a historic occasion, awaited for three decades. The European Union member states are more open than ever, we have the necessary political will for this step, and our citizens want to be part of the EU. <br> - Maia Sandu, 18 March 2024 "
+        },
+        {
+          "type": "text",
+          "value": "However, things turned out differently. According to the results of the vote count, the supporters of European integration are ahead of the opponents by less than 0.8 per cent. This margin emerged only after the last few per cent of the protocols were processed - before that, the EU opponents were in the lead. The margin in favour of European integration was achieved mainly due to the votes of the diaspora, where 75% voted in favour and which counted last, while the majority of Moldovans voted against. For comparison, the highest proportion of those who voted in one of the Moldovan regions is 67.7%(next 62%), while in the capital Chisinau only 55.9% voted in favour. In autonomous Gagauzia, in fact, almost 95% of voters were against it. In any case, such an insignificant margin between the ‘for’ and ‘against’ votes puts into question the legitimacy of the referendum itself and, in fact, does not allow us to say that the people expressed their support for a certain course. In addition, it is difficult to perceive the results as a vote of confidence in Sandu. Rather, it can be seen as a failure and a sign of public disappointment with her policies."
+        },
+        {
+          "type": "image",
+          "value": "media/23104/Buletin_de_vot_Referendum_Republican_Constituțional_2024_română.pdf.jpg"
+        },
+        {
+          "type": "caption-text",
+          "value": "Ballot paper for the constitutional referendum 2024 in Romanian"
+        },
+        {
+          "type": "subheading-text",
+          "value": "«Foreign interference»"
+        },
+        {
+          "type": "text",
+          "value": "Despite the loud statements of the Western media and the current government about Russian interference in the elections on the side of Alexandru Stoianoglo through financing (examples from below), which is easy to believe despite the lack of direct evidence, many people miss how much the representatives of the EU countries and the USA did for the victory of the favoured candidate Sandu. It is enough just to look at the frequency of visits to Moldova by Western officials to the Moldovan capital during the last month before the elections. Thus, just 5 days before the vote, 8 foreign ministers from the Nordic-Baltic G8 [visited](https://radiomoldova.md/p/41425/eight-foreign-ministers-from-the-nordic-baltic-eight-on-a-visit-to-chisinau) the republic, signing a ‘Memorandum of Understanding’ with Moldova. This was a good reinforcement of the recent [visit](https://www.infotag.md/m9_economics/319452/) of the head of the European Commission Ursula von der Leyen. At that time she announced the largest EU aid package of 1.8 billion euros (10 per cent of the country's GDP) for the next three years, which will allow, in Sandu's words, to «build a strong economy»."
+        },
+        {
+          "type": "gallery",
+          "images": [
             "media/23104/Screenshot 2024-10-25 at 12-52-03 Biden administration lending protection to Moldovan election amid Russian interference - POLITICO.png",
             "media/23104/Screenshot 2024-10-25 at 12-53-19 Moldova barely votes to stay with E.U. amid calls of Russian meddling - The Washington Post.png",
             "media/23104/Screenshot 2024-10-25 at 12-57-10 Tugged Between East and West Moldovans Vote in Pivotal Elections - The New York Times.png",
             "media/23104/Screenshot 2024-10-25 at 12-58-57 Moldova narrowly votes 'yes' to EU membership – DW – 10_21_2024.png"
-        ] 
+          ]
         },
-        { "type": "caption-text", "value": "Examples of pro-European orientated media [Politico](https://www.politico.com/news/2024/10/19/moldova-election-protection-biden-russia-00184429), [Washinton Post](https://www.washingtonpost.com/world/2024/10/21/moldava-eu-referendum-russia-influence/), [The New York Times](https://www.nytimes.com/2024/10/20/world/europe/moldova-election-russia-eu.html), [DW](https://www.dw.com/en/moldova-narrowly-votes-yes-to-eu-membership/a-70544401), covering the Russian interference." },
-        
-        { "type": "subheading-text", "value": "Predictions" },
-        {"type": "image", "value": "media/23104/Screenshot 2024-10-26 110351.png"},
-        {"type": "caption-text", "value": "[Results](https://en.wikipedia.org/wiki/2020_Moldovan_presidential_election)  2020 Moldovan presidential elections, first and second rounds (other candidates scored less than 4 percent)."},
-        { "type": "text", "value": "Although the second round on 3 November is still ahead, some predictions can be made. With a gap of more than 20%, it is hard to imagine that Stoianoglo could overtake Sandu in the second round, but it is theoretically possible. To understand where the remaining 31.5% of votes will go, we can make an analogy with the previous presidential elections, which took place in 2020. Back then, instead of Stoianoglo, PSRM was represented by Igor Dodon, who was only 3.5% behind Sandu in the first round. Third place went to Renato Usatii, the former mayor of the large city of Balti - who, although he claims to support Moldova's full neutrality, is in fact [is](https://www.rferl.org/a/moldova-elections-east-or-west/26713779.html) and is perceived by the population as slightly pro-Russian. Violeta Ivanov, a representative of the radically pro-Russian party Shor, which was banned last year, came 4th. As can be seen from the results of the second round, despite Sandu being the only pro-European candidate, the gap between Sandu and Dodon increased 4 times, reaching 4%. From this we can conclude that despite the great importance of the candidate's foreign policy orientation, the fact that Sandu was able to present herself as a candidate who cares about the welfare of citizens and fights corruption ensured her victory in the last elections, and although Moldovan voters are concerned about foreign policy issues, they were primarily worried about the internal problems of the country, which probably will not change this time." },
-
-        { "type": "subheading-text", "value": "Conclusions" },
-
-        { "type": "text", "value": "The Moldovan republic has undeniably found itself in a position where the will of the people, whatever it may be, is not always realisable. While it is hard to imagine if Stoiangolo could win the election and reverse its pro-Western course by deciding to strengthen its economic ties with Russia, it is not clear how he could achieve this. Being completely squeezed between Ukraine and Romania, two countries vastly superior in population, economy and military power, and with the separatist state of Transnistria hosting several thousand Russian soldiers, it is clear that no one is going to just let Moldova go wherever it wants to go. The substantial attention shown on both sides to the geopolitical course of the country only proves it. Whatever choice the Moldovan people make, it will be very difficult, if not impossible, to implement this course without the approval of the neighbours." },
-
-        { "type": "text", "value": "From a broader perspective, the outcome of the recent vote in Moldova demonstrates a strong decline in the societies of post-Soviet countries in the attractiveness of integration with the EU, which used to be perceived as a great prize. Moldova is only one example. There is also Georgia, whose authorities are in a standoff with the Eurostructures, and which will hold important parliamentary elections next Sunday."},
-
-        { "type": "text", "value": "In both cases, undeniably, the developments are also significantly influenced by Russia, which acts through local politicians. Such political manoeuvres by Moscow prove to be more effective in correcting the course of post-Soviet countries than military intervention, as in the case of Ukraine, which only pushed it as far away from Russia as possible."},
-
-        {"type": "image", "value": "media/23104/photo_2024-09-26_13-23-32.png"},
-        {"type": "caption-text", "value": "«Say no to war! Choose peace!» - billboard advert of the ruling party of Georgia"},
-
-        { "type": "text", "value": "At the same time, the factor of the Russian-Ukrainian war is actively used by forces loyal to Moscow (especially clearly seen in Georgia) to pursue the line: ‘a tough pro-Western European and anti-Russian course will lead to war, as in Ukraine’."},
-
-        { "type": "text", "value": "Moldova's political future after these elections remains uncertain, but it can be assumed that the country will be forced to continue its course of balancing between East and West. The results of the elections and especially the referendum, which showed such a small margin of support for European integration, indicate a deep polarisation of society. Now, in order to maintain their pro-Western orientation, the authorities will have to seek compromises with those who oppose it, or prepare for the risks of instability and pressure from both pro-Russian and pro-European forces. The next parliamentary elections could be even more significant than the presidential elections, as the outcome will determine whether Sandu's supporters can consolidate their grip on power or whether the pro-Russian opposition will find ways to take the initiative. Regardless of the outcome, societal tensions and the influence of external actors on domestic politics are likely to remain among the key factors shaping Moldova's future in the coming years."}
+        {
+          "type": "caption-text",
+          "value": "Examples of pro-European orientated media [Politico](https://www.politico.com/news/2024/10/19/moldova-election-protection-biden-russia-00184429), [Washinton Post](https://www.washingtonpost.com/world/2024/10/21/moldava-eu-referendum-russia-influence/), [The New York Times](https://www.nytimes.com/2024/10/20/world/europe/moldova-election-russia-eu.html), [DW](https://www.dw.com/en/moldova-narrowly-votes-yes-to-eu-membership/a-70544401), covering the Russian interference."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Predictions"
+        },
+        {
+          "type": "image",
+          "value": "media/23104/Screenshot 2024-10-26 110351.png"
+        },
+        {
+          "type": "caption-text",
+          "value": "[Results](https://en.wikipedia.org/wiki/2020_Moldovan_presidential_election)  2020 Moldovan presidential elections, first and second rounds (other candidates scored less than 4 percent)."
+        },
+        {
+          "type": "text",
+          "value": "Although the second round on 3 November is still ahead, some predictions can be made. With a gap of more than 20%, it is hard to imagine that Stoianoglo could overtake Sandu in the second round, but it is theoretically possible. To understand where the remaining 31.5% of votes will go, we can make an analogy with the previous presidential elections, which took place in 2020. Back then, instead of Stoianoglo, PSRM was represented by Igor Dodon, who was only 3.5% behind Sandu in the first round. Third place went to Renato Usatii, the former mayor of the large city of Balti - who, although he claims to support Moldova's full neutrality, is in fact [is](https://www.rferl.org/a/moldova-elections-east-or-west/26713779.html) and is perceived by the population as slightly pro-Russian. Violeta Ivanov, a representative of the radically pro-Russian party Shor, which was banned last year, came 4th. As can be seen from the results of the second round, despite Sandu being the only pro-European candidate, the gap between Sandu and Dodon increased 4 times, reaching 4%. From this we can conclude that despite the great importance of the candidate's foreign policy orientation, the fact that Sandu was able to present herself as a candidate who cares about the welfare of citizens and fights corruption ensured her victory in the last elections, and although Moldovan voters are concerned about foreign policy issues, they were primarily worried about the internal problems of the country, which probably will not change this time."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Conclusions"
+        },
+        {
+          "type": "text",
+          "value": "The Moldovan republic has undeniably found itself in a position where the will of the people, whatever it may be, is not always realisable. While it is hard to imagine if Stoiangolo could win the election and reverse its pro-Western course by deciding to strengthen its economic ties with Russia, it is not clear how he could achieve this. Being completely squeezed between Ukraine and Romania, two countries vastly superior in population, economy and military power, and with the separatist state of Transnistria hosting several thousand Russian soldiers, it is clear that no one is going to just let Moldova go wherever it wants to go. The substantial attention shown on both sides to the geopolitical course of the country only proves it. Whatever choice the Moldovan people make, it will be very difficult, if not impossible, to implement this course without the approval of the neighbours."
+        },
+        {
+          "type": "text",
+          "value": "From a broader perspective, the outcome of the recent vote in Moldova demonstrates a strong decline in the societies of post-Soviet countries in the attractiveness of integration with the EU, which used to be perceived as a great prize. Moldova is only one example. There is also Georgia, whose authorities are in a standoff with the Eurostructures, and which will hold important parliamentary elections next Sunday."
+        },
+        {
+          "type": "text",
+          "value": "In both cases, undeniably, the developments are also significantly influenced by Russia, which acts through local politicians. Such political manoeuvres by Moscow prove to be more effective in correcting the course of post-Soviet countries than military intervention, as in the case of Ukraine, which only pushed it as far away from Russia as possible."
+        },
+        {
+          "type": "image",
+          "value": "media/23104/photo_2024-09-26_13-23-32.png"
+        },
+        {
+          "type": "caption-text",
+          "value": "«Say no to war! Choose peace!» - billboard advert of the ruling party of Georgia"
+        },
+        {
+          "type": "text",
+          "value": "At the same time, the factor of the Russian-Ukrainian war is actively used by forces loyal to Moscow (especially clearly seen in Georgia) to pursue the line: ‘a tough pro-Western European and anti-Russian course will lead to war, as in Ukraine’."
+        },
+        {
+          "type": "text",
+          "value": "Moldova's political future after these elections remains uncertain, but it can be assumed that the country will be forced to continue its course of balancing between East and West. The results of the elections and especially the referendum, which showed such a small margin of support for European integration, indicate a deep polarisation of society. Now, in order to maintain their pro-Western orientation, the authorities will have to seek compromises with those who oppose it, or prepare for the risks of instability and pressure from both pro-Russian and pro-European forces. The next parliamentary elections could be even more significant than the presidential elections, as the outcome will determine whether Sandu's supporters can consolidate their grip on power or whether the pro-Russian opposition will find ways to take the initiative. Regardless of the outcome, societal tensions and the influence of external actors on domestic politics are likely to remain among the key factors shaping Moldova's future in the coming years."
+        }
       ]
     },
     {
@@ -143,87 +698,173 @@
       "date": "2024-08-15T17:54:54",
       "title": "The offensive of the AFU in the Kursk region - goals and prospects.",
       "content": [
-        { "type": "raw-main-image", "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.jpg"},
-        { "type": "heading-text", "value": "The offensive of the AFU in the Kursk region - goals and prospects." },
-        { "type": "info-text", "value": "[Hryhorii Bavykin](about.html), 15th August 2024." },
-        { "type": "main-image", "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.png" },
-        { "type": "subheading-text", "value": "Context" },
-        { "type": "text", "value": "On the morning of 6 August, Ukrainian troops launched an attack on the Suja checkpoint. They quickly broke through the border guards' defences, moving more than 5 km deep into the frontline on the first day. Over the next few days, encountering only a small force of mostly conscripts (which also explains the relatively large number of Russian military personnel taken at the beginning of the offensive), the Ukrainian troops advanced 10-15 kilometres a day. Thus, as early as 8 August morning, a Ukrainian tank was reported in the village of Ivnytsia, halfway between Suja and Lgov, which is 37 km in a straight line to the Ukrainian border, or 45 km by road, and at a petrol station at the entrance to Korenevo (20 km to the border)." },
-
-        { "type": "text", "value": "This rapid advance is due to ‘wandering DRGs’, a tactic already used by the Ukrainian armed forces during their previous offensives, for example in Balakleya. The standard scenario of this attack was very successfully demonstrated in a video by the Russian military public group «Rybar»:" },
-
+        {
+          "type": "raw-main-image",
+          "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.jpg"
+        },
+        {
+          "type": "heading-text",
+          "value": "The offensive of the AFU in the Kursk region - goals and prospects."
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 15th August 2024."
+        },
+        {
+          "type": "main-image",
+          "value": "media/65932/2024-08-11T183206Z_127039775_RC2MD9AL8YDQ_RTRMADP_3_UKRAINE-CRISIS-RUSSIA-KURSK-BORDER-1024x682.png"
+        },
+        {
+          "type": "subheading-text",
+          "value": "Context"
+        },
+        {
+          "type": "text",
+          "value": "On the morning of 6 August, Ukrainian troops launched an attack on the Suja checkpoint. They quickly broke through the border guards' defences, moving more than 5 km deep into the frontline on the first day. Over the next few days, encountering only a small force of mostly conscripts (which also explains the relatively large number of Russian military personnel taken at the beginning of the offensive), the Ukrainian troops advanced 10-15 kilometres a day. Thus, as early as 8 August morning, a Ukrainian tank was reported in the village of Ivnytsia, halfway between Suja and Lgov, which is 37 km in a straight line to the Ukrainian border, or 45 km by road, and at a petrol station at the entrance to Korenevo (20 km to the border)."
+        },
+        {
+          "type": "text",
+          "value": "This rapid advance is due to ‘wandering DRGs’, a tactic already used by the Ukrainian armed forces during their previous offensives, for example in Balakleya. The standard scenario of this attack was very successfully demonstrated in a video by the Russian military public group «Rybar»:"
+        },
         {
           "type": "video",
           "value": "media/65932/scheme_r2+sound.mp4"
         },
-
-        { "type": "text", "value": "As a rule, one DRG consists of three to six armoured vehicles of the «Humvee» or «Kozak» type, sometimes accompanied by several APCs or one tank. While one-third of the group was fighting a Russian Armed Forces stronghold, the other part was moving further along the road, shooting at Russian reinforcements on the way. Thus, the combat-restrained soldiers reported on the enemy's ‘large-scale offensive’ while others saw AFU equipment in literally every village, although they were the same DRGs visiting village after village. As a result, such tactics allow the AFU to achieve the main task - panic and exit to the operational space where there are no Russian defence positions. The situation was also affected by the Ukrainian electronic warfare units, which, in addition to fighting against FPV drones, also blocked mobile communications, making communication between the Russian army forces, which exchange information using mobile devices, very difficult." },
-
-        { "type": "text", "value": "As of the evening of 15 August, the front line is still not completely stabilized. Yesterday, 14 August, the Ukrainian armed forces opened another point of entry across the Russian border 8 km to the left of the main direction, advancing 5 km inland and reaching the village of Vneszapnoye. A little earlier, on the night of 9-10 August, another direction was also opened, 12 km to the east of the nearest occupied village, where a 12 km breakthrough was made overnight to the village of Giryi. Globally, the last few days have been characterised by the gradual occupation by the Ukrainian armed forces of new settlements on a wide front, already on a more permanent basis by regular troops. At the moment, it seems that without the arrival of substantial reinforcements for the Russian forces, this trend may continue for quite some time." },
-
-        { "type": "gallery",
-        "images": [
+        {
+          "type": "text",
+          "value": "As a rule, one DRG consists of three to six armoured vehicles of the «Humvee» or «Kozak» type, sometimes accompanied by several APCs or one tank. While one-third of the group was fighting a Russian Armed Forces stronghold, the other part was moving further along the road, shooting at Russian reinforcements on the way. Thus, the combat-restrained soldiers reported on the enemy's ‘large-scale offensive’ while others saw AFU equipment in literally every village, although they were the same DRGs visiting village after village. As a result, such tactics allow the AFU to achieve the main task - panic and exit to the operational space where there are no Russian defence positions. The situation was also affected by the Ukrainian electronic warfare units, which, in addition to fighting against FPV drones, also blocked mobile communications, making communication between the Russian army forces, which exchange information using mobile devices, very difficult."
+        },
+        {
+          "type": "text",
+          "value": "As of the evening of 15 August, the front line is still not completely stabilized. Yesterday, 14 August, the Ukrainian armed forces opened another point of entry across the Russian border 8 km to the left of the main direction, advancing 5 km inland and reaching the village of Vneszapnoye. A little earlier, on the night of 9-10 August, another direction was also opened, 12 km to the east of the nearest occupied village, where a 12 km breakthrough was made overnight to the village of Giryi. Globally, the last few days have been characterised by the gradual occupation by the Ukrainian armed forces of new settlements on a wide front, already on a more permanent basis by regular troops. At the moment, it seems that without the arrival of substantial reinforcements for the Russian forces, this trend may continue for quite some time."
+        },
+        {
+          "type": "gallery",
+          "images": [
             "media/65932/20240815230802-a97c495a.jpg",
             "media/65932/GU5zmUAX0AAUVFE.jpg",
             "media/65932/UAF Kursk Incursion August 14, 2024.png",
             "media/65932/Screenshot 2024-08-16 105528.png"
-        ] 
-      },
-      { "type": "caption-text", "value": "Latest maps of the Kursk front as of the evening of 15 August from various sources." },
-
-
-        { "type": "text", "value": "It is worth noting that all information about the configuration of the front line up until 11-12 August came from Russian war correspondents and z-publics. The Ukrainian army and military blogs hardly commented on the situation. For example, the Ukrainian military telegram channel Deep State described and showed on a map what was happening on the first day of the attack on the Kursk region only on 9 August. And the first official mention of the events in Kursk was made only on 10 August, in Zelensky's evening address, where he said that today several times Chief Syrsky had already reported «on the displacement of the war into the territory of the aggressor»."},
-
-        { "type": "subheading-text", "value": "Цели" },
-
-        { "type": "text", "value": "In assessments of the AFU offensive in the Kursk region, both in Russia, the West, and even in Ukraine, the prevailing view is that these actions have more of an informational and political significance than a military one. To show that Ukraine can attack, to raise morale in Ukrainian society and among Western partners (whose support is critical for Ukraine), while in Russian society, on the contrary, to undermine the belief in victory in this war among the population, at the same time causing discord among Russian elites and in the information space (which is very much facilitated by various z-publics for two weeks already stirring up ‘betrayal’).)." },
-        
-        { "type": "text", "value": "All these goals are certainly in front of the AFU, but some facts indicate that the AFU may also have more ambitious goals, also discussed online."},
-        
-        { "type": "text", "value": "First of all, it is worth noting the fundamental differences between the current rush across the border and those that took place earlier in border villages in Belgorod Oblast. First of all, the scale. If then we were talking about no more than 20-30 people DRG (and then the main task was really media), now we are talking about at least 1000 Ukrainian soldiers, already deep in the territory of the Russian Federation " },    
-        
-        { "type": "text", "value": "Second is the concept. Previous attacks inside Russia were led by a group of volunteers, such as the legion ‘Freedom of Russia’ created by the Ukrainian authorities or the RDK, which is not directly linked to the Ukrainian military, but in this attack, it is AFU soldiers armed with Western weapons who are involved."},
-
-        { "type": "sub-subheading-text", "value": "Pulling back the forces" },
-        { "type": "text", "value": "One of the goals of the Kursk operation, apart from the media one, is often referred to as forcing the Russian army to transfer some of its forces from the Donbass direction (where the AFU has been doing really badly lately). Thus weakening the enemy's onslaught in the most difficult areas."},
-        { "type": "text", "value": "But such a goal can hardly be considered strategic. Because, sooner or later, it is obvious that Russian troops will be able to accumulate enough forces to stop the offensive of the AFU, and the transition to a potential counter-offensive operation. And then the AFU will have to use its reserves to prevent the loss of acquired positions, or even the transition of the combat zone to its own territory. After all, nothing will be able to stop the already formed group from deciding to move on, if they can push the Ukrainian troops back to the border."},
-
-        { "type": "sub-subheading-text", "value": "Creation of a buffer zone" },
-        { "type": "text", "value": "Another military goal could be the creation of a so-called buffer zone (similar to the goals of the Russian Armed Forces' offensive on Kharkiv Oblast) to ease the pressure of enemy shelling on the border territories. But it cannot strategically justify such a dangerous operation either, for essentially the same reasons as the pullback of forces. Artiukh, head of the OVA in Sumy region, recently reported that the intensity of shelling has increased ‘dozens of times’. More than 100 guided aerial bombs were dropped over the last two days, while in the past 7 months - 750. This fact proves that without achieving a significant breakthrough of at least 50-60 kilometres in all directions, this operation will only bring harm to this target."},
-
-        { "type": "sub-subheading-text", "value": "Stronger negotiating position" },
-        { "type": "text", "value": "Another common interpretation of this offensive, linked to the idea that the negotiations are no longer for the Gormai and everything is heading towards them, is that the captured territory will be added to the so-called ‘exchange fund’ in order to exchange it for parts of Kharkiv and other regions in the future. Naturally, in order to implement this strategy, the AFU will have to hold this territory until the end of the negotiations, and suppress all attempts to return it, which will require considerable effort and resources. Such a strategy is fraught with high risks, as success will depend not only on military action, but also on the political will of both sides to negotiate and compromise, which, according to another explanation, this offensive has only alienated."},
-
-        { "type": "sub-subheading-text", "value": "To get to the nuclear power plant" },
-        { "type": "text", "value": "The most obvious and largest strategic target located in the direction of the current offensive is the Kursk nuclear power plant. Located only 60 kilometres from the Ukrainian border and 35km from the nearest point where Ukrainian troops have been spotted (40km to the point of absolute control) in the city of Kurchatov, control over it would give Ukraine the opportunity to ‘trade’ it for, for example, the Zaporozhye NPP, or blackmail it. For example, Kiev could claim that it could blow up the power plant if Russia uses nuclear weapons (although this is unlikely to happen)."},
-
-        { "type": "sub-subheading-text", "value": "No red lines" },
-        { "type": "text", "value": "The 8 August Bloomberg article places great emphasis on the fact that for Ukraine, the operation reinforces its arguments that Western allies should not be afraid to cross the Kremlin's so-called ‘red lines’ and that they should allow Ukraine to fight Putin in any way it wants and therefore lift restrictions on arms transfers."},
-        { "type": "text", "value": "Regardless, if this strategy actually works and can convince even sceptics like Trump that defeating Russia is not a dream, but a more than realistic goal. And so we just need to give Ukraine more weapons. Of course, apart from the fear of escalation, there are other things that influence the motivation of Western countries to increase their support for Ukraine."},
-
-        { "type": "sub-subheading-text", "value": "Internal destabilisation" },
-        { "type": "text", "value": "The prospect of internal destabilisation, as the story of Prigozhin's mutiny last summer showed, is quite real. In addition to Ukrainian actions, Russian z-publics, which have created panic, hysteria and chaos in the Russian Federation's information space by spreading ‘zrada. This gives the supporters of the ‘war to the victorious end’ in Ukraine and in the West an excuse to say - ‘Putin does not control the situation, even among the Z-bloggers and their handlers from the “Kremlin towers” he cannot restore order, and therefore confusion and a new rebellion are inevitable’."},
-
-        { "type": "text", "value": "Obviously, all these calculations may turn out to be wrong (as well as calculations on the success of the offensive and turmoil in the Russian Federation in 2023). The offensive of the AFU in the Kursk region can be stopped in time, the Kremlin (including Z-publics) can quickly take the information space under the tightest possible control. And Ukraine will end up with a simply extended front, which will require large reserves to hold, while the Russian army's offensive in eastern Ukraine will continue."},
-
-        { "type": "subheading-text", "value": "Outcomes" },
-        { "type": "text", "value": "Summarising all the goals that this operation could potentially pursue, without having a complete picture of what is happening and having only(!) 1.5 weeks from the beginning of the operation, it is impossible to draw unambiguous conclusions neither on the success nor on the ultimate goals of the Kursk offensive (and there are certainly several of them). While some see this gesture as an aggressive preparation for negotiations, aiming to strengthen their future negotiating positions, others think that this is just the beginning of a new stage of escalation. As the Russian military website Rybar wrote in one of its latest reports:"
+          ]
         },
-        
-        { "type": "quote", "value": "«It is possible that in the next few days the enemy will introduce a second echelon in order to expand the zone of control and move further east.»"},
-
-        { "type": "text", "value": "which basically means that the situation is far from being resolved. Ukraine has taken a huge risk by depriving the tired eastern front of much-needed reserves, where, as an AFU officer writes, ‘everything is very sad, no exaggeration. Perhaps if Ukraine manages to divert resources from Donetsk Oblast and if Ukraine itself can gain a foothold in Kursk Oblast, the AFU operation could be called a success. However, if, as Konrad Muzyka, a military analyst with the Polish security group Rochan Consulting, has written, ‘Ukrainian forces will be pushed back from Russian territory without any tangible results with heavy losses’ and Russian forces continue to approach Pokrovsk at the current pace, Ukraine will probably be considered to have lost a costly military adventure."} 
+        {
+          "type": "caption-text",
+          "value": "Latest maps of the Kursk front as of the evening of 15 August from various sources."
+        },
+        {
+          "type": "text",
+          "value": "It is worth noting that all information about the configuration of the front line up until 11-12 August came from Russian war correspondents and z-publics. The Ukrainian army and military blogs hardly commented on the situation. For example, the Ukrainian military telegram channel Deep State described and showed on a map what was happening on the first day of the attack on the Kursk region only on 9 August. And the first official mention of the events in Kursk was made only on 10 August, in Zelensky's evening address, where he said that today several times Chief Syrsky had already reported «on the displacement of the war into the territory of the aggressor»."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Цели"
+        },
+        {
+          "type": "text",
+          "value": "In assessments of the AFU offensive in the Kursk region, both in Russia, the West, and even in Ukraine, the prevailing view is that these actions have more of an informational and political significance than a military one. To show that Ukraine can attack, to raise morale in Ukrainian society and among Western partners (whose support is critical for Ukraine), while in Russian society, on the contrary, to undermine the belief in victory in this war among the population, at the same time causing discord among Russian elites and in the information space (which is very much facilitated by various z-publics for two weeks already stirring up ‘betrayal’).)."
+        },
+        {
+          "type": "text",
+          "value": "All these goals are certainly in front of the AFU, but some facts indicate that the AFU may also have more ambitious goals, also discussed online."
+        },
+        {
+          "type": "text",
+          "value": "First of all, it is worth noting the fundamental differences between the current rush across the border and those that took place earlier in border villages in Belgorod Oblast. First of all, the scale. If then we were talking about no more than 20-30 people DRG (and then the main task was really media), now we are talking about at least 1000 Ukrainian soldiers, already deep in the territory of the Russian Federation "
+        },
+        {
+          "type": "text",
+          "value": "Second is the concept. Previous attacks inside Russia were led by a group of volunteers, such as the legion ‘Freedom of Russia’ created by the Ukrainian authorities or the RDK, which is not directly linked to the Ukrainian military, but in this attack, it is AFU soldiers armed with Western weapons who are involved."
+        },
+        {
+          "type": "sub-subheading-text",
+          "value": "Pulling back the forces"
+        },
+        {
+          "type": "text",
+          "value": "One of the goals of the Kursk operation, apart from the media one, is often referred to as forcing the Russian army to transfer some of its forces from the Donbass direction (where the AFU has been doing really badly lately). Thus weakening the enemy's onslaught in the most difficult areas."
+        },
+        {
+          "type": "text",
+          "value": "But such a goal can hardly be considered strategic. Because, sooner or later, it is obvious that Russian troops will be able to accumulate enough forces to stop the offensive of the AFU, and the transition to a potential counter-offensive operation. And then the AFU will have to use its reserves to prevent the loss of acquired positions, or even the transition of the combat zone to its own territory. After all, nothing will be able to stop the already formed group from deciding to move on, if they can push the Ukrainian troops back to the border."
+        },
+        {
+          "type": "sub-subheading-text",
+          "value": "Creation of a buffer zone"
+        },
+        {
+          "type": "text",
+          "value": "Another military goal could be the creation of a so-called buffer zone (similar to the goals of the Russian Armed Forces' offensive on Kharkiv Oblast) to ease the pressure of enemy shelling on the border territories. But it cannot strategically justify such a dangerous operation either, for essentially the same reasons as the pullback of forces. Artiukh, head of the OVA in Sumy region, recently reported that the intensity of shelling has increased ‘dozens of times’. More than 100 guided aerial bombs were dropped over the last two days, while in the past 7 months - 750. This fact proves that without achieving a significant breakthrough of at least 50-60 kilometres in all directions, this operation will only bring harm to this target."
+        },
+        {
+          "type": "sub-subheading-text",
+          "value": "Stronger negotiating position"
+        },
+        {
+          "type": "text",
+          "value": "Another common interpretation of this offensive, linked to the idea that the negotiations are no longer for the Gormai and everything is heading towards them, is that the captured territory will be added to the so-called ‘exchange fund’ in order to exchange it for parts of Kharkiv and other regions in the future. Naturally, in order to implement this strategy, the AFU will have to hold this territory until the end of the negotiations, and suppress all attempts to return it, which will require considerable effort and resources. Such a strategy is fraught with high risks, as success will depend not only on military action, but also on the political will of both sides to negotiate and compromise, which, according to another explanation, this offensive has only alienated."
+        },
+        {
+          "type": "sub-subheading-text",
+          "value": "To get to the nuclear power plant"
+        },
+        {
+          "type": "text",
+          "value": "The most obvious and largest strategic target located in the direction of the current offensive is the Kursk nuclear power plant. Located only 60 kilometres from the Ukrainian border and 35km from the nearest point where Ukrainian troops have been spotted (40km to the point of absolute control) in the city of Kurchatov, control over it would give Ukraine the opportunity to ‘trade’ it for, for example, the Zaporozhye NPP, or blackmail it. For example, Kiev could claim that it could blow up the power plant if Russia uses nuclear weapons (although this is unlikely to happen)."
+        },
+        {
+          "type": "sub-subheading-text",
+          "value": "No red lines"
+        },
+        {
+          "type": "text",
+          "value": "The 8 August Bloomberg article places great emphasis on the fact that for Ukraine, the operation reinforces its arguments that Western allies should not be afraid to cross the Kremlin's so-called ‘red lines’ and that they should allow Ukraine to fight Putin in any way it wants and therefore lift restrictions on arms transfers."
+        },
+        {
+          "type": "text",
+          "value": "Regardless, if this strategy actually works and can convince even sceptics like Trump that defeating Russia is not a dream, but a more than realistic goal. And so we just need to give Ukraine more weapons. Of course, apart from the fear of escalation, there are other things that influence the motivation of Western countries to increase their support for Ukraine."
+        },
+        {
+          "type": "sub-subheading-text",
+          "value": "Internal destabilisation"
+        },
+        {
+          "type": "text",
+          "value": "The prospect of internal destabilisation, as the story of Prigozhin's mutiny last summer showed, is quite real. In addition to Ukrainian actions, Russian z-publics, which have created panic, hysteria and chaos in the Russian Federation's information space by spreading ‘zrada. This gives the supporters of the ‘war to the victorious end’ in Ukraine and in the West an excuse to say - ‘Putin does not control the situation, even among the Z-bloggers and their handlers from the “Kremlin towers” he cannot restore order, and therefore confusion and a new rebellion are inevitable’."
+        },
+        {
+          "type": "text",
+          "value": "Obviously, all these calculations may turn out to be wrong (as well as calculations on the success of the offensive and turmoil in the Russian Federation in 2023). The offensive of the AFU in the Kursk region can be stopped in time, the Kremlin (including Z-publics) can quickly take the information space under the tightest possible control. And Ukraine will end up with a simply extended front, which will require large reserves to hold, while the Russian army's offensive in eastern Ukraine will continue."
+        },
+        {
+          "type": "subheading-text",
+          "value": "Outcomes"
+        },
+        {
+          "type": "text",
+          "value": "Summarising all the goals that this operation could potentially pursue, without having a complete picture of what is happening and having only(!) 1.5 weeks from the beginning of the operation, it is impossible to draw unambiguous conclusions neither on the success nor on the ultimate goals of the Kursk offensive (and there are certainly several of them). While some see this gesture as an aggressive preparation for negotiations, aiming to strengthen their future negotiating positions, others think that this is just the beginning of a new stage of escalation. As the Russian military website Rybar wrote in one of its latest reports:"
+        },
+        {
+          "type": "quote",
+          "value": "«It is possible that in the next few days the enemy will introduce a second echelon in order to expand the zone of control and move further east.»"
+        },
+        {
+          "type": "text",
+          "value": "which basically means that the situation is far from being resolved. Ukraine has taken a huge risk by depriving the tired eastern front of much-needed reserves, where, as an AFU officer writes, ‘everything is very sad, no exaggeration. Perhaps if Ukraine manages to divert resources from Donetsk Oblast and if Ukraine itself can gain a foothold in Kursk Oblast, the AFU operation could be called a success. However, if, as Konrad Muzyka, a military analyst with the Polish security group Rochan Consulting, has written, ‘Ukrainian forces will be pushed back from Russian territory without any tangible results with heavy losses’ and Russian forces continue to approach Pokrovsk at the current pace, Ukraine will probably be considered to have lost a costly military adventure."
+        }
       ]
     }
-  ],  
+  ],
   "opinion": [
     {
-      "id": "",
-      "visible": "no",
-      "date": "",
-      "title": "",
+      "id": "16015",
+      "visible": "yes",
+      "date": "2023-01-01T16:09:00",
+      "title": "There are no publications of this type yet. But let's hope there will be soon!",
       "content": [
-        
+        {
+          "type": "main-image",
+          "value": "media/16015/1f64f.png"
+        }
       ]
     }
   ]
