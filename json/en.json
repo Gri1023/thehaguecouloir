@@ -20,7 +20,7 @@
     {
       "footer-grid-item3": [
         "About",
-        "Naming",
+        "Description",
         "Author",
         "Contact"
       ]
@@ -41,7 +41,7 @@
   "sortBy": "Sort by:",
   "newest": "Newest",
   "oldest": "Oldest",
-  "highlightedArticle1Id": "09015",
+  "highlightedArticle1Id": "23015",
   "highlightedArticle2Id": "08015",
   "highlightedArticle3Id": "23104",
   "highlightedArticle4Id": "19094",
@@ -102,6 +102,94 @@
         {
           "type": "text",
           "value": "Yesterday, information appeared that Kurdish units began to withdraw their detachments from the contact line to rear and mountainous areas in anticipation of the Turkish offensive."
+        }
+      ]
+    },
+    {
+      "id": "23015",
+      "visible": "yes",
+      "date": "2025-01-23T23:58:00",
+      "title": "🇺🇦AFU were «trapped» in Velyka Novosilka - Neue Zürcher Zeitung",
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "🇺🇦AFU were [«trapped»](https://www.nzz.ch/international/die-ukrainischen-verteidigungslinien-broeckeln-russlands-truppen-stuermen-die-frontstadt-welika-nowosilka-ld.1867405) in Velyka Novosilka - Neue Zürcher Zeitung (map from 22 January - [Rybar](https://t.me/rybar/67248))"
+        },
+        {
+          "type": "main-image",
+          "value": "media/23015/20250122190403-b5f6eea7.jpg"
+        },
+        {
+          "type": "caption-text",
+          "value": ""
+        },
+        {
+          "type": "text",
+          "value": "<u><b>Preface: this entire text was written yesterday. Today I finished only the ending, sending it off in the next message. Thank you."
+        },
+        {
+          "type": "text",
+          "value": "Velyka Novoselka is an urban-type settlement in the south-west of Donetsk region with a pre-war population of 5,500. After the fall of Ugledar, it became the southernmost end controlled by the AFU. It was this settlement, which at that time was right on the front line, that became the starting point of one of the two directions of the summer offensive of the AFU in 2023."
+        },
+        {
+          "type": "text",
+          "value": "Since then, however, the military situation has deteriorated greatly. The Ukrainian armed forces lost all the previously liberated villages in the south. On 21 December, they finally lost control of the road leading north through the village of Novy Komar. And on 16 January, the loss of Vremievka village, a key point on the western bank of the river, cut the village off from the last road. Velikaya Novoselka was now trapped: all bridges leading out of the village were now controlled by the enemy."
+        },
+        {
+          "type": "text",
+          "value": "The situation has become critical. On 21 January, the chief of the Ukrainian publication Censor.net, Yuriy Butusov, [publicly called](https://www.youtube.com/watch?v=CevHN_oyFTA&t=179s) for the immediate withdrawal of troops from Velyka Novoselka"
+        },
+        {
+          "type": "quote",
+          "value": "«It is impossible to deploy communications, organise support and rapid evacuation. How can we hold it any longer? There is no replenishment of people. But there is an order to hold on», Butusov said."
+        },
+        {
+          "type": "text",
+          "value": "Is this the first time? No. One thinks of the retreating battles near Avdiivka a year ago, or Ugledar in October. The result as well as the story remains unchanged. In both cases, the high command waited too long in a hopeless situation and gave the order to withdraw too late, as a result losing a lot of men and heavy weapons."
+        },
+        {
+          "type": "text",
+          "value": "Could it have been avoided? Absolutely. By getting rid of generals who set unrealistic tasks; of brigades commanders who underestimate the scale of problems; of regimental commanders who exaggerate the successes and losses of the enemy. By promoting those who have truly earned the trust of their soldiers, and punishing those who [do not value their lives](https://t.me/v_holovniia/1145). Not the [other way round](https://t.me/grycko_the_hague_couloir/932)."
+        },
+        {
+          "type": "quote",
+          "value": "«Save the people, lose the land - the land can still be seized. If you save the land and lose the people, you will be left without both people and land». - said Mao Zedong"
+        },
+        {
+          "type": "text",
+          "value": "It was this decision, to preserve his army rather than territory, that allowed Jan II Casimir, a Polish king from the 17th century, to later strike back to regain control of his country from the Swedish invaders. This historical example, and many others like it, shows that preserving an army is more important than temporarily preserving territory."
+        },
+        {
+          "type": "text",
+          "value": "<u><b>Message from the next day"
+        },
+        {
+          "type": "text",
+          "value": "When I left this text for tomorrow, I thought I still had time. But the very call for withdrawal has become irrelevant today."
+        },
+        {
+          "type": "text",
+          "value": "The southern part of Velikaya Novoselka [is cut off from](https://t.me/muchnoyairborn/11337) the northern part. The Russian army is now advancing towards the centre of the village; it controls most of the right bank, while the remaining remnants of the sections are being «densely covered with grads» by the Russians."
+        },
+        {
+          "type": "quote",
+          "value": "«There are casualties on our side, and they are very high, there are video recordings from enemy cameras. Soon the settlement will be raked, how many will come out alive, only the god knows» [wrote](https://t.me/muchnoyairborn/11337) an AFU serviceman with the call sign “Muchnoi”."
+        },
+        {
+          "type": "text",
+          "value": "However, the main point of this appeal does not lose its force."
+        },
+        {
+          "type": "text",
+          "value": "This call is not a call to surrender. It is a call to reason. It is not even a question of foresight, that there will be no one left to defend the territory. The question is who will live on the territory for which so many lives have been sacrificed? Who will be able to maintain and develop it if these people are gone?"
+        },
+        {
+          "type": "text",
+          "value": "Rationality is not a weakness. It is a strength that allows us to make difficult but right choices. It is an opportunity to preserve life where there is no chance of victory, to face the future with renewed vigour."
+        },
+        {
+          "type": "text",
+          "value": "Today's failures are a lesson. It is a lesson that war must be fought for the sake of people, for their future, and not for the ambitions of politicians. And this lesson has not yet been learnt."
         }
       ]
     },
@@ -333,7 +421,7 @@
     },
     {
       "id": "09015",
-      "visible": "yes",
+      "visible": "no",
       "date": "2025-01-09T14:43:00",
       "title": "Семь выборов за 4 года: как Болгария застряла в политическом тупике и виден ли выход?",
       "content": [

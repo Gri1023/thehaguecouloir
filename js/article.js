@@ -45,7 +45,8 @@ function loadArticleContent() {
                         const captionTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="caption-text-with-link">$1</a>');
                         articleContent.innerHTML += `<p class="caption-text">${captionTextWithLinks}</p>`;
                     } else if (item.type === 'quote') {
-                        articleContent.innerHTML += `<div class="quote">${item.value}</div>`;
+                        const quoteTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="quote-text-with-link">$1</a>');
+                        articleContent.innerHTML += `<div class="quote">${ quoteTextWithLinks}</div>`;
                     } else if (item.type === 'warning') {
                         articleContent.innerHTML += `<div class="warning">${item.value}</div>`;
                     } else if (item.type === 'video') {
