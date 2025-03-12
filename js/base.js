@@ -1,6 +1,8 @@
-if (window.innerWidth < 1024) {
-    alert("Dear user! It seems that you are using a device with a narrower screen. Unfortunately, this website is not yet fully optimized for smaller screen sizes. As a result, a wider layout was forced, which may require you to scroll both horizontally and vertically to navigate(or just zoom out). Author apologizes for this temporary inconvenience and is working to resolve it as soon as possible.");
-  }
+if (window.innerWidth < 1024 && !sessionStorage.getItem("mobileWarningShown")) {
+    alert("Dear user! It seems that you are using a device with a narrower screen. Unfortunately, this website is not yet fully optimized for smaller screen sizes. As a result, a wider layout was forced, which may require you to scroll both horizontally and vertically to navigate (or just zoom out). The author apologizes for this temporary inconvenience and is working to resolve it as soon as possible.");
+    sessionStorage.setItem("mobileWarningShown", "true");
+}
+
 window.currentLanguage = (getCurrentLanguage());
 
 // Function to get the current language from URL or localStorage

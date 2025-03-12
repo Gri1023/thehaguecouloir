@@ -78,8 +78,8 @@ function loadContent(jsonFile) {
                     .map(item => ({ ...item, type })))
                 .sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            // Limit to 3 publications per section
-            const maxItemsPerSection = 3;
+            const maxItemsPerSection = getMaxItemsPerSection();
+            console.log("maxItemsPerSection = " + maxItemsPerSection);
 
             ['news', 'article', 'opinion'].forEach(type => {
                 // Get items of the current type and limit to 3
@@ -234,4 +234,14 @@ function loadContent(jsonFile) {
             }
         }
         )
+}
+
+function getMaxItemsPerSection() {
+    if (window.innerWidth >= 1024) {
+        return 3; // 3 per row (Desktop)
+    } else if (window.innerWidth >= 640) {
+        return 4; // 2 per row (Tablet, so 4 in total)
+    } else {
+        return 3; // Default for small screens (Mobile)
+    }
 }

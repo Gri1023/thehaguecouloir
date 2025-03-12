@@ -116,6 +116,10 @@
           "value": "🇺🇦AFU were [«trapped»](https://www.nzz.ch/international/die-ukrainischen-verteidigungslinien-broeckeln-russlands-truppen-stuermen-die-frontstadt-welika-nowosilka-ld.1867405) in Velyka Novosilka - Neue Zürcher Zeitung (map from 22 January - [Rybar](https://t.me/rybar/67248))"
         },
         {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 23 January 2025"
+        },
+        {
           "type": "main-image",
           "value": "media/23015/20250122190403-b5f6eea7.jpg"
         },
@@ -204,6 +208,10 @@
           "value": "🗣Durov stated that he is proud to have supported free speech long before it was politically safe to do so."
         },
         {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 8 January 2025"
+        },
+        {
           "type": "main-image",
           "value": "media/08015/{9BB45469-09A1-456F-8B56-ACBBD4C3E4E2}.png"
         },
@@ -253,7 +261,7 @@
       "content": [
         {
           "type": "heading-text",
-          "value": "🇺🇦ЗZaluzhny was against an offensive on Russian territory when Zelensky first talked about and insisted on an offensive - [Politico](https://www.politico.eu/article/kursk-russia-incursion-objections-war-in-ukraine-volodymyr-zelenskyy/)"
+          "value": "🇺🇦Zaluzhny was against an offensive on Russian territory when Zelensky first talked about and insisted on an offensive - [Politico](https://www.politico.eu/article/kursk-russia-incursion-objections-war-in-ukraine-volodymyr-zelenskyy/)"
         },
         {
           "type": "info-text",

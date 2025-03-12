@@ -18,8 +18,15 @@
         /* Ensure no unintended padding */
         box-sizing: border-box;
         display: grid;
+        position: relative;
     }
 
+    /* When screen width is less than 1024px, remove side columns
+@media (max-width: 1024px) {
+    .index-layout {
+        grid-template-columns: 1fr;
+    }
+} */
 
     /* .index-layout .left-content{
         grid-column: 1; 
@@ -271,13 +278,6 @@
         /* Add margin for the text */
     }
 
-    .main-image {
-        width: calc(100% - 240px);
-        /* Adjust the width to fit the remaining space */
-        margin-left: 240px;
-        /* Add margin to the left to make space for the nav container */
-    }
-
     /* Dropdown Button */
     .dropbtn {
         background-color: transparent;
@@ -309,11 +309,9 @@
 
     /* General styles for the language selector */
     .language-selector {
-        position: fixed;
-        /* Allows placement over other content */
-        top: 0px;
-        /* Places the selector 20px from the top of the page */
+        position: absolute;
         right: 0px;
+        top: 0px;
         /* Places the selector 20px from the right of the page */
         display: flex;
         /* Enables Flexbox for alignment */
@@ -671,6 +669,18 @@
         font-family: 'Roboto', serif;
     }
 
+    /* @media (max-width: 1024px) {
+        .content-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 640px) {
+        .content-grid {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    } */
+
     .publication-section {
         margin: 20px 0;
         font-family: 'Roboto', serif;
@@ -968,13 +978,11 @@
 
     main-text .main-image {
         display: block;
-        margin: auto;
-        max-width: 95%;
-        margin-bottom: 10px;
-        padding-left: 5px;
-        padding-right: 5px;
+        margin: 0 auto;
+        align-items: center;
         border-radius: 13px;
         max-height: 500px;
+        max-width: 95%;
     }
 
     .main-text .main-video {
@@ -982,8 +990,6 @@
         margin: auto;
         max-width: 95%;
         margin-bottom: 10px;
-        padding-left: 5px;
-        padding-right: 5px;
         border-radius: 13px;
         object-fit: cover;
         /* Ensures the video fits nicely within the container */
@@ -1115,21 +1121,14 @@
         padding: 1%;
         position: relative;
         bottom: 0;
-        width: 100vw;
+        width: 1fr;
         height: fit-content;
         font-family: "Roboto", serif;
     }
 
     .footer-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-
-    @media (min-width: 800px) {
-        .footer-grid {
-            grid-template-columns: repeat(4, 1fr);
-            /* Limit to a maximum of 3 columns */
-        }
+        grid-template-columns: repeat(4, minmax(200px, 1fr));
     }
 
     /* .footer-grid-item {
