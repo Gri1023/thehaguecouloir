@@ -1,5 +1,19 @@
 ﻿{
   "siteTitle": "The Hague Couloir",
+  "navigation": [
+    {
+      "highlights": "Home"
+    },
+    {
+      "catalogue": "Highlights"
+    },
+    {
+      "allPublications": "All publications"
+    },
+    {
+      "about": "About"
+    }
+  ],
   "footer": [
     {
       "footer-grid-item1": [

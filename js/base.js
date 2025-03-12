@@ -5,11 +5,25 @@ if (window.innerWidth < 1024 && !sessionStorage.getItem("mobileWarningShown")) {
 
 window.currentLanguage = (getCurrentLanguage());
 
-// Function to get the current language from URL or localStorage
 function getCurrentLanguage() {
-    const urlParams = new URLSearchParams(window.location.search);
+    let urlParams = new URLSearchParams(window.location.search);
+    const hashIndex = window.location.href.indexOf('#');
+
+    // If no language parameter is found in the search part, check the hash part
+    if (!urlParams.has('lang') && hashIndex !== -1) {
+        const hash = window.location.href.slice(hashIndex + 1);
+        const hashParamsIndex = hash.indexOf('?');
+        if (hashParamsIndex !== -1) {
+            const hashParams = new URLSearchParams(hash.slice(hashParamsIndex + 1));
+            if (hashParams.has('lang')) {
+                urlParams = hashParams;
+            }
+        }
+    }
+
     const urlLanguage = urlParams.get('lang');
-    
+    console.log('Current language:', urlLanguage);
+
     // If there's a language in the URL, use it
     return urlLanguage || 'en';
 }
@@ -48,7 +62,7 @@ function changeLanguage(language) {
     urlParams.set('lang', language);
 
     // Reload the page with the updated language in the URL
-    window.location.search = urlParams.toString(); 
+    window.location.search = urlParams.toString();
 }
 
 // Function to set localized text
@@ -60,6 +74,15 @@ function setBaseLocalizedText() {
             // Set the site title
             document.title = data.siteTitle;
             document.querySelector('#navContainer .navigation-title-text').innerHTML = `<a href="index.html" class="navigation-title-text"?lang=${language}">${data.siteTitle}</a>`;
+
+            // Update text for navigation menu items
+            const navigationItems = document.querySelectorAll('.navigation-link');
+            navigationItems.forEach((item, index) => {
+                const linkKey = Object.keys(data.navigation[index])[0]; // Get the key (e.g., "highlights", "catalogue", etc.)
+                if (data.navigation[index][linkKey]) {
+                    item.querySelector('.navigation-option-text').textContent = data.navigation[index][linkKey];
+                }
+            });
 
             // Update text for footer grid item 1
             const footerGridItem1 = document.querySelector('#footer-grid-item1 .footer-grid-item-list').children;
@@ -99,11 +122,34 @@ function setBaseLocalizedText() {
         .catch(error => console.error('Error loading localized text:', error));
 }
 
+// Function to update the navigation links with the current language
+function updateNavigationLinks() {
+    const lang = getCurrentLanguage(); // Get current language (from URL or default)
+    const links = document.querySelectorAll('.navigation-link');
+
+    links.forEach(link => {
+        let href = link.getAttribute('href');
+
+        // Check if the link already contains a lang parameter
+        if (href.includes('?lang=') || href.includes('&lang=')) {
+            return; // Skip links that already have a language parameter
+        }
+
+        // If the link does not contain a language parameter, add it
+        if (href.includes('?')) {
+            link.setAttribute('href', href + '&lang=' + lang);
+        } else {
+            link.setAttribute('href', href + '?lang=' + lang);
+        }
+    });
+}
+
 
 
 // Ensure that setLocalizedText is called on page load
 document.addEventListener('DOMContentLoaded', () => {
     setBaseLocalizedText(); // Update header and footer text based on the current language
+    updateNavigationLinks(); // Update navigation links based on the current language
     // Call other initialization functions here if needed
 });
 

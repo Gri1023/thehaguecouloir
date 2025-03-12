@@ -1,5 +1,19 @@
 ﻿{
   "siteTitle": "Гаагский Кулуар",
+  "navigation": [
+    {
+      "highlights": "Главная"
+    },
+    {
+      "catalogue": "Каталог"
+    },
+    {
+      "allPublications": "Все публикации"
+    },
+    {
+      "about": "О сайте "
+    }
+  ],
   "footer": [
     {
       "footer-grid-item1": [
