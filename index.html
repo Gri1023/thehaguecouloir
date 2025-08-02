@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Hague Couloir</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="media/skull 2-enchanced-cropped 128x141.png" type="image/png">
+    <link rel="icon" href="media/pixel_skull_small.png" type="image/png">
     <script src="js/base.js" defer></script>
     <script src="js/index.js" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,6 @@
 
 <body>
     <div class="index-layout">
-
         <div class="language-selector" id="languageSelector">
             <button class="dropdown-button"><img src="language-icon-white.png" class="language-icon" /></button>
             <div class="dropdown-menu">
@@ -28,10 +27,15 @@
         <!-- New highlighted article div -->
         <div class="center-right-content">
             <div class="highlighted-article" id="highlighted-article">
+                <!-- <div class="highlighted-article-image-wrapper"> -->
                 <img class="highlighted-image">
+                <!-- </div> -->
                 <div class="highlighted-content">
                     <span class="highlighted-type"><!-- Dynamic --></span>
-                    <h2 class="highlighted-title"><!-- Dynamic --></h2>
+                    <h2 class="highlighted-title">
+                        <!-- Dynamic title text goes here -->
+                        <span class="video-indicator"></span>
+                    </h2>
                     <span class="highlighted-date"><!-- Dynamic --></span>
                     <!-- New highlighted articles grid div -->
                 </div>
@@ -56,7 +60,7 @@
                         <a href="index.html" id="logo-link">
                             <img src="media/logo.png" alt="Logo" class="logo">
                         </a>
-                        <a href="index.html" class="navigation-title-text"></a>
+                        <a href="index.html" class="navigation-title-text" id="navigation-title-text"></a>
                         <ul>
                             <li>
                                 <a href="index.html" class="navigation-link">
@@ -86,7 +90,8 @@
                     </div>
                     <div class="sidebars-left-item" id="sidebars-left-item1">
                         <img src="Telegram_Logo_old.png" class="telegram-3d-icon">
-                        <a href="https://t.me/grycko_the_hague_couloir">Join my Telegram channel for regular updates,
+                        <a href="https://t.me/grycko_the_hague_couloir">Join my Telegram channel for regular
+                            updates,
                             author's <br> notes and memes! <br> (in Russian)
                             <div class="join-telegram-button">
                                 <a href="https://t.me/grycko_the_hague_couloir">Join</a>
@@ -106,7 +111,8 @@
                     <section id="news-section" class="publication-section">
                         <div id="catalogue-anchor"></div>
                         <h2 class="publication-section-heading">News</h2>
-                        <p class="publication-section-subheading">Latest news with authors perspective in the end.</p>
+                        <p class="publication-section-subheading">Latest news with authors perspective in the end.
+                        </p>
                         <div class="content-grid" id="news-grid"></div>
                         <a href="all-publications.html" class="publication-section-button-text">
                             <div class="publication-section-button">Explore all publications</div>
@@ -116,7 +122,8 @@
                     <!-- Section for "Articles" -->
                     <section id="articles-section" class="publication-section">
                         <h2 class="publication-section-heading">Articles</h2>
-                        <p class="publication-section-subheading">In-depth analyses of various topics, that are trying
+                        <p class="publication-section-subheading">In-depth analyses of various topics, that are
+                            trying
                             to be as objective as possible.</p>
                         <div class="content-grid" id="article-grid"></div>
                         <a href="all-publications.html" class="publication-section-button-text">
@@ -127,8 +134,9 @@
                     <!-- Section for "Opinions" -->
                     <section id="opinions-section" class="publication-section">
                         <h2 class="publication-section-heading">Opinions</h2>
-                        <p class="publication-section-subheading">Opinion-based articles where author tries to
-                            objectively prove his point.</p>
+                        <p class="publication-section-subheading">Opinion-based articles, trying to objectively
+                            prove a
+                            point.</p>
                         <div class="content-grid" id="opinion-grid"></div>
                         <a href="all-publications.html" class="publication-section-button-text">
                             <div class="publication-section-button">Explore all publications</div>

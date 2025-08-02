@@ -177,31 +177,15 @@ function loadContent(jsonFile) {
                         contentItem.type === 'main-image' || contentItem.type === 'main-video'
                     );
 
-                    // Update media content
+                    // Update image
+                    const highlightedImage = highlightedArticle.querySelector('.highlighted-image');
                     if (mediaContent.type === 'main-image') {
-                        const highlightedImage = document.querySelector('.highlighted-image');
-
-                        // Remove the fade-in class to reset the state
-                        highlightedImage.classList.remove('fade-in');
-
-                        // Ensure the image source changes
                         highlightedImage.src = mediaContent.value;
-
-                        // Force a reflow to ensure the transition restarts
-                        void highlightedImage.offsetWidth; // This ensures the browser registers the change
-
-                        // Re-add the fade-in class to trigger the effect
-                        highlightedImage.classList.add('fade-in');
                     } else if (mediaContent.type === 'main-video') {
-                        highlightedArticle.innerHTML = `
-                            <video class="video-preview" src="${mediaContent.value}" muted autoplay loop></video>
-                            <div class="video-indicator">
-                                <span class="dot"></span> ${data.videoText[currentLanguage]}
-                            </div>
-                        `;
+                        highlightedImage.src = featuredItem.previewImage;
                     }
 
-                    // Update the highlighted article details
+                    // Update overlay content
                     highlightedArticle.querySelector('.highlighted-title').innerHTML = `<a href="${articleLink}">${featuredItem.title}</a>`;
                     const highlightedTypeElement = highlightedArticle.querySelector('.highlighted-type');
                     highlightedTypeElement.textContent = data.types[featuredItem.type];
@@ -210,17 +194,27 @@ function loadContent(jsonFile) {
                     const highlightedButton = highlightedArticle.querySelector('.highlighted-button');
                     highlightedButton.innerHTML = `<a href="${articleLink}" class="highlighted-button-link">${data.readMoreButton}</a>`;
 
-                    // Update grid-item h3 styling and highlight current item
+                    const highlightedTitle = highlightedArticle.querySelector('.highlighted-title');
+                    highlightedTitle.innerHTML = `<a href="${articleLink}">${featuredItem.title}</a>` +
+                        (mediaContent.type === 'main-video'
+                            ? `<span class="video-indicator"><span class="dot"></span> ${data.videoText}</span>`
+                            : '');
+                    // else {
+                    //          videoIndicator.innerHTML = '';
+                    //          videoIndicator.style.display = 'none';
+                    //      }
+
+                    // Highlight grid item
                     const gridItems = document.querySelectorAll('#highlighted-articles-grid .grid-item');
                     gridItems.forEach(item => {
                         if (item.querySelector('h3').textContent === featuredItem.title) {
-                            item.classList.add('active'); // Highlight current item
+                            item.classList.add('active');
                         } else {
-                            item.classList.remove('active'); // Remove highlight
+                            item.classList.remove('active');
                         }
                     });
 
-                    currentIndex = (currentIndex + 1) % featuredItems.length;
+                    // currentIndex = (currentIndex + 1) % featuredItems.length;
                 }
 
 

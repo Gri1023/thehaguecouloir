@@ -33,11 +33,13 @@ function loadArticleContent() {
                         const infoTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="info-text-with-link">$1</a>');
                         articleContent.innerHTML += `<p class="info-text">${infoTextWithLinks}</p>`;
                     } else if (item.type === 'text') {
-                        const textWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-with-link">$1</a>');
-                        articleContent.innerHTML += `<p>${textWithLinks}</p>`;
+                        const textFormatted = item.value
+                            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-with-link">$1</a>')
+                            .replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>');
+                        articleContent.innerHTML += `<p>${textFormatted}</p>`;
                     } else if (item.type === 'main-image') {
                         articleContent.innerHTML += `<img src="${item.value}" alt="" class="main-image">`;
-                    }else if (item.type === 'main-video') {
+                    } else if (item.type === 'main-video') {
                         articleContent.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${item.value}"></video></div>`;
                     } else if (item.type === 'image') {
                         articleContent.innerHTML += `<img src="${item.value}" alt="" class="image">`;
@@ -46,7 +48,7 @@ function loadArticleContent() {
                         articleContent.innerHTML += `<p class="caption-text">${captionTextWithLinks}</p>`;
                     } else if (item.type === 'quote') {
                         const quoteTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="quote-text-with-link">$1</a>');
-                        articleContent.innerHTML += `<div class="quote">${ quoteTextWithLinks}</div>`;
+                        articleContent.innerHTML += `<div class="quote">${quoteTextWithLinks}</div>`;
                     } else if (item.type === 'warning') {
                         articleContent.innerHTML += `<div class="warning">${item.value}</div>`;
                     } else if (item.type === 'video') {
@@ -55,11 +57,21 @@ function loadArticleContent() {
                 });
 
                 initializeGallery();
+                initializeSpoilers();
             } else {
                 document.getElementById('article-content').innerHTML = '<p>Публикация не найдена. Попробуйте поменять язык в правом верхнем углу, перевод некоторых из них может занять до 2 дней. Все ещё не работает? Сообщите автору: thehaguecouloir@gmail.com. </p> <p> Publication not found. Try changing the language in the top right corner, some may take up to 2 days to translate. Still not working? Let the author know: thehaguecouloir@gmail.com.</p>';
             }
         })
         .catch(error => console.error('Error loading article content:', error));
+}
+
+function initializeSpoilers() {
+    document.querySelectorAll('.spoiler-text').forEach(elem => {
+        elem.addEventListener('click', () => {
+            elem.classList.toggle('revealed');
+        });
+    });
+    console.log('Spoilers initialized');
 }
 
 
@@ -71,11 +83,11 @@ function createGallery(container, images) {
             <button class="gallery-nav-button right">&gt;</button>
             <div class="gallery-thumbnails">
     `;
-    
+
     images.forEach((image, index) => {
         galleryHtml += `<img src="${image}" alt="Thumbnail" class="gallery-thumbnail${index === 0 ? ' active' : ''}" data-index="${index}">`;
     });
-    
+
     galleryHtml += `
             </div>
         </div>
@@ -83,7 +95,7 @@ function createGallery(container, images) {
             <img src="" alt="Zoom Image" class="gallery-zoom-image">
         </div>
     `;
-    
+
     container.innerHTML += galleryHtml;
 }
 
@@ -94,9 +106,14 @@ function initializeGallery() {
     const rightButton = document.querySelector('.gallery-nav-button.right');
     const zoomOverlay = document.querySelector('.gallery-zoom-overlay');
     const zoomImage = document.querySelector('.gallery-zoom-image');
-    
+
+    // If there is no gallery, exit early
+    if (!mainImage || !leftButton || !rightButton || !zoomOverlay || !zoomImage || thumbnails.length === 0) {
+        return;
+    }
+
     let currentIndex = 0;
-    
+
     function updateMainImage(index) {
         const newSrc = thumbnails[index].src;
         mainImage.src = newSrc;
@@ -109,7 +126,7 @@ function initializeGallery() {
     thumbnails.forEach((thumb, index) => {
         thumb.addEventListener('click', () => updateMainImage(index));
     });
-    
+
     leftButton.addEventListener('click', () => {
         const newIndex = (currentIndex > 0) ? currentIndex - 1 : thumbnails.length - 1;
         updateMainImage(newIndex);
@@ -119,7 +136,7 @@ function initializeGallery() {
         const newIndex = (currentIndex < thumbnails.length - 1) ? currentIndex + 1 : 0;
         updateMainImage(newIndex);
     });
-    
+
     mainImage.addEventListener('click', () => {
         zoomOverlay.classList.add('active');
     });

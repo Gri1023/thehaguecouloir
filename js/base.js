@@ -73,7 +73,7 @@ function setBaseLocalizedText() {
         .then(data => {
             // Set the site title
             document.title = data.siteTitle;
-            document.querySelector('#navContainer .navigation-title-text').innerHTML = `<a href="index.html" class="navigation-title-text"?lang=${language}">${data.siteTitle}</a>`;
+            document.querySelector('#navContainer .navigation-title-text').textContent = data.siteTitle;
 
             // Update text for navigation menu items
             const navigationItems = document.querySelectorAll('.navigation-link');
@@ -142,6 +142,30 @@ function updateNavigationLinks() {
             link.setAttribute('href', href + '?lang=' + lang);
         }
     });
+
+    // Also update logo and navigation title links
+    const logoLink = document.getElementById('logo-link');
+    if (logoLink) {
+        let href = logoLink.getAttribute('href');
+        if (!href.includes('lang=')) {
+            if (href.includes('?')) {
+                logoLink.setAttribute('href', href + '&lang=' + lang);
+            } else {
+                logoLink.setAttribute('href', href + '?lang=' + lang);
+            }
+        }
+    }
+    const navTitle = document.getElementById('navigation-title-text');
+    if (navTitle) {
+        let href = navTitle.getAttribute('href');
+        if (!href.includes('lang=')) {
+            if (href.includes('?')) {
+                navTitle.setAttribute('href', href + '&lang=' + lang);
+            } else {
+                navTitle.setAttribute('href', href + '?lang=' + lang);
+            }
+        }
+    }
 }
 
 

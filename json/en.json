@@ -55,15 +55,15 @@
   "sortBy": "Sort by:",
   "newest": "Newest",
   "oldest": "Oldest",
-  "highlightedArticle1Id": "23015",
-  "highlightedArticle2Id": "08015",
-  "highlightedArticle3Id": "23104",
-  "highlightedArticle4Id": "19094",
+  "highlightedArticle1Id": "31075",
+  "highlightedArticle2Id": "23015",
+  "highlightedArticle3Id": "08015",
+  "highlightedArticle4Id": "23104",
   "readMoreButton": "Read more",
   "moreInfoText": "Or find more yourself",
   "allPublications": "All publications",
   "filterBy": "Filter by:",
-  "video": "VIDEO",
+  "videoText": "VIDEO",
   "types": {
     "all": "ALL",
     "news": "NEWS",
@@ -71,6 +71,63 @@
     "opinion": "OPINION"
   },
   "news": [
+    {
+      "id": "31075",
+      "visible": "yes",
+      "date": "2025-07-31T18:16:00",
+      "title": "🇬🇧UK Technology Minister Peter Kyle urged Britons not to use VPNs to bypass the new law and not to share personal information with third-party services. All because it ensures children's safety.",
+      "previewImage": "media/31075/Peter Kyle en-thumb.jpg",
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "🇬🇧UK Technology Minister Peter Kyle [urged](https://x.com/BBCBreakfast/status/1950088016745107921) Britons not to use VPNs to bypass the new law and not to share personal information with third-party services. All because it ensures children's safety."
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), July 31, 2025"
+        },
+        {
+          "type": "main-video",
+          "value": "media/31075/Peter Kyle en.mp4"
+        },
+        {
+          "type": "caption-text",
+          "value": ""
+        },
+        {
+          "type": "text",
+          "value": "According to the Online Safety Act, online platforms are required to prevent minors from accessing 'harmful content' related to suicide, self-harm, eating disorders, and pornography."
+        },
+        {
+          "type": "text",
+          "value": "However, in practice, the law has blocked or restricted content unrelated to its original purpose. Due to vague wording, the restrictions have affected not only pornography but also content about immigration, music, politics, and even parliamentary debates. Small websites have been hit especially hard — unable to afford expensive verification systems, they simply become inaccessible within the country."
+        },
+        {
+          "type": "text",
+          "value": "The state regulator Ofcom has not created a centralized age verification system. As a result, each user is now forced to verify their identity manually through third-party services — for example, by uploading a selfie with a passport or confirming their identity through a bank account. This means handing over personal data to private companies that have agreements with specific websites."
+        },
+        {
+          "type": "text",
+          "value": "According to ProtonVPN — one of the popular VPN services — downloads of their app have [increased by 1800%](https://www.bbc.com/news/articles/cn72ydj70g5o), with the average figure staying above 1000%."
+        },
+        {
+          "type": "text",
+          "value": "More than 400,000 people have [signed](https://petition.parliament.uk/petitions/722903) a petition demanding the repeal of the Online Safety Act — four times more than required. People are angry that even neutral topics like trains, football matches, and video games fall under the law's scope. But the authorities aren’t backing down — in an official response dated July 28, the government stated it does not plan to abandon the law."
+        },
+        {
+          "type": "text",
+          "value": "<i>Censorship under the guise of concern is a tactic as old as the state itself. While children—for whom the law was supposedly introduced— easily bypass the restrictions by simply downloading a VPN, unwanted websites lose their audience and the means to survive."
+        },
+        {
+          "type": "text",
+          "value": "<i><b>1984? No, 2025!"
+        },
+        {
+          "type": "text",
+          "value": "||Although some would say that Britanistan is moving closer to Sharia law - depends how you look at it.||"
+        }
+      ]
+    },
     {
       "id": "00001",
       "visible": "no",
