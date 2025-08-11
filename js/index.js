@@ -199,10 +199,7 @@ function loadContent(jsonFile) {
                         (mediaContent.type === 'main-video'
                             ? `<span class="video-indicator"><span class="dot"></span> ${data.videoText}</span>`
                             : '');
-                    // else {
-                    //          videoIndicator.innerHTML = '';
-                    //          videoIndicator.style.display = 'none';
-                    //      }
+
 
                     // Highlight grid item
                     const gridItems = document.querySelectorAll('#highlighted-articles-grid .grid-item');
@@ -214,7 +211,7 @@ function loadContent(jsonFile) {
                         }
                     });
 
-                    // currentIndex = (currentIndex + 1) % featuredItems.length;
+                    currentIndex = (currentIndex + 1) % featuredItems.length;
                 }
 
 

@@ -945,7 +945,8 @@ main-text .heading-text,
 main-text .subheading-text,
 main-text .sub-subheading-text,
 main-text .info-text,
-main-text p {
+main-text p,
+main-text .tags-section {
     margin-left: clamp(4px, 5vw + 1rem, 80px);
     margin-right: clamp(4px, 5vw + 1rem, 80px);
 }
@@ -1173,6 +1174,55 @@ main-text .warning::before {
     border-bottom-left-radius: 5px;
 }
 
+main-text .tags-section {
+    margin-top: 20px;
+}
+
+main-text .related-topics-tags {
+    display: flex;
+    justify-content: flex-end;
+    /* Aligns tags to the right */
+    gap: 10px;
+}
+
+main-text .related-topic-tag,
+.tag-option {
+    display: inline-block;
+    background-color: #d9d9d9;
+    color: #979696;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 0, .08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+main-text .related-topic-tag:hover,
+.tag-option:hover {
+    background-color: #979696;
+    color: white;
+}
+
+/* Existing styles assumed to be present, adding tag filter specific styles */
+.tag-filter-container {
+    margin-bottom: 1rem;
+}
+
+.tag-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 10px;
+}
+
+.tag-option.active {
+    background-color: #007bff;
+    color: white;
+}
+
 footer {
     background-color: black;
     text-align: center;
@@ -1356,22 +1406,8 @@ footer {
     margin: 0;
 }
 
-.sort-filter-container {
-    width: 100%;
-    display: flex;
-    height: fit-content;
-    justify-content: space-between;
-}
-
 .filter-button {
-    text-align: center;
     position: relative;
-    margin-top: 0;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
     font-family: 'Roboto', serif;
 }
 
@@ -1405,3 +1441,93 @@ footer {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
+
+/* Existing styles from the provided document */
+/* ... (all previous CSS remains unchanged) ... */
+
+/* Styles for sub-headings */
+.all-publications-text p {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    /* margin-bottom: 20px; */
+}
+
+.tag-filter-container span,
+.type-filter-container span,
+.sort-button span {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    display: block;
+}
+
+/* Styles for type buttons container */
+.type-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 10px;
+}
+
+/* Specific styles for type filter buttons */
+.filter-option-news {
+    color: red;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border: 1px solid red;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-news.active {
+    color: white;
+    background: linear-gradient(to right, #ff0000, #ff6666);
+    border: none;
+}
+
+.filter-option-article {
+    color: #438afc;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border: 1px solid #438afc;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-article.active {
+    color: white;
+    background: linear-gradient(to right, #438afc, #85b9fd);
+    border: none;
+}
+
+.filter-option-opinion {
+    color: #ffa500;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border: 1px solid #ffa500;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-opinion.active {
+    color: white;
+    background: linear-gradient(to right, #ffa500, #ffc766);
+    border: none;
+}
+
+/* Override general active style for filter-options if needed */
+/* .filter-option:hover, */
+/* .filter-option.active { */
+/* Remove or adjust general active styles to avoid conflicts */
+/* For example, remove background-color: rgba(0,0,0,0.1); if conflicting */
+/* } */

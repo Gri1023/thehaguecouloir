@@ -56,6 +56,39 @@ function loadArticleContent() {
                     }
                 });
 
+                // --- Add Related Topics (Tags) Section ---
+                const tagsDiv = document.querySelector('.tags');
+                tagsDiv.innerHTML = ''; // Clear previous tags if any
+
+                console.log('Loaded tags from JSON:', data.tags);
+                console.log('Article tags:', articleData.tags);
+
+                if (articleData.tags && Array.isArray(articleData.tags) && articleData.tags.length > 0) {
+                    const tagsSection = document.createElement('div');
+                    tagsSection.className = 'tags-section';
+                    tagsSection.innerHTML = `<div class="related-topics-tags"></div>`;
+                    const tagsContainer = tagsSection.querySelector('.related-topics-tags');
+
+                    articleData.tags.forEach(tagKey => {
+                        if (data.tags.hasOwnProperty(tagKey)) {
+                            const translatedTag = data.tags[tagKey];
+                            const tagLink = document.createElement('a');
+                            tagLink.className = 'related-topic-tag';
+                            tagLink.href = `all-publications.html?tags=${encodeURIComponent(tagKey)}&lang=${currentLanguage}`;
+                            tagLink.textContent = `#${translatedTag}`;
+                            tagsContainer.appendChild(tagLink);
+                            console.log(`Tag link rendered: key="${tagKey}", translated="${translatedTag}", href="${tagLink.href}"`);
+                        } else {
+                            console.warn(`Tag key "${tagKey}" not found in data.tags`);
+                        }
+                    });
+
+                    tagsDiv.appendChild(tagsSection);
+                    console.log('Tags section appended to .tags div');
+                } else {
+                    console.log('No tags found for this article or tags array is invalid.');
+                }
+
                 initializeGallery();
                 initializeSpoilers();
             } else {

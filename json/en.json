@@ -62,7 +62,8 @@
   "readMoreButton": "Read more",
   "moreInfoText": "Or find more yourself",
   "allPublications": "All publications",
-  "filterBy": "Filter by:",
+  "filterByTags": "Filter by tags:",
+  "filterByType": "Filter by type:",
   "videoText": "VIDEO",
   "types": {
     "all": "ALL",
@@ -70,13 +71,46 @@
     "article": "ANALYSIS",
     "opinion": "OPINION"
   },
+  "tags": {
+    "ukraine": "ukraine",
+    "russia": "russia",
+    "europe": "europe",
+    "middle East": "middle-east",
+    "asia": "asia",
+    "africa": "africa",
+    "america": "america",
+    "moldova": "moldova",
+    "britain": "britain",
+    "turkey": "turkey",
+    "freedom of speech": "freedom-of-speech",
+    "migration": "migration",
+    "war": "war",
+    "corporations": "corporations",
+    "economics": "economic",
+    "united nations": "united-nations",
+    "european union": "european-union",
+    "human rights": "human-rights",
+    "equality": "equality",
+    "climate": "climate",
+    "united states": "us",
+    "religion": "religion",
+    "bulgaria": "bulgaria",
+    "guyana": "guyana",
+    "venezuela": "venezuela",
+    "elections": "elections"
+  },
   "news": [
     {
       "id": "31075",
       "visible": "yes",
       "date": "2025-07-31T18:16:00",
-      "title": "🇬🇧UK Technology Minister Peter Kyle urged Britons not to use VPNs to bypass the new law and not to share personal information with third-party services. All because it ensures children's safety.",
+      "title": "🇬🇧UK Technology Minister Peter Kyle urged Britons to share personal information with third-party services. All because it ensures children's safety.",
       "previewImage": "media/31075/Peter Kyle en-thumb.jpg",
+      "tags": [
+        "britain",
+        "freedom of speech",
+        "europe"
+      ],
       "content": [
         {
           "type": "heading-text",
@@ -181,6 +215,12 @@
       "visible": "yes",
       "date": "2025-01-23T23:58:00",
       "title": "🇺🇦AFU were «trapped» in Velyka Novosilka - Neue Zürcher Zeitung",
+      "tags": [
+        "ukraine",
+        "russia",
+        "war",
+        "europe"
+      ],
       "content": [
         {
           "type": "heading-text",
@@ -273,6 +313,11 @@
       "visible": "yes",
       "date": "2025-01-08T21:35:00",
       "title": "🗣Durov stated that he is proud to have supported free speech long before it was politically safe to do so.",
+      "tags": [
+        "freedom of speech",
+        "europe",
+        "corporations"
+      ],
       "content": [
         {
           "type": "heading-text",
@@ -329,6 +374,12 @@
       "visible": "yes",
       "date": "2024-09-19T18:54:00",
       "title": "🇺🇦Zaluzhny was against an offensive on Russian territory when Zelensky first talked about and insisted on an offensive - Politico",
+      "tags": [
+        "ukraine",
+        "russia",
+        "war",
+        "europe"
+      ],
       "content": [
         {
           "type": "heading-text",
@@ -607,6 +658,12 @@
       "visible": "yes",
       "date": "2023-12-30T23:24:34",
       "title": "Essequibo: Between Jungles and Oil - History, Conflict, and Prospects",
+      "tags": [
+        "guyana",
+        "venezuela",
+        "america",
+        "war"
+      ],
       "content": [
         {
           "type": "heading-text",
@@ -695,6 +752,12 @@
       "visible": "yes",
       "date": "2024-10-26T21:40:00",
       "title": "Presidential elections in Moldova: what it was and what it means.",
+      "tags": [
+        "moldova",
+        "europe",
+        "elections",
+        "human rights"
+      ],
       "content": [
         {
           "type": "raw-main-image",
@@ -864,6 +927,11 @@
       "visible": "yes",
       "date": "2024-08-15T17:54:54",
       "title": "The offensive of the AFU in the Kursk region - goals and prospects.",
+      "tags": [
+        "ukraine",
+        "russia",
+        "war"
+      ],
       "content": [
         {
           "type": "raw-main-image",
