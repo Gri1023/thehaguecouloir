@@ -65,6 +65,34 @@ function changeLanguage(language) {
     window.location.search = urlParams.toString();
 }
 
+// Function to populate sidebars dynamically
+function populateSidebar(side, data) {
+    const grid = document.querySelector(`.sidebars-${side}-grid`);
+    if (grid && data.sidebars && data.sidebars[side]) {
+        data.sidebars[side].forEach((item, index) => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = `sidebars-${side}-item`;
+            itemDiv.id = `sidebars-${side}-item${index + 1}`;
+
+            if (item.type === 'telegram') {
+                itemDiv.innerHTML = `
+                <img src="Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
+                    <a href="${item.link}">
+                    ${item.text}
+                    </a>
+                    <div class="join-telegram-button">
+                    <a href="${item.link}"></a>
+                    <a href="${item.link}">${item.button}</a>
+                    </div>
+                `;
+            }
+            // Add more types as needed, e.g., if (item.type === 'other') { ... }
+
+            grid.appendChild(itemDiv);
+        });
+    }
+}
+
 // Function to set localized text
 function setBaseLocalizedText() {
     const language = getCurrentLanguage();  // Get the current language setting
@@ -118,6 +146,10 @@ function setBaseLocalizedText() {
 
             // Set the footer below text
             document.querySelector('.footer-below-text').textContent = data.footer[4]["footer-grid-item-below"][0];
+
+            // Populate sidebars
+            populateSidebar('left', data);
+            populateSidebar('right', data);
         })
         .catch(error => console.error('Error loading localized text:', error));
 }

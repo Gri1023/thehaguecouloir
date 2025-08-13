@@ -52,6 +52,17 @@
       ]
     }
   ],
+  "sectionHeadings": {
+    "news": "Новости",
+    "article": "Анализы",
+    "opinion": "Мнения"
+  },
+  "sectionSubheadings": {
+    "news": "Последние новости с авторской перспективой в конце.",
+    "article": "Глубокий анализ различных тем, стремящийся быть максимально объективным.",
+    "opinion": "Статьи, основанные на мнениях, пытающиеся объективно доказать точку зрения."
+  },
+  "exploreAllPublications": "Посмотреть все публикации",
   "sortBy": "Сортировать по:",
   "newest": "Самому новому",
   "oldest": "Самому старому",
@@ -98,6 +109,17 @@
     "guyana": "гайана",
     "venezuela": "венесуэла",
     "elections": "выборы"
+  },
+  "sidebars": {
+    "left": [
+      {
+        "type": "telegram",
+        "text": "Присоединяйтесь к моему Telegram-каналу для регулярных обновлений, заметок автора и мемов!",
+        "button": "Присоединиться",
+        "link": "https://t.me/grycko_the_hague_couloir"
+      }
+    ],
+    "right": []
   },
   "news": [
     {
@@ -606,6 +628,7 @@
         "climate",
         "europe"
       ],
+      "previewImage": "media/31033/Burger_king_no_meat_2-thumb.jpg",
       "content": [
         {
           "type": "heading-text",

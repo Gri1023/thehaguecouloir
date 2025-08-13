@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
 // Function to filter items
 function filterItems(type) {
     const items = document.querySelectorAll('.content-grid article');
@@ -33,6 +32,41 @@ function loadContent(jsonFile) {
     fetch(jsonFile)
         .then(response => response.json())
         .then(data => {
+            // Translate section headings, subheadings, and buttons
+            const sections = [
+                { id: 'news-section', type: 'news' },
+                { id: 'articles-section', type: 'article' },
+                { id: 'opinions-section', type: 'opinion' }
+            ];
+            sections.forEach(({ id, type }) => {
+                const sectionElement = document.getElementById(id);
+                if (sectionElement) {
+                    const heading = sectionElement.querySelector('.publication-section-heading');
+                    const subheading = sectionElement.querySelector('.publication-section-subheading');
+                    const button = sectionElement.querySelector('.publication-section-button-text');
+                    if (heading) {
+                        // Use sectionHeadings if available, fallback to types
+                        heading.textContent = data.sectionHeadings ? data.sectionHeadings[type] : data.types[type];
+                    } else {
+                        console.warn(`Heading not found for section: ${id}`);
+                    }
+                    if (subheading) {
+                        subheading.textContent = data.sectionSubheadings[type];
+                    } else {
+                        console.warn(`Subheading not found for section: ${id}`);
+                    }
+                    if (button) {
+                        button.querySelector('.publication-section-button').textContent = data.exploreAllPublications;
+                        // Ensure lang parameter in the link
+                        button.setAttribute('href', `all-publications.html?lang=${currentLanguage}`);
+                    } else {
+                        console.warn(`Button not found for section: ${id}`);
+                    }
+                } else {
+                    console.warn(`Section not found: ${id}`);
+                }
+            });
+
             const highlightedArticle = document.getElementById('highlighted-article');
 
             const highlightedArticleIds = [
@@ -54,23 +88,6 @@ function loadContent(jsonFile) {
                 });
             });
 
-
-
-
-            // Set the publication count dynamically
-            // const allPublicationsElement = document.querySelector('.all-publications p');
-            // allPublicationsElement.textContent = data.allPublications;
-
-            //             // Update filter buttons dynamically
-            //             const filterElement = document.querySelector('.sort-button');
-            //             filterElement.innerHTML = `
-            //     <span>${data.filterBy}</span>
-            //     <button class="sort-option active" onclick="filterItems('all')">${data.types.all}</button>
-            //     <button class="sort-option" data-type="news" onclick="filterItems('news')">${data.types.news}</button>
-            //     <button class="sort-option" data-type="article" onclick="filterItems('article')">${data.types.article}</button>
-            //     <button class="sort-option" data-type="opinion" onclick="filterItems('opinion')">${data.types.opinion}</button>
-            // `;
-
             // Separate the items by type and add them to the respective grids
             const allItems = ['news', 'article', 'opinion']
                 .flatMap(type => data[type]
@@ -82,7 +99,7 @@ function loadContent(jsonFile) {
             console.log("maxItemsPerSection = " + maxItemsPerSection);
 
             ['news', 'article', 'opinion'].forEach(type => {
-                // Get items of the current type and limit to 3
+                // Get items of the current type and limit to maxItemsPerSection
                 const items = allItems.filter(item => item.type === type).slice(0, maxItemsPerSection);
 
                 const gridId = `${type}-grid`;
@@ -115,23 +132,21 @@ function loadContent(jsonFile) {
                     // Populate the article's inner HTML
                     articleElement.innerHTML = `
                     <a>
-    ${mediaHTML}
-    <div class="content">
-        <p class="${item.type}">${data.types[item.type]}</p>
-        <h3 class="title">${item.title}</h3>
-        <p class="date">${timeAgo(item.date)}</p>
-    </div>
-</a>
-`;
+                        ${mediaHTML}
+                        <div class="content">
+                            <p class="${item.type}">${data.types[item.type]}</p>
+                            <h3 class="title">${item.title}</h3>
+                            <p class="date">${timeAgo(item.date)}</p>
+                        </div>
+                    </a>
+                    `;
 
                     // Append to the correct grid
                     gridElement.appendChild(articleElement);
                 });
             });
 
-
             // Highlighted articles section
-
             const highlightedArticlesGrid = document.querySelector('#highlighted-articles-grid .grid-container');
 
             // Get and sort the highlighted articles based on the order in highlightedArticleIds
@@ -162,6 +177,7 @@ function loadContent(jsonFile) {
 
                 highlightedArticlesGrid.appendChild(gridItem);
             });
+
             if (featuredItems.length > 0) {
                 let currentIndex = 0;
 
@@ -200,7 +216,6 @@ function loadContent(jsonFile) {
                             ? `<span class="video-indicator"><span class="dot"></span> ${data.videoText}</span>`
                             : '');
 
-
                     // Highlight grid item
                     const gridItems = document.querySelectorAll('#highlighted-articles-grid .grid-item');
                     gridItems.forEach(item => {
@@ -214,7 +229,6 @@ function loadContent(jsonFile) {
                     currentIndex = (currentIndex + 1) % featuredItems.length;
                 }
 
-
                 // Initial setup to highlight the first article correctly
                 updateHighlightedArticle(0);
 
@@ -223,8 +237,7 @@ function loadContent(jsonFile) {
             } else {
                 console.error('Highlighted articles not found');
             }
-        }
-        )
+        });
 }
 
 function getMaxItemsPerSection() {

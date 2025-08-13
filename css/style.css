@@ -161,8 +161,8 @@ body {
 }
 
 .telegram-3d-icon {
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
     position: relative;
     left: 8px;
     top: -8px;
@@ -172,7 +172,7 @@ body {
 
 
 #sidebars-left-item1 a {
-    margin: 15px 40px 15px 15px;
+    margin: 15px 15px 15px 15px;
     cursor: pointer;
     text-decoration: none;
     color: black;

@@ -52,6 +52,17 @@
       ]
     }
   ],
+  "sectionHeadings": {
+    "news": "News",
+    "article": "Analyses",
+    "opinion": "Opinions"
+  },
+  "sectionSubheadings": {
+    "news": "Latest news with author's perspective in the end.",
+    "article": "In-depth analyses of various topics, that are trying to be as objective as possible.",
+    "opinion": "Opinion-based articles, trying to objectively prove a point."
+  },
+  "exploreAllPublications": "Explore all publications",
   "sortBy": "Sort by:",
   "newest": "Newest",
   "oldest": "Oldest",
@@ -70,6 +81,19 @@
     "news": "NEWS",
     "article": "ANALYSIS",
     "opinion": "OPINION"
+  },
+  "sidebars": {
+    "left": [
+      {
+        "type": "telegram",
+        "text": "Join my Telegram channel for regular updates, author's notes and memes! (in Russian)",
+        "button": "Join",
+        "link": "https://t.me/grycko_the_hague_couloir"
+      }
+    ],
+    "right": [
+      {}
+    ]
   },
   "tags": {
     "ukraine": "ukraine",
@@ -105,7 +129,7 @@
       "visible": "yes",
       "date": "2025-07-31T18:16:00",
       "title": "🇬🇧UK Technology Minister Peter Kyle urged Britons to share personal information with third-party services. All because it ensures children's safety.",
-      "previewImage": "media/31075/Peter Kyle en-thumb.jpg",
+      "previewImage": "media/31075/Peter Kyle En-thumb.jpg",
       "tags": [
         "britain",
         "freedom of speech",
@@ -122,7 +146,7 @@
         },
         {
           "type": "main-video",
-          "value": "media/31075/Peter Kyle en.mp4"
+          "value": "media/31075/Peter Kyle En.mp4"
         },
         {
           "type": "caption-text",
