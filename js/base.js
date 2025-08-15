@@ -87,7 +87,7 @@ function populateSidebar(side, data) {
                 `;
             }
             // Add more types as needed, e.g., if (item.type === 'other') { ... }
-
+            console.log(`Adding sidebar item: ${item.text}`, { side });
             grid.appendChild(itemDiv);
         });
     }
@@ -95,6 +95,7 @@ function populateSidebar(side, data) {
 
 // Function to set localized text
 function setBaseLocalizedText() {
+    console.log('Setting localized text for base elements');
     const language = getCurrentLanguage();  // Get the current language setting
     fetch(`json/${language}.json`)  // Fetch the localized JSON file for the current language
         .then(response => response.json())
