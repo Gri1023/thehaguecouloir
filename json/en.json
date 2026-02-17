@@ -48,27 +48,29 @@
     },
     {
       "footer-grid-item-below": [
-        "This website does not collect any of your data. Stay safe! © Hryhorii Bavykin 2025"
+        "This website does not collect any of your data. Stay safe! © Hryhorii Bavykin 2026"
       ]
     }
   ],
   "sectionHeadings": {
     "news": "News",
     "article": "Analyses",
-    "opinion": "Opinions"
+    "opinion": "Opinions",
+    "academic": "Academic"
   },
   "sectionSubheadings": {
     "news": "Latest news with author's perspective in the end.",
     "article": "In-depth analyses of various topics, that are trying to be as objective as possible.",
-    "opinion": "Opinion-based articles, trying to objectively prove a point."
+    "opinion": "Opinion-based articles, trying to objectively prove a point.",
+    "academic": "Academic articles created as a part of authors university assignments, with varying freedom of topic selection and opinion expression."
   },
   "exploreAllPublications": "Explore all publications",
   "sortBy": "Sort by:",
   "newest": "Newest",
   "oldest": "Oldest",
-  "highlightedArticle1Id": "31075",
-  "highlightedArticle2Id": "23015",
-  "highlightedArticle3Id": "08015",
+  "highlightedArticle1Id": "25016",
+  "highlightedArticle2Id": "12125",
+  "highlightedArticle3Id": "31075",
   "highlightedArticle4Id": "23104",
   "readMoreButton": "Read more",
   "moreInfoText": "Or find more yourself",
@@ -80,7 +82,8 @@
     "all": "ALL",
     "news": "NEWS",
     "article": "ANALYSIS",
-    "opinion": "OPINION"
+    "opinion": "OPINION",
+    "academic": "ACADEMIC"
   },
   "sidebars": {
     "left": [
@@ -96,32 +99,41 @@
     ]
   },
   "tags": {
-    "ukraine": "ukraine",
-    "russia": "russia",
+    "ukraine": "🇺🇦",
+    "russia": "🇷🇺",
     "europe": "europe",
     "middle East": "middle-east",
     "asia": "asia",
     "africa": "africa",
     "america": "america",
-    "moldova": "moldova",
-    "britain": "britain",
-    "turkey": "turkey",
+    "moldova": "🇲🇩",
+    "britain": "🇬🇧",
+    "turkey": "🇹🇷",
     "freedom of speech": "freedom-of-speech",
     "migration": "migration",
     "war": "war",
     "corporations": "corporations",
     "economics": "economic",
     "united nations": "united-nations",
-    "european union": "european-union",
+    "european union": "🇪🇺",
     "human rights": "human-rights",
     "equality": "equality",
     "climate": "climate",
-    "united states": "us",
+    "united states": "🇺🇸",
     "religion": "religion",
-    "bulgaria": "bulgaria",
-    "guyana": "guyana",
-    "venezuela": "venezuela",
-    "elections": "elections"
+    "bulgaria": "🇧🇬",
+    "guyana": "🇬🇾",
+    "venezuela": "🇻🇪",
+    "elections": "elections",
+    "israel": "🇮🇱",
+    "lebanon": "🇱🇧",
+    "argentina": "🇦🇷",
+    "cameroon": "🇨🇲",
+    "infrastructure": "infrastructure",
+    "imf": "imf",
+    "latin america": "latin-america",
+    "syria": "🇸🇾",
+    "china": "🇨🇳"
   },
   "news": [
     {
@@ -685,7 +697,7 @@
       "tags": [
         "guyana",
         "venezuela",
-        "america",
+        "latin-america",
         "war"
       ],
       "content": [
@@ -1123,6 +1135,125 @@
         {
           "type": "main-image",
           "value": "media/16015/1f64f.png"
+        }
+      ]
+    }
+  ],
+  "academic": [
+    {
+      "id": "05124",
+      "visible": "yes",
+      "date": "2024-12-04T20:58:00",
+      "title": "Explanatory memorandum - standardisation of railway electrification systems for trans-European rail networks",
+      "tags": [
+        "european-union",
+        "europe",
+        "infrastructure"
+      ],
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "Proposal for a REGULATION OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on the standardisation of railway electrification systems for trans-European rail networks"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 4 December 2024"
+        },
+        {
+          "type": "main-image",
+          "value": "media/05124/Explanatory memorandum-01.jpg"
+        },
+        {
+          "type": "pdf",
+          "value": "media/05124/Explanatory memorandum.pdf"
+        }
+      ]
+    },
+    {
+      "id": "30055",
+      "visible": "yes",
+      "date": "2025-05-30T23:57:00",
+      "title": "Case Study Analysis - Cameroon",
+      "tags": [
+        "cameroon",
+        "africa"
+      ],
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "Case Study Analysis - Cameroon"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 30 May 2025"
+        },
+        {
+          "type": "main-image",
+          "value": "media/30055/Case Study Analysis - Cameroon-01.jpg"
+        },
+        {
+          "type": "pdf",
+          "value": "media/30055/Case Study Analysis - Cameroon.pdf"
+        }
+      ]
+    },
+    {
+      "id": "12125",
+      "visible": "yes",
+      "date": "2025-12-12T15:53:00",
+      "title": "IMF: Argentina as a Case of Sovereignty, Conditionality, and Foreign Influence",
+      "tags": [
+        "imf",
+        "argentina",
+        "economy",
+        "latin america"
+      ],
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "The Role of the International Monetary Fund in the World Economy: Argentina as a Case of Sovereignty, Conditionality, and Foreign Influence"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 12 December 2025"
+        },
+        {
+          "type": "main-image",
+          "value": "media/12125/The Role of the International Monetary Fund in the World Economy-01.jpg"
+        },
+        {
+          "type": "pdf",
+          "value": "media/12125/The Role of the International Monetary Fund in the World Economy.pdf"
+        }
+      ]
+    },
+    {
+      "id": "25016",
+      "visible": "yes",
+      "date": "2026-01-25T19:48:00",
+      "title": "Why Israel Miscalculated in Lebanon (1982)",
+      "tags": [
+        "israel",
+        "lebanon",
+        "war",
+        "middle east"
+      ],
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "Why Israel Miscalculated in Lebanon (1982)"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 25 January 2026"
+        },
+        {
+          "type": "main-image",
+          "value": "media/25016/Why Israel Miscalculated in Lebanon (1982)-01.jpg"
+        },
+        {
+          "type": "pdf",
+          "value": "media/25016/Why Israel Miscalculated in Lebanon (1982).pdf"
         }
       ]
     }

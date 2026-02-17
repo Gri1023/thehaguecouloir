@@ -130,7 +130,7 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
     const contentGrid = document.querySelector('.content-grid');
     contentGrid.innerHTML = ''; // Clear existing content
 
-    const allItems = ['news', 'article', 'opinion']
+    const allItems = ['news', 'article', 'opinion', 'academic']
         .flatMap(itemType => data[itemType]
             .filter(item => item.visible === "yes")
             .map(item => ({ ...item, type: itemType })))
@@ -225,7 +225,7 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
 
             // Load types dynamically (excluding 'all')
             const typeButtonsContainer = document.querySelector('.type-buttons');
-            ['news', 'article', 'opinion'].forEach(typeKey => {
+            ['news', 'article', 'opinion', 'academic'].forEach(typeKey => {
                 const typeButton = document.createElement('button');
                 typeButton.className = `filter-option filter-option-${typeKey}${initialTypes.includes(typeKey) ? ' active' : ''}`;
                 typeButton.setAttribute('data-type', typeKey);

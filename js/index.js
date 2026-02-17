@@ -36,7 +36,8 @@ function loadContent(jsonFile) {
             const sections = [
                 { id: 'news-section', type: 'news' },
                 { id: 'articles-section', type: 'article' },
-                { id: 'opinions-section', type: 'opinion' }
+                { id: 'opinions-section', type: 'opinion' },
+                { id: 'academic-section', type: 'academic' }
             ];
             sections.forEach(({ id, type }) => {
                 const sectionElement = document.getElementById(id);
@@ -78,7 +79,7 @@ function loadContent(jsonFile) {
             let featuredItems = [];
 
             highlightedArticleIds.forEach(id => {
-                ['news', 'article', 'opinion'].some(type => {
+                ['news', 'article', 'opinion', 'academic'].some(type => {
                     const item = data[type].find(article => article.id == id);
                     if (item) {
                         featuredItems.push({ ...item, type });
@@ -89,7 +90,7 @@ function loadContent(jsonFile) {
             });
 
             // Separate the items by type and add them to the respective grids
-            const allItems = ['news', 'article', 'opinion']
+            const allItems = ['news', 'article', 'opinion', 'academic']
                 .flatMap(type => data[type]
                     .filter(item => item.visible === "yes")
                     .map(item => ({ ...item, type })))
@@ -98,7 +99,7 @@ function loadContent(jsonFile) {
             const maxItemsPerSection = getMaxItemsPerSection();
             console.log("maxItemsPerSection = " + maxItemsPerSection);
 
-            ['news', 'article', 'opinion'].forEach(type => {
+            ['news', 'article', 'opinion', 'academic'].forEach(type => {
                 // Get items of the current type and limit to maxItemsPerSection
                 const items = allItems.filter(item => item.type === type).slice(0, maxItemsPerSection);
 

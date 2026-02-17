@@ -52,6 +52,16 @@ function loadArticleContent() {
                         articleContent.innerHTML += `<div class="warning">${item.value}</div>`;
                     } else if (item.type === 'video') {
                         articleContent.innerHTML += `<div class="video-container"><video controls src="${item.value}"></video></div>`;
+                    } else if (item.type === 'pdf') {
+                        articleContent.innerHTML += `
+        <div class="pdf-container">
+            <div class="pdf-toolbar">
+                <a href="${item.value}" target="_blank" rel="noopener" class="pdf-open">Open PDF</a>
+                <a href="${item.value}" download class="pdf-download">Download</a>
+            </div>
+            <iframe src="${item.value}" class="pdf-frame" loading="lazy"></iframe>
+        </div>
+    `;
                     }
                 });
 
