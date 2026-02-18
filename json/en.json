@@ -19,7 +19,6 @@
       "footer-grid-item1": [
         "Socials",
         "Telegram (in Russian)",
-        "X(Twitter)",
         "Author's LinkedIn"
       ]
     },
@@ -78,6 +77,8 @@
   "filterByTags": "Filter by tags:",
   "filterByType": "Filter by type:",
   "videoText": "VIDEO",
+  "openPdf": "Open PDF separately",
+  "downloadPdf": "Download PDF",
   "types": {
     "all": "ALL",
     "news": "NEWS",
@@ -1160,8 +1161,13 @@
           "value": "[Hryhorii Bavykin](about.html), 4 December 2024"
         },
         {
+          "type": "information",
+          "value": "This publication consists of a single PDF. The content may not be translated to your selected language. To view it in full screen, use the button below."
+        },
+        {
           "type": "main-image",
-          "value": "media/05124/Explanatory memorandum-01.jpg"
+          "value": "media/05124/Explanatory memorandum-01.jpg",
+          "visible": "no"
         },
         {
           "type": "pdf",
@@ -1188,8 +1194,13 @@
           "value": "[Hryhorii Bavykin](about.html), 30 May 2025"
         },
         {
+          "type": "information",
+          "value": "This publication consists of a single PDF. The content may not be translated to your selected language. To view it in full screen, use the button below."
+        },
+        {
           "type": "main-image",
-          "value": "media/30055/Case Study Analysis - Cameroon-01.jpg"
+          "value": "media/30055/Case Study Analysis - Cameroon-01.jpg",
+          "visible": "no"
         },
         {
           "type": "pdf",
@@ -1218,8 +1229,13 @@
           "value": "[Hryhorii Bavykin](about.html), 12 December 2025"
         },
         {
+          "type": "information",
+          "value": "This publication consists of a single PDF. The content may not be translated to your selected language. To view it in full screen, use the button below."
+        },
+        {
           "type": "main-image",
-          "value": "media/12125/The Role of the International Monetary Fund in the World Economy-01.jpg"
+          "value": "media/12125/The Role of the International Monetary Fund in the World Economy-01.jpg",
+          "visible": "no"
         },
         {
           "type": "pdf",
@@ -1248,8 +1264,13 @@
           "value": "[Hryhorii Bavykin](about.html), 25 January 2026"
         },
         {
+          "type": "information",
+          "value": "This publication consists of a single PDF. The content may not be translated to your selected language. To view it in full screen, use the button below."
+        },
+        {
           "type": "main-image",
-          "value": "media/25016/Why Israel Miscalculated in Lebanon (1982)-01.jpg"
+          "value": "media/25016/Why Israel Miscalculated in Lebanon (1982)-01.jpg",
+          "visible": "no"
         },
         {
           "type": "pdf",
