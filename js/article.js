@@ -18,59 +18,59 @@ function loadArticleContent() {
                 articleTypeContainer.innerHTML = data.types[articleType];
                 articleTypeContainer.className = `text-type ${articleType}`;
 
+                // Content handling for all publication types
                 articleData.content.forEach(item => {
-                    if (item.type === 'gallery') {
-                        createGallery(articleContent, item.images);
-                    } else if (item.type === 'heading-text') {
-                        const headingTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="heading-text-with-link">$1</a>');
-                        articleContent.innerHTML += `<h1 class="heading-text">${headingTextWithLinks}</h1>`;
-                    } else if (item.type === 'subheading-text') {
-                        articleContent.innerHTML += `<h2 class="subheading-text">${item.value}</h2>`;
-                    } else if (item.type === 'sub-subheading-text') {
-                        articleContent.innerHTML += `<h3 class="sub-subheading-text">${item.value}</h3>`;
-                    } else if (item.type === 'info-text') {
-                        const infoTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="info-text-with-link">$1</a>');
-                        articleContent.innerHTML += `<p class="info-text">${infoTextWithLinks}</p>`;
-                    } else if (item.type === 'text') {
-                        const textFormatted = item.value
-                            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-with-link">$1</a>')
-                            .replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>');
-                        articleContent.innerHTML += `<p>${textFormatted}</p>`;
-                    } else if (item.type === 'main-image') {
-                        if (item.visible !== 'no') {
-                            articleContent.innerHTML += `<img src="${item.value}" alt="" class="main-image">`;
-                        }
-                    } else if (item.type === 'main-video') {
-                        articleContent.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${item.value}"></video></div>`;
-                    } else if (item.type === 'image') {
-                        articleContent.innerHTML += `<img src="${item.value}" alt="" class="image">`;
-                    } else if (item.type === 'caption-text') {
-                        const captionTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="caption-text-with-link">$1</a>');
-                        articleContent.innerHTML += `<p class="caption-text">${captionTextWithLinks}</p>`;
-                    } else if (item.type === 'quote') {
-                        const quoteTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="quote-text-with-link">$1</a>');
-                        articleContent.innerHTML += `<div class="quote">${quoteTextWithLinks}</div>`;
-                    } else if (item.type === 'information') {
-                        const informationTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="information-text-with-link">$1</a>');
-                        articleContent.innerHTML += `<div class="information">${informationTextWithLinks}</div>`;
-                    } else if (item.type === 'warning') {
-                        articleContent.innerHTML += `<div class="warning">${item.value}</div>`;
-                    } else if (item.type === 'error') {
-                        articleContent.innerHTML += `<div class="error">${item.value}</div>`;
-                    } else if (item.type === 'video') {
-                        articleContent.innerHTML += `<div class="video-container"><video controls src="${item.value}"></video></div>`;
-                    } else if (item.type === 'pdf') {
-                        articleContent.innerHTML += `
+                        if (item.type === 'gallery') {
+                            createGallery(articleContent, item.images);
+                        } else if (item.type === 'heading-text') {
+                            const headingTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="heading-text-with-link">$1</a>');
+                            articleContent.innerHTML += `<h1 class="heading-text">${headingTextWithLinks}</h1>`;
+                        } else if (item.type === 'subheading-text') {
+                            articleContent.innerHTML += `<h2 class="subheading-text">${item.value}</h2>`;
+                        } else if (item.type === 'sub-subheading-text') {
+                            articleContent.innerHTML += `<h3 class="sub-subheading-text">${item.value}</h3>`;
+                        } else if (item.type === 'info-text') {
+                            const infoTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="info-text-with-link">$1</a>');
+                            articleContent.innerHTML += `<p class="info-text">${infoTextWithLinks}</p>`;
+                        } else if (item.type === 'text') {
+                            const textFormatted = item.value
+                                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-with-link">$1</a>')
+                                .replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>');
+                            articleContent.innerHTML += `<p>${textFormatted}</p>`;
+                        } else if (item.type === 'main-image') {
+                            if (item.visible !== 'no') {
+                                articleContent.innerHTML += `<img src="${item.value}" alt="" class="main-image">`;
+                            }
+                        } else if (item.type === 'main-video') {
+                            articleContent.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${item.value}"></video></div>`;
+                        } else if (item.type === 'image') {
+                            articleContent.innerHTML += `<img src="${item.value}" alt="" class="image">`;
+                        } else if (item.type === 'caption-text') {
+                            const captionTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="caption-text-with-link">$1</a>');
+                            articleContent.innerHTML += `<p class="caption-text">${captionTextWithLinks}</p>`;
+                        } else if (item.type === 'quote') {
+                            const quoteTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="quote-text-with-link">$1</a>');
+                            articleContent.innerHTML += `<div class="quote">${quoteTextWithLinks}</div>`;
+                        } else if (item.type === 'information') {
+                            const informationTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="information-text-with-link">$1</a>');
+                            articleContent.innerHTML += `<div class="information">${informationTextWithLinks}</div>`;
+                        } else if (item.type === 'warning') {
+                            articleContent.innerHTML += `<div class="warning">${item.value}</div>`;
+                        } else if (item.type === 'error') {
+                            articleContent.innerHTML += `<div class="error">${item.value}</div>`;
+                        } else if (item.type === 'video') {
+                            articleContent.innerHTML += `<div class="video-container"><video controls src="${item.value}"></video></div>`;
+                        } else if (item.type === 'pdf') {
+                            articleContent.innerHTML += `
         <div class="pdf-container">
-            <div class="pdf-toolbar">
+                            <div class="pdf-toolbar">
                 <a href="${item.value}" target="_blank" rel="noopener" class="pdf-open">${data.openPdf}</a>
                 <!-- <a href="${item.value}" download class="pdf-download">${data.downloadPdf}</a> -->
             </div>
             <iframe src="${item.value}" class="pdf-frame" loading="lazy"></iframe>
-        </div>
-    `;
-                    }
-                });
+        </div>`
+                        }
+                    });
 
                 // --- Add Related Topics (Tags) Section ---
                 const tagsDiv = document.querySelector('.tags');

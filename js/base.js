@@ -70,6 +70,9 @@ function populateSidebar(side, data) {
     const grid = document.querySelector(`.sidebars-${side}-grid`);
     if (grid && data.sidebars && data.sidebars[side]) {
         data.sidebars[side].forEach((item, index) => {
+            // Skip empty items
+            if (!item || !item.type) return;
+
             const itemDiv = document.createElement('div');
             itemDiv.className = `sidebars-${side}-item`;
             itemDiv.id = `sidebars-${side}-item${index + 1}`;
@@ -85,10 +88,91 @@ function populateSidebar(side, data) {
                     <a href="${item.link}">${item.button}</a>
                     </div>
                 `;
+                console.log(`Adding sidebar item: ${item.text}`, { side });
+                grid.appendChild(itemDiv);
             }
-            // Add more types as needed, e.g., if (item.type === 'other') { ... }
-            console.log(`Adding sidebar item: ${item.text}`, { side });
-            grid.appendChild(itemDiv);
+
+            if (item.type === 'live-note') {
+                // Fetch and display live-notes
+                if (data['live-note'] && data['live-note'].length > 0) {
+                    // Get only visible live-notes, sorted by date (newest first), and limit to 4
+                    const liveNotes = data['live-note']
+                        .filter(note => note.visible === 'yes')
+                        .sort((a, b) => new Date(b.date) - new Date(a.date))
+                        .slice(0, 4);
+
+                    itemDiv.classList.add('live-notes-container');
+                    let html = `
+                        <div class="live-notes-header">
+                            <span class="online-indicator"><img src="live-notes-icon.png" alt=""></span>
+                            <h3 class="live-notes-title">${data.liveNotesTitle}</h3>
+                        </div>
+                        <div class="live-notes-list">
+                    `;
+
+                    liveNotes.forEach(note => {
+                        const noteLink = `article.html?id=${note.id}&type=live-note&lang=${currentLanguage}`;
+                        const textContent = note.content.find(item => item.type === 'text');
+                        const noteText = textContent ? textContent.value : '';
+
+                        // Count attachments
+                        const videoCount = note.content.filter(item => item.type === 'video' || item.type === 'main-video').length;
+                        const photoCount = note.content.filter(item => item.type === 'image' || item.type === 'main-image').length;
+
+                        // Build attachment notification with preview
+                        let attachmentNotif = '';
+                        if (videoCount > 0 || photoCount > 0) {
+                            const attachments = [];
+                            let previewHTML = '<div class="attachment-preview"><div class="preview-thumbnails">';
+
+                            if (videoCount > 0) {
+                                const videoLabel = videoCount === 1 ? data.attachments.video : data.attachments.videos;
+                                attachments.push(`${videoCount} ${videoLabel}`);
+                                // Add video preview thumbnails
+                                note.content.forEach(item => {
+                                    if (item.type === 'video' || item.type === 'main-video') {
+                                        // use a small autoplayed muted video as preview
+                                        previewHTML += `<video class="preview-thumbnail video-thumbnail" src="${item.value}" muted autoplay loop></video>`;
+                                    }
+                                });
+                            }
+                            if (photoCount > 0) {
+                                const photoLabel = photoCount === 1 ? data.attachments.photo : data.attachments.photos;
+                                attachments.push(`${photoCount} ${photoLabel}`);
+                                // Add photo preview images
+                                note.content.forEach(item => {
+                                    if (item.type === 'image' || item.type === 'main-image') {
+                                        previewHTML += `<img src="${item.value}" alt="" class="preview-thumbnail">`;
+                                    }
+                                });
+                            }
+                            previewHTML += '</div></div>';
+                            attachmentNotif = `<span class="live-note-attachments-wrapper"><span class="live-note-attachments">↪ ${attachments.join(', ')}</span>${previewHTML}</span>`;
+                        }
+
+                        html += `
+                            <a href="${noteLink}" class="live-note-item-link">
+                                <div class="live-note-item">
+                                    ${attachmentNotif}
+                                    <span class="live-note-text">${noteText}</span>
+                                    <span class="live-note-time">${timeAgo(note.date)}</span>
+                                </div>
+                            </a>
+                        `;
+                    });
+
+                    html += `
+                        </div>
+                        <a href="all-publications.html?lang=${currentLanguage}" class="live-notes-show-all">
+                            ${data.showAllLiveNotes}
+                        </a>
+                    `;
+
+                    itemDiv.innerHTML = html;
+                    console.log(`Adding live-notes sidebar item with ${liveNotes.length} notes`, { side });
+                    grid.appendChild(itemDiv);
+                }
+            }
         });
     }
 }

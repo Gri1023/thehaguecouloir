@@ -1,5 +1,13 @@
 ﻿{
   "siteTitle": "The Hague Couloir",
+  "liveNotesTitle": "Live Notes",
+  "showAllLiveNotes": "SHOW ALL",
+  "attachments": {
+    "video": "video",
+    "videos": "videos",
+    "photo": "photo",
+    "photos": "photos"
+  },
   "navigation": [
     {
       "highlights": "Home"
@@ -84,7 +92,8 @@
     "news": "NEWS",
     "article": "ANALYSIS",
     "opinion": "OPINION",
-    "academic": "ACADEMIC"
+    "academic": "ACADEMIC",
+    "live-note": "LIVE NOTE"
   },
   "sidebars": {
     "left": [
@@ -96,7 +105,9 @@
       }
     ],
     "right": [
-      {}
+      {
+        "type": "live-note"
+      }
     ]
   },
   "tags": {
@@ -134,7 +145,9 @@
     "imf": "imf",
     "latin america": "latin-america",
     "syria": "🇸🇾",
-    "china": "🇨🇳"
+    "china": "🇨🇳",
+    "iran": "🇮🇷",
+    "netherlands": "🇳🇱"
   },
   "news": [
     {
@@ -1275,6 +1288,97 @@
         {
           "type": "pdf",
           "value": "media/25016/Why Israel Miscalculated in Lebanon (1982).pdf"
+        }
+      ]
+    }
+  ],
+  "live-note": [
+    {
+      "id": "ln28026",
+      "visible": "yes",
+      "date": "2026-02-28T09:55:00",
+      "tags": [
+        "iran",
+        "united states",
+        "israel",
+        "war"
+      ],
+      "content": [
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 28 февраля 2026"
+        },
+        {
+          "type": "video",
+          "value": "media/ln28026/Y62P5Q7EnKRlXMnf.mp4"
+        },
+        {
+          "type": "text",
+          "value": "Congratulations to everyone on the old new Special Military Operation. It's no surprise, of course, but it's still important. <br> <br> Only two things will be decisive: the duration and scale of the strikes. <br> <br> For all these 46 years, the theocracy in Iran has not been sustained by its nuclear programme or its army (which the US is most likely capable of destroying). It has been sustained by the IRGC, a huge, well-funded and extremely effective machine of suppression and control. <br> <br> If this machine is put out of action for a long time, the current regime could really collapse. If not, we will end up with a beautifully bombed army, lots of holes in the infrastructure and the same regime, only meaner and even poorer."
+        }
+      ]
+    },
+    {
+      "id": "ln07115",
+      "visible": "yes",
+      "date": "2025-11-07T10:30:00",
+      "tags": [
+        "elections",
+        "netherlands"
+      ],
+      "content": [
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 7 ноября 2025"
+        },
+        {
+          "type": "image",
+          "value": "media/ln07115/photo_2026-02-28_14-15-02.jpg"
+        },
+        {
+          "type": "text",
+          "value": "Meanwhile, the final election results have (finally) been published in the Netherlands. D66 overtook PVV and became the largest party. Everyone has already begun the slow process of forming a coalition, and so far, all positions remain unchanged, with the VVD still refusing to cooperate with GL/Pvda in a GL/PvDa + D66 + CDA + VVD coalition. The theoretical centre-right coalition of D66+CDA+VVD+JA21 is now one seat short of a majority (exactly 75 out of 76 seats). I will keep you informed if anything changes."
+        }
+      ]
+    },
+    {
+      "id": "ln29105",
+      "visible": "yes",
+      "date": "2025-10-29T23:20:00",
+      "tags": [
+        "elections",
+        "netherlands"
+      ],
+      "content": [
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 10 октября 2025"
+        },
+        {
+          "type": "image",
+          "value": "media/ln29105/photo_2026-02-28_14-16-23.jpg"
+        },
+        {
+          "type": "text",
+          "value": "Thank you to everyone who took part! <br> <br> The results will be announced tomorrow, but for now we have the exit poll data. These are usually quite accurate, so no major surprises are expected. D66 has overtaken Wilders (PVV) and is likely to become the largest party. Also, following this news, the leader of the left-wing GL/PvDA, Timmermans, has resigned as party leader. This is generally good news, as he was toxic to all right-wing parties, so the likelihood of cooperation has increased slightly. <br> <br> My prediction remains the same - PvdA+ D66 + CDA + VVD (89/76 seats required). I have also seen suggestions of a D66 + CDA + VVD + JA21 option (78/76 seats). This is because the VVD will definitely not form a coalition with the PvdA, making this option more realistic. Of course, this depends on what the extreme parties, in this case the far-right JA21, are willing to give up. We will see."
+        }
+      ]
+    },
+    {
+      "id": "ln14105",
+      "visible": "yes",
+      "date": "2025-10-14T18:13:00",
+      "tags": [
+        "ukraine"
+      ],
+      "content": [
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 14 октября 2025"
+        },
+        {
+          "type": "text",
+          "value": "You can't just take away someone's citizenship. I've heard that he's not a very good mayor, maybe even a bad one. But the people of Odessa elected him, and that's all that matters. <br> <br> Whether he has Russian citizenship or not, this issue has been dragging on since 2014. And this did not prevent the Servants of the People from entering into a coalition with Trukhanov in the 2020 elections in order to prevent the OPZZ candidate from winning. Likewise, no one prohibited him from participating in these elections. <br> <br> The issue is therefore purely political. If the authorities can, at any moment, remove a legally elected representative of local government by one means or another, then the very concept of local self-government loses its meaning. The authorities will simply replace them with someone loyal to them. And these people often have considerable local influence and operate with impressive budgets. <br> <br> And what about Odessa? There, either the chairman of the city council (a public servant) will now be in power, or they will create and appoint a head of the OVA (appointed by Zelensky). The intrigue is growing, so the whole country will be watching."
         }
       ]
     }

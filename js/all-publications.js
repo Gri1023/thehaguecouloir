@@ -130,7 +130,7 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
     const contentGrid = document.querySelector('.content-grid');
     contentGrid.innerHTML = ''; // Clear existing content
 
-    const allItems = ['news', 'article', 'opinion', 'academic']
+    const allItems = ['news', 'article', 'opinion', 'academic', 'live-note']
         .flatMap(itemType => data[itemType]
             .filter(item => item.visible === "yes")
             .map(item => ({ ...item, type: itemType })))
@@ -152,14 +152,14 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
         articleElement.setAttribute('data-type', item.type);
         articleElement.setAttribute('data-tags', item.tags ? item.tags.join(',') : '');
 
-        const mediaContent = item.content.find(contentItem =>
+        const mediaContent = item.content ? item.content.find(contentItem =>
             contentItem.type === 'main-image' || contentItem.type === 'main-video'
-        );
+        ) : undefined;
 
         let mediaHTML = '';
-        if (mediaContent.type === 'main-image') {
+        if (mediaContent && mediaContent.type === 'main-image') {
             mediaHTML = `<img src="${mediaContent.value}" alt="${item.title}">`;
-        } else if (mediaContent.type === 'main-video') {
+        } else if (mediaContent && mediaContent.type === 'main-video') {
             mediaHTML = `<img src="${item.previewImage}" alt="${item.title}">`;
         }
 
@@ -168,12 +168,22 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
             `location.href='article.html?id=${item.id}&type=${item.type}&lang=${currentLanguage}'`
         );
 
+        // choose title or generate from live-note text
+        let displayTitle = item.title;
+        if (!displayTitle && item.type === 'live-note' && item.content) {
+            const textItem = item.content.find(c => c.type === 'text');
+            if (textItem) {
+                // truncate similarly to base.js
+                displayTitle = textItem.value.length > 100 ? textItem.value.slice(0, 97) + '...' : textItem.value;
+            }
+        }
+
         articleElement.innerHTML = `
             <a>
                 ${mediaHTML}
                 <div class="content">
                     <p class="${item.type}">${data.types[item.type]}</p>
-                    <h3 class="title">${item.title}</h3>
+                    <h3 class="title">${displayTitle || ''}</h3>
                     <p class="date">${timeAgo(item.date)}</p>
                 </div>
             </a>
@@ -225,7 +235,7 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
 
             // Load types dynamically (excluding 'all')
             const typeButtonsContainer = document.querySelector('.type-buttons');
-            ['news', 'article', 'opinion', 'academic'].forEach(typeKey => {
+            ['news', 'article', 'opinion', 'academic', 'live-note'].forEach(typeKey => {
                 const typeButton = document.createElement('button');
                 typeButton.className = `filter-option filter-option-${typeKey}${initialTypes.includes(typeKey) ? ' active' : ''}`;
                 typeButton.setAttribute('data-type', typeKey);
