@@ -147,7 +147,8 @@
     "syria": "🇸🇾",
     "china": "🇨🇳",
     "iran": "🇮🇷",
-    "netherlands": "🇳🇱"
+    "netherlands": "🇳🇱",
+    "mali": "🇲🇱"
   },
   "news": [
     {
@@ -1293,6 +1294,36 @@
     }
   ],
   "live-note": [
+    {
+      "id": "ln01056",
+      "visible": "yes",
+      "date": "2026-05-01T16:41:00",
+      "tags": [
+        "mali",
+        "war",
+        "africa",
+        "russia",
+        "ukraine"
+      ],
+      "content": [
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 1 May 2026"
+        },
+        {
+          "type": "image",
+          "value": "media/ln01056/photo_2026-05-01_17-07-09.jpg"
+        },
+        {
+          "type": "image",
+          "value": "media/ln01056/photo_2026-05-01_17-07-14.jpg"
+        },
+        {
+          "type": "text",
+          "value": "While some are already joyfully putting fire emojis under videos where Tuaregs are beating Russians in Mali, I see the need to slow you down a bit. <br><br>Yes, the former Wagner (now African Corps) got hit hard and was forced to withdraw from Kidal. Separatists from the Azawad Liberation Front (FLA) are celebrating the return of their symbolic city.<br><br>But let's honestly remind ourselves who we are actually cheering for.<br><br>The Azawad Liberation Front itself is simply a Tuareg separatist organization. However, their direct combat allies in this operation are «Jama'at Nasr al-Islam wal Muslimin» (JNIM), affiliated with Al-Qaeda, and elements of the «Islamic State in the Sahel Province» (IS-S) — real brutal transnational jihadists.<br><br>The majority of videos with FPV drones and «beautiful» warfare under the «Emerald Sky,» which you are now actively reposting, are to a large extent the work of their hands.<br><br>As the practice of 2012 has shown: as soon as they jointly achieve a significant victory over the central government, they immediately start fighting among themselves. And last time, the radical Islamists quite convincingly won that internal war.<br><br>It's a sacred thing to rejoice when the enemy gets punched in the teeth. But this is not a romantic «popular uprising» and not a noble struggle for freedom**. This is a temporary alliance of separatists with the thugs of Al-Qaeda and ISIS — transnational terrorists who see the territory of Mali exclusively as a convenient springboard for «jihad» against the entire region.<br><br>Therefore, to everyone who has already managed to put 🔥 under the «boys with Kalashnikovs in turbans and flip-flops» — I strongly recommend thinking again.<br><br><b>Not the case for fire emojis.</b>"
+        }
+      ]
+    },
     {
       "id": "ln28026",
       "visible": "yes",

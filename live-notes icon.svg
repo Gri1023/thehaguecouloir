@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300">
+  <!-- Center Circle -->
+  <circle cx="250" cy="150" r="40" fill="#1f6f3a"></circle>
+
+  <!-- Left Stripes -->
+  <path d="M190 90 A90 90 0 0 0 190 210" stroke="#1f6f3a" stroke-width="18" fill="none" stroke-linecap="round"></path>
+  <path d="M160 70 A120 120 0 0 0 160 230" stroke="#1f6f3a" stroke-width="18" fill="none" stroke-linecap="round"></path>
+  <path d="M125 50 A155 155 0 0 0 125 250" stroke="#1f6f3a" stroke-width="18" fill="none" stroke-linecap="round"></path>
+
+  <!-- Right Stripes -->
+  <path d="M310 90 A90 90 0 0 1 310 210" stroke="#1f6f3a" stroke-width="18" fill="none" stroke-linecap="round"></path>
+  <path d="M340 70 A120 120 0 0 1 340 230" stroke="#1f6f3a" stroke-width="18" fill="none" stroke-linecap="round"></path>
+  <path d="M375 50 A155 155 0 0 1 375 250" stroke="#1f6f3a" stroke-width="18" fill="none" stroke-linecap="round"></path>
+</svg>
