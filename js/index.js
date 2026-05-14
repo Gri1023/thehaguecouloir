@@ -32,6 +32,32 @@ function loadContent(jsonFile) {
     fetch(jsonFile)
         .then(response => response.json())
         .then(data => {
+            let currentIndex = 0;
+            let displayedIndex = -1;
+            let featuredItems = [];
+            let rotationInterval;
+            let pauseHoverCount = 0;
+            let pendingUpdateTimeout = null;
+            let pendingImageLoadListener = null;
+
+            function pauseRotation() {
+                if (pauseHoverCount === 0) {
+                    clearInterval(rotationInterval);
+                    rotationInterval = null;
+                    console.log('Rotation paused');
+                }
+                pauseHoverCount += 1;
+            }
+
+            function resumeRotation() {
+                pauseHoverCount = Math.max(0, pauseHoverCount - 1);
+                if (pauseHoverCount === 0 && !rotationInterval) {
+                    rotationInterval = setInterval(() => {
+                        updateHighlightedArticle();
+                    }, 5000);
+                    console.log('Rotation resumed');
+                }
+            }
             // Translate section headings, subheadings, and buttons
             const sections = [
                 { id: 'news-section', type: 'news' },
@@ -76,7 +102,6 @@ function loadContent(jsonFile) {
                 data.highlightedArticle3Id,
                 data.highlightedArticle4Id
             ];
-            let featuredItems = [];
 
             highlightedArticleIds.forEach(id => {
                 ['news', 'article', 'opinion', 'academic'].some(type => {
@@ -88,6 +113,107 @@ function loadContent(jsonFile) {
                     return false; // Continue to the next type
                 });
             });
+
+            function updateHighlightedArticle(index) {
+                console.log('updateHighlightedArticle called with index:', index);
+                const targetIndex = index !== undefined ? index : currentIndex;
+                if (index !== undefined && targetIndex === displayedIndex) {
+                    return; // No need to re-render the same highlighted article
+                }
+                const featuredItem = featuredItems[targetIndex];
+                const articleTypeClass = featuredItem.type;
+                const articleLink = `article.html?id=${featuredItem.id}&type=${featuredItem.type}&lang=${currentLanguage}`;
+
+                const mediaContent = featuredItem.content.find(contentItem =>
+                    contentItem.type === 'main-image' || contentItem.type === 'main-video'
+                );
+
+                // Fade out elements
+                const image = highlightedArticle.querySelector('.highlighted-image');
+                const typeEl = highlightedArticle.querySelector('.highlighted-type');
+                const titleEl = highlightedArticle.querySelector('.highlighted-title');
+                const dateEl = highlightedArticle.querySelector('.highlighted-date');
+
+                if (pendingUpdateTimeout) {
+                    clearTimeout(pendingUpdateTimeout);
+                    pendingUpdateTimeout = null;
+                }
+                if (pendingImageLoadListener) {
+                    image.removeEventListener('load', pendingImageLoadListener);
+                    pendingImageLoadListener = null;
+                }
+
+                image.style.opacity = '0';
+                typeEl.style.opacity = '0';
+                typeEl.style.transform = 'translateY(10px)';
+                titleEl.style.opacity = '0';
+                titleEl.style.transform = 'translateY(10px)';
+                dateEl.style.opacity = '0';
+                dateEl.style.transform = 'translateY(10px)';
+
+                pendingUpdateTimeout = setTimeout(() => {
+                    // Update content
+                    if (mediaContent.type === 'main-image') {
+                        image.src = mediaContent.value;
+                    } else if (mediaContent.type === 'main-video') {
+                        image.src = featuredItem.previewImage;
+                    }
+
+                    highlightedArticle.querySelector('.highlighted-title').innerHTML = `<a href="${articleLink}" class="highlighted-title-link">${featuredItem.title}</a>` +
+                        (mediaContent.type === 'main-video'
+                            ? `<span class="video-indicator"><span class="dot"></span> ${data.videoText}</span>`
+                            : '');
+
+                    typeEl.textContent = data.types[featuredItem.type];
+                    typeEl.className = `highlighted-type ${articleTypeClass}`;
+                    dateEl.textContent = timeAgo(featuredItem.date);
+
+                    const highlightedButton = highlightedArticle.querySelector('.highlighted-button');
+                    const button = highlightedButton.querySelector('.highlighted-button-link');
+                    if (button) {
+                        button.href = articleLink;
+                        button.textContent = data.readMoreButton;
+                    } else {
+                        highlightedButton.innerHTML = `<a href="${articleLink}" class="highlighted-button-link">${data.readMoreButton}</a>`;
+                    }
+
+                    // Highlight grid item
+                    const gridItems = document.querySelectorAll('#highlighted-articles-grid .grid-item');
+                    gridItems.forEach(item => {
+                        if (item.querySelector('h3').textContent === featuredItem.title) {
+                            item.classList.add('active');
+                        } else {
+                            item.classList.remove('active');
+                        }
+                    });
+
+                    const fadeInElements = () => {
+                        image.style.opacity = '1';
+                        typeEl.style.opacity = '1';
+                        typeEl.style.transform = 'translateY(0)';
+                        titleEl.style.opacity = '1';
+                        titleEl.style.transform = 'translateY(0)';
+                        dateEl.style.opacity = '1';
+                        dateEl.style.transform = 'translateY(0)';
+                    };
+
+                    if (image.complete && image.naturalWidth !== 0) {
+                        fadeInElements();
+                    } else {
+                        const onLoad = () => {
+                            image.removeEventListener('load', onLoad);
+                            fadeInElements();
+                            pendingImageLoadListener = null;
+                        };
+                        image.addEventListener('load', onLoad);
+                        pendingImageLoadListener = onLoad;
+                    }
+
+                    displayedIndex = targetIndex;
+                    currentIndex = (targetIndex + 1) % featuredItems.length;
+                    pendingUpdateTimeout = null;
+                }, 300);
+            }
 
             // Separate the items by type and add them to the respective grids
             const allItems = ['news', 'article', 'opinion', 'academic']
@@ -172,7 +298,7 @@ function loadContent(jsonFile) {
                     `;
 
                 // Add event listeners for hover and click
-                gridItem.addEventListener('mouseover', () => {
+                gridItem.addEventListener('mouseenter', () => {
                     updateHighlightedArticle(index);
                 });
 
@@ -180,61 +306,21 @@ function loadContent(jsonFile) {
             });
 
             if (featuredItems.length > 0) {
-                let currentIndex = 0;
-
-                function updateHighlightedArticle(index) {
-                    if (index !== undefined) {
-                        currentIndex = index;
-                    }
-                    const featuredItem = featuredItems[currentIndex];
-                    const articleTypeClass = featuredItem.type;
-                    const articleLink = `article.html?id=${featuredItem.id}&type=${featuredItem.type}&lang=${currentLanguage}`;
-
-                    const mediaContent = featuredItem.content.find(contentItem =>
-                        contentItem.type === 'main-image' || contentItem.type === 'main-video'
-                    );
-
-                    // Update image
-                    const highlightedImage = highlightedArticle.querySelector('.highlighted-image');
-                    if (mediaContent.type === 'main-image') {
-                        highlightedImage.src = mediaContent.value;
-                    } else if (mediaContent.type === 'main-video') {
-                        highlightedImage.src = featuredItem.previewImage;
-                    }
-
-                    // Update overlay content
-                    highlightedArticle.querySelector('.highlighted-title').innerHTML = `<a href="${articleLink}">${featuredItem.title}</a>`;
-                    const highlightedTypeElement = highlightedArticle.querySelector('.highlighted-type');
-                    highlightedTypeElement.textContent = data.types[featuredItem.type];
-                    highlightedTypeElement.className = `highlighted-type ${articleTypeClass}`;
-                    highlightedArticle.querySelector('.highlighted-date').textContent = timeAgo(featuredItem.date);
-                    const highlightedButton = highlightedArticle.querySelector('.highlighted-button');
-                    highlightedButton.innerHTML = `<a href="${articleLink}" class="highlighted-button-link">${data.readMoreButton}</a>`;
-
-                    const highlightedTitle = highlightedArticle.querySelector('.highlighted-title');
-                    highlightedTitle.innerHTML = `<a href="${articleLink}">${featuredItem.title}</a>` +
-                        (mediaContent.type === 'main-video'
-                            ? `<span class="video-indicator"><span class="dot"></span> ${data.videoText}</span>`
-                            : '');
-
-                    // Highlight grid item
-                    const gridItems = document.querySelectorAll('#highlighted-articles-grid .grid-item');
-                    gridItems.forEach(item => {
-                        if (item.querySelector('h3').textContent === featuredItem.title) {
-                            item.classList.add('active');
-                        } else {
-                            item.classList.remove('active');
-                        }
-                    });
-
-                    currentIndex = (currentIndex + 1) % featuredItems.length;
-                }
-
                 // Initial setup to highlight the first article correctly
                 updateHighlightedArticle(0);
 
+                // Add event listeners to pause/resume rotation while hovering the highlighted article area
+                if (highlightedArticle) {
+                    highlightedArticle.addEventListener('mouseenter', pauseRotation);
+                    highlightedArticle.addEventListener('mouseleave', resumeRotation);
+                }
+
                 // Start rotating after the initial setup
-                setInterval(() => updateHighlightedArticle(), 5000);
+                console.log('Setting initial interval');
+                rotationInterval = setInterval(() => {
+                    console.log('Interval firing, updating article');
+                    updateHighlightedArticle();
+                }, 5000);
             } else {
                 console.error('Highlighted articles not found');
             }

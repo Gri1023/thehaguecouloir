@@ -9,7 +9,7 @@ function getCurrentLanguage() {
     let urlParams = new URLSearchParams(window.location.search);
     const hashIndex = window.location.href.indexOf('#');
 
-    // If no language parameter is found in the search part, check the hash part
+    // 1. Check URL Search Params first
     if (!urlParams.has('lang') && hashIndex !== -1) {
         const hash = window.location.href.slice(hashIndex + 1);
         const hashParamsIndex = hash.indexOf('?');
@@ -22,47 +22,97 @@ function getCurrentLanguage() {
     }
 
     const urlLanguage = urlParams.get('lang');
-    console.log('Current language:', urlLanguage);
+    
+    // 2. Check Local Storage if URL is empty
+    const storedLanguage = localStorage.getItem('preferredLanguage');
 
-    // If there's a language in the URL, use it
-    return urlLanguage || 'en';
+    // 3. Priority: URL > LocalStorage > Default ('en')
+    const finalLanguage = urlLanguage || storedLanguage || 'en';
+    
+    console.log('Current language determined:', finalLanguage);
+    return finalLanguage;
 }
 
-// Immediately invoked function to set the initial language button
 (function setLanguageButton() {
     const language = getCurrentLanguage();
-
-    // Create a button based on the current language
     const languageSelector = document.getElementById('languageSelector');
+
+    // Ensure the storage is synced with whatever the final choice was
+    localStorage.setItem('preferredLanguage', language);
 
     if (language === 'ru') {
         languageSelector.innerHTML = `
             <button class="dropbtn"><img src="language-icon-white.png" class="language-icon">Русский</button>
             <div class="dropdown-menu">
-          <a href="#" onclick="changeLanguage('en')">English</a>
-        </div>
+                <a href="#" onclick="changeLanguage('en')">English</a>
+            </div>
         `;
     } else {
         languageSelector.innerHTML = `
             <button class="dropbtn"><img src="language-icon-white.png" class="language-icon">English</button>
             <div class="dropdown-menu">
-          <a href="#" onclick="changeLanguage('ru')">Русский</a>
-        </div>
+                <a href="#" onclick="changeLanguage('ru')">Русский</a>
+            </div>
         `;
     }
 })();
 
-// Function to change language and reflect it in the URL
 function changeLanguage(language) {
-    // Save the selected language
+    // 1. Save the selection to Local Storage immediately
+    localStorage.setItem('preferredLanguage', language);
+    
     currentLanguage = language;
 
-    // Update the URL with the new language parameter
+    // 2. Update the URL and reload
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('lang', language);
-
-    // Reload the page with the updated language in the URL
     window.location.search = urlParams.toString();
+}
+
+// Function to insert navigation container
+function insertNav(data) {
+    const grid = document.querySelector('.sidebars-left-grid');
+    if (!grid) return;
+
+    const navDiv = document.createElement('div');
+    navDiv.className = 'sidebars-left-item';
+    navDiv.id = 'navContainer';
+
+    navDiv.innerHTML = `
+        <a href="index.html" id="logo-link">
+            <img src="media/logo.png" alt="Logo" class="logo">
+        </a>
+        <a href="index.html" class="navigation-title-text" id="navigation-title-text">${data.siteTitle}</a>
+        <ul>
+            <li>
+                <a href="index.html" class="navigation-link">
+                    <img src="home-icon-white.png" class="navigation-icon">
+                    <span class="navigation-option-text">${data.navigation[0][Object.keys(data.navigation[0])[0]]}</span>
+                </a>
+            </li>
+            <li>
+                <a href="index.html#catalogue-anchor" class="navigation-link">
+                    <img src="catalogue-icon-white.png" class="navigation-icon">
+                    <span class="navigation-option-text">${data.navigation[1][Object.keys(data.navigation[1])[0]]}</span>
+                </a>
+            </li>
+            <li>
+                <a href="all-publications.html" class="navigation-link">
+                    <img src="search_icon.png" class="navigation-icon">
+                    <span class="navigation-option-text">${data.navigation[2][Object.keys(data.navigation[2])[0]]}</span>
+                </a>
+            </li>
+            <li>
+                <a href="about.html" class="navigation-link">
+                    <img src="info-icon-white.png" class="navigation-icon">
+                    <span class="navigation-option-text">${data.navigation[3][Object.keys(data.navigation[3])[0]]}</span>
+                </a>
+            </li>
+        </ul>
+    `;
+
+    // Insert as first child
+    grid.insertBefore(navDiv, grid.firstChild);
 }
 
 // Function to populate sidebars dynamically
@@ -77,7 +127,77 @@ function populateSidebar(side, data) {
             itemDiv.className = `sidebars-${side}-item`;
             itemDiv.id = `sidebars-${side}-item${index + 1}`;
 
-            if (item.type === 'telegram') {
+            if (item.type === 'bias') {
+                const biasData = data.biasCard || {};
+                const titleText = biasData.title || 'Bias is always there.';
+                const descriptionText = biasData.description || 'Every article is shaped by perspective. Awareness is the first step to clarity.';
+                const buttonText = biasData.button || 'Learn more about bias';
+                const biasLink = `bias.html?lang=${currentLanguage}`;
+                const imageOffSrc = item.imageOff || '';
+                const imageOnSrc = item.imageOn || '';
+                const switchOffSrc = 'media/light-switch-off.png';
+                const switchOnSrc = 'media/light-switch-on.png';
+                const storedValue = localStorage.getItem('biasVisibility');
+                const isVisible = storedValue === '1' || storedValue === 'true';
+                const buttonClass = isVisible ? 'bias-card-button bias-card-button-active' : 'bias-card-button bias-card-button-inactive';
+                const imageWrapperClass = isVisible ? 'bias-image-wrapper bias-image-active' : 'bias-image-wrapper';
+
+                itemDiv.innerHTML = `
+                    <div class="bias-card">
+                        <div class="${imageWrapperClass}">
+                            <div class="bias-image-frame">
+                                ${imageOffSrc ? `<img class="bias-image bias-image-off" src="${imageOffSrc}" alt="Bias illustration off">` : ''}
+                                ${imageOnSrc ? `<img class="bias-image bias-image-on" src="${imageOnSrc}" alt="Bias illustration on">` : ''}
+                                <div class="bias-image-placeholder"></div>
+                            </div>
+                        </div>
+                        <div class="bias-card-heading">
+                            <h3>${titleText}</h3>
+                            <p>${descriptionText}</p>
+                        </div>
+                        <a href="${biasLink}" class="${buttonClass}">${buttonText}</a>
+                        <div class="bias-visibility-panel">
+                            <div class="bias-visibility-control">
+                                <span class="bias-visibility-count bias-off">OFF</span>
+                                <label class="bias-switch">
+                                    <input type="checkbox" id="biasVisibilityToggle" ${isVisible ? 'checked' : ''}>
+                                    <img class="bias-switch-image" src="${isVisible ? switchOnSrc : switchOffSrc}" alt="Bias switch">
+                                </label>
+                                <span class="bias-visibility-count bias-on">ON</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                const toggle = itemDiv.querySelector('#biasVisibilityToggle');
+                const button = itemDiv.querySelector('.bias-card-button');
+                const imageWrapper = itemDiv.querySelector('.bias-image-wrapper');
+                const imageOff = itemDiv.querySelector('.bias-image-off');
+                const imageOn = itemDiv.querySelector('.bias-image-on');
+                const switchImage = itemDiv.querySelector('.bias-switch-image');
+
+                if (toggle) {
+                    toggle.addEventListener('change', () => {
+                        const active = toggle.checked;
+                        localStorage.setItem('biasVisibility', active ? '1' : '0');
+                        button.classList.toggle('bias-card-button-active', active);
+                        button.classList.toggle('bias-card-button-inactive', !active);
+                        imageWrapper.classList.toggle('bias-image-active', active);
+                        if (imageOff) imageOff.style.display = active ? 'none' : 'block';
+                        if (imageOn) imageOn.style.display = active ? 'block' : 'none';
+                        if (switchImage) switchImage.src = active ? switchOnSrc : switchOffSrc;
+                    });
+                    // Initialize display on load
+                    if (imageOff) imageOff.style.display = isVisible ? 'none' : 'block';
+                    if (imageOn) imageOn.style.display = isVisible ? 'block' : 'none';
+                    if (switchImage) switchImage.src = isVisible ? switchOnSrc : switchOffSrc;
+                }
+
+                console.log('Adding bias sidebar item', { side });
+                grid.appendChild(itemDiv);
+            }
+
+             if (item.type === 'telegram') {
                 itemDiv.innerHTML = `
                 <img src="Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
                     <a href="${item.link}">
@@ -186,16 +306,9 @@ function setBaseLocalizedText() {
         .then(data => {
             // Set the site title
             document.title = data.siteTitle;
-            document.querySelector('#navContainer .navigation-title-text').textContent = data.siteTitle;
 
-            // Update text for navigation menu items
-            const navigationItems = document.querySelectorAll('.navigation-link');
-            navigationItems.forEach((item, index) => {
-                const linkKey = Object.keys(data.navigation[index])[0]; // Get the key (e.g., "highlights", "catalogue", etc.)
-                if (data.navigation[index][linkKey]) {
-                    item.querySelector('.navigation-option-text').textContent = data.navigation[index][linkKey];
-                }
-            });
+            // Insert navigation
+            insertNav(data);
 
             // Update text for footer grid item 1
             const footerGridItem1 = document.querySelector('#footer-grid-item1 .footer-grid-item-list').children;
@@ -230,7 +343,11 @@ function setBaseLocalizedText() {
             });
 
             // Set the footer below text
-            document.querySelector('.footer-below-text').textContent = data.footer[4]["footer-grid-item-below"][0];
+            // Change .textContent to .innerHTML
+const footerElement = document.querySelector('.footer-below-text');
+if (footerElement) {
+    footerElement.innerHTML = data.footer[4]["footer-grid-item-below"][0];
+}
 
             // Populate sidebars
             populateSidebar('left', data);
@@ -283,12 +400,26 @@ function updateNavigationLinks() {
             }
         }
     }
+
+    // Update footer links
+    const footerLinks = document.querySelectorAll('footer a.footer-text');
+    footerLinks.forEach(link => {
+        let href = link.getAttribute('href');
+        if (href && !href.includes('lang=') && !href.startsWith('http') && !href.startsWith('#')) {
+            if (href.includes('?')) {
+                link.setAttribute('href', href + '&lang=' + lang);
+            } else {
+                link.setAttribute('href', href + '?lang=' + lang);
+            }
+        }
+    });
 }
 
 
 
 // Ensure that setLocalizedText is called on page load
 document.addEventListener('DOMContentLoaded', () => {
+    insertFooter();
     setBaseLocalizedText(); // Update header and footer text based on the current language
     updateNavigationLinks(); // Update navigation links based on the current language
     // Call other initialization functions here if needed
@@ -334,4 +465,45 @@ function timeAgo(dateString) {
         }
     }
     return currentLanguage === 'ru' ? 'только что' : 'just now';
+}
+
+function insertFooter() {
+    const footerHTML = `
+<footer>
+    <div class="footer-grid">
+        <div class="footer-grid-item" id="footer-grid-item1">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Socials</a></li>
+                <li><a href="https://t.me/grycko_the_hague_couloir" class="footer-text">Footer text</a></li>
+                <li><a href="https://www.linkedin.com/in/hryhorii-bavykin/" class="footer-text">Footer text</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item2">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Footer text</a></li>
+                <li><a href="index.html" class="footer-text">Footer text</a></li>
+                <li><a href="all-publications.html" class="footer-text">Footer text</a></li>
+                <li><a href="about.html" class="footer-text">Footer text</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item3">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Footer text</a></li>
+                <li><a href="about.html#about-naming-anchor" class="footer-text">Footer text</a></li>
+                <li><a href="about.html#about-author-anchor" class="footer-text">Footer text</a></li>
+                <li><a href="about.html#about-contact-anchor" class="footer-text">Footer text</a></li>
+            </ul>
+        </div>
+        <div class="footer-grid-item" id="footer-grid-item4">
+            <ul class="footer-grid-item-list">
+                <li><a class="footer-bold-text">Footer text</a></li>
+                <li><a href="#" onclick="changeLanguage('en')" class="footer-text">Footer text</a></li>
+                <li><a href="#" onclick="changeLanguage('ru')" class="footer-text">Footer text</a></li>
+            </ul>
+        </div>
+    </div>
+    <p class="footer-below-text">Something</p>
+</footer>
+    `;
+    document.body.insertAdjacentHTML('beforeend', footerHTML);
 }

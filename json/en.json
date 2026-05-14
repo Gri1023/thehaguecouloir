@@ -41,7 +41,7 @@
     {
       "footer-grid-item3": [
         "About",
-        "Description",
+        "Project",
         "Author",
         "Contact"
       ]
@@ -55,7 +55,7 @@
     },
     {
       "footer-grid-item-below": [
-        "This website does not collect any of your data. Stay safe! © Hryhorii Bavykin 2026"
+        "This website <a href=\"your-data.html\">does not collect</a> any of your data. Stay safe! © Hryhorii Bavykin 2026"
       ]
     }
   ],
@@ -81,6 +81,12 @@
   "highlightedArticle4Id": "23104",
   "readMoreButton": "Read more",
   "moreInfoText": "Or find more yourself",
+  "biasCard": {
+    "title": "Bias is always there.",
+    "description": "Every article is shaped by perspective. Awareness is the first step to clarity.",
+    "button": "Learn more about bias",
+    "visibilityLabel": "Bias visibility"
+  },
   "allPublications": "All publications",
   "filterByTags": "Filter by tags:",
   "filterByType": "Filter by type:",
@@ -97,6 +103,11 @@
   },
   "sidebars": {
     "left": [
+      {
+        "type": "bias",
+        "imageOff": "media/bias-dark.png",
+        "imageOn": "media/bias-light.png"
+      },
       {
         "type": "telegram",
         "text": "Join my Telegram channel for regular updates, author's notes and memes! (in Russian)",
@@ -150,6 +161,96 @@
     "netherlands": "🇳🇱",
     "mali": "🇲🇱"
   },
+  "about": [
+    {
+      "type": "heading-text",
+      "value": "About"
+    },
+    {
+      "type": "text",
+      "value": "This page is still under development. When the author is satisfied with the text, it will appear here. Thank you for your patience!"
+    },
+    {
+      "type": "image",
+      "value": "media/Writing_Hand_Emoji_Icon_ios10_grande-693345419.png"
+    },
+    {
+      "type": "subheading-text",
+      "value": "Contact"
+    },
+    {
+      "type": "text",
+      "value": "For comments, ideas and questions you can always contact the author using the email below."
+    },
+    {
+      "type": "text",
+      "value": "thehaguecoulour@gmail.com"
+    },
+    {
+      "type": "text",
+      "value": "You can also always have a discussion about the publications by writing your thoughts or questions in comments section under the appropriate post in author's [author’s Telegram channel](https://t.me/grycko_the_hague_couloir)."
+    }
+  ],
+  "your-data": [
+    {
+      "type": "heading-text",
+      "value": "Your data"
+    },
+    {
+      "type": "text",
+      "value": "This page is still under development. When the author is satisfied with the text, it will appear here. Thank you for your patience!"
+    },
+    {
+      "type": "image",
+      "value": "media/Writing_Hand_Emoji_Icon_ios10_grande-693345419.png"
+    },
+    {
+      "type": "subheading-text",
+      "value": "Contact"
+    },
+    {
+      "type": "text",
+      "value": "For comments, ideas and questions you can always contact the author using the email below."
+    },
+    {
+      "type": "text",
+      "value": "thehaguecoulour@gmail.com"
+    },
+    {
+      "type": "text",
+      "value": "You can also always have a discussion about the publications by writing your thoughts or questions in comments section under the appropriate post in author's [author’s Telegram channel](https://t.me/grycko_the_hague_couloir)."
+    }
+  ],
+  "bias": [
+    {
+      "type": "heading-text",
+      "value": "Bias"
+    },
+    {
+      "type": "text",
+      "value": "This page is still under development. When the author is satisfied with the text, it will appear here. Thank you for your patience!"
+    },
+    {
+      "type": "image",
+      "value": "media/Writing_Hand_Emoji_Icon_ios10_grande-693345419.png"
+    },
+    {
+      "type": "subheading-text",
+      "value": "Contact"
+    },
+    {
+      "type": "text",
+      "value": "For comments, ideas and questions you can always contact the author using the email below."
+    },
+    {
+      "type": "text",
+      "value": "thehaguecoulour@gmail.com"
+    },
+    {
+      "type": "text",
+      "value": "You can also always have a discussion about the publications by writing your thoughts or questions in comments section under the appropriate post in author's [author’s Telegram channel](https://t.me/grycko_the_hague_couloir)."
+    }
+  ],
   "news": [
     {
       "id": "31075",
