@@ -1,9 +1,25 @@
+function getRootPrefix() {
+    const path = window.location.pathname;
+    const subpages = ['article', 'about', 'all-publications', 'bias', 'your-data', 'editor'];
+    return subpages.some(folder => path.includes(`/${folder}/`) || path.endsWith(`/${folder}`) || path.endsWith(`/${folder}/`)) ? '../' : '';
+}
+
+function prefixRootPath(url) {
+    if (!url) return url;
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//') || url.startsWith('/') || url.startsWith('data:') || url.startsWith('../') || url.startsWith('./')) {
+        return url;
+    }
+    return `${getRootPrefix()}${url}`;
+}
+
+const rootPrefix = getRootPrefix();
+
 document.addEventListener('DOMContentLoaded', () => {
     filterItems('all'); // Default to showing all items
 
-    // Load content for index.html
+    // Load content for index/
     if (document.querySelector('.content-grid')) {
-        loadContent(`json/${currentLanguage}.json`);
+        loadContent(`${rootPrefix}json/${currentLanguage}.json`);
     }
 });
 
@@ -85,7 +101,7 @@ function loadContent(jsonFile) {
                     if (button) {
                         button.querySelector('.publication-section-button').textContent = data.exploreAllPublications;
                         // Ensure lang parameter in the link
-                        button.setAttribute('href', `all-publications.html?lang=${currentLanguage}`);
+                        button.setAttribute('href', `all-publications/?lang=${currentLanguage}`);
                     } else {
                         console.warn(`Button not found for section: ${id}`);
                     }
@@ -122,7 +138,7 @@ function loadContent(jsonFile) {
                 }
                 const featuredItem = featuredItems[targetIndex];
                 const articleTypeClass = featuredItem.type;
-                const articleLink = `article.html?id=${featuredItem.id}&type=${featuredItem.type}&lang=${currentLanguage}`;
+                const articleLink = `${rootPrefix}article/?id=${featuredItem.id}&type=${featuredItem.type}&lang=${currentLanguage}`;
 
                 const mediaContent = featuredItem.content.find(contentItem =>
                     contentItem.type === 'main-image' || contentItem.type === 'main-video'
@@ -154,9 +170,9 @@ function loadContent(jsonFile) {
                 pendingUpdateTimeout = setTimeout(() => {
                     // Update content
                     if (mediaContent.type === 'main-image') {
-                        image.src = mediaContent.value;
+                        image.src = prefixRootPath(mediaContent.value);
                     } else if (mediaContent.type === 'main-video') {
-                        image.src = featuredItem.previewImage;
+                        image.src = prefixRootPath(featuredItem.previewImage);
                     }
 
                     highlightedArticle.querySelector('.highlighted-title').innerHTML = `<a href="${articleLink}" class="highlighted-title-link">${featuredItem.title}</a>` +
@@ -245,15 +261,15 @@ function loadContent(jsonFile) {
 
                     let mediaHTML = '';
                     if (mediaContent.type === 'main-image') {
-                        mediaHTML = `<img src="${mediaContent.value}" alt="${item.title}">`;
+                        mediaHTML = `<img src="${prefixRootPath(mediaContent.value)}" alt="${item.title}">`;
                     } else if (mediaContent.type === 'main-video') {
-                        mediaHTML = `<img src="${item.previewImage}" alt="${item.title}">`;
+                        mediaHTML = `<img src="${prefixRootPath(item.previewImage)}" alt="${item.title}">`;
                     }
 
                     // Add the link to the articleElement itself
                     articleElement.setAttribute(
                         'onclick',
-                        `location.href='article.html?id=${item.id}&type=${item.type}&lang=${currentLanguage}'`
+                        `location.href='${rootPrefix}article/?id=${item.id}&type=${item.type}&lang=${currentLanguage}'`
                     );
 
                     // Populate the article's inner HTML
@@ -284,7 +300,7 @@ function loadContent(jsonFile) {
             highlightedArticles.forEach((item, index) => {
                 const gridItem = document.createElement('div');
                 gridItem.classList.add('grid-item');
-                const articleLink = `article.html?id=${item.id}&type=${item.type}&lang=${currentLanguage}`;
+                const articleLink = `${rootPrefix}article/?id=${item.id}&type=${item.type}&lang=${currentLanguage}`;
 
                 gridItem.innerHTML = `
                         <a href="${articleLink}" class="grid-item-link">

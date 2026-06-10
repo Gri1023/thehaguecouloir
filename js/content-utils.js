@@ -1,3 +1,17 @@
+function getRootPrefix() {
+    const path = window.location.pathname;
+    const subpages = ['article', 'about', 'all-publications', 'bias', 'your-data', 'editor'];
+    return subpages.some(folder => path.includes(`/${folder}/`) || path.endsWith(`/${folder}`) || path.endsWith(`/${folder}/`)) ? '../' : '';
+}
+
+function prefixRootPath(url) {
+    if (!url) return url;
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//') || url.startsWith('/') || url.startsWith('data:') || url.startsWith('../') || url.startsWith('./')) {
+        return url;
+    }
+    return `${getRootPrefix()}${url}`;
+}
+
 function loadJsonSection(sectionName, containerId) {
     const container = document.getElementById(containerId);
     if (!container) {
@@ -5,7 +19,8 @@ function loadJsonSection(sectionName, containerId) {
         return;
     }
 
-    fetch(`json/${window.currentLanguage}.json`)
+    const rootPrefix = getRootPrefix();
+    fetch(`${rootPrefix}json/${window.currentLanguage}.json`)
         .then(response => response.json())
         .then(data => {
             const sectionData = data[sectionName];
@@ -33,7 +48,9 @@ function renderContentItem(container, item, data = {}) {
     const value = item.value || '';
     const escaped = value;
     const getLinks = (text, className) => {
-        return `${text}`.replace(/\[([^\]]+)\]\(([^)]+)\)/g, `<a href="$2" target="_blank" class="${className}">$1</a>`);
+        return `${text}`.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, url) =>
+            `<a href="${prefixRootPath(url)}" target="_blank" class="${className}">${label}</a>`
+        );
     };
 
     switch (item.type) {
@@ -57,14 +74,14 @@ function renderContentItem(container, item, data = {}) {
             break;
         case 'main-image':
             if (item.visible !== 'no') {
-                container.innerHTML += `<img src="${item.value}" alt="" class="main-image">`;
+                container.innerHTML += `<img src="${prefixRootPath(item.value)}" alt="" class="main-image">`;
             }
             break;
         case 'main-video':
-            container.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${item.value}"></video></div>`;
+            container.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${prefixRootPath(item.value)}"></video></div>`;
             break;
         case 'image':
-            container.innerHTML += `<img src="${item.value}" alt="" class="image">`;
+            container.innerHTML += `<img src="${prefixRootPath(item.value)}" alt="" class="image">`;
             break;
         case 'caption-text':
             container.innerHTML += `<p class="caption-text">${getLinks(escaped, 'caption-text-with-link')}</p>`;
@@ -82,15 +99,15 @@ function renderContentItem(container, item, data = {}) {
             container.innerHTML += `<div class="error">${escaped}</div>`;
             break;
         case 'video':
-            container.innerHTML += `<div class="video-container"><video controls src="${item.value}"></video></div>`;
+            container.innerHTML += `<div class="video-container"><video controls src="${prefixRootPath(item.value)}"></video></div>`;
             break;
         case 'pdf':
             container.innerHTML += `
                 <div class="pdf-container">
                     <div class="pdf-toolbar">
-                        <a href="${item.value}" target="_blank" rel="noopener" class="pdf-open">${data.openPdf || 'Open PDF separately'}</a>
+                        <a href="${prefixRootPath(item.value)}" target="_blank" rel="noopener" class="pdf-open">${data.openPdf || 'Open PDF separately'}</a>
                     </div>
-                    <iframe src="${item.value}" class="pdf-frame" loading="lazy"></iframe>
+                    <iframe src="${prefixRootPath(item.value)}" class="pdf-frame" loading="lazy"></iframe>
                 </div>`;
             break;
         default:
@@ -111,14 +128,14 @@ function createGallery(container, images) {
 
     let galleryHtml = `
         <div class="gallery-container">
-            <img src="${images[0]}" alt="Gallery Image" class="gallery-main-image">
+            <img src="${prefixRootPath(images[0])}" alt="Gallery Image" class="gallery-main-image">
             <button class="gallery-nav-button left">&lt;</button>
             <button class="gallery-nav-button right">&gt;</button>
             <div class="gallery-thumbnails">
     `;
 
     images.forEach((image, index) => {
-        galleryHtml += `<img src="${image}" alt="Thumbnail" class="gallery-thumbnail${index === 0 ? ' active' : ''}" data-index="${index}">`;
+        galleryHtml += `<img src="${prefixRootPath(image)}" alt="Thumbnail" class="gallery-thumbnail${index === 0 ? ' active' : ''}" data-index="${index}">`;
     });
 
     galleryHtml += `

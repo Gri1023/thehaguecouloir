@@ -66,7 +66,7 @@
     "academic": "Academic"
   },
   "sectionSubheadings": {
-    "news": "Latest news with author's perspective in the end.",
+    "news": "Latest news with author's perspective.",
     "article": "In-depth analyses of various topics, that are trying to be as objective as possible.",
     "opinion": "Opinion-based articles, trying to objectively prove a point.",
     "academic": "Academic articles created as a part of authors university assignments, with varying freedom of topic selection and opinion expression."
@@ -75,10 +75,10 @@
   "sortBy": "Sort by:",
   "newest": "Newest",
   "oldest": "Oldest",
-  "highlightedArticle1Id": "25016",
-  "highlightedArticle2Id": "12125",
-  "highlightedArticle3Id": "31075",
-  "highlightedArticle4Id": "23104",
+  "highlightedArticle1Id": "07066",
+  "highlightedArticle2Id": "25016",
+  "highlightedArticle3Id": "12125",
+  "highlightedArticle4Id": "31075",
   "readMoreButton": "Read more",
   "moreInfoText": "Or find more yourself",
   "biasCard": {
@@ -128,6 +128,7 @@
     "middle East": "middle-east",
     "asia": "asia",
     "africa": "africa",
+    "oceania": "oceania",
     "america": "america",
     "moldova": "🇲🇩",
     "britain": "🇬🇧",
@@ -159,7 +160,10 @@
     "china": "🇨🇳",
     "iran": "🇮🇷",
     "netherlands": "🇳🇱",
-    "mali": "🇲🇱"
+    "mali": "🇲🇱",
+    "indonesia": "🇮🇩",
+    "west papua": "west papua",
+    "separatism": "separatism"
   },
   "about": [
     {
@@ -1390,6 +1394,46 @@
         {
           "type": "pdf",
           "value": "media/25016/Why Israel Miscalculated in Lebanon (1982).pdf"
+        }
+      ]
+    },
+    {
+      "id": "07066",
+      "visible": "yes",
+      "date": "2026-06-07T22:41:00",
+      "title": "West Papua Conflict: A Legal Analysis of Dutch Arms Export Obligations Under EU Law",
+      "tags": [
+        "indonesia",
+        "west papua",
+        "separatism",
+        "human rights",
+        "oceania",
+        "asia",
+        "war",
+        "freedom of speech",
+        "united nations"
+      ],
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "West Papua Conflict: A Legal Analysis of Dutch Arms Export Obligations Under EU Law"
+        },
+        {
+          "type": "info-text",
+          "value": "[Hryhorii Bavykin](about.html), 7 June 2026"
+        },
+        {
+          "type": "main-image",
+          "value": "media/07066/Legal Analysis - West Papua-01.jpg",
+          "visible": "no"
+        },
+        {
+          "type": "information",
+          "value": "This publication consists of a single PDF file. The content may not be translated to your selected language. To view it in full screen, use the button below."
+        },
+        {
+          "type": "pdf",
+          "value": "media/07066/Legal Analysis - West Papua.pdf"
         }
       ]
     }

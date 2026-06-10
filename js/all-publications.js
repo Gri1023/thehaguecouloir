@@ -1,3 +1,11 @@
+let rootPrefix = '';
+
+function getRootPrefix() {
+    const path = window.location.pathname;
+    const subpages = ['article', 'about', 'all-publications', 'bias', 'your-data', 'editor'];
+    return subpages.some(folder => path.includes(`/${folder}/`) || path.endsWith(`/${folder}`) || path.endsWith(`/${folder}/`)) ? '../' : '';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page loaded, initializing loadAllPublications');
 
@@ -9,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log(`Initial URL params: types=${initialTypes}, tags=${initialTags}, sort=${initialSort}`);
 
-    loadAllPublications(`json/${currentLanguage}.json`, initialTypes, initialTags, initialSort);
+    rootPrefix = getRootPrefix();
+    loadAllPublications(`${rootPrefix}json/${currentLanguage}.json`, initialTypes, initialTags, initialSort);
 });
 
 // Global variables for filter and sort state
@@ -158,14 +167,14 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
 
         let mediaHTML = '';
         if (mediaContent && mediaContent.type === 'main-image') {
-            mediaHTML = `<img src="${mediaContent.value}" alt="${item.title}">`;
+            mediaHTML = `<img src="${rootPrefix}${mediaContent.value}" alt="${item.title}">`;
         } else if (mediaContent && mediaContent.type === 'main-video') {
-            mediaHTML = `<img src="${item.previewImage}" alt="${item.title}">`;
+            mediaHTML = `<img src="${rootPrefix}${item.previewImage}" alt="${item.title}">`;
         }
 
         articleElement.setAttribute(
             'onclick',
-            `location.href='article.html?id=${item.id}&type=${item.type}&lang=${currentLanguage}'`
+            `location.href='${rootPrefix}article/?id=${item.id}&type=${item.type}&lang=${currentLanguage}'`
         );
 
         // choose title or generate from live-note text

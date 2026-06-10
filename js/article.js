@@ -1,3 +1,17 @@
+function getRootPrefix() {
+    const path = window.location.pathname;
+    const subpages = ['article', 'about', 'all-publications', 'bias', 'your-data', 'editor'];
+    return subpages.some(folder => path.includes(`/${folder}/`) || path.endsWith(`/${folder}`) || path.endsWith(`/${folder}/`)) ? '../' : '';
+}
+
+function prefixRootPath(url) {
+    if (!url) return url;
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//') || url.startsWith('/') || url.startsWith('data:') || url.startsWith('../') || url.startsWith('./')) {
+        return url;
+    }
+    return `${getRootPrefix()}${url}`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     loadArticleContent();
 });
@@ -6,14 +20,21 @@ function loadArticleContent() {
     const urlParams = new URLSearchParams(window.location.search);
     const articleId = urlParams.get('id');
     const articleType = urlParams.get('type');
+    const rootPrefix = getRootPrefix();
 
-    fetch(`json/${currentLanguage}.json`)
+    fetch(`${rootPrefix}json/${currentLanguage}.json`)
         .then(response => response.json())
         .then(data => {
             const articleData = data[articleType].find(item => item.id === articleId);
             if (articleData) {
                 const articleContent = document.getElementById('article-content');
                 const articleTypeContainer = document.getElementById('article-type');
+
+                const formatLinks = (text, className) => {
+                    return `${text}`.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, url) =>
+                        `<a href="${prefixRootPath(url)}" target="_blank" class="${className}">${label}</a>`
+                    );
+                };
 
                 articleTypeContainer.innerHTML = data.types[articleType];
                 articleTypeContainer.className = `text-type ${articleType}`;
@@ -23,51 +44,50 @@ function loadArticleContent() {
                         if (item.type === 'gallery') {
                             createGallery(articleContent, item.images);
                         } else if (item.type === 'heading-text') {
-                            const headingTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="heading-text-with-link">$1</a>');
+                            const headingTextWithLinks = formatLinks(item.value, 'heading-text-with-link');
                             articleContent.innerHTML += `<h1 class="heading-text">${headingTextWithLinks}</h1>`;
                         } else if (item.type === 'subheading-text') {
                             articleContent.innerHTML += `<h2 class="subheading-text">${item.value}</h2>`;
                         } else if (item.type === 'sub-subheading-text') {
                             articleContent.innerHTML += `<h3 class="sub-subheading-text">${item.value}</h3>`;
                         } else if (item.type === 'info-text') {
-                            const infoTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="info-text-with-link">$1</a>');
+                            const infoTextWithLinks = formatLinks(item.value, 'info-text-with-link');
                             articleContent.innerHTML += `<p class="info-text">${infoTextWithLinks}</p>`;
                         } else if (item.type === 'text') {
-                            const textFormatted = item.value
-                                .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="text-with-link">$1</a>')
+                            const textFormatted = formatLinks(item.value, 'text-with-link')
                                 .replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>');
                             articleContent.innerHTML += `<p>${textFormatted}</p>`;
                         } else if (item.type === 'main-image') {
                             if (item.visible !== 'no') {
-                                articleContent.innerHTML += `<img src="${item.value}" alt="" class="main-image">`;
+                                articleContent.innerHTML += `<img src="${prefixRootPath(item.value)}" alt="" class="main-image">`;
                             }
                         } else if (item.type === 'main-video') {
-                            articleContent.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${item.value}"></video></div>`;
+                            articleContent.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${prefixRootPath(item.value)}"></video></div>`;
                         } else if (item.type === 'image') {
-                            articleContent.innerHTML += `<img src="${item.value}" alt="" class="image">`;
+                            articleContent.innerHTML += `<img src="${prefixRootPath(item.value)}" alt="" class="image">`;
                         } else if (item.type === 'caption-text') {
-                            const captionTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="caption-text-with-link">$1</a>');
+                            const captionTextWithLinks = formatLinks(item.value, 'caption-text-with-link');
                             articleContent.innerHTML += `<p class="caption-text">${captionTextWithLinks}</p>`;
                         } else if (item.type === 'quote') {
-                            const quoteTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="quote-text-with-link">$1</a>');
+                            const quoteTextWithLinks = formatLinks(item.value, 'quote-text-with-link');
                             articleContent.innerHTML += `<div class="quote">${quoteTextWithLinks}</div>`;
                         } else if (item.type === 'information') {
-                            const informationTextWithLinks = item.value.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="information-text-with-link">$1</a>');
+                            const informationTextWithLinks = formatLinks(item.value, 'information-text-with-link');
                             articleContent.innerHTML += `<div class="information">${informationTextWithLinks}</div>`;
                         } else if (item.type === 'warning') {
                             articleContent.innerHTML += `<div class="warning">${item.value}</div>`;
                         } else if (item.type === 'error') {
                             articleContent.innerHTML += `<div class="error">${item.value}</div>`;
                         } else if (item.type === 'video') {
-                            articleContent.innerHTML += `<div class="video-container"><video controls src="${item.value}"></video></div>`;
+                            articleContent.innerHTML += `<div class="video-container"><video controls src="${prefixRootPath(item.value)}"></video></div>`;
                         } else if (item.type === 'pdf') {
                             articleContent.innerHTML += `
         <div class="pdf-container">
                             <div class="pdf-toolbar">
-                <a href="${item.value}" target="_blank" rel="noopener" class="pdf-open">${data.openPdf}</a>
-                <!-- <a href="${item.value}" download class="pdf-download">${data.downloadPdf}</a> -->
+                <a href="${prefixRootPath(item.value)}" target="_blank" rel="noopener" class="pdf-open">${data.openPdf}</a>
+                <!-- <a href="${prefixRootPath(item.value)}" download class="pdf-download">${data.downloadPdf}</a> -->
             </div>
-            <iframe src="${item.value}" class="pdf-frame" loading="lazy"></iframe>
+            <iframe src="${prefixRootPath(item.value)}" class="pdf-frame" loading="lazy"></iframe>
         </div>`
                         }
                     });
@@ -90,7 +110,7 @@ function loadArticleContent() {
                             const translatedTag = data.tags[tagKey];
                             const tagLink = document.createElement('a');
                             tagLink.className = 'related-topic-tag';
-                            tagLink.href = `all-publications.html?tags=${encodeURIComponent(tagKey)}&lang=${currentLanguage}`;
+                            tagLink.href = `${rootPrefix}all-publications/?tags=${encodeURIComponent(tagKey)}&lang=${currentLanguage}`;
                             tagLink.textContent = `#${translatedTag}`;
                             tagsContainer.appendChild(tagLink);
                             console.log(`Tag link rendered: key="${tagKey}", translated="${translatedTag}", href="${tagLink.href}"`);

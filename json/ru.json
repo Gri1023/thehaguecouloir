@@ -66,7 +66,7 @@
     "academic": "Академические"
   },
   "sectionSubheadings": {
-    "news": "Последние новости с авторской перспективой в конце.",
+    "news": "Последние новости с авторской перспективой.",
     "article": "Глубокий анализ различных тем, стремящийся быть максимально объективным.",
     "opinion": "Статьи, основанные на мнениях, пытающиеся объективно доказать точку зрения.",
     "academic": "Академические статьи, созданные как часть университетских заданий автора, с различной степенью свободы выбора темы и выражения мнения."
@@ -75,10 +75,10 @@
   "sortBy": "Сортировать по:",
   "newest": "Самому новому",
   "oldest": "Самому старому",
-  "highlightedArticle1Id": "25016",
-  "highlightedArticle2Id": "12125",
-  "highlightedArticle3Id": "31075",
-  "highlightedArticle4Id": "23104",
+  "highlightedArticle1Id": "07066",
+  "highlightedArticle2Id": "25016",
+  "highlightedArticle3Id": "12125",
+  "highlightedArticle4Id": "31075",
   "readMoreButton": "Читать больше",
   "moreInfoText": "Или найдите больше самостоятельно",
   "biasCard": {
@@ -137,7 +137,11 @@
     "latin america": "латинская америка",
     "iran": "🇮🇷",
     "netherlands": "🇳🇱",
-    "mali": "🇲🇱"
+    "mali": "🇲🇱",
+    "indonesia": "🇮🇩",
+    "west papua": "запападное папуа",
+    "separatism": "сепаратизм",
+    "oceania": "океания"
   },
   "sidebars": {
     "left": [
@@ -2268,6 +2272,46 @@
         {
           "type": "pdf",
           "value": "media/25016/Why Israel Miscalculated in Lebanon (1982).pdf"
+        }
+      ]
+    },
+    {
+      "id": "07066",
+      "visible": "yes",
+      "date": "2026-06-07T22:41:00",
+      "title": "Конфликт в Западном Папуа: правовой анализ обязательств Нидерландов по экспорту оружия в рамках права ЕС",
+      "tags": [
+        "indonesia",
+        "west papua",
+        "separatism",
+        "human rights",
+        "oceania",
+        "asia",
+        "war",
+        "freedom of speech",
+        "united nations"
+      ],
+      "content": [
+        {
+          "type": "heading-text",
+          "value": "Конфликт в Западном Папуа: правовой анализ обязательств Нидерландов по экспорту оружия в рамках права ЕС"
+        },
+        {
+          "type": "info-text",
+          "value": "[Григорий Бавыкин](about.html), 7 июня 2026"
+        },
+        {
+          "type": "main-image",
+          "value": "media/07066/Legal Analysis - West Papua-01.jpg",
+          "visible": "no"
+        },
+        {
+          "type": "information",
+          "value": "Эта публикация состоит из одного PDF-файла. Содержание может быть не переведено на выбранный вами язык. Чтобы просмотреть его в полноэкранном режиме, воспользуйтесь кнопкой ниже."
+        },
+        {
+          "type": "pdf",
+          "value": "media/07066/Legal Analysis - West Papua.pdf"
         }
       ]
     }

@@ -35,6 +35,7 @@ function getCurrentLanguage() {
 
 (function setLanguageButton() {
     const language = getCurrentLanguage();
+    const rootPrefix = getRootPrefix();
     const languageSelector = document.getElementById('languageSelector');
 
     // Ensure the storage is synced with whatever the final choice was
@@ -42,14 +43,14 @@ function getCurrentLanguage() {
 
     if (language === 'ru') {
         languageSelector.innerHTML = `
-            <button class="dropbtn"><img src="language-icon-white.png" class="language-icon">Русский</button>
+            <button class="dropbtn"><img src="${rootPrefix}language-icon-white.png" class="language-icon">Русский</button>
             <div class="dropdown-menu">
                 <a href="#" onclick="changeLanguage('en')">English</a>
             </div>
         `;
     } else {
         languageSelector.innerHTML = `
-            <button class="dropbtn"><img src="language-icon-white.png" class="language-icon">English</button>
+            <button class="dropbtn"><img src="${rootPrefix}language-icon-white.png" class="language-icon">English</button>
             <div class="dropdown-menu">
                 <a href="#" onclick="changeLanguage('ru')">Русский</a>
             </div>
@@ -69,8 +70,15 @@ function changeLanguage(language) {
     window.location.search = urlParams.toString();
 }
 
+function getRootPrefix() {
+    const path = window.location.pathname;
+    const subpages = ['article', 'about', 'all-publications', 'bias', 'your-data', 'editor'];
+    return subpages.some(folder => path.includes(`/${folder}/`) || path.endsWith(`/${folder}`) || path.endsWith(`/${folder}/`)) ? '../' : '';
+}
+
 // Function to insert navigation container
 function insertNav(data) {
+    const rootPrefix = getRootPrefix();
     const grid = document.querySelector('.sidebars-left-grid');
     if (!grid) return;
 
@@ -79,32 +87,32 @@ function insertNav(data) {
     navDiv.id = 'navContainer';
 
     navDiv.innerHTML = `
-        <a href="index.html" id="logo-link">
-            <img src="media/logo.png" alt="Logo" class="logo">
+        <a href="${rootPrefix}" id="logo-link">
+            <img src="${rootPrefix}media/logo.png" alt="Logo" class="logo">
         </a>
-        <a href="index.html" class="navigation-title-text" id="navigation-title-text">${data.siteTitle}</a>
+        <a href="${rootPrefix}" class="navigation-title-text" id="navigation-title-text">${data.siteTitle}</a>
         <ul>
             <li>
-                <a href="index.html" class="navigation-link">
-                    <img src="home-icon-white.png" class="navigation-icon">
+                <a href="${rootPrefix}" class="navigation-link">
+                    <img src="${rootPrefix}home-icon-white.png" class="navigation-icon">
                     <span class="navigation-option-text">${data.navigation[0][Object.keys(data.navigation[0])[0]]}</span>
                 </a>
             </li>
             <li>
-                <a href="index.html#catalogue-anchor" class="navigation-link">
-                    <img src="catalogue-icon-white.png" class="navigation-icon">
+                <a href="${rootPrefix}#catalogue-anchor" class="navigation-link">
+                    <img src="${rootPrefix}catalogue-icon-white.png" class="navigation-icon">
                     <span class="navigation-option-text">${data.navigation[1][Object.keys(data.navigation[1])[0]]}</span>
                 </a>
             </li>
             <li>
-                <a href="all-publications.html" class="navigation-link">
-                    <img src="search_icon.png" class="navigation-icon">
+                <a href="${rootPrefix}all-publications/" class="navigation-link">
+                    <img src="${rootPrefix}search_icon.png" class="navigation-icon">
                     <span class="navigation-option-text">${data.navigation[2][Object.keys(data.navigation[2])[0]]}</span>
                 </a>
             </li>
             <li>
-                <a href="about.html" class="navigation-link">
-                    <img src="info-icon-white.png" class="navigation-icon">
+                <a href="${rootPrefix}about/" class="navigation-link">
+                    <img src="${rootPrefix}info-icon-white.png" class="navigation-icon">
                     <span class="navigation-option-text">${data.navigation[3][Object.keys(data.navigation[3])[0]]}</span>
                 </a>
             </li>
@@ -117,6 +125,7 @@ function insertNav(data) {
 
 // Function to populate sidebars dynamically
 function populateSidebar(side, data) {
+    const rootPrefix = getRootPrefix();
     const grid = document.querySelector(`.sidebars-${side}-grid`);
     if (grid && data.sidebars && data.sidebars[side]) {
         data.sidebars[side].forEach((item, index) => {
@@ -132,11 +141,11 @@ function populateSidebar(side, data) {
                 const titleText = biasData.title || 'Bias is always there.';
                 const descriptionText = biasData.description || 'Every article is shaped by perspective. Awareness is the first step to clarity.';
                 const buttonText = biasData.button || 'Learn more about bias';
-                const biasLink = `bias.html?lang=${currentLanguage}`;
-                const imageOffSrc = item.imageOff || '';
-                const imageOnSrc = item.imageOn || '';
-                const switchOffSrc = 'media/light-switch-off.png';
-                const switchOnSrc = 'media/light-switch-on.png';
+                const biasLink = `${rootPrefix}bias/?lang=${currentLanguage}`;
+                const imageOffSrc = item.imageOff ? `${rootPrefix}${item.imageOff}` : '';
+                const imageOnSrc = item.imageOn ? `${rootPrefix}${item.imageOn}` : '';
+                const switchOffSrc = `${rootPrefix}media/light-switch-off.png`;
+                const switchOnSrc = `${rootPrefix}media/light-switch-on.png`;
                 const storedValue = localStorage.getItem('biasVisibility');
                 const isVisible = storedValue === '1' || storedValue === 'true';
                 const buttonClass = isVisible ? 'bias-card-button bias-card-button-active' : 'bias-card-button bias-card-button-inactive';
@@ -199,7 +208,7 @@ function populateSidebar(side, data) {
 
              if (item.type === 'telegram') {
                 itemDiv.innerHTML = `
-                <img src="Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
+                <img src="${rootPrefix}Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
                     <a href="${item.link}">
                     ${item.text}
                     </a>
@@ -224,14 +233,14 @@ function populateSidebar(side, data) {
                     itemDiv.classList.add('live-notes-container');
                     let html = `
                         <div class="live-notes-header">
-                            <span class="online-indicator"><img src="live-notes-icon.png" alt=""></span>
+                            <span class="online-indicator"><img src="${rootPrefix}live-notes-icon.png" alt=""></span>
                             <h3 class="live-notes-title">${data.liveNotesTitle}</h3>
                         </div>
                         <div class="live-notes-list">
                     `;
 
                     liveNotes.forEach(note => {
-                        const noteLink = `article.html?id=${note.id}&type=live-note&lang=${currentLanguage}`;
+                        const noteLink = `${rootPrefix}article/?id=${note.id}&type=live-note&lang=${currentLanguage}`;
                         const textContent = note.content.find(item => item.type === 'text');
                         const noteText = textContent ? textContent.value : '';
 
@@ -252,7 +261,7 @@ function populateSidebar(side, data) {
                                 note.content.forEach(item => {
                                     if (item.type === 'video' || item.type === 'main-video') {
                                         // use a small autoplayed muted video as preview
-                                        previewHTML += `<video class="preview-thumbnail video-thumbnail" src="${item.value}" muted autoplay loop></video>`;
+                                        previewHTML += `<video class="preview-thumbnail video-thumbnail" src="${rootPrefix}${item.value}" muted autoplay loop></video>`;
                                     }
                                 });
                             }
@@ -262,7 +271,7 @@ function populateSidebar(side, data) {
                                 // Add photo preview images
                                 note.content.forEach(item => {
                                     if (item.type === 'image' || item.type === 'main-image') {
-                                        previewHTML += `<img src="${item.value}" alt="" class="preview-thumbnail">`;
+                                        previewHTML += `<img src="${rootPrefix}${item.value}" alt="" class="preview-thumbnail">`;
                                     }
                                 });
                             }
@@ -283,7 +292,7 @@ function populateSidebar(side, data) {
 
                     html += `
                         </div>
-                        <a href="all-publications.html?lang=${currentLanguage}" class="live-notes-show-all">
+                        <a href="${rootPrefix}all-publications/?lang=${currentLanguage}" class="live-notes-show-all">
                             ${data.showAllLiveNotes}
                         </a>
                     `;
@@ -301,7 +310,8 @@ function populateSidebar(side, data) {
 function setBaseLocalizedText() {
     console.log('Setting localized text for base elements');
     const language = getCurrentLanguage();  // Get the current language setting
-    fetch(`json/${language}.json`)  // Fetch the localized JSON file for the current language
+    const rootPrefix = getRootPrefix();
+    fetch(`${rootPrefix}json/${language}.json`)  // Fetch the localized JSON file for the current language
         .then(response => response.json())
         .then(data => {
             // Set the site title
@@ -468,6 +478,7 @@ function timeAgo(dateString) {
 }
 
 function insertFooter() {
+    const rootPrefix = getRootPrefix();
     const footerHTML = `
 <footer>
     <div class="footer-grid">
@@ -481,17 +492,17 @@ function insertFooter() {
         <div class="footer-grid-item" id="footer-grid-item2">
             <ul class="footer-grid-item-list">
                 <li><a class="footer-bold-text">Footer text</a></li>
-                <li><a href="index.html" class="footer-text">Footer text</a></li>
-                <li><a href="all-publications.html" class="footer-text">Footer text</a></li>
-                <li><a href="about.html" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}all-publications/" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}about/" class="footer-text">Footer text</a></li>
             </ul>
         </div>
         <div class="footer-grid-item" id="footer-grid-item3">
             <ul class="footer-grid-item-list">
                 <li><a class="footer-bold-text">Footer text</a></li>
-                <li><a href="about.html#about-naming-anchor" class="footer-text">Footer text</a></li>
-                <li><a href="about.html#about-author-anchor" class="footer-text">Footer text</a></li>
-                <li><a href="about.html#about-contact-anchor" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}about/#about-naming-anchor" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}about/#about-author-anchor" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}about/#about-contact-anchor" class="footer-text">Footer text</a></li>
             </ul>
         </div>
         <div class="footer-grid-item" id="footer-grid-item4">
