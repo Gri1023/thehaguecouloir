@@ -1,3 +1,5 @@
+// R2_BASE_URL is declared once in base.js (loaded first on every page) and exposed on window.
+
 function getRootPrefix() {
     const path = window.location.pathname;
     const subpages = ['article', 'about', 'all-publications', 'bias', 'your-data', 'editor'];
@@ -6,10 +8,38 @@ function getRootPrefix() {
 
 function prefixRootPath(url) {
     if (!url) return url;
+    if (typeof url !== 'string') return url;
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//') || url.startsWith('/') || url.startsWith('data:') || url.startsWith('../') || url.startsWith('./')) {
         return url;
     }
+    // Route any media/image path to the R2 bucket by default.
+    if (url.startsWith('media/') || url.startsWith('images/')) {
+        return `${window.R2_BASE_URL}${url}`;
+    }
     return `${getRootPrefix()}${url}`;
+}
+
+function getLocalizedValue(value) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+        const current = value[currentLanguage];
+        if (current !== undefined && current !== '') {
+            return current;
+        }
+        const en = value.en;
+        if (en !== undefined && en !== '') {
+            return en;
+        }
+        const ru = value.ru;
+        if (ru !== undefined && ru !== '') {
+            return ru;
+        }
+        return '';
+    }
+    return value;
+}
+
+function isVisibleForCurrentLanguage(item) {
+    return !item.lang || item.lang === 'all' || item.lang === currentLanguage;
 }
 
 const rootPrefix = getRootPrefix();
@@ -19,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load content for index/
     if (document.querySelector('.content-grid')) {
-        loadContent(`${rootPrefix}json/${currentLanguage}.json`);
+        loadContent(`${rootPrefix}json/site-data.json`);
     }
 });
 
@@ -89,17 +119,17 @@ function loadContent(jsonFile) {
                     const button = sectionElement.querySelector('.publication-section-button-text');
                     if (heading) {
                         // Use sectionHeadings if available, fallback to types
-                        heading.textContent = data.sectionHeadings ? data.sectionHeadings[type] : data.types[type];
+                        heading.textContent = getLocalizedValue(data.sectionHeadings ? data.sectionHeadings[type] : data.types[type]);
                     } else {
                         console.warn(`Heading not found for section: ${id}`);
                     }
                     if (subheading) {
-                        subheading.textContent = data.sectionSubheadings[type];
+                        subheading.textContent = getLocalizedValue(data.sectionSubheadings[type]);
                     } else {
                         console.warn(`Subheading not found for section: ${id}`);
                     }
                     if (button) {
-                        button.querySelector('.publication-section-button').textContent = data.exploreAllPublications;
+                        button.querySelector('.publication-section-button').textContent = getLocalizedValue(data.exploreAllPublications);
                         // Ensure lang parameter in the link
                         button.setAttribute('href', `all-publications/?lang=${currentLanguage}`);
                     } else {
@@ -113,15 +143,15 @@ function loadContent(jsonFile) {
             const highlightedArticle = document.getElementById('highlighted-article');
 
             const highlightedArticleIds = [
-                data.highlightedArticle1Id,
-                data.highlightedArticle2Id,
-                data.highlightedArticle3Id,
-                data.highlightedArticle4Id
+                getLocalizedValue(data.highlightedArticle1Id),
+                getLocalizedValue(data.highlightedArticle2Id),
+                getLocalizedValue(data.highlightedArticle3Id),
+                getLocalizedValue(data.highlightedArticle4Id)
             ];
 
             highlightedArticleIds.forEach(id => {
                 ['news', 'article', 'opinion', 'academic'].some(type => {
-                    const item = data[type].find(article => article.id == id);
+                    const item = data[type].find(article => article.id == id && article.visible === 'yes' && isVisibleForCurrentLanguage(article));
                     if (item) {
                         featuredItems.push({ ...item, type });
                         return true; // Stop further iteration over types once a match is found
@@ -170,17 +200,17 @@ function loadContent(jsonFile) {
                 pendingUpdateTimeout = setTimeout(() => {
                     // Update content
                     if (mediaContent.type === 'main-image') {
-                        image.src = prefixRootPath(mediaContent.value);
+                        image.src = prefixRootPath(getLocalizedValue(mediaContent.value) || mediaContent.value || '');
                     } else if (mediaContent.type === 'main-video') {
-                        image.src = prefixRootPath(featuredItem.previewImage);
+                        image.src = prefixRootPath(getLocalizedValue(featuredItem.previewImage) || featuredItem.previewImage || '');
                     }
 
-                    highlightedArticle.querySelector('.highlighted-title').innerHTML = `<a href="${articleLink}" class="highlighted-title-link">${featuredItem.title}</a>` +
+                    highlightedArticle.querySelector('.highlighted-title').innerHTML = `<a href="${articleLink}" class="highlighted-title-link">${getLocalizedValue(featuredItem.title)}</a>` +
                         (mediaContent.type === 'main-video'
-                            ? `<span class="video-indicator"><span class="dot"></span> ${data.videoText}</span>`
+                            ? `<span class="video-indicator"><span class="dot"></span> ${getLocalizedValue(data.videoText)}</span>`
                             : '');
 
-                    typeEl.textContent = data.types[featuredItem.type];
+                    typeEl.textContent = getLocalizedValue(data.types[featuredItem.type]);
                     typeEl.className = `highlighted-type ${articleTypeClass}`;
                     dateEl.textContent = timeAgo(featuredItem.date);
 
@@ -188,15 +218,15 @@ function loadContent(jsonFile) {
                     const button = highlightedButton.querySelector('.highlighted-button-link');
                     if (button) {
                         button.href = articleLink;
-                        button.textContent = data.readMoreButton;
+                        button.textContent = getLocalizedValue(data.readMoreButton);
                     } else {
-                        highlightedButton.innerHTML = `<a href="${articleLink}" class="highlighted-button-link">${data.readMoreButton}</a>`;
+                        highlightedButton.innerHTML = `<a href="${articleLink}" class="highlighted-button-link">${getLocalizedValue(data.readMoreButton)}</a>`;
                     }
 
                     // Highlight grid item
                     const gridItems = document.querySelectorAll('#highlighted-articles-grid .grid-item');
                     gridItems.forEach(item => {
-                        if (item.querySelector('h3').textContent === featuredItem.title) {
+                        if (item.dataset.articleId === featuredItem.id) {
                             item.classList.add('active');
                         } else {
                             item.classList.remove('active');
@@ -234,7 +264,7 @@ function loadContent(jsonFile) {
             // Separate the items by type and add them to the respective grids
             const allItems = ['news', 'article', 'opinion', 'academic']
                 .flatMap(type => data[type]
-                    .filter(item => item.visible === "yes")
+                    .filter(item => item.visible === "yes" && isVisibleForCurrentLanguage(item))
                     .map(item => ({ ...item, type })))
                 .sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -260,10 +290,11 @@ function loadContent(jsonFile) {
                     );
 
                     let mediaHTML = '';
+                    const localizedTitle = getLocalizedValue(item.title);
                     if (mediaContent.type === 'main-image') {
-                        mediaHTML = `<img src="${prefixRootPath(mediaContent.value)}" alt="${item.title}">`;
+                        mediaHTML = `<img src="${prefixRootPath(getLocalizedValue(mediaContent.value) || mediaContent.value || '')}" alt="${localizedTitle}">`;
                     } else if (mediaContent.type === 'main-video') {
-                        mediaHTML = `<img src="${prefixRootPath(item.previewImage)}" alt="${item.title}">`;
+                        mediaHTML = `<img src="${prefixRootPath(getLocalizedValue(item.previewImage) || item.previewImage || '')}" alt="${localizedTitle}">`;
                     }
 
                     // Add the link to the articleElement itself
@@ -273,12 +304,13 @@ function loadContent(jsonFile) {
                     );
 
                     // Populate the article's inner HTML
+                    const articleTitle = getLocalizedValue(item.title) || getLocalizedValue(item.heading) || '';
                     articleElement.innerHTML = `
                     <a>
                         ${mediaHTML}
                         <div class="content">
-                            <p class="${item.type}">${data.types[item.type]}</p>
-                            <h3 class="title">${item.title}</h3>
+                            <p class="${item.type}">${getLocalizedValue(data.types[item.type])}</p>
+                            <h3 class="title">${articleTitle}</h3>
                             <p class="date">${timeAgo(item.date)}</p>
                         </div>
                     </a>
@@ -300,15 +332,15 @@ function loadContent(jsonFile) {
             highlightedArticles.forEach((item, index) => {
                 const gridItem = document.createElement('div');
                 gridItem.classList.add('grid-item');
+                gridItem.dataset.articleId = item.id;
                 const articleLink = `${rootPrefix}article/?id=${item.id}&type=${item.type}&lang=${currentLanguage}`;
+                const highlightedTitle = getLocalizedValue(item.title) || getLocalizedValue(item.heading) || '';
 
                 gridItem.innerHTML = `
                         <a href="${articleLink}" class="grid-item-link">
-                            <h3>${item.title}</h3>
+                            <h3>${highlightedTitle}</h3>
                             <div class="type-date">
-                                <span class="${item.type}">${data.types[item.type]}</span>
-                                <span>|</span>
-                                <span class="date">${timeAgo(item.date)}</span>
+                                <span class="${item.type}">${getLocalizedValue(data.types[item.type])}</span>
                             </div>
                         </a>
                     `;

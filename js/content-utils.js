@@ -1,3 +1,5 @@
+// R2_BASE_URL is declared once in base.js (loaded first on every page) and exposed on window.
+
 function getRootPrefix() {
     const path = window.location.pathname;
     const subpages = ['article', 'about', 'all-publications', 'bias', 'your-data', 'editor'];
@@ -6,10 +8,38 @@ function getRootPrefix() {
 
 function prefixRootPath(url) {
     if (!url) return url;
+    if (typeof url !== 'string') return url;
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//') || url.startsWith('/') || url.startsWith('data:') || url.startsWith('../') || url.startsWith('./')) {
         return url;
     }
+    // Route any media/image path to the R2 bucket by default.
+    if (url.startsWith('media/') || url.startsWith('images/')) {
+        return `${window.R2_BASE_URL}${url}`;
+    }
     return `${getRootPrefix()}${url}`;
+}
+
+function getLocalizedValue(value) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+        const current = value[window.currentLanguage];
+        if (current !== undefined && current !== '') {
+            return current;
+        }
+        const en = value.en;
+        if (en !== undefined && en !== '') {
+            return en;
+        }
+        const ru = value.ru;
+        if (ru !== undefined && ru !== '') {
+            return ru;
+        }
+        return '';
+    }
+    return value || '';
+}
+
+function isVisibleForCurrentLanguage(item) {
+    return !item.lang || item.lang === 'all' || item.lang === window.currentLanguage;
 }
 
 function loadJsonSection(sectionName, containerId) {
@@ -20,7 +50,7 @@ function loadJsonSection(sectionName, containerId) {
     }
 
     const rootPrefix = getRootPrefix();
-    fetch(`${rootPrefix}json/${window.currentLanguage}.json`)
+    fetch(`${rootPrefix}json/site-data.json`)
         .then(response => response.json())
         .then(data => {
             const sectionData = data[sectionName];
@@ -45,7 +75,7 @@ function renderContentItems(container, items, data = {}) {
 function renderContentItem(container, item, data = {}) {
     if (!item || !item.type) return;
 
-    const value = item.value || '';
+    const value = getLocalizedValue(item.value || '');
     const escaped = value;
     const getLinks = (text, className) => {
         return `${text}`.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, url) =>
@@ -74,14 +104,14 @@ function renderContentItem(container, item, data = {}) {
             break;
         case 'main-image':
             if (item.visible !== 'no') {
-                container.innerHTML += `<img src="${prefixRootPath(item.value)}" alt="" class="main-image">`;
+                container.innerHTML += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="main-image">`;
             }
             break;
         case 'main-video':
-            container.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${prefixRootPath(item.value)}"></video></div>`;
+            container.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
             break;
         case 'image':
-            container.innerHTML += `<img src="${prefixRootPath(item.value)}" alt="" class="image">`;
+            container.innerHTML += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="image">`;
             break;
         case 'caption-text':
             container.innerHTML += `<p class="caption-text">${getLinks(escaped, 'caption-text-with-link')}</p>`;
@@ -105,7 +135,7 @@ function renderContentItem(container, item, data = {}) {
             container.innerHTML += `
                 <div class="pdf-container">
                     <div class="pdf-toolbar">
-                        <a href="${prefixRootPath(item.value)}" target="_blank" rel="noopener" class="pdf-open">${data.openPdf || 'Open PDF separately'}</a>
+                        <a href="${prefixRootPath(item.value)}" target="_blank" rel="noopener" class="pdf-open">${getLocalizedValue(data.openPdf) || 'Open PDF separately'}</a>
                     </div>
                     <iframe src="${prefixRootPath(item.value)}" class="pdf-frame" loading="lazy"></iframe>
                 </div>`;

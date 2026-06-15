@@ -6,6 +6,44 @@ function getRootPrefix() {
     return subpages.some(folder => path.includes(`/${folder}/`) || path.endsWith(`/${folder}`) || path.endsWith(`/${folder}/`)) ? '../' : '';
 }
 
+// R2_BASE_URL is declared once in base.js (loaded first on every page) and exposed on window.
+
+function prefixRootPath(url) {
+    if (!url) return url;
+    if (typeof url !== 'string') return url;
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//') || url.startsWith('/') || url.startsWith('data:') || url.startsWith('../') || url.startsWith('./')) {
+        return url;
+    }
+    // Route any media/image path to the R2 bucket by default.
+    if (url.startsWith('media/') || url.startsWith('images/')) {
+        return `${window.R2_BASE_URL}${url}`;
+    }
+    return `${getRootPrefix()}${url}`;
+}
+
+function getLocalizedValue(value) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+        const current = value[currentLanguage];
+        if (current !== undefined && current !== '') {
+            return current;
+        }
+        const en = value.en;
+        if (en !== undefined && en !== '') {
+            return en;
+        }
+        const ru = value.ru;
+        if (ru !== undefined && ru !== '') {
+            return ru;
+        }
+        return '';
+    }
+    return value || '';
+}
+
+function isVisibleForCurrentLanguage(item) {
+    return !item.lang || item.lang === 'all' || item.lang === currentLanguage;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page loaded, initializing loadAllPublications');
 
@@ -18,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`Initial URL params: types=${initialTypes}, tags=${initialTags}, sort=${initialSort}`);
 
     rootPrefix = getRootPrefix();
-    loadAllPublications(`${rootPrefix}json/${currentLanguage}.json`, initialTypes, initialTags, initialSort);
+    loadAllPublications(`${rootPrefix}json/site-data.json`, initialTypes, initialTags, initialSort);
 });
 
 // Global variables for filter and sort state
@@ -37,6 +75,7 @@ function updateURL(types, tags, sort) {
         params.set('tags', tags.join(','));
     }
     params.set('sort', sort);
+    params.set('lang', currentLanguage);
     const newURL = `${window.location.pathname}?${params.toString()}`;
     history.pushState({}, '', newURL);
     console.log(`URL updated: ${newURL}`);
@@ -141,7 +180,7 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
 
     const allItems = ['news', 'article', 'opinion', 'academic', 'live-note']
         .flatMap(itemType => data[itemType]
-            .filter(item => item.visible === "yes")
+            .filter(item => item.visible === "yes" && isVisibleForCurrentLanguage(item))
             .map(item => ({ ...item, type: itemType })))
         .filter(item => {
             const matchesType = types.length === 0 || types.includes(item.type);
@@ -167,9 +206,9 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
 
         let mediaHTML = '';
         if (mediaContent && mediaContent.type === 'main-image') {
-            mediaHTML = `<img src="${rootPrefix}${mediaContent.value}" alt="${item.title}">`;
+            mediaHTML = `<img src="${prefixRootPath(getLocalizedValue(mediaContent.value) || mediaContent.value || '')}" alt="${getLocalizedValue(item.title)}">`;
         } else if (mediaContent && mediaContent.type === 'main-video') {
-            mediaHTML = `<img src="${rootPrefix}${item.previewImage}" alt="${item.title}">`;
+            mediaHTML = `<img src="${prefixRootPath(getLocalizedValue(item.previewImage) || item.previewImage || '')}" alt="${getLocalizedValue(item.title)}">`;
         }
 
         articleElement.setAttribute(
@@ -178,12 +217,12 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
         );
 
         // choose title or generate from live-note text
-        let displayTitle = item.title;
+        let displayTitle = getLocalizedValue(item.title);
         if (!displayTitle && item.type === 'live-note' && item.content) {
             const textItem = item.content.find(c => c.type === 'text');
             if (textItem) {
-                // truncate similarly to base.js
-                displayTitle = textItem.value.length > 100 ? textItem.value.slice(0, 97) + '...' : textItem.value;
+                const textValue = getLocalizedValue(textItem.value || '');
+                displayTitle = textValue.length > 100 ? textValue.slice(0, 97) + '...' : textValue;
             }
         }
 
@@ -191,7 +230,7 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
             <a>
                 ${mediaHTML}
                 <div class="content">
-                    <p class="${item.type}">${data.types[item.type]}</p>
+                    <p class="${item.type}">${getLocalizedValue(data.types[item.type])}</p>
                     <h3 class="title">${displayTitle || ''}</h3>
                     <p class="date">${timeAgo(item.date)}</p>
                 </div>
@@ -207,16 +246,16 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
         .then(fetchedData => {
             data = fetchedData;
             const allPublicationsElement = document.querySelector('.all-publications-text p');
-            allPublicationsElement.textContent = data.allPublications;
+            allPublicationsElement.textContent = getLocalizedValue(data.allPublications);
 
             const filterElement = document.querySelector('.filter-button');
             filterElement.innerHTML = `
                 <div class="tag-filter-container">
-                    <span>${data.filterByTags}</span>
+                    <span>${getLocalizedValue(data.filterByTags)}</span>
                     <div class="tag-buttons"></div>
                 </div>
                 <div class="type-filter-container">
-                    <span>${data.filterByType}</span>
+                    <span>${getLocalizedValue(data.filterByType)}</span>
                     <div class="type-buttons"></div>
                 </div>
             `;
@@ -227,7 +266,7 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
                 const tagButton = document.createElement('button');
                 tagButton.className = `tag-option${initialTags.includes(tagKey) ? ' active' : ''}`;
                 tagButton.setAttribute('data-tag', tagKey);
-                tagButton.textContent = `#${data.tags[tagKey]}`;
+                tagButton.textContent = `#${getLocalizedValue(data.tags[tagKey])}`;
                 tagButton.addEventListener('click', () => {
                     const index = currentTags.indexOf(tagKey);
                     if (index === -1) {
@@ -248,7 +287,7 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
                 const typeButton = document.createElement('button');
                 typeButton.className = `filter-option filter-option-${typeKey}${initialTypes.includes(typeKey) ? ' active' : ''}`;
                 typeButton.setAttribute('data-type', typeKey);
-                typeButton.textContent = data.types[typeKey];
+                typeButton.textContent = getLocalizedValue(data.types[typeKey]);
                 typeButton.addEventListener('click', () => {
                     const index = currentTypes.indexOf(typeKey);
                     if (index === -1) {
@@ -265,9 +304,9 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
 
             const sortElement = document.querySelector('.sort-button');
             sortElement.innerHTML = `
-                <span>${data.sortBy}</span>
-                <button class="sort-option${initialSort === 'newest' ? ' active' : ''}" data-sort="newest" onclick="sortItems('newest')">${data.newest}</button>
-                <button class="sort-option${initialSort === 'oldest' ? ' active' : ''}" data-sort="oldest" onclick="sortItems('oldest')">${data.oldest}</button>
+                <span>${getLocalizedValue(data.sortBy)}</span>
+                <button class="sort-option${initialSort === 'newest' ? ' active' : ''}" data-sort="newest" onclick="sortItems('newest')">${getLocalizedValue(data.newest)}</button>
+                <button class="sort-option${initialSort === 'oldest' ? ' active' : ''}" data-sort="oldest" onclick="sortItems('oldest')">${getLocalizedValue(data.oldest)}</button>
             `;
 
             // Initialize with URL params

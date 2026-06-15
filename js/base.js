@@ -22,13 +22,13 @@ function getCurrentLanguage() {
     }
 
     const urlLanguage = urlParams.get('lang');
-    
+
     // 2. Check Local Storage if URL is empty
     const storedLanguage = localStorage.getItem('preferredLanguage');
 
     // 3. Priority: URL > LocalStorage > Default ('en')
     const finalLanguage = urlLanguage || storedLanguage || 'en';
-    
+
     console.log('Current language determined:', finalLanguage);
     return finalLanguage;
 }
@@ -61,7 +61,7 @@ function getCurrentLanguage() {
 function changeLanguage(language) {
     // 1. Save the selection to Local Storage immediately
     localStorage.setItem('preferredLanguage', language);
-    
+
     currentLanguage = language;
 
     // 2. Update the URL and reload
@@ -76,6 +76,42 @@ function getRootPrefix() {
     return subpages.some(folder => path.includes(`/${folder}/`) || path.endsWith(`/${folder}`) || path.endsWith(`/${folder}/`)) ? '../' : '';
 }
 
+// Cloudflare R2 public bucket base URL. Declared once on the window here in base.js
+// and reused by other scripts (content-utils.js, article.js, index.js, all-publications.js).
+window.R2_BASE_URL = 'https://pub-795f9426259d4926a0308a9099f50d25.r2.dev/';
+
+function prefixRootPath(url) {
+    if (!url) return url;
+    if (typeof url !== 'string') return url;
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//') || url.startsWith('/') || url.startsWith('data:') || url.startsWith('../') || url.startsWith('./')) {
+        return url;
+    }
+    // Route any media/image path to the R2 bucket by default.
+    if (url.startsWith('media/') || url.startsWith('images/')) {
+        return `${window.R2_BASE_URL}${url}`;
+    }
+    return `${getRootPrefix()}${url}`;
+}
+
+function getLocalizedValue(value) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+        const current = value[currentLanguage];
+        if (current !== undefined && current !== '') {
+            return current;
+        }
+        const en = value.en;
+        if (en !== undefined && en !== '') {
+            return en;
+        }
+        const ru = value.ru;
+        if (ru !== undefined && ru !== '') {
+            return ru;
+        }
+        return '';
+    }
+    return value || '';
+}
+
 // Function to insert navigation container
 function insertNav(data) {
     const rootPrefix = getRootPrefix();
@@ -88,32 +124,32 @@ function insertNav(data) {
 
     navDiv.innerHTML = `
         <a href="${rootPrefix}" id="logo-link">
-            <img src="${rootPrefix}media/logo.png" alt="Logo" class="logo">
+            <img src="${prefixRootPath('media/logo.png')}" alt="Logo" class="logo">
         </a>
-        <a href="${rootPrefix}" class="navigation-title-text" id="navigation-title-text">${data.siteTitle}</a>
+        <a href="${rootPrefix}" class="navigation-title-text" id="navigation-title-text">${getLocalizedValue(data.siteTitle)}</a>
         <ul>
             <li>
                 <a href="${rootPrefix}" class="navigation-link">
                     <img src="${rootPrefix}home-icon-white.png" class="navigation-icon">
-                    <span class="navigation-option-text">${data.navigation[0][Object.keys(data.navigation[0])[0]]}</span>
+                    <span class="navigation-option-text">${getLocalizedValue(data.navigation[0][Object.keys(data.navigation[0])[0]])}</span>
                 </a>
             </li>
             <li>
                 <a href="${rootPrefix}#catalogue-anchor" class="navigation-link">
                     <img src="${rootPrefix}catalogue-icon-white.png" class="navigation-icon">
-                    <span class="navigation-option-text">${data.navigation[1][Object.keys(data.navigation[1])[0]]}</span>
+                    <span class="navigation-option-text">${getLocalizedValue(data.navigation[1][Object.keys(data.navigation[1])[0]])}</span>
                 </a>
             </li>
             <li>
                 <a href="${rootPrefix}all-publications/" class="navigation-link">
                     <img src="${rootPrefix}search_icon.png" class="navigation-icon">
-                    <span class="navigation-option-text">${data.navigation[2][Object.keys(data.navigation[2])[0]]}</span>
+                    <span class="navigation-option-text">${getLocalizedValue(data.navigation[2][Object.keys(data.navigation[2])[0]])}</span>
                 </a>
             </li>
             <li>
                 <a href="${rootPrefix}about/" class="navigation-link">
                     <img src="${rootPrefix}info-icon-white.png" class="navigation-icon">
-                    <span class="navigation-option-text">${data.navigation[3][Object.keys(data.navigation[3])[0]]}</span>
+                    <span class="navigation-option-text">${getLocalizedValue(data.navigation[3][Object.keys(data.navigation[3])[0]])}</span>
                 </a>
             </li>
         </ul>
@@ -138,14 +174,14 @@ function populateSidebar(side, data) {
 
             if (item.type === 'bias') {
                 const biasData = data.biasCard || {};
-                const titleText = biasData.title || 'Bias is always there.';
-                const descriptionText = biasData.description || 'Every article is shaped by perspective. Awareness is the first step to clarity.';
-                const buttonText = biasData.button || 'Learn more about bias';
+                const titleText = getLocalizedValue(biasData.title) || 'Bias is always there.';
+                const descriptionText = getLocalizedValue(biasData.description) || 'Every article is shaped by perspective. Awareness is the first step to clarity.';
+                const buttonText = getLocalizedValue(biasData.button) || 'Learn more about bias';
                 const biasLink = `${rootPrefix}bias/?lang=${currentLanguage}`;
-                const imageOffSrc = item.imageOff ? `${rootPrefix}${item.imageOff}` : '';
-                const imageOnSrc = item.imageOn ? `${rootPrefix}${item.imageOn}` : '';
-                const switchOffSrc = `${rootPrefix}media/light-switch-off.png`;
-                const switchOnSrc = `${rootPrefix}media/light-switch-on.png`;
+                const imageOffSrc = item.imageOff ? `${prefixRootPath(getLocalizedValue(item.imageOff) || item.imageOff || '')}` : '';
+                const imageOnSrc = item.imageOn ? `${prefixRootPath(getLocalizedValue(item.imageOn) || item.imageOn || '')}` : '';
+                const switchOffSrc = `${prefixRootPath('media/light-switch-off.png')}`;
+                const switchOnSrc = `${prefixRootPath('media/light-switch-on.png')}`;
                 const storedValue = localStorage.getItem('biasVisibility');
                 const isVisible = storedValue === '1' || storedValue === 'true';
                 const buttonClass = isVisible ? 'bias-card-button bias-card-button-active' : 'bias-card-button bias-card-button-inactive';
@@ -206,18 +242,18 @@ function populateSidebar(side, data) {
                 grid.appendChild(itemDiv);
             }
 
-             if (item.type === 'telegram') {
+            if (item.type === 'telegram') {
                 itemDiv.innerHTML = `
                 <img src="${rootPrefix}Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
-                    <a href="${item.link}">
-                    ${item.text}
-                    </a>
-                    <div class="join-telegram-button">
+                <a href="${item.link}">
+                    ${getLocalizedValue(item.text)}
+                </a>
+                <div class="join-telegram-button">
                     <a href="${item.link}"></a>
-                    <a href="${item.link}">${item.button}</a>
-                    </div>
+                    <a href="${item.link}">${getLocalizedValue(item.button)}</a>
+                </div>
                 `;
-                console.log(`Adding sidebar item: ${item.text}`, { side });
+                console.log(`Adding sidebar item: ${getLocalizedValue(item.text)}`, { side });
                 grid.appendChild(itemDiv);
             }
 
@@ -234,7 +270,7 @@ function populateSidebar(side, data) {
                     let html = `
                         <div class="live-notes-header">
                             <span class="online-indicator"><img src="${rootPrefix}live-notes-icon.png" alt=""></span>
-                            <h3 class="live-notes-title">${data.liveNotesTitle}</h3>
+                            <h3 class="live-notes-title">${getLocalizedValue(data.liveNotesTitle)}</h3>
                         </div>
                         <div class="live-notes-list">
                     `;
@@ -242,7 +278,7 @@ function populateSidebar(side, data) {
                     liveNotes.forEach(note => {
                         const noteLink = `${rootPrefix}article/?id=${note.id}&type=live-note&lang=${currentLanguage}`;
                         const textContent = note.content.find(item => item.type === 'text');
-                        const noteText = textContent ? textContent.value : '';
+                        const noteText = textContent ? getLocalizedValue(textContent.value || '') : '';
 
                         // Count attachments
                         const videoCount = note.content.filter(item => item.type === 'video' || item.type === 'main-video').length;
@@ -255,23 +291,25 @@ function populateSidebar(side, data) {
                             let previewHTML = '<div class="attachment-preview"><div class="preview-thumbnails">';
 
                             if (videoCount > 0) {
-                                const videoLabel = videoCount === 1 ? data.attachments.video : data.attachments.videos;
+                                const videoLabel = videoCount === 1 ? getLocalizedValue(data.attachments.video) : getLocalizedValue(data.attachments.videos);
                                 attachments.push(`${videoCount} ${videoLabel}`);
                                 // Add video preview thumbnails
                                 note.content.forEach(item => {
                                     if (item.type === 'video' || item.type === 'main-video') {
                                         // use a small autoplayed muted video as preview
-                                        previewHTML += `<video class="preview-thumbnail video-thumbnail" src="${rootPrefix}${item.value}" muted autoplay loop></video>`;
+                                        const videoValue = getLocalizedValue(item.value) || item.value || '';
+                                        previewHTML += `<video class="preview-thumbnail video-thumbnail" src="${prefixRootPath(videoValue)}" muted autoplay loop></video>`;
                                     }
                                 });
                             }
                             if (photoCount > 0) {
-                                const photoLabel = photoCount === 1 ? data.attachments.photo : data.attachments.photos;
+                                const photoLabel = photoCount === 1 ? getLocalizedValue(data.attachments.photo) : getLocalizedValue(data.attachments.photos);
                                 attachments.push(`${photoCount} ${photoLabel}`);
                                 // Add photo preview images
                                 note.content.forEach(item => {
                                     if (item.type === 'image' || item.type === 'main-image') {
-                                        previewHTML += `<img src="${rootPrefix}${item.value}" alt="" class="preview-thumbnail">`;
+                                        const imageValue = getLocalizedValue(item.value) || item.value || '';
+                                        previewHTML += `<img src="${prefixRootPath(imageValue)}" alt="" class="preview-thumbnail">`;
                                     }
                                 });
                             }
@@ -293,7 +331,7 @@ function populateSidebar(side, data) {
                     html += `
                         </div>
                         <a href="${rootPrefix}all-publications/?lang=${currentLanguage}" class="live-notes-show-all">
-                            ${data.showAllLiveNotes}
+                            ${getLocalizedValue(data.showAllLiveNotes)}
                         </a>
                     `;
 
@@ -311,11 +349,11 @@ function setBaseLocalizedText() {
     console.log('Setting localized text for base elements');
     const language = getCurrentLanguage();  // Get the current language setting
     const rootPrefix = getRootPrefix();
-    fetch(`${rootPrefix}json/${language}.json`)  // Fetch the localized JSON file for the current language
+    fetch(`${rootPrefix}json/site-data.json`)  // Fetch the merged JSON file for the current language
         .then(response => response.json())
         .then(data => {
             // Set the site title
-            document.title = data.siteTitle;
+            document.title = getLocalizedValue(data.siteTitle);
 
             // Insert navigation
             insertNav(data);
@@ -324,7 +362,7 @@ function setBaseLocalizedText() {
             const footerGridItem1 = document.querySelector('#footer-grid-item1 .footer-grid-item-list').children;
             data.footer[0]["footer-grid-item1"].forEach((item, index) => {
                 if (footerGridItem1[index]) {
-                    footerGridItem1[index].querySelector('a').textContent = item;
+                    footerGridItem1[index].querySelector('a').textContent = getLocalizedValue(item);
                 }
             });
 
@@ -332,7 +370,7 @@ function setBaseLocalizedText() {
             const footerGridItem2 = document.querySelector('#footer-grid-item2 .footer-grid-item-list').children;
             data.footer[1]["footer-grid-item2"].forEach((item, index) => {
                 if (footerGridItem2[index]) {
-                    footerGridItem2[index].querySelector('a').textContent = item;
+                    footerGridItem2[index].querySelector('a').textContent = getLocalizedValue(item);
                 }
             });
 
@@ -340,7 +378,7 @@ function setBaseLocalizedText() {
             const footerGridItem3 = document.querySelector('#footer-grid-item3 .footer-grid-item-list').children;
             data.footer[2]["footer-grid-item3"].forEach((item, index) => {
                 if (footerGridItem3[index]) {
-                    footerGridItem3[index].querySelector('a').textContent = item;
+                    footerGridItem3[index].querySelector('a').textContent = getLocalizedValue(item);
                 }
             });
 
@@ -348,16 +386,16 @@ function setBaseLocalizedText() {
             const footerGridItem4 = document.querySelector('#footer-grid-item4 .footer-grid-item-list').children;
             data.footer[3]["footer-grid-item4"].forEach((item, index) => {
                 if (footerGridItem4[index]) {
-                    footerGridItem4[index].querySelector('a').textContent = item;
+                    footerGridItem4[index].querySelector('a').textContent = getLocalizedValue(item);
                 }
             });
 
             // Set the footer below text
             // Change .textContent to .innerHTML
-const footerElement = document.querySelector('.footer-below-text');
-if (footerElement) {
-    footerElement.innerHTML = data.footer[4]["footer-grid-item-below"][0];
-}
+            const footerElement = document.querySelector('.footer-below-text');
+            if (footerElement) {
+                footerElement.innerHTML = getLocalizedValue(data.footer[4]["footer-grid-item-below"][0]);
+            }
 
             // Populate sidebars
             populateSidebar('left', data);
