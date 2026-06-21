@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`Initial URL params: types=${initialTypes}, tags=${initialTags}, sort=${initialSort}`);
 
     rootPrefix = getRootPrefix();
-    loadAllPublications(`${rootPrefix}json/site-data.json`, initialTypes, initialTags, initialSort);
+    loadAllPublications(initialTypes, initialTags, initialSort);
 });
 
 // Global variables for filter and sort state
@@ -241,15 +241,20 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
 }
 
 function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], initialSort = 'newest') {
-    fetch(jsonFile)
-        .then(response => response.json())
-        .then(fetchedData => {
-            data = fetchedData;
-            const allPublicationsElement = document.querySelector('.all-publications-text p');
-            allPublicationsElement.textContent = getLocalizedValue(data.allPublications);
+    // jsonFile is kept for backwards compatibility but ignored —
+    // data now comes from the shared site-data loader (Cloudflare KV via
+    // /api/site-content, with a local fallback to json/site-data.json).
+    const dataPromise = (typeof window.fetchSiteData === 'function')
+        ? window.fetchSiteData()
+        : fetch(jsonFile).then(r => r.json());
 
-            const filterElement = document.querySelector('.filter-button');
-            filterElement.innerHTML = `
+    dataPromise.then(fetchedData => {
+        data = fetchedData;
+        const allPublicationsElement = document.querySelector('.all-publications-text p');
+        allPublicationsElement.textContent = getLocalizedValue(data.allPublications);
+
+        const filterElement = document.querySelector('.filter-button');
+        filterElement.innerHTML = `
                 <div class="tag-filter-container">
                     <span>${getLocalizedValue(data.filterByTags)}</span>
                     <div class="tag-buttons"></div>
@@ -260,62 +265,62 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
                 </div>
             `;
 
-            // Load tags
-            const tagButtonsContainer = document.querySelector('.tag-buttons');
-            Object.keys(data.tags).forEach(tagKey => {
-                const tagButton = document.createElement('button');
-                tagButton.className = `tag-option${initialTags.includes(tagKey) ? ' active' : ''}`;
-                tagButton.setAttribute('data-tag', tagKey);
-                tagButton.textContent = `#${getLocalizedValue(data.tags[tagKey])}`;
-                tagButton.addEventListener('click', () => {
-                    const index = currentTags.indexOf(tagKey);
-                    if (index === -1) {
-                        currentTags.push(tagKey);
-                        console.log(`Tag selected: ${tagKey}`);
-                    } else {
-                        currentTags.splice(index, 1);
-                        console.log(`Tag deselected: ${tagKey}`);
-                    }
-                    filterItems(currentTypes, currentTags);
-                });
-                tagButtonsContainer.appendChild(tagButton);
+        // Load tags
+        const tagButtonsContainer = document.querySelector('.tag-buttons');
+        Object.keys(data.tags).forEach(tagKey => {
+            const tagButton = document.createElement('button');
+            tagButton.className = `tag-option${initialTags.includes(tagKey) ? ' active' : ''}`;
+            tagButton.setAttribute('data-tag', tagKey);
+            tagButton.textContent = `#${getLocalizedValue(data.tags[tagKey])}`;
+            tagButton.addEventListener('click', () => {
+                const index = currentTags.indexOf(tagKey);
+                if (index === -1) {
+                    currentTags.push(tagKey);
+                    console.log(`Tag selected: ${tagKey}`);
+                } else {
+                    currentTags.splice(index, 1);
+                    console.log(`Tag deselected: ${tagKey}`);
+                }
+                filterItems(currentTypes, currentTags);
             });
+            tagButtonsContainer.appendChild(tagButton);
+        });
 
-            // Load types dynamically (excluding 'all')
-            const typeButtonsContainer = document.querySelector('.type-buttons');
-            ['news', 'article', 'opinion', 'academic', 'live-note'].forEach(typeKey => {
-                const typeButton = document.createElement('button');
-                typeButton.className = `filter-option filter-option-${typeKey}${initialTypes.includes(typeKey) ? ' active' : ''}`;
-                typeButton.setAttribute('data-type', typeKey);
-                typeButton.textContent = getLocalizedValue(data.types[typeKey]);
-                typeButton.addEventListener('click', () => {
-                    const index = currentTypes.indexOf(typeKey);
-                    if (index === -1) {
-                        currentTypes.push(typeKey);
-                        console.log(`Type selected: ${typeKey}`);
-                    } else {
-                        currentTypes.splice(index, 1);
-                        console.log(`Type deselected: ${typeKey}`);
-                    }
-                    filterItems(currentTypes, currentTags);
-                });
-                typeButtonsContainer.appendChild(typeButton);
+        // Load types dynamically (excluding 'all')
+        const typeButtonsContainer = document.querySelector('.type-buttons');
+        ['news', 'article', 'opinion', 'academic', 'live-note'].forEach(typeKey => {
+            const typeButton = document.createElement('button');
+            typeButton.className = `filter-option filter-option-${typeKey}${initialTypes.includes(typeKey) ? ' active' : ''}`;
+            typeButton.setAttribute('data-type', typeKey);
+            typeButton.textContent = getLocalizedValue(data.types[typeKey]);
+            typeButton.addEventListener('click', () => {
+                const index = currentTypes.indexOf(typeKey);
+                if (index === -1) {
+                    currentTypes.push(typeKey);
+                    console.log(`Type selected: ${typeKey}`);
+                } else {
+                    currentTypes.splice(index, 1);
+                    console.log(`Type deselected: ${typeKey}`);
+                }
+                filterItems(currentTypes, currentTags);
             });
+            typeButtonsContainer.appendChild(typeButton);
+        });
 
-            const sortElement = document.querySelector('.sort-button');
-            sortElement.innerHTML = `
+        const sortElement = document.querySelector('.sort-button');
+        sortElement.innerHTML = `
                 <span>${getLocalizedValue(data.sortBy)}</span>
                 <button class="sort-option${initialSort === 'newest' ? ' active' : ''}" data-sort="newest" onclick="sortItems('newest')">${getLocalizedValue(data.newest)}</button>
                 <button class="sort-option${initialSort === 'oldest' ? ' active' : ''}" data-sort="oldest" onclick="sortItems('oldest')">${getLocalizedValue(data.oldest)}</button>
             `;
 
-            // Initialize with URL params
-            currentTypes = initialTypes;
-            currentTags = initialTags;
-            currentSort = initialSort;
-            renderArticles(currentTypes, currentTags, currentSort);
-            updateFilterButtons(); // Apply initial button states without re-rendering
-        });
+        // Initialize with URL params
+        currentTypes = initialTypes;
+        currentTags = initialTags;
+        currentSort = initialSort;
+        renderArticles(currentTypes, currentTags, currentSort);
+        updateFilterButtons(); // Apply initial button states without re-rendering
+    });
 }
 
 // Update filter and sort buttons' state

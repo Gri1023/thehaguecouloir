@@ -42,6 +42,16 @@ function isVisibleForCurrentLanguage(item) {
     return !item.lang || item.lang === 'all' || item.lang === window.currentLanguage;
 }
 
+// Shared loader lives in js/site-data.js and is exposed as window.fetchSiteData.
+// Defined here as a thin wrapper so legacy callers keep working unchanged.
+function fetchSiteData() {
+    if (typeof window.fetchSiteData === 'function') {
+        return window.fetchSiteData();
+    }
+    // Defensive fallback if site-data.js failed to load.
+    return fetch(`${getRootPrefix()}json/site-data.json`).then(r => r.json());
+}
+
 function loadJsonSection(sectionName, containerId) {
     const container = document.getElementById(containerId);
     if (!container) {
@@ -50,8 +60,7 @@ function loadJsonSection(sectionName, containerId) {
     }
 
     const rootPrefix = getRootPrefix();
-    fetch(`${rootPrefix}json/site-data.json`)
-        .then(response => response.json())
+    fetchSiteData()
         .then(data => {
             const sectionData = data[sectionName];
             if (Array.isArray(sectionData) && sectionData.length > 0) {

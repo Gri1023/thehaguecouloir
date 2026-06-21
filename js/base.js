@@ -349,58 +349,56 @@ function setBaseLocalizedText() {
     console.log('Setting localized text for base elements');
     const language = getCurrentLanguage();  // Get the current language setting
     const rootPrefix = getRootPrefix();
-    fetch(`${rootPrefix}json/site-data.json`)  // Fetch the merged JSON file for the current language
-        .then(response => response.json())
-        .then(data => {
-            // Set the site title
-            document.title = getLocalizedValue(data.siteTitle);
+    fetchSiteData().then(data => {
+        // Set the site title
+        document.title = getLocalizedValue(data.siteTitle);
 
-            // Insert navigation
-            insertNav(data);
+        // Insert navigation
+        insertNav(data);
 
-            // Update text for footer grid item 1
-            const footerGridItem1 = document.querySelector('#footer-grid-item1 .footer-grid-item-list').children;
-            data.footer[0]["footer-grid-item1"].forEach((item, index) => {
-                if (footerGridItem1[index]) {
-                    footerGridItem1[index].querySelector('a').textContent = getLocalizedValue(item);
-                }
-            });
-
-            // Update text for footer grid item 2
-            const footerGridItem2 = document.querySelector('#footer-grid-item2 .footer-grid-item-list').children;
-            data.footer[1]["footer-grid-item2"].forEach((item, index) => {
-                if (footerGridItem2[index]) {
-                    footerGridItem2[index].querySelector('a').textContent = getLocalizedValue(item);
-                }
-            });
-
-            // Update text for footer grid item 3
-            const footerGridItem3 = document.querySelector('#footer-grid-item3 .footer-grid-item-list').children;
-            data.footer[2]["footer-grid-item3"].forEach((item, index) => {
-                if (footerGridItem3[index]) {
-                    footerGridItem3[index].querySelector('a').textContent = getLocalizedValue(item);
-                }
-            });
-
-            // Update text for footer grid item 4
-            const footerGridItem4 = document.querySelector('#footer-grid-item4 .footer-grid-item-list').children;
-            data.footer[3]["footer-grid-item4"].forEach((item, index) => {
-                if (footerGridItem4[index]) {
-                    footerGridItem4[index].querySelector('a').textContent = getLocalizedValue(item);
-                }
-            });
-
-            // Set the footer below text
-            // Change .textContent to .innerHTML
-            const footerElement = document.querySelector('.footer-below-text');
-            if (footerElement) {
-                footerElement.innerHTML = getLocalizedValue(data.footer[4]["footer-grid-item-below"][0]);
+        // Update text for footer grid item 1
+        const footerGridItem1 = document.querySelector('#footer-grid-item1 .footer-grid-item-list').children;
+        data.footer[0]["footer-grid-item1"].forEach((item, index) => {
+            if (footerGridItem1[index]) {
+                footerGridItem1[index].querySelector('a').textContent = getLocalizedValue(item);
             }
+        });
 
-            // Populate sidebars
-            populateSidebar('left', data);
-            populateSidebar('right', data);
-        })
+        // Update text for footer grid item 2
+        const footerGridItem2 = document.querySelector('#footer-grid-item2 .footer-grid-item-list').children;
+        data.footer[1]["footer-grid-item2"].forEach((item, index) => {
+            if (footerGridItem2[index]) {
+                footerGridItem2[index].querySelector('a').textContent = getLocalizedValue(item);
+            }
+        });
+
+        // Update text for footer grid item 3
+        const footerGridItem3 = document.querySelector('#footer-grid-item3 .footer-grid-item-list').children;
+        data.footer[2]["footer-grid-item3"].forEach((item, index) => {
+            if (footerGridItem3[index]) {
+                footerGridItem3[index].querySelector('a').textContent = getLocalizedValue(item);
+            }
+        });
+
+        // Update text for footer grid item 4
+        const footerGridItem4 = document.querySelector('#footer-grid-item4 .footer-grid-item-list').children;
+        data.footer[3]["footer-grid-item4"].forEach((item, index) => {
+            if (footerGridItem4[index]) {
+                footerGridItem4[index].querySelector('a').textContent = getLocalizedValue(item);
+            }
+        });
+
+        // Set the footer below text
+        // Change .textContent to .innerHTML
+        const footerElement = document.querySelector('.footer-below-text');
+        if (footerElement) {
+            footerElement.innerHTML = getLocalizedValue(data.footer[4]["footer-grid-item-below"][0]);
+        }
+
+        // Populate sidebars
+        populateSidebar('left', data);
+        populateSidebar('right', data);
+    })
         .catch(error => console.error('Error loading localized text:', error));
 }
 
