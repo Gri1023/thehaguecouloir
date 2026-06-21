@@ -110,7 +110,7 @@ function loadArticleContent() {
                     } else if (item.type === 'error') {
                         articleContent.innerHTML += `<div class="error">${localizedItemValue}</div>`;
                     } else if (item.type === 'video') {
-                        articleContent.innerHTML += `<div class="video-container"><video controls src="${prefixRootPath(item.value)}"></video></div>`;
+                        articleContent.innerHTML += `<div class="video-container"><video controls src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
                     } else if (item.type === 'pdf') {
                         // Extract the localized path string from the value object
                         const localizedPath = getLocalizedValue(item.value);
