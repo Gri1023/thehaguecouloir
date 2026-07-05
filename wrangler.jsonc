@@ -1,0 +1,12 @@
+{
+    "name": "the-hague-couloir-website",
+    "compatibility_date": "2026-07-05",
+    "pages_build_output_dir": ".",
+    "kv_namespaces": [
+        {
+            "binding": "site-content",
+            "id": "6d020cbeb6d94b9e98f0fa6b86fcb9cc",
+            "remote": true
+        }
+    ]
+}

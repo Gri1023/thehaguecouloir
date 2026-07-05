@@ -42,15 +42,9 @@ function isVisibleForCurrentLanguage(item) {
     return !item.lang || item.lang === 'all' || item.lang === window.currentLanguage;
 }
 
-// Shared loader lives in js/site-data.js and is exposed as window.fetchSiteData.
-// Defined here as a thin wrapper so legacy callers keep working unchanged.
-function fetchSiteData() {
-    if (typeof window.fetchSiteData === 'function') {
-        return window.fetchSiteData();
-    }
-    // Defensive fallback if site-data.js failed to load.
-    return fetch(`${getRootPrefix()}json/site-data.json`).then(r => r.json());
-}
+// fetchSiteData is provided by js/site-data.js (exposed on window).
+// All pages that load content-utils.js also load site-data.js, so the
+// global is always present by the time DOMContentLoaded fires.
 
 function loadJsonSection(sectionName, containerId) {
     const container = document.getElementById(containerId);
