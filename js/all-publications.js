@@ -131,9 +131,44 @@ function updateFilterButtons() {
 }
 
 // Function to filter items by types and tags
+function normalizeArray(value) {
+    if (Array.isArray(value)) {
+        return value;
+    }
+    if (!value) {
+        return [];
+    }
+    if (typeof value === 'string') {
+        return value.split(',').map(item => item.trim()).filter(Boolean);
+    }
+    return [value];
+}
+
+function getActiveTypeFilters() {
+    return Array.from(document.querySelectorAll('.type-buttons .filter-option.active'))
+        .map(button => button.dataset.type)
+        .filter(Boolean);
+}
+
+function getActiveTagFilters() {
+    return Array.from(document.querySelectorAll('.tag-buttons .tag-option.active'))
+        .map(button => button.dataset.tag)
+        .filter(Boolean);
+}
+
+function applyFiltersFromUI() {
+    currentTypes = getActiveTypeFilters();
+    currentTags = getActiveTagFilters();
+    console.log(`Applying filters from UI: types=${currentTypes}, selectedTags=${currentTags}`);
+
+    updateFilterButtons();
+    renderArticles(currentTypes, currentTags, currentSort);
+    updateURL(currentTypes, currentTags, currentSort);
+}
+
 function filterItems(selectedTypes, selectedTags) {
-    currentTypes = selectedTypes;
-    currentTags = selectedTags;
+    currentTypes = normalizeArray(selectedTypes);
+    currentTags = normalizeArray(selectedTags);
     console.log(`Filtering items: types=${currentTypes}, selectedTags=${currentTags}`);
 
     updateFilterButtons();
@@ -174,27 +209,48 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
         console.warn('Data not loaded yet');
         return;
     }
+    types = normalizeArray(types);
+    if (!Array.isArray(tags)) {
+        console.warn('renderArticles: tags is not an array before normalization', tags, typeof tags);
+    }
+    tags = normalizeArray(tags);
+    if (!Array.isArray(tags)) {
+        console.error('renderArticles: tags is still not an array after normalization', tags);
+    }
     console.log(`Rendering articles: types=${types}, tags=${tags}, sortOrder=${sortOrder}`);
     const contentGrid = document.querySelector('.content-grid');
     contentGrid.innerHTML = ''; // Clear existing content
 
-    const allItems = ['news', 'article', 'opinion', 'academic', 'live-note']
-        .flatMap(itemType => data[itemType]
-            .filter(item => item.visible === "yes" && isVisibleForCurrentLanguage(item))
-            .map(item => ({ ...item, type: itemType })))
-        .filter(item => {
-            const matchesType = types.length === 0 || types.includes(item.type);
-            const itemTags = item.tags || [];
-            const matchesTags = tags.length === 0 || tags.every(tag => itemTags.includes(tag));
-            return matchesType && matchesTags;
-        })
-        .sort((a, b) => {
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
-            return sortOrder === 'oldest' ? dateA - dateB : dateB - dateA;
-        });
+    const sectionCounts = ['news', 'article', 'opinion', 'academic', 'live-note'].map(itemType => ({
+        itemType,
+        count: Array.isArray(data[itemType]) ? data[itemType].length : 0,
+        type: Array.isArray(data[itemType]) ? 'array' : typeof data[itemType]
+    }));
+    console.log('all-publications data section counts:', sectionCounts);
 
-    allItems.forEach(item => {
+    const allItems = ['news', 'article', 'opinion', 'academic', 'live-note']
+        .flatMap(itemType => (Array.isArray(data[itemType]) ? data[itemType] : [])
+            .filter(item => item.visible === 'yes' && isVisibleForCurrentLanguage(item))
+            .map(item => ({ ...item, type: itemType })));
+
+    console.log('all-publications visible items count before tag/type filter:', allItems.length);
+
+    const filteredItems = allItems.filter(item => {
+        const matchesType = types.length === 0 || types.includes(item.type);
+        const itemTags = Array.isArray(item.tags) ? item.tags : [];
+        const matchesTags = tags.length === 0 || tags.every(tag => itemTags.includes(tag));
+        return matchesType && matchesTags;
+    });
+
+    console.log('all-publications filtered items count:', filteredItems.length);
+
+    const sortedItems = filteredItems.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return sortOrder === 'oldest' ? dateA - dateB : dateB - dateA;
+    });
+
+    sortedItems.forEach(item => {
         const articleElement = document.createElement('article');
         articleElement.classList.add(`${item.type}-item`);
         articleElement.setAttribute('data-type', item.type);
@@ -240,16 +296,53 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
     });
 }
 
-function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], initialSort = 'newest') {
-    // jsonFile is kept for backwards compatibility but ignored —
-    // data now comes from the shared site-data loader (Cloudflare KV via
-    // /api/site-content, with a local fallback to json/site-data.json).
+function loadAllPublications(firstArg = [], secondArg = [], thirdArg = [], fourthArg = 'newest') {
+    // Support both old-style and new-style argument orders:
+    //  old: loadAllPublications(jsonFile, initialTypes, initialTags, initialSort)
+    //  new: loadAllPublications(initialTypes, initialTags, initialSort)
+    let jsonFile = firstArg;
+    let initialTypes = secondArg;
+    let initialTags = thirdArg;
+    let initialSort = fourthArg;
+
+    const isNewStyle = Array.isArray(firstArg) && Array.isArray(secondArg) && (typeof thirdArg === 'string' || thirdArg === undefined);
+    if (isNewStyle) {
+        initialTypes = firstArg;
+        initialTags = secondArg;
+        initialSort = typeof thirdArg === 'string' ? thirdArg : fourthArg;
+        jsonFile = undefined;
+    }
+
+    // jsonFile is kept for backwards compatibility but ignored when fetchSiteData is available.
     const dataPromise = (typeof window.fetchSiteData === 'function')
         ? window.fetchSiteData()
         : fetch(jsonFile).then(r => r.json());
 
     dataPromise.then(fetchedData => {
         data = fetchedData;
+
+        const declaredTagKeys = new Set(Object.keys(data.tags || {}));
+        const usedTagKeys = new Set();
+        const missingTagKeys = new Set();
+        ['news', 'article', 'opinion', 'academic', 'live-note'].forEach(itemType => {
+            const items = Array.isArray(data[itemType]) ? data[itemType] : [];
+            items.forEach(item => {
+                normalizeArray(item.tags).forEach(tagKey => {
+                    if (tagKey) {
+                        usedTagKeys.add(tagKey);
+                        if (!declaredTagKeys.has(tagKey)) {
+                            missingTagKeys.add(tagKey);
+                        }
+                    }
+                });
+            });
+        });
+        if (missingTagKeys.size > 0) {
+            console.warn(
+                `Undeclared tags found in data: ${Array.from(missingTagKeys).join(', ')}`
+            );
+        }
+
         const allPublicationsElement = document.querySelector('.all-publications-text p');
         allPublicationsElement.textContent = getLocalizedValue(data.allPublications);
 
@@ -273,15 +366,9 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
             tagButton.setAttribute('data-tag', tagKey);
             tagButton.textContent = `#${getLocalizedValue(data.tags[tagKey])}`;
             tagButton.addEventListener('click', () => {
-                const index = currentTags.indexOf(tagKey);
-                if (index === -1) {
-                    currentTags.push(tagKey);
-                    console.log(`Tag selected: ${tagKey}`);
-                } else {
-                    currentTags.splice(index, 1);
-                    console.log(`Tag deselected: ${tagKey}`);
-                }
-                filterItems(currentTypes, currentTags);
+                tagButton.classList.toggle('active');
+                console.log(`Tag toggled: ${tagKey}, active=${tagButton.classList.contains('active')}`);
+                applyFiltersFromUI();
             });
             tagButtonsContainer.appendChild(tagButton);
         });
@@ -294,15 +381,9 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
             typeButton.setAttribute('data-type', typeKey);
             typeButton.textContent = getLocalizedValue(data.types[typeKey]);
             typeButton.addEventListener('click', () => {
-                const index = currentTypes.indexOf(typeKey);
-                if (index === -1) {
-                    currentTypes.push(typeKey);
-                    console.log(`Type selected: ${typeKey}`);
-                } else {
-                    currentTypes.splice(index, 1);
-                    console.log(`Type deselected: ${typeKey}`);
-                }
-                filterItems(currentTypes, currentTags);
+                typeButton.classList.toggle('active');
+                console.log(`Type toggled: ${typeKey}, active=${typeButton.classList.contains('active')}`);
+                applyFiltersFromUI();
             });
             typeButtonsContainer.appendChild(typeButton);
         });
@@ -315,11 +396,13 @@ function loadAllPublications(jsonFile, initialTypes = [], initialTags = [], init
             `;
 
         // Initialize with URL params
-        currentTypes = initialTypes;
-        currentTags = initialTags;
+        currentTypes = normalizeArray(initialTypes);
+        currentTags = normalizeArray(initialTags);
         currentSort = initialSort;
         renderArticles(currentTypes, currentTags, currentSort);
         updateFilterButtons(); // Apply initial button states without re-rendering
+        // Ensure UI state and filter state are in sync after initial load.
+        applyFiltersFromUI();
     });
 }
 
@@ -339,6 +422,6 @@ const updateButtonState = (selector, activeValue) => {
 window.sortItems = (sortOrder) => {
     currentSort = sortOrder;
     updateButtonState('.sort-option', sortOrder);
-    renderArticles(currentTypes, currentTags, currentSort);
+    applyFiltersFromUI();
     updateURL(currentTypes, currentTags, currentSort);
 };
