@@ -343,7 +343,7 @@ function loadContent(jsonFile) {
 
             gridItem.innerHTML = `
                         <a href="${articleLink}" class="grid-item-link">
-                            <h3>${highlightedTitle}</h3>
+                            <h3><span>${highlightedTitle}</span></h3>
                             <div class="type-date">
                                 <span class="${item.type}">${getLocalizedValue(data.types[item.type])}</span>
                             </div>

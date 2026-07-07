@@ -5,6 +5,10 @@ if (window.innerWidth < 1024 && !sessionStorage.getItem("mobileWarningShown")) {
 
 window.currentLanguage = (getCurrentLanguage());
 
+// Cloudflare R2 public bucket base URL. Declared once on the window here in base.js
+// and reused by other scripts (content-utils.js, article.js, index.js, all-publications.js).
+window.R2_BASE_URL = 'https://pub-795f9426259d4926a0308a9099f50d25.r2.dev/';
+
 function getCurrentLanguage() {
     let urlParams = new URLSearchParams(window.location.search);
     const hashIndex = window.location.href.indexOf('#');
@@ -43,14 +47,14 @@ function getCurrentLanguage() {
 
     if (language === 'ru') {
         languageSelector.innerHTML = `
-            <button class="dropbtn"><img src="${rootPrefix}language-icon-white.png" class="language-icon">Русский</button>
+            <button class="dropbtn"><img src="${R2_BASE_URL}media/language-icon-white.png" class="language-icon">Русский</button>
             <div class="dropdown-menu">
                 <a href="#" onclick="changeLanguage('en')">English</a>
             </div>
         `;
     } else {
         languageSelector.innerHTML = `
-            <button class="dropbtn"><img src="${rootPrefix}language-icon-white.png" class="language-icon">English</button>
+            <button class="dropbtn"><img src="${R2_BASE_URL}media/language-icon-white.png" class="language-icon">English</button>
             <div class="dropdown-menu">
                 <a href="#" onclick="changeLanguage('ru')">Русский</a>
             </div>
@@ -75,10 +79,6 @@ function getRootPrefix() {
     const subpages = ['article', 'about', 'all-publications', 'bias', 'your-data', 'editor'];
     return subpages.some(folder => path.includes(`/${folder}/`) || path.endsWith(`/${folder}`) || path.endsWith(`/${folder}/`)) ? '../' : '';
 }
-
-// Cloudflare R2 public bucket base URL. Declared once on the window here in base.js
-// and reused by other scripts (content-utils.js, article.js, index.js, all-publications.js).
-window.R2_BASE_URL = 'https://pub-795f9426259d4926a0308a9099f50d25.r2.dev/';
 
 function prefixRootPath(url) {
     if (!url) return url;
@@ -130,25 +130,25 @@ function insertNav(data) {
         <ul>
             <li>
                 <a href="${rootPrefix}" class="navigation-link">
-                    <img src="${rootPrefix}home-icon-white.png" class="navigation-icon">
+                    <img src="${R2_BASE_URL}media/home-icon-white.png" class="navigation-icon">
                     <span class="navigation-option-text">${getLocalizedValue(data.navigation[0][Object.keys(data.navigation[0])[0]])}</span>
                 </a>
             </li>
             <li>
                 <a href="${rootPrefix}#catalogue-anchor" class="navigation-link">
-                    <img src="${rootPrefix}catalogue-icon-white.png" class="navigation-icon">
+                    <img src="${R2_BASE_URL}media/catalogue-icon-white.png" class="navigation-icon">
                     <span class="navigation-option-text">${getLocalizedValue(data.navigation[1][Object.keys(data.navigation[1])[0]])}</span>
                 </a>
             </li>
             <li>
                 <a href="${rootPrefix}all-publications/" class="navigation-link">
-                    <img src="${rootPrefix}search_icon.png" class="navigation-icon">
+                    <img src="${R2_BASE_URL}media/search_icon.png" class="navigation-icon">
                     <span class="navigation-option-text">${getLocalizedValue(data.navigation[2][Object.keys(data.navigation[2])[0]])}</span>
                 </a>
             </li>
             <li>
                 <a href="${rootPrefix}about/" class="navigation-link">
-                    <img src="${rootPrefix}info-icon-white.png" class="navigation-icon">
+                    <img src="${R2_BASE_URL}media/info-icon-white.png" class="navigation-icon">
                     <span class="navigation-option-text">${getLocalizedValue(data.navigation[3][Object.keys(data.navigation[3])[0]])}</span>
                 </a>
             </li>
@@ -244,7 +244,7 @@ function populateSidebar(side, data) {
 
             if (item.type === 'telegram') {
                 itemDiv.innerHTML = `
-                <img src="${rootPrefix}Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
+                <img src="${R2_BASE_URL}media/Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
                 <a href="${item.link}">
                     ${getLocalizedValue(item.text)}
                 </a>
@@ -269,7 +269,7 @@ function populateSidebar(side, data) {
                     itemDiv.classList.add('live-notes-container');
                     let html = `
                         <div class="live-notes-header">
-                            <span class="online-indicator"><img src="${rootPrefix}live-notes-icon.png" alt=""></span>
+                            <span class="online-indicator"><img src="${R2_BASE_URL}media/live-notes-icon.png" alt=""></span>
                             <h3 class="live-notes-title">${getLocalizedValue(data.liveNotesTitle)}</h3>
                         </div>
                         <div class="live-notes-list">
@@ -461,6 +461,24 @@ function updateNavigationLinks() {
     });
 }
 
+// Function to set up the favicon using the R2 bucket URL
+function setFavicon() {
+    // Specify the path to the favicon relative to the site root
+    const faviconUrl = 'media/skull%202-enchanced-cropped%20128x141.png';
+    // Resolve the URL
+    const resolvedHref = [R2_BASE_URL] + faviconUrl;
+    // Find an existing <link rel="icon"> element
+    let linkEl = document.querySelector('link[rel="icon"]');
+    if (!linkEl) {
+        linkEl = document.createElement('link');
+        linkEl.rel = 'icon';
+        linkEl.type = 'image/png';
+        document.head.appendChild(linkEl);
+    }
+    linkEl.href = resolvedHref;
+    console.log("resolved URL:" + resolvedHref)
+}
+
 
 
 // Ensure that setLocalizedText is called on page load
@@ -468,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
     insertFooter();
     setBaseLocalizedText(); // Update header and footer text based on the current language
     updateNavigationLinks(); // Update navigation links based on the current language
+    setFavicon(); // Set the site favicon
     // Call other initialization functions here if needed
 });
 
