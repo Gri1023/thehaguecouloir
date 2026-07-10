@@ -256,15 +256,26 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
         articleElement.setAttribute('data-type', item.type);
         articleElement.setAttribute('data-tags', item.tags ? item.tags.join(',') : '');
 
-        const mediaContent = item.content ? item.content.find(contentItem =>
+        // 1. First, look for the designated 'main' media items
+        let mediaContent = item.content ? item.content.find(contentItem =>
             contentItem.type === 'main-image' || contentItem.type === 'main-video'
         ) : undefined;
 
+        // 2. Fallback: If no main media is found, find the first standard image or video
+        if (!mediaContent && item.content) {
+            mediaContent = item.content.find(contentItem =>
+                contentItem.type === 'image' || contentItem.type === 'video'
+            );
+        }
+
+        // 3. Generate HTML based on what type of asset was found
         let mediaHTML = '';
-        if (mediaContent && mediaContent.type === 'main-image') {
-            mediaHTML = `<img src="${prefixRootPath(getLocalizedValue(mediaContent.value) || mediaContent.value || '')}" alt="${getLocalizedValue(item.title)}">`;
-        } else if (mediaContent && mediaContent.type === 'main-video') {
-            mediaHTML = `<img src="${prefixRootPath(getLocalizedValue(item.previewImage) || item.previewImage || '')}" alt="${getLocalizedValue(item.title)}">`;
+        if (mediaContent) {
+            if (mediaContent.type === 'main-image' || mediaContent.type === 'image') {
+                mediaHTML = `<img src="${prefixRootPath(getLocalizedValue(mediaContent.value) || mediaContent.value || '')}" alt="${getLocalizedValue(item.title)}">`;
+            } else if (mediaContent.type === 'main-video' || mediaContent.type === 'video') {
+                mediaHTML = `<img src="${prefixRootPath(getLocalizedValue(item.previewImage) || item.previewImage || '')}" alt="${getLocalizedValue(item.title)}">`;
+            }
         }
 
         articleElement.setAttribute(

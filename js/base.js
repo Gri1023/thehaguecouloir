@@ -267,18 +267,31 @@ function populateSidebar(side, data) {
                         .slice(0, 4);
 
                     itemDiv.classList.add('live-notes-container');
+                    // Set the default telegram wallpaper background dynamically
+                    itemDiv.style.backgroundImage = `url('${R2_BASE_URL}media/telegram-default-wallpaper.png')`;
+
+                    // Localized standalone helper function to process markdown links safely
+                    const getLinks = (text, className) => {
+                        return `${text}`.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, url) =>
+                            `<a href="${prefixRootPath(url)}" target="_blank" class="${className}">${label}</a>`
+                        );
+                    };
+
                     let html = `
-                        <div class="live-notes-header">
-                            <span class="online-indicator"><img src="${R2_BASE_URL}media/live-notes-icon.png" alt=""></span>
-                            <h3 class="live-notes-title">${getLocalizedValue(data.liveNotesTitle)}</h3>
-                        </div>
-                        <div class="live-notes-list">
-                    `;
+            <div class="live-notes-header">
+                <span class="online-indicator"><img src="${R2_BASE_URL}media/live-notes-icon.png" alt=""></span>
+                <h3 class="live-notes-title">${getLocalizedValue(data.liveNotesTitle)}</h3>
+            </div>
+            <div class="live-notes-list">
+        `;
 
                     liveNotes.forEach(note => {
                         const noteLink = `${rootPrefix}article/?id=${note.id}&type=live-note&lang=${currentLanguage}`;
                         const textContent = note.content.find(item => item.type === 'text');
-                        const noteText = textContent ? getLocalizedValue(textContent.value || '') : '';
+
+                        // Process text content precisely, converting links and spoilers inline
+                        const rawText = textContent ? getLocalizedValue(textContent.value || '') : '';
+                        const noteText = rawText ? getLinks(rawText, 'text-with-link').replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>') : '';
 
                         // Count attachments
                         const videoCount = note.content.filter(item => item.type === 'video' || item.type === 'main-video').length;
@@ -293,23 +306,20 @@ function populateSidebar(side, data) {
                             if (videoCount > 0) {
                                 const videoLabel = videoCount === 1 ? getLocalizedValue(data.attachments.video) : getLocalizedValue(data.attachments.videos);
                                 attachments.push(`${videoCount} ${videoLabel}`);
-                                // Add video preview thumbnails
                                 note.content.forEach(item => {
                                     if (item.type === 'video' || item.type === 'main-video') {
-                                        // use a small autoplayed muted video as preview
                                         const videoValue = getLocalizedValue(item.value) || item.value || '';
-                                        previewHTML += `<video class="preview-thumbnail video-thumbnail" src="${prefixRootPath(videoValue)}" muted autoplay loop></video>`;
+                                        previewHTML += `<video class="preview-video-thumbnail" src="${prefixRootPath(videoValue)}" muted autoplay loop></video>`;
                                     }
                                 });
                             }
                             if (photoCount > 0) {
                                 const photoLabel = photoCount === 1 ? getLocalizedValue(data.attachments.photo) : getLocalizedValue(data.attachments.photos);
                                 attachments.push(`${photoCount} ${photoLabel}`);
-                                // Add photo preview images
                                 note.content.forEach(item => {
                                     if (item.type === 'image' || item.type === 'main-image') {
                                         const imageValue = getLocalizedValue(item.value) || item.value || '';
-                                        previewHTML += `<img src="${prefixRootPath(imageValue)}" alt="" class="preview-thumbnail">`;
+                                        previewHTML += `<img class="preview-image-thumbnail" src="${prefixRootPath(imageValue)}" alt="">`;
                                     }
                                 });
                             }
@@ -317,23 +327,23 @@ function populateSidebar(side, data) {
                             attachmentNotif = `<span class="live-note-attachments-wrapper"><span class="live-note-attachments">↪ ${attachments.join(', ')}</span>${previewHTML}</span>`;
                         }
 
+                        // Note: The whole bubble link target is now flat inside the container to avoid nested anchor errors
                         html += `
-                            <a href="${noteLink}" class="live-note-item-link">
-                                <div class="live-note-item">
-                                    ${attachmentNotif}
-                                    <span class="live-note-text">${noteText}</span>
-                                    <span class="live-note-time">${timeAgo(note.date)}</span>
-                                </div>
-                            </a>
-                        `;
+                <div class="live-note-item">
+                    <a href="${noteLink}" class="live-note-bubble-target"></a>
+                    ${attachmentNotif}
+                    <p class="live-note-text">${noteText}</p>
+                    <span class="live-note-time">${timeAgo(note.date)}</span>
+                </div>
+            `;
                     });
 
                     html += `
-                        </div>
-                        <a href="${rootPrefix}all-publications/?lang=${currentLanguage}" class="live-notes-show-all">
-                            ${getLocalizedValue(data.showAllLiveNotes)}
-                        </a>
-                    `;
+            </div>
+            <a href="${rootPrefix}all-publications/?lang=${currentLanguage}" class="live-notes-show-all">
+                ${getLocalizedValue(data.showAllLiveNotes)}
+            </a>
+        `;
 
                     itemDiv.innerHTML = html;
                     console.log(`Adding live-notes sidebar item with ${liveNotes.length} notes`, { side });

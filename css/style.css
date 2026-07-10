@@ -142,27 +142,6 @@ body {
     border-radius: 10px;
 }
 
-#sidebars-right-item1 {
-    background: #e6fbe6;
-    font-family: "Roboto", serif;
-    font-weight: regular;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, .08);
-    margin-top: 20px;
-    overflow: hidden;
-}
-
-#sidebars-right-item1 a {
-    margin: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    color: black;
-    display: block;
-    float: none;
-    /* Ensure it doesn’t overlap */
-}
-
 #sidebars-left-item2 {
     background: linear-gradient(135deg,
             /* Diagonal gradient (top-left to bottom-right) */
@@ -415,123 +394,261 @@ body {
     /* Float image to the right */
 }
 
-.live-notes-header {
-    padding: 5px 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
+/* Fixes conflicting system wrapper styles while preserving important layout positioning */
+#sidebars-right-item1 {
+    font-family: "Roboto", serif;
+    font-weight: regular;
+    border-radius: 16px;
+    /* Syncs perfectly with container rounded corners */
+    margin-top: 20px;
+    /* Preserves your essential vertical margins */
+    margin-bottom: 20px;
+    overflow: hidden;
 }
 
-.online-indicator {
-    width: 45px;
-    height: 45px;
+#sidebars-right-item1 .live-note-bubble-target a {
+    margin: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    display: block;
+    float: none;
+}
+
+/* Container adjustments - Deeply zoomed-out wallpaper and custom sage-green gradient wash */
+.live-notes-container {
+    position: relative;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #94b28a;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Smoothed, ultra-gradual fade-in blend masks matching image_465904.png */
+.live-notes-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, #94b28a 5%, rgba(148, 178, 138, 0.9) 35%, rgba(148, 178, 138, 0));
+    z-index: 5;
+    pointer-events: none;
+}
+
+.live-notes-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: linear-gradient(to top, #94b28a 8%, rgba(148, 178, 138, 0.9) 40%, rgba(148, 178, 138, 0));
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Floating top capsule */
+.live-notes-header {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(254, 254, 254, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 10px 24px;
+    border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+    z-index: 10;
+    width: 85%;
+    white-space: nowrap;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.online-indicator {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .online-indicator img {
     width: 100%;
     height: 100%;
+    height: 48px;
+    width: 48px;
     object-fit: contain;
 }
 
 .live-notes-title {
     margin: 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: black;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 16.5px;
+    font-weight: 700;
+    color: #111111;
+    text-transform: none;
+    letter-spacing: -0.2px;
 }
 
+/* Chat stream scroll listing region */
 .live-notes-list {
-    padding: 8px 0 8px 0;
-    max-height: 400px;
+    padding: 70px 10px 85px 24px;
+    /* Balanced protective padding to keep tail clear of edges */
+    max-height: 510px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 12px;
 }
 
-.live-note-item-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s ease;
-}
-
-.live-note-item-link:last-child {
-    border-bottom: none;
-}
-
-.live-note-item-link:hover {
-    transform: translateY(-2px);
-}
-
-.live-note-item-link:hover .live-note-item {
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
-}
-
-.live-note-item {
-    padding: 12px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    color: #333;
-    font-size: 14px;
-    line-height: 1.4;
-    background-color: white;
-    border-radius: 8px;
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+/* Target only live note items inside the live notes list to beat line 1320 */
+.live-notes-list .live-note-item {
+    padding: 11px 14px;
+    gap: 4px;
+    color: #000000;
+    background-color: #ffffff;
     position: relative;
+    width: 94%;
+    box-sizing: border-box;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    /* 1. FORCE THE LAYOUT (Overrides line 1320's display: block) */
+    display: flex !important;
+    flex-direction: column;
+
+    /* 2. REMOVE GENERIC CARD BORDER (Overrides line 1320's border) */
+    border: none !important;
+
+    /* 3. APPLY CORRECT TELEGRAM CORNERS (Overrides line 1320's border-radius) */
+    border-radius: 12px 12px 12px 0px !important;
+
+    /* 4. SHADOWS */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 
-.live-note-item::before {
-    content: '';
+/* Hover state override */
+.live-notes-list .live-note-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+/* Invisible block click target layer - Handles full bubble clicking safely */
+.live-note-bubble-target {
     position: absolute;
-    bottom: -6px;
-    left: 12px;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid white;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    /* Sits over the bubble base layout */
 }
 
+/* White Telegram-style tail */
+.live-notes-list .live-note-item::before {
+    content: "";
+    position: absolute;
+    left: -11px;
+    bottom: 0;
+    width: 12px;
+    height: 16px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 12 16'><path d='M12 0C12 6 8 12 0 16H12V0Z' fill='%23ffffff'/></svg>");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* Strictly forced right-aligned date/time footer string layout */
 .live-note-time {
     font-size: 11px;
-    font-weight: 500;
-    color: #999;
-    text-transform: lowercase;
-    letter-spacing: 0px;
-    align-self: flex-end;
-}
-
-.live-note-text {
-    font-size: 14px;
-    color: #333;
     font-weight: 400;
-    word-wrap: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    color: #707579;
+    text-transform: lowercase;
+    text-align: right;
+    /* Aligns text block to the right */
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    position: relative;
+    z-index: 2;
+    /* Keeps text element layer on top */
 }
 
+/* Paragraph target - Structural multi-line text clamping configuration */
+p.live-note-text {
+    font-size: 14.5px;
+    color: #000000;
+    font-weight: 400;
+    line-height: 1.4;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 2;
+    /* Sits above full bubble link layer */
+
+    /* Enforced CSS Line clamping configuration rules */
+    display: -webkit-box !important;
+    -webkit-line-clamp: 4 !important;
+    line-clamp: 4 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Inline markdown-parsed hyperlinks - Strict colorization only */
+p.live-note-text a,
+.text-with-link {
+    color: #2481CC;
+    /* Authentic Telegram blue accent color */
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    display: inline !important;
+    /* Flows normally inside inline-box paragraph streams */
+    position: relative;
+    z-index: 3;
+    /* Elevated priority so individual links remain clickable */
+}
+
+p.live-note-text a:hover,
+.text-with-link:hover {
+    text-decoration: underline !important;
+}
+
+/* Inline markdown blur spoilers */
+.spoiler-text {
+    background-color: #222;
+    color: transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    display: inline;
+    position: relative;
+    z-index: 3;
+}
+
+.spoiler-text:hover {
+    color: #fff;
+    background-color: transparent;
+}
+
+/* Attachment preview controls and contextual drop-wrappers */
 .live-note-attachments {
-    font-size: 11px;
-    font-style: italic;
-    color: grey;
+    font-size: 12px;
+    color: #2481CC;
     display: block;
     font-weight: 500;
     cursor: pointer;
-}
-
-.live-note-attachments:hover {
-    text-decoration: underline;
+    margin-bottom: 2px;
 }
 
 .live-note-attachments:hover {
@@ -542,6 +659,8 @@ body {
     position: relative;
     display: block;
     width: fit-content;
+    z-index: 3;
+    /* Elevated hover layout focus layer */
 }
 
 .attachment-preview {
@@ -552,9 +671,8 @@ body {
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 8px;
-    margin-top: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 100;
 }
 
@@ -564,60 +682,50 @@ body {
 
 .preview-thumbnails {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    max-width: 240px;
-    overflow: hidden;
-}
-
-
-.preview-thumbnail {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    flex: 0 0 auto;
-}
-
-.video-thumbnail {
-    width: 60px;
-    height: 60px;
-    border-radius: 4px;
-    border: 1px solid #fff;
-    overflow: hidden;
-    background-color: #000;
-    box-sizing: border-box;
-    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
     align-items: center;
-    justify-content: center;
 }
 
-.video-thumbnail video {
+.preview-image-thumbnail,
+.preview-video-thumbnail {
+    height: 60px;
     width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    max-width: 120px;
+    flex: 0 0 auto;
+    border-radius: 4px;
 }
 
+/* Floating bottom capsule button link layout */
 .live-notes-show-all {
-    display: block;
-    padding: 12px 20px;
-    text-align: center;
-    color: white;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(254, 254, 254, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 12px 0;
+    border-radius: 24px;
+    color: #111111;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 12px;
-    letter-spacing: 1px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     transition: all 0.2s ease;
     cursor: pointer;
+    text-align: center;
+    width: 85%;
+    z-index: 10;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
 .live-notes-show-all:hover {
-    background-color: rgba(0, 0, 0, 0.25);
-    text-decoration: none;
-    color: white;
+    background-color: #ffffff;
+    transform: translateX(-50%) scale(1.02);
 }
 
 .nav-container-background {
@@ -939,7 +1047,7 @@ body {
 
 /* 2. Block the global text-shadow from messing up your grid items */
 #highlighted-article .grid-item h3 span,
-#highlighted-article .grid-item .type-date span {
+#highlighted-article .grid-item {
     text-shadow: none !important;
 }
 
@@ -1247,7 +1355,8 @@ body {
 .news-item a,
 .article-item a,
 .opinion-item a,
-.academic-item a {
+.academic-item a,
+.live-note-item a {
     color: inherit;
     text-decoration: none;
     display: block;
@@ -1256,7 +1365,8 @@ body {
 .news-item img,
 .article-item img,
 .opinion-item img,
-.academic-item img {
+.academic-item img,
+article.live-note-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1267,14 +1377,16 @@ body {
 .news-item .news,
 .article-item .article,
 .opinion-item .opinion,
-.academic-item .academic {
+.academic-item .academic,
+.live-note-item .live-note {
     margin-bottom: 8px;
 }
 
 .news-item .title,
 .article-item .title,
 .opinion-item .title,
-.academic-item .title {
+.academic-item .title,
+.live-note-item .title {
     color: inherit;
     text-decoration: none;
     display: block;
@@ -1286,7 +1398,8 @@ body {
 .news-item .date,
 .article-item .date,
 .opinion-item .date,
-.academic-item .date {
+.academic-item .date,
+.live-note-item .date {
     color: inherit;
     text-decoration: none;
     display: block;
@@ -1381,7 +1494,7 @@ body {
 
 /* Styles for different text types */
 .news {
-    color: red;
+    color: #FF2E2E;
     font-weight: bold;
     font-family: 'Roboto', serif;
 }

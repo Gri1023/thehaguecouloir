@@ -366,3 +366,4 @@ FodyWeavers.xsd
 
 # Safely ignores all auto-generated junk & local database cache
 .wrangler
+.json
