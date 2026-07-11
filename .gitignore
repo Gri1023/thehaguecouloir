@@ -366,4 +366,6 @@ FodyWeavers.xsd
 
 # Safely ignores all auto-generated junk & local database cache
 .wrangler
-.json
+
+# Ignore local json fallback
+/json/
