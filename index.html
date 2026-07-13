@@ -6,10 +6,9 @@
     <title>Redirecting...</title>
     <link rel="canonical" href="https://thehaguecouloir.com">
     <style>
-        /* Keeps the screen cleanly blank during the instant redirect. 
-       Fallback text only unhides if the redirect stalls. */
         body {
             display: none;
+            /* Hidden by default to ensure an invisible transition for regular users */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             padding: 3rem 2rem;
             text-align: center;
@@ -26,13 +25,33 @@
             text-decoration: underline;
         }
 
-        hr {
-            border: 0;
-            border-top: 1px solid #eee;
-            margin: 1.5rem auto;
-            max-width: 200px;
+        .msg-block {
+            display: none;
         }
+
+        /* Toggled dynamically via JavaScript */
     </style>
+
+    <!-- If JavaScript is completely disabled, force the page to show both languages as a fail-safe -->
+    <noscript>
+        <style>
+            body {
+                display: block !important;
+            }
+
+            .msg-block {
+                display: block !important;
+            }
+
+            hr {
+                border: 0;
+                border-top: 1px solid #eee;
+                margin: 1.5rem auto;
+                max-width: 200px;
+            }
+        </style>
+    </noscript>
+
     <script>
         const newDomain = "https://thehaguecouloir.com";
         const repoName = "/thehaguecouloir";
@@ -40,46 +59,84 @@
         let path = window.location.pathname;
         const search = window.location.search;
 
-        // Safely strip the GitHub repo name without hardcoded string lengths
+        // 1. Parse the URL parameters
+        const urlParams = new URLSearchParams(search);
+        const lang = urlParams.get('lang');
+        const isDebug = urlParams.has('debug'); // Checks for &debug=true
+
+        // 2. Strip the GitHub repository name from path
         if (path.startsWith(repoName)) {
             path = path.substring(repoName.length);
         }
-
         if (!path.startsWith('/')) {
             path = '/' + path;
         }
 
-        // Construct the absolute perfect destination URL
+        // 3. Convert legacy .html extensions to pretty paths
+        if (path.endsWith('.html')) {
+            if (path === '/index.html') {
+                path = '/';
+            } else {
+                path = path.slice(0, -5) + '/';
+            }
+        }
+
+        // 4. Construct destination URL
         const targetUrl = newDomain + path + search;
 
-        // Trigger the invisible, instant browser redirect
-        window.location.replace(targetUrl);
-
-        // Backup safety: If the redirect takes longer than 1 second, reveal the manual links
         window.addEventListener('DOMContentLoaded', () => {
+            // Set the destination URLs on our manual links
             document.getElementById('fallback-en').href = targetUrl;
             document.getElementById('fallback-ru').href = targetUrl;
 
-            setTimeout(() => {
+            // Dynamic Language Selection
+            if (lang === 'ru') {
+                document.getElementById('msg-ru').style.display = 'block';
+            } else {
+                document.getElementById('msg-en').style.display = 'block'; // Default to English
+            }
+
+            // Debug Mode Handler
+            if (isDebug) {
                 document.body.style.display = 'block';
-            }, 1000);
+                console.log("Debug Mode Active! Target Destination:", targetUrl);
+            } else {
+                // Execute the live instant redirect
+                window.location.replace(targetUrl);
+
+                // Safety backup: If the browser lags or stalls, reveal the page after 1 second
+                setTimeout(() => {
+                    document.body.style.display = 'block';
+                }, 1000);
+            }
         });
     </script>
 </head>
 
 <body>
-    <p>
-        We've moved! Redirecting you to the new site...<br>
-        If you are not redirected automatically, <a id="fallback-en" href="https://thehaguecouloir.com">click here</a>.
-    </p>
 
-    <hr>
+    <!-- English Fallback Text -->
+    <div id="msg-en" class="msg-block">
+        <p>
+            We've moved! Redirecting you to the new site...<br>
+            If you are not redirected automatically, <a id="fallback-en" href="https://thehaguecouloir.com">click
+                here</a>.
+        </p>
+    </div>
 
-    <p>
-        Мы переехали! Вы будете перенаправлены на новый сайт...<br>
-        Если перенаправление не произошло автоматически, <a id="fallback-ru" href="https://thehaguecouloir.com">нажмите
-            здесь</a>.
-    </p>
+    <noscript>
+        <hr>
+    </noscript> <!-- Only renders if JavaScript is totally blocked -->
+
+    <!-- Russian Fallback Text -->
+    <div id="msg-ru" class="msg-block">
+        <p>
+            Мы переехали! Перенаправление на новый сайт...<br>
+            Если перенаправление не произошло автоматически, <a id="fallback-ru"
+                href="https://thehaguecouloir.com">нажмите здесь</a>.
+        </p>
+    </div>
+
 </body>
 
 </html>
