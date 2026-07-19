@@ -1,12 +1,10 @@
 // site-data.js
 // Single source of truth for fetching the site-data JSON.
 //
-// On Cloudflare Pages this reads from the Pages Function at /api/site-content,
-// which in turn reads from the SITE_CONTENT KV namespace (key: "site-data").
+// On Cloudflare Pages production, this directly queries the Pages Function at /api/site-content.
 //
-// When the API endpoint is unreachable (e.g. local file:// or python -m
-// http.server previews) it transparently falls back to the local
-// json/site-data.json file.
+// During local development (localhost, 127.0.0.1, or file://), it transparently checks the 
+// local json/site-data.json file first to make local editing fast and resource-efficient.
 //
 // The result is cached in-memory for the lifetime of the page so multiple
 // callers share one network request.
@@ -32,23 +30,43 @@
         return `${getRootPrefix()}json/site-data.json`;
     }
 
+    // Identifies if the environment is a local development instance
+    function isLocalDev() {
+        const hostname = window.location.hostname;
+        const protocol = window.location.protocol;
+        return hostname === 'localhost' || hostname === '127.0.0.1' || protocol === 'file:';
+    }
+
     async function fetchSiteData() {
         if (cache.data) return cache.data;
         if (cache.promise) return cache.promise;
 
         cache.promise = (async () => {
-            try {
-                const res = await fetch(apiUrl(), { cache: 'no-store' });
-                if (!res.ok) throw new Error(`API responded ${res.status}`);
-                cache.data = await res.json();
-                return cache.data;
-            } catch (err) {
-                console.warn('site-data API unreachable, using local fallback:', err);
-                const res = await fetch(localFallbackUrl(), { cache: 'no-store' });
-                if (!res.ok) throw new Error(`Local JSON responded ${res.status}`);
-                cache.data = await res.json();
-                return cache.data;
+            // 1. LOCAL DEVELOPMENT PATH
+            if (isLocalDev()) {
+                try {
+                    // Try the local JSON first during development
+                    const res = await fetch(localFallbackUrl(), { cache: 'no-store' });
+                    if (!res.ok) throw new Error(`Local JSON responded ${res.status}`);
+                    cache.data = await res.json();
+                    return cache.data;
+                } catch (err) {
+                    console.warn('Local JSON missing or failed, falling back to API:', err);
+                    // Fall back to the online endpoint if local JSON isn't generated yet
+                    const res = await fetch(apiUrl(), { cache: 'no-store' });
+                    if (!res.ok) throw new Error(`API responded ${res.status}`);
+                    cache.data = await res.json();
+                    return cache.data;
+                }
             }
+
+            // 2. PRODUCTION PATH
+            // Bypasses the local JSON entirely. Zero extra network footprint on the live site.
+            const res = await fetch(apiUrl(), { cache: 'no-store' });
+            if (!res.ok) throw new Error(`API responded ${res.status}`);
+            cache.data = await res.json();
+            return cache.data;
+
         })().catch(err => {
             cache.promise = null;
             throw err;

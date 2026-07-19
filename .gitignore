@@ -369,3 +369,6 @@ FodyWeavers.xsd
 
 # Ignore local json fallback
 /json/
+
+# Ignore local media fallback
+/media/

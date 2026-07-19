@@ -95,7 +95,7 @@ function loadContent(jsonFile) {
             if (pauseHoverCount === 0) {
                 clearInterval(rotationInterval);
                 rotationInterval = null;
-                console.log('Rotation paused');
+                //console.log('Rotation paused');
             }
             pauseHoverCount += 1;
         }
@@ -106,7 +106,7 @@ function loadContent(jsonFile) {
                 rotationInterval = setInterval(() => {
                     updateHighlightedArticle();
                 }, 5000);
-                console.log('Rotation resumed');
+                //console.log('Rotation resumed');
             }
         }
         // Translate section headings, subheadings, and buttons
@@ -166,7 +166,7 @@ function loadContent(jsonFile) {
         });
 
         function updateHighlightedArticle(index) {
-            console.log('updateHighlightedArticle called with index:', index);
+            // console.log('updateHighlightedArticle called with index:', index);
             const targetIndex = index !== undefined ? index : currentIndex;
             if (index !== undefined && targetIndex === displayedIndex) {
                 return; // No need to re-render the same highlighted article
@@ -274,7 +274,7 @@ function loadContent(jsonFile) {
             .sort((a, b) => new Date(b.date) - new Date(a.date));
 
         const maxItemsPerSection = getMaxItemsPerSection();
-        console.log("maxItemsPerSection = " + maxItemsPerSection);
+        //console.log("maxItemsPerSection = " + maxItemsPerSection);
 
         ['news', 'article', 'opinion', 'academic'].forEach(type => {
             // Get items of the current type and limit to maxItemsPerSection
@@ -369,7 +369,7 @@ function loadContent(jsonFile) {
             }
 
             // Start rotating after the initial setup
-            console.log('Setting initial interval');
+            //console.log('Setting initial interval');
             rotationInterval = setInterval(() => {
                 console.log('Interval firing, updating article');
                 updateHighlightedArticle();

@@ -288,7 +288,15 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
         if (!displayTitle && item.type === 'live-note' && item.content) {
             const textItem = item.content.find(c => c.type === 'text');
             if (textItem) {
-                const textValue = getLocalizedValue(textItem.value || '');
+                let textValue = getLocalizedValue(textItem.value || '');
+
+                // 1. Strip Markdown links: converts "[Text](URL)" into plain "Text"
+                textValue = textValue.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1');
+
+                // 2. Clean up spoiler tags if they exist: converts "||hidden||" into "hidden"
+                textValue = textValue.replace(/\|\|(.+?)\|\|/g, '$1');
+
+                // 3. Truncate now that the raw formatting syntax is gone
                 displayTitle = textValue.length > 100 ? textValue.slice(0, 97) + '...' : textValue;
             }
         }

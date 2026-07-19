@@ -3,11 +3,26 @@ if (window.innerWidth < 1024 && !sessionStorage.getItem("mobileWarningShown")) {
     sessionStorage.setItem("mobileWarningShown", "true");
 }
 
-window.currentLanguage = (getCurrentLanguage());
+// Helper to identify if the site is running in a local development environment
+function isLocalDev() {
+    const hn = window.location.hostname;
+    const protocol = window.location.protocol;
+    return (
+        hn === 'localhost' ||
+        hn === '127.0.0.1' ||
+        protocol === 'file:' ||
+        hn.startsWith('192.168.') ||
+        hn.startsWith('10.') ||
+        hn.endsWith('.local')
+    );
+}
 
-// Cloudflare R2 public bucket base URL. Declared once on the window here in base.js
-// and reused by other scripts (content-utils.js, article.js, index.js, all-publications.js).
-window.R2_BASE_URL = 'https://pub-795f9426259d4926a0308a9099f50d25.r2.dev/';
+// Cloudflare R2 public bucket base URL. 
+// Evaluates dynamically: uses local relative paths when debugging locally, or the live R2 URL when in production.
+const PRODUCTION_R2_URL = 'https://pub-795f9426259d4926a0308a9099f50d25.r2.dev/';
+window.R2_BASE_URL = isLocalDev() ? getRootPrefix() : PRODUCTION_R2_URL;
+
+window.currentLanguage = (getCurrentLanguage());
 
 function getCurrentLanguage() {
     let urlParams = new URLSearchParams(window.location.search);
@@ -33,7 +48,7 @@ function getCurrentLanguage() {
     // 3. Priority: URL > LocalStorage > Default ('en')
     const finalLanguage = urlLanguage || storedLanguage || 'en';
 
-    console.log('Current language determined:', finalLanguage);
+    //console.log('Current language determined:', finalLanguage);
     return finalLanguage;
 }
 
@@ -47,14 +62,14 @@ function getCurrentLanguage() {
 
     if (language === 'ru') {
         languageSelector.innerHTML = `
-            <button class="dropbtn"><img src="${R2_BASE_URL}media/language-icon-white.png" class="language-icon">Русский</button>
+            <button class="dropbtn"><img src="${window.R2_BASE_URL}media/language-icon-white.png" class="language-icon">Русский</button>
             <div class="dropdown-menu">
                 <a href="#" onclick="changeLanguage('en')">English</a>
             </div>
         `;
     } else {
         languageSelector.innerHTML = `
-            <button class="dropbtn"><img src="${R2_BASE_URL}media/language-icon-white.png" class="language-icon">English</button>
+            <button class="dropbtn"><img src="${window.R2_BASE_URL}media/language-icon-white.png" class="language-icon">English</button>
             <div class="dropdown-menu">
                 <a href="#" onclick="changeLanguage('ru')">Русский</a>
             </div>
@@ -238,7 +253,7 @@ function populateSidebar(side, data) {
                     if (switchImage) switchImage.src = isVisible ? switchOnSrc : switchOffSrc;
                 }
 
-                console.log('Adding bias sidebar item', { side });
+                //console.log('Adding bias sidebar item', { side });
                 grid.appendChild(itemDiv);
             }
 
@@ -253,7 +268,7 @@ function populateSidebar(side, data) {
                     <a href="${item.link}">${getLocalizedValue(item.button)}</a>
                 </div>
                 `;
-                console.log(`Adding sidebar item: ${getLocalizedValue(item.text)}`, { side });
+                //console.log(`Adding sidebar item: ${getLocalizedValue(item.text)}`, { side });
                 grid.appendChild(itemDiv);
             }
 
@@ -346,7 +361,7 @@ function populateSidebar(side, data) {
         `;
 
                     itemDiv.innerHTML = html;
-                    console.log(`Adding live-notes sidebar item with ${liveNotes.length} notes`, { side });
+                    //console.log(`Adding live-notes sidebar item with ${liveNotes.length} notes`, { side });
                     grid.appendChild(itemDiv);
                 }
             }
@@ -356,7 +371,7 @@ function populateSidebar(side, data) {
 
 // Function to set localized text
 function setBaseLocalizedText() {
-    console.log('Setting localized text for base elements');
+    //console.log('Setting localized text for base elements');
     const language = getCurrentLanguage();  // Get the current language setting
     const rootPrefix = getRootPrefix();
     fetchSiteData().then(data => {
@@ -486,7 +501,7 @@ function setFavicon() {
         document.head.appendChild(linkEl);
     }
     linkEl.href = resolvedHref;
-    console.log("resolved URL:" + resolvedHref)
+    //console.log("resolved URL:" + resolvedHref)
 }
 
 
