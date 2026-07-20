@@ -185,6 +185,14 @@ function loadContent(jsonFile) {
             const titleEl = highlightedArticle.querySelector('.highlighted-title');
             const dateEl = highlightedArticle.querySelector('.highlighted-date');
 
+            // Inserts the source node structurally as the first child of the text container
+            let sourceEl = highlightedArticle.querySelector('.highlighted-source');
+            if (!sourceEl) {
+                sourceEl = document.createElement('div');
+                sourceEl.className = 'highlighted-source';
+                typeEl.parentNode.insertBefore(sourceEl, typeEl);
+            }
+
             if (pendingUpdateTimeout) {
                 clearTimeout(pendingUpdateTimeout);
                 pendingUpdateTimeout = null;
@@ -201,6 +209,8 @@ function loadContent(jsonFile) {
             titleEl.style.transform = 'translateY(10px)';
             dateEl.style.opacity = '0';
             dateEl.style.transform = 'translateY(10px)';
+            sourceEl.style.opacity = '0';
+            sourceEl.style.transform = 'translateY(10px)';
 
             pendingUpdateTimeout = setTimeout(() => {
                 // Update content
@@ -208,6 +218,21 @@ function loadContent(jsonFile) {
                     image.src = prefixRootPath(getLocalizedValue(mediaContent.value) || mediaContent.value || '');
                 } else if (mediaContent.type === 'main-video') {
                     image.src = prefixRootPath(getLocalizedValue(featuredItem.previewImage) || featuredItem.previewImage || '');
+                }
+
+                // Handle text data parsing safely
+                if (mediaContent && mediaContent.source) {
+                    const rawSourceText = getLocalizedValue(mediaContent.source);
+                    if (rawSourceText) {
+                        sourceEl.innerHTML = rawSourceText.replace(
+                            /\[([^\]]+)\]\(([^)]+)\)/g,
+                            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+                        );
+                    } else {
+                        sourceEl.innerHTML = '';
+                    }
+                } else {
+                    sourceEl.innerHTML = '';
                 }
 
                 highlightedArticle.querySelector('.highlighted-title').innerHTML = `<a href="${articleLink}" class="highlighted-title-link">${getLocalizedValue(featuredItem.title)}</a>` +
@@ -246,6 +271,12 @@ function loadContent(jsonFile) {
                     titleEl.style.transform = 'translateY(0)';
                     dateEl.style.opacity = '1';
                     dateEl.style.transform = 'translateY(0)';
+
+                    // Sync animation slide up state cleanly alongside header groups
+                    if (mediaContent && mediaContent.source && getLocalizedValue(mediaContent.source)) {
+                        sourceEl.style.opacity = '1';
+                        sourceEl.style.transform = 'translateY(0)';
+                    }
                 };
 
                 if (image.complete && image.naturalWidth !== 0) {
@@ -370,6 +401,7 @@ function loadContent(jsonFile) {
 
             // Start rotating after the initial setup
             //console.log('Setting initial interval');
+            // uncomment below
             rotationInterval = setInterval(() => {
                 console.log('Interval firing, updating article');
                 updateHighlightedArticle();

@@ -1095,6 +1095,8 @@ p.live-note-text a:hover,
     margin-right: 150px;
     margin-left: 20px;
     height: fit-content;
+    font-family: 'Roboto', serif;
+    position: relative;
 }
 
 /* Container for the image */
@@ -1154,6 +1156,45 @@ p.live-note-text a:hover,
     gap: 8px;
     /* Optional: space between title and indicator */
     transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 2. Position the source above the text block without pushing content down */
+.highlighted-source {
+    position: absolute;
+    margin-top: 20px;
+    top: -140px;
+    display: block;
+
+    /* Typography & Core Colors */
+    font-family: inherit;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+
+    /* Underline Configurations */
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.25);
+    /* 👈 FIX: Forcing lower opacity bypasses the pixel-snapping bug */
+    text-underline-offset: 2px;
+
+    /* Handles all animations (switch, fade, slide, and hover) smoothly both ways */
+    transition: all 0.3s ease;
+}
+
+/* Safe clean up if no image source is present, without breaking transitions */
+.highlighted-source:empty {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+.highlighted-source a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+/* 👈 FIX: Hovering the block now transitions BOTH text and underline to white together */
+.highlighted-source:hover {
+    color: #ffffff;
+    text-decoration-color: rgba(255, 255, 255, 0.6);
 }
 
 .highlighted-type {
@@ -1481,6 +1522,12 @@ article.live-note-item img {
     /* Add this for dot alignment */
 }
 
+/* Safe clean up if no image source is present, without breaking transitions */
+.video-indicator:empty {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
 
 .content {
     font-family: 'Roboto', serif;
@@ -1565,6 +1612,7 @@ main-text .heading-text-with-link {
     font-size: 24px;
     margin-bottom: 10px;
     font-weight: bold;
+    color: #2481CC;
 }
 
 main-text .subheading-text {
@@ -1591,7 +1639,7 @@ main-text p {
 main-text .text-with-link {
     font-family: 'Roboto', serif;
     text-decoration: none;
-    color: rgb(0, 60, 255);
+    color: #2481CC;
     font-size: 18px;
     line-height: 150%;
 }
@@ -1653,7 +1701,7 @@ main-text .image {
     margin: auto;
     max-width: 90%;
     max-height: 500px;
-    border-radius: 5px;
+    border-radius: 14px;
     margin-bottom: 10px;
     padding-left: 5px;
     padding-right: 5px;
@@ -1697,10 +1745,10 @@ main-text .pdf-frame {
 main-text .caption-text {
     font-family: 'Roboto', serif;
     text-align: center;
-    line-height: 95%;
+    line-height: 110%;
     font-size: 14px;
     color: #7f8c8d;
-    margin-top: 0;
+    margin-top: 10px;
 }
 
 main-text .caption-text-with-link {
@@ -1940,7 +1988,8 @@ footer {
 }
 
 /* Main Image Display */
-.gallery-main-image {
+.gallery-main-image,
+.gallery-main-video {
     display: block;
     width: 100%;
     max-height: 500px;

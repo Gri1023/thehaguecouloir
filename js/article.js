@@ -42,6 +42,22 @@ function isVisibleForCurrentLanguage(item) {
     return !item.lang || item.lang === 'all' || item.lang === currentLanguage;
 }
 
+function resolveGalleryElements(item) {
+    if (!item || typeof item !== 'object') return [];
+
+    if (Array.isArray(item.value)) return item.value;
+    if (Array.isArray(item.images)) return item.images;
+
+    const localized = item[window.currentLanguage] || item.en || item.ru;
+    if (Array.isArray(localized)) return localized;
+    if (localized && typeof localized === 'object') {
+        if (Array.isArray(localized.value)) return localized.value;
+        if (Array.isArray(localized.images)) return localized.images;
+    }
+
+    return [];
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     loadArticleContent();
 });
@@ -71,7 +87,7 @@ function loadArticleContent() {
             articleData.content.forEach(item => {
                 const localizedItemValue = getLocalizedValue(item.value || '');
                 if (item.type === 'gallery') {
-                    createGallery(articleContent, item.images);
+                    createGallery(articleContent, resolveGalleryElements(item));
                 } else if (item.type === 'heading-text') {
                     const headingTextWithLinks = formatLinks(localizedItemValue, 'heading-text-with-link');
                     articleContent.innerHTML += `<h1 class="heading-text">${headingTextWithLinks}</h1>`;
