@@ -172,6 +172,8 @@ function initializeSpoilers() {
     });
 }
 
+let galleryInstanceCount = 0;
+
 function createGallery(container, elements) {
     console.log('createGallery received elements:', elements);
     if (!Array.isArray(elements) || elements.length === 0) {
@@ -193,18 +195,20 @@ function createGallery(container, elements) {
         return;
     }
 
+    const galleryId = `gallery-${galleryInstanceCount++}`;
     const firstItem = resolvedItems[0];
     const isFirstVideo = firstItem.type === 'video';
 
     let galleryHtml = `
-        <div class="gallery-container">
-            <img src="${!isFirstVideo ? firstItem.url : ''}" alt="Gallery Image" class="gallery-main-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
-            <video src="${isFirstVideo ? firstItem.url : ''}" controls class="gallery-main-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
-            
-            <button class="gallery-nav-button left">&lt;</button>
-            <button class="gallery-nav-button right">&gt;</button>
-            
-            <div class="gallery-thumbnails">
+        <div class="gallery-wrapper" data-gallery-id="${galleryId}">
+            <div class="gallery-container">
+                <img ${!isFirstVideo ? `src="${firstItem.url}"` : ''} alt="Gallery Image" class="gallery-main-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
+                <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} controls class="gallery-main-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
+                
+                <button class="gallery-nav-button left">&lt;</button>
+                <button class="gallery-nav-button right">&gt;</button>
+                
+                <div class="gallery-thumbnails">
     `;
 
     resolvedItems.forEach((item, index) => {
@@ -216,11 +220,12 @@ function createGallery(container, elements) {
     });
 
     galleryHtml += `
+                </div>
             </div>
-        </div>
-        <div class="gallery-zoom-overlay">
-            <img src="${!isFirstVideo ? firstItem.url : ''}" alt="Zoom Image" class="gallery-zoom-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
-            <video src="${isFirstVideo ? firstItem.url : ''}" controls class="gallery-zoom-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
+            <div class="gallery-zoom-overlay" data-gallery-id="${galleryId}">
+                <img ${!isFirstVideo ? `src="${firstItem.url}"` : ''} alt="Zoom Image" class="gallery-zoom-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
+                <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} controls class="gallery-zoom-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
+            </div>
         </div>
     `;
 
@@ -228,81 +233,84 @@ function createGallery(container, elements) {
 }
 
 function initializeGallery() {
-    const mainImage = document.querySelector('.gallery-main-image');
-    const mainVideo = document.querySelector('.gallery-main-video');
-    const thumbnails = document.querySelectorAll('.gallery-thumbnail');
-    const leftButton = document.querySelector('.gallery-nav-button.left');
-    const rightButton = document.querySelector('.gallery-nav-button.right');
-    const zoomOverlay = document.querySelector('.gallery-zoom-overlay');
-    const zoomImage = document.querySelector('.gallery-zoom-image');
-    const zoomVideo = document.querySelector('.gallery-zoom-video');
+    document.querySelectorAll('.gallery-wrapper').forEach(galleryWrapper => {
+        const galleryId = galleryWrapper.dataset.galleryId;
+        const mainImage = galleryWrapper.querySelector('.gallery-main-image');
+        const mainVideo = galleryWrapper.querySelector('.gallery-main-video');
+        const thumbnails = galleryWrapper.querySelectorAll('.gallery-thumbnail');
+        const leftButton = galleryWrapper.querySelector('.gallery-nav-button.left');
+        const rightButton = galleryWrapper.querySelector('.gallery-nav-button.right');
+        const zoomOverlay = galleryWrapper.querySelector(`.gallery-zoom-overlay[data-gallery-id="${galleryId}"]`);
+        const zoomImage = zoomOverlay ? zoomOverlay.querySelector('.gallery-zoom-image') : null;
+        const zoomVideo = zoomOverlay ? zoomOverlay.querySelector('.gallery-zoom-video') : null;
 
-    if (!mainImage || !mainVideo || !leftButton || !rightButton || !zoomOverlay || !zoomImage || !zoomVideo || thumbnails.length === 0) {
-        return;
-    }
+        if (!mainImage || !mainVideo || !leftButton || !rightButton || !zoomOverlay || !zoomImage || !zoomVideo || thumbnails.length === 0) {
+            return;
+        }
 
-    let currentIndex = 0;
+        let currentIndex = 0;
 
-    function updateMainMedia(index) {
-        const thumb = thumbnails[index];
-        const newSrc = thumb.src || thumb.getAttribute('src');
-        const type = thumb.getAttribute('data-type');
+        function updateMainMedia(index) {
+            const thumb = thumbnails[index];
+            const newSrc = thumb.src || thumb.getAttribute('src');
+            const type = thumb.getAttribute('data-type');
 
-        thumbnails.forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
-        currentIndex = index;
+            thumbnails.forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+            currentIndex = index;
 
-        if (type === 'video') {
-            mainImage.style.display = 'none';
-            mainVideo.src = newSrc;
-            mainVideo.style.display = 'block';
+            if (type === 'video') {
+                mainImage.style.display = 'none';
+                mainVideo.src = newSrc;
+                mainVideo.style.display = 'block';
 
-            zoomImage.style.display = 'none';
-            zoomVideo.src = newSrc;
-        } else {
-            mainVideo.style.display = 'none';
-            mainVideo.pause();
-            mainImage.src = newSrc;
-            mainImage.style.display = 'block';
+                zoomImage.style.display = 'none';
+                zoomVideo.src = newSrc;
+            } else {
+                mainVideo.style.display = 'none';
+                mainVideo.pause();
+                mainImage.src = newSrc;
+                mainImage.style.display = 'block';
 
-            zoomVideo.style.display = 'none';
+                zoomVideo.style.display = 'none';
+                zoomVideo.pause();
+                zoomImage.src = newSrc;
+            }
+        }
+
+        updateMainMedia(0);
+
+        thumbnails.forEach((thumb, index) => {
+            thumb.addEventListener('click', () => updateMainMedia(index));
+        });
+
+        leftButton.addEventListener('click', () => {
+            const newIndex = currentIndex > 0 ? currentIndex - 1 : thumbnails.length - 1;
+            updateMainMedia(newIndex);
+        });
+
+        rightButton.addEventListener('click', () => {
+            const newIndex = currentIndex < thumbnails.length - 1 ? currentIndex + 1 : 0;
+            updateMainMedia(newIndex);
+        });
+
+        const openZoom = () => {
+            const type = thumbnails[currentIndex].getAttribute('data-type');
+            if (type === 'video') {
+                zoomVideo.style.display = 'block';
+            } else {
+                zoomImage.style.display = 'block';
+            }
+            zoomOverlay.classList.add('active');
+        };
+
+        mainImage.addEventListener('click', openZoom);
+        mainVideo.addEventListener('click', openZoom);
+
+        zoomOverlay.addEventListener('click', (e) => {
+            if (e.target === zoomVideo) return;
+            zoomOverlay.classList.remove('active');
             zoomVideo.pause();
-            zoomImage.src = newSrc;
-        }
-    }
-
-    updateMainMedia(0);
-
-    thumbnails.forEach((thumb, index) => {
-        thumb.addEventListener('click', () => updateMainMedia(index));
-    });
-
-    leftButton.addEventListener('click', () => {
-        const newIndex = currentIndex > 0 ? currentIndex - 1 : thumbnails.length - 1;
-        updateMainMedia(newIndex);
-    });
-
-    rightButton.addEventListener('click', () => {
-        const newIndex = currentIndex < thumbnails.length - 1 ? currentIndex + 1 : 0;
-        updateMainMedia(newIndex);
-    });
-
-    const openZoom = () => {
-        const type = thumbnails[currentIndex].getAttribute('data-type');
-        if (type === 'video') {
-            zoomVideo.style.display = 'block';
-        } else {
-            zoomImage.style.display = 'block';
-        }
-        zoomOverlay.classList.add('active');
-    };
-
-    mainImage.addEventListener('click', openZoom);
-    mainVideo.addEventListener('click', openZoom);
-
-    zoomOverlay.addEventListener('click', (e) => {
-        if (e.target === zoomVideo) return;
-        zoomOverlay.classList.remove('active');
-        zoomVideo.pause();
+        });
     });
 }
