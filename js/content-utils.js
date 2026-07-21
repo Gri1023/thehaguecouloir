@@ -125,7 +125,7 @@ function renderContentItem(container, item, data = {}) {
             }
             break;
         case 'main-video':
-            container.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
+            container.innerHTML += `<div class="main-video-container"><video class="main-video" controls preload="metadata" src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
             break;
         case 'image':
             container.innerHTML += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="image">`;
@@ -147,7 +147,7 @@ function renderContentItem(container, item, data = {}) {
             break;
         case 'video':
             const videoPath = getLocalizedValue(item.value);
-            container.innerHTML += `<div class="video-container"><video controls src="${prefixRootPath(videoPath)}"></video></div>`;
+            container.innerHTML += `<div class="video-container"><video controls preload="metadata" src="${prefixRootPath(videoPath)}"></video></div>`;
             break;
         case 'pdf':
             const pdfPath = getLocalizedValue(item.value);
@@ -174,11 +174,11 @@ function initializeSpoilers() {
 
 let galleryInstanceCount = 0;
 
-function createGallery(container, elements) {
+function buildGalleryHtml(elements) {
     console.log('createGallery received elements:', elements);
     if (!Array.isArray(elements) || elements.length === 0) {
         console.warn('createGallery aborted: "elements" is empty or not an array.', elements);
-        return;
+        return '';
     }
 
     const resolvedItems = elements
@@ -192,7 +192,7 @@ function createGallery(container, elements) {
 
     if (resolvedItems.length === 0) {
         console.warn('createGallery aborted: No valid item URLs could be resolved.', elements);
-        return;
+        return '';
     }
 
     const galleryId = `gallery-${galleryInstanceCount++}`;
@@ -203,17 +203,17 @@ function createGallery(container, elements) {
         <div class="gallery-wrapper" data-gallery-id="${galleryId}">
             <div class="gallery-container">
                 <img ${!isFirstVideo ? `src="${firstItem.url}"` : ''} alt="Gallery Image" class="gallery-main-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
-                <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} controls class="gallery-main-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
-                
+                <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} preload="metadata" controls class="gallery-main-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
+
                 <button class="gallery-nav-button left">&lt;</button>
                 <button class="gallery-nav-button right">&gt;</button>
-                
+
                 <div class="gallery-thumbnails">
     `;
 
     resolvedItems.forEach((item, index) => {
         if (item.type === 'video') {
-            galleryHtml += `<video src="${item.url}" class="gallery-thumbnail${index === 0 ? ' active' : ''}" data-index="${index}" data-type="video" muted></video>`;
+            galleryHtml += `<video src="${item.url}" preload="metadata" class="gallery-thumbnail${index === 0 ? ' active' : ''}" data-index="${index}" data-type="video" muted></video>`;
         } else {
             galleryHtml += `<img src="${item.url}" alt="Thumbnail" class="gallery-thumbnail${index === 0 ? ' active' : ''}" data-index="${index}" data-type="image">`;
         }
@@ -224,12 +224,20 @@ function createGallery(container, elements) {
             </div>
             <div class="gallery-zoom-overlay" data-gallery-id="${galleryId}">
                 <img ${!isFirstVideo ? `src="${firstItem.url}"` : ''} alt="Zoom Image" class="gallery-zoom-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
-                <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} controls class="gallery-zoom-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
+                <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} preload="metadata" controls class="gallery-zoom-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
             </div>
         </div>
     `;
 
-    container.innerHTML += galleryHtml;
+    return galleryHtml;
+}
+
+function createGallery(container, elements) {
+    const html = buildGalleryHtml(elements);
+    if (!html) return;
+    // Use insertAdjacentHTML instead of innerHTML += so the browser doesn't
+    // re-parse existing children (which would abort in-flight <video> loads).
+    container.insertAdjacentHTML('beforeend', html);
 }
 
 function initializeGallery() {

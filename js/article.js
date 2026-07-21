@@ -83,53 +83,58 @@ function loadArticleContent() {
             articleTypeContainer.innerHTML = getLocalizedValue(data.types[articleType]);
             articleTypeContainer.className = `text-type ${articleType}`;
 
-            // Content handling for all publication types
+            // Content handling for all publication types.
+            // Build the HTML into a single string and assign it once. Using
+            // `innerHTML +=` in a loop re-parses the parent on every iteration,
+            // which detaches any in-flight <video> elements and cancels their
+            // network requests (causing the "aborted by user agent" error).
+            let articleHtml = '';
             articleData.content.forEach(item => {
                 const localizedItemValue = getLocalizedValue(item.value || '');
                 if (item.type === 'gallery') {
-                    createGallery(articleContent, resolveGalleryElements(item));
+                    articleHtml += buildGalleryHtml(resolveGalleryElements(item));
                 } else if (item.type === 'heading-text') {
                     const headingTextWithLinks = formatLinks(localizedItemValue, 'heading-text-with-link');
-                    articleContent.innerHTML += `<h1 class="heading-text">${headingTextWithLinks}</h1>`;
+                    articleHtml += `<h1 class="heading-text">${headingTextWithLinks}</h1>`;
                 } else if (item.type === 'subheading-text') {
-                    articleContent.innerHTML += `<h2 class="subheading-text">${localizedItemValue}</h2>`;
+                    articleHtml += `<h2 class="subheading-text">${localizedItemValue}</h2>`;
                 } else if (item.type === 'sub-subheading-text') {
-                    articleContent.innerHTML += `<h3 class="sub-subheading-text">${localizedItemValue}</h3>`;
+                    articleHtml += `<h3 class="sub-subheading-text">${localizedItemValue}</h3>`;
                 } else if (item.type === 'info-text') {
                     const infoTextWithLinks = formatLinks(localizedItemValue, 'info-text-with-link');
-                    articleContent.innerHTML += `<p class="info-text">${infoTextWithLinks}</p>`;
+                    articleHtml += `<p class="info-text">${infoTextWithLinks}</p>`;
                 } else if (item.type === 'text') {
                     const textFormatted = formatLinks(localizedItemValue, 'text-with-link')
                         .replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>');
-                    articleContent.innerHTML += `<p>${textFormatted}</p>`;
+                    articleHtml += `<p>${textFormatted}</p>`;
                 } else if (item.type === 'main-image') {
                     if (item.visible !== 'no') {
-                        articleContent.innerHTML += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="main-image">`;
+                        articleHtml += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="main-image">`;
                     }
                 } else if (item.type === 'main-video') {
-                    articleContent.innerHTML += `<div class="main-video-container"><video class="main-video" controls src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
+                    articleHtml += `<div class="main-video-container"><video class="main-video" controls preload="metadata" src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
                 } else if (item.type === 'image') {
-                    articleContent.innerHTML += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="image">`;
+                    articleHtml += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="image">`;
                 } else if (item.type === 'caption-text') {
                     const captionTextWithLinks = formatLinks(localizedItemValue, 'caption-text-with-link');
-                    articleContent.innerHTML += `<p class="caption-text">${captionTextWithLinks}</p>`;
+                    articleHtml += `<p class="caption-text">${captionTextWithLinks}</p>`;
                 } else if (item.type === 'quote') {
                     const quoteTextWithLinks = formatLinks(localizedItemValue, 'quote-text-with-link');
-                    articleContent.innerHTML += `<div class="quote">${quoteTextWithLinks}</div>`;
+                    articleHtml += `<div class="quote">${quoteTextWithLinks}</div>`;
                 } else if (item.type === 'information') {
                     const informationTextWithLinks = formatLinks(localizedItemValue, 'information-text-with-link');
-                    articleContent.innerHTML += `<div class="information">${informationTextWithLinks}</div>`;
+                    articleHtml += `<div class="information">${informationTextWithLinks}</div>`;
                 } else if (item.type === 'warning') {
-                    articleContent.innerHTML += `<div class="warning">${localizedItemValue}</div>`;
+                    articleHtml += `<div class="warning">${localizedItemValue}</div>`;
                 } else if (item.type === 'error') {
-                    articleContent.innerHTML += `<div class="error">${localizedItemValue}</div>`;
+                    articleHtml += `<div class="error">${localizedItemValue}</div>`;
                 } else if (item.type === 'video') {
-                    articleContent.innerHTML += `<div class="video-container"><video controls src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
+                    articleHtml += `<div class="video-container"><video controls preload="metadata" src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
                 } else if (item.type === 'pdf') {
                     // Extract the localized path string from the value object
                     const localizedPath = getLocalizedValue(item.value);
 
-                    articleContent.innerHTML += `
+                    articleHtml += `
         <div class="pdf-container">
             <div class="pdf-toolbar">
                 <a href="${prefixRootPath(localizedPath)}" target="_blank" rel="noopener" class="pdf-open">${getLocalizedValue(data.openPdf)}</a>
@@ -138,6 +143,7 @@ function loadArticleContent() {
         </div>`;
                 }
             });
+            articleContent.innerHTML = articleHtml;
 
             // --- Add Related Topics (Tags) Section ---
             const tagsDiv = document.querySelector('.tags');
