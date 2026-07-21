@@ -202,11 +202,21 @@ function buildGalleryHtml(elements) {
     let galleryHtml = `
         <div class="gallery-wrapper" data-gallery-id="${galleryId}">
             <div class="gallery-container">
-                <img ${!isFirstVideo ? `src="${firstItem.url}"` : ''} alt="Gallery Image" class="gallery-main-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
-                <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} preload="metadata" controls class="gallery-main-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
+                <div class="gallery-stage">
+                    <img ${!isFirstVideo ? `src="${firstItem.url}"` : ''} alt="Gallery Image" class="gallery-main-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
+                    <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} preload="metadata" controls class="gallery-main-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
+                </div>
 
-                <button class="gallery-nav-button left">&lt;</button>
-                <button class="gallery-nav-button right">&gt;</button>
+                <button class="gallery-nav-button left" aria-label="Previous">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <path d="M15 6 L9 12 L15 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="gallery-nav-button right" aria-label="Next">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <path d="M9 6 L15 12 L9 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
 
                 <div class="gallery-thumbnails">
     `;
@@ -223,6 +233,11 @@ function buildGalleryHtml(elements) {
                 </div>
             </div>
             <div class="gallery-zoom-overlay" data-gallery-id="${galleryId}">
+                <button class="gallery-zoom-close" aria-label="Close">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <path d="M6 6 L18 18 M18 6 L6 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                </button>
                 <img ${!isFirstVideo ? `src="${firstItem.url}"` : ''} alt="Zoom Image" class="gallery-zoom-image" style="display: ${!isFirstVideo ? 'block' : 'none'};">
                 <video ${isFirstVideo ? `src="${firstItem.url}"` : ''} preload="metadata" controls class="gallery-zoom-video" style="display: ${isFirstVideo ? 'block' : 'none'};"></video>
             </div>
@@ -251,6 +266,7 @@ function initializeGallery() {
         const zoomOverlay = galleryWrapper.querySelector(`.gallery-zoom-overlay[data-gallery-id="${galleryId}"]`);
         const zoomImage = zoomOverlay ? zoomOverlay.querySelector('.gallery-zoom-image') : null;
         const zoomVideo = zoomOverlay ? zoomOverlay.querySelector('.gallery-zoom-video') : null;
+        const zoomClose = zoomOverlay ? zoomOverlay.querySelector('.gallery-zoom-close') : null;
 
         if (!mainImage || !mainVideo || !leftButton || !rightButton || !zoomOverlay || !zoomImage || !zoomVideo || thumbnails.length === 0) {
             return;
@@ -312,13 +328,22 @@ function initializeGallery() {
             zoomOverlay.classList.add('active');
         };
 
+        const closeZoom = () => {
+            zoomOverlay.classList.remove('active');
+            if (zoomVideo) zoomVideo.pause();
+        };
+
         mainImage.addEventListener('click', openZoom);
         mainVideo.addEventListener('click', openZoom);
 
+        // Click on the dark backdrop (but not on media or the close button) closes.
         zoomOverlay.addEventListener('click', (e) => {
-            if (e.target === zoomVideo) return;
-            zoomOverlay.classList.remove('active');
-            zoomVideo.pause();
+            if (e.target === zoomVideo || e.target === zoomImage) return;
+            if (zoomClose && (e.target === zoomClose || zoomClose.contains(e.target))) {
+                closeZoom();
+                return;
+            }
+            closeZoom();
         });
     });
 }

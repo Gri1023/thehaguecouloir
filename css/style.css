@@ -1987,14 +1987,32 @@ footer {
     margin-bottom: 20px;
 }
 
+/* Stage reserves a fixed-size box for the active media so swapping
+   between an image and a video (different aspect ratios) doesn't
+   shift the surrounding article layout. The box is bounded by both
+   an aspect-ratio and a max-height so tall videos still fit. */
+.gallery-stage {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 500px;
+    /* Keep the fixed stage for stable navigation controls, but let the
+       page background show through around media with a different ratio. */
+    background-color: transparent;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Main Image Display */
 .gallery-main-image,
 .gallery-main-video {
     display: block;
     width: 100%;
+    height: 100%;
     max-height: 500px;
     object-fit: contain;
-    border-radius: 5px;
     cursor: pointer;
     transition: all .3s ease;
 }
@@ -2024,32 +2042,49 @@ footer {
     transform: scale(1.1);
 }
 
-/* Navigation Buttons */
+/* Navigation Buttons - round, semi-transparent, with a glassy backdrop */
 .gallery-nav-button {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    border: none;
+    /* Position the button over the image area, not the thumbnails row.
+       The stage is capped at 500px max-height; we anchor to the
+       gallery-container's top with a slight offset so it lands roughly
+       on the image. */
+    transform: translateY(calc(-50% - 30px));
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
-    font-size: 24px;
-    padding: 10px;
+    padding: 0;
     cursor: pointer;
     border-radius: 50%;
-    z-index: 1;
-    transition: background-color 0.2s ease-in-out;
+    z-index: 2;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .gallery-nav-button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(calc(-50% - 30px)) scale(1.05);
+}
+
+.gallery-nav-button svg {
+    display: block;
 }
 
 .gallery-nav-button.left {
-    left: 10px;
+    left: 14px;
 }
 
 .gallery-nav-button.right {
-    right: 10px;
+    right: 14px;
 }
 
 /* Zoom Overlay */
@@ -2060,7 +2095,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.85);
     justify-content: center;
     align-items: center;
     z-index: 97;
@@ -2075,6 +2110,39 @@ footer {
 
 .gallery-zoom-overlay.active {
     display: flex;
+}
+
+/* Close (X) button in the zoom overlay - grey by default, white on hover */
+.gallery-zoom-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(220, 220, 220, 0.85);
+    padding: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 98;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.gallery-zoom-close:hover {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.55);
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: scale(1.05);
+}
+
+.gallery-zoom-close svg {
+    display: block;
 }
 
 /* Styles for the video container */
