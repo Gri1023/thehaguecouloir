@@ -64,32 +64,120 @@ function loadJsonSection(sectionName, containerId) {
         return;
     }
 
+    // Reserve a min-height matching the final rendered content to prevent
+    // layout shift while JSON is loading. The about page contains a TOC
+    // and other content; reserving 600px is a safe default that will be
+    // overridden once the content is rendered.
+    container.style.minHeight = '600px';
+
     fetchSiteData()
         .then(data => {
             const sectionData = data[sectionName];
             if (Array.isArray(sectionData) && sectionData.length > 0) {
                 renderContentItems(container, sectionData, data);
+
                 initializeGallery();
                 initializeSpoilers();
+                initializeTOC();
+
+                // THE REAL SOLUTION: Handle scroll restoration after content renders
+                if (window.location.hash) {
+                    // setTimeout with 0ms pushes the scroll action to the end of the event loop,
+                    // guaranteeing the browser has finished painting the new HTML first.
+                    setTimeout(() => {
+                        const targetElement = document.querySelector(window.location.hash);
+                        if (targetElement) {
+                            // Use 'auto' here so the initial page load jump is instant,
+                            // while clicking TOC links remains smooth.
+                            targetElement.scrollIntoView({ behavior: 'auto' });
+                        }
+                    }, 0);
+                }
             } else {
                 container.innerHTML = '<p>Content not found.</p>';
+                container.style.minHeight = '';
             }
         })
         .catch(error => {
             console.error('Error loading JSON section:', sectionName, error);
             container.innerHTML = '<p>Failed to load content.</p>';
+            container.style.minHeight = '';
         });
 }
 
-function renderContentItems(container, items, data = {}) {
-    items.forEach(item => renderContentItem(container, item, data));
+function loadArticleContent() {
+    const articleContent = document.getElementById('article-content');
+    const articleTypeContainer = document.getElementById('article-type');
+    const tagsDiv = document.querySelector('.tags');
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleId = urlParams.get('id');
+    const articleType = urlParams.get('type');
+    const rootPrefix = getRootPrefix();
+
+    if (!articleContent || !articleTypeContainer || !tagsDiv) {
+        console.warn('Article page containers not found.');
+        return;
+    }
+
+    fetchSiteData()
+        .then(data => {
+            const articles = data[articleType];
+            const articleData = Array.isArray(articles)
+                ? articles.find(item => item.id === articleId && item.visible === 'yes' && isVisibleForCurrentLanguage(item))
+                : null;
+
+            if (!articleData) {
+                articleContent.innerHTML = '<p>Публикация не найдена. Попробуйте поменять язык в правом верхнем углу, перевод некоторых из них может занять до 2 дней. Все ещё не работает? Сообщите автору: thehaguecouloir@gmail.com.</p><p>Publication not found. Try changing the language in the top right corner; some may take up to 2 days to translate. Still not working? Let the author know: thehaguecouloir@gmail.com.</p>';
+                tagsDiv.innerHTML = '';
+                return;
+            }
+
+            articleTypeContainer.textContent = getLocalizedValue(data.types && data.types[articleType]);
+            articleTypeContainer.className = `text-type ${articleType}`;
+            articleContent.innerHTML = (articleData.content || [])
+                .map(item => buildContentItemHtml(item, data))
+                .join('');
+
+            renderArticleTags(tagsDiv, articleData, data, rootPrefix);
+            initializeGallery();
+            initializeSpoilers();
+            initializeTOC();
+        })
+        .catch(error => {
+            console.error('Error loading article content:', error);
+            articleContent.innerHTML = '<p>Failed to load publication.</p>';
+            tagsDiv.innerHTML = '';
+        });
 }
 
-function renderContentItem(container, item, data = {}) {
-    if (!item || !item.type) return;
+function renderArticleTags(tagsDiv, articleData, data, rootPrefix) {
+    tagsDiv.innerHTML = '';
+    if (!Array.isArray(articleData.tags) || articleData.tags.length === 0) return;
 
-    // GLOBAL ITEM TRACKER
-    console.log(`Processing item type: "${item.type}"`, item);
+    const tags = data.tags || {};
+    const links = articleData.tags
+        .filter(tagKey => Object.prototype.hasOwnProperty.call(tags, tagKey))
+        .map(tagKey => {
+            const label = getLocalizedValue(tags[tagKey]);
+            const href = `${rootPrefix}all-publications/?tags=${encodeURIComponent(tagKey)}&lang=${window.currentLanguage}`;
+            return `<a class="related-topic-tag" href="${href}">#${label}</a>`;
+        })
+        .join('');
+
+    if (links) {
+        tagsDiv.innerHTML = `<div class="tags-section"><div class="related-topics-tags">${links}</div></div>`;
+    }
+}
+
+function renderContentItems(container, items, data = {}) {
+    // Build the HTML into a single string to avoid re-parsing siblings
+    // (innerHTML += inside a loop detaches previously appended media
+    // and cancels in-flight network requests).
+    container.innerHTML = items.map(item => buildContentItemHtml(item, data)).join('');
+}
+
+function buildContentItemHtml(item, data = {}) {
+    if (!item || !item.type) return '';
 
     const value = getLocalizedValue(item.value || '');
     const escaped = value;
@@ -99,68 +187,91 @@ function renderContentItem(container, item, data = {}) {
         );
     };
 
+    // Check if the scale property exists and build the inline style
+    const scaleStyle = item.scale ? ` style="max-width: ${item.scale}; margin: 0 auto; display: block;"` : '';
+
     switch (item.type) {
         case 'gallery':
-            console.log('-> Gallery case raw item object:', item);
-            createGallery(container, resolveGalleryElements(item));
-            break;
+            return buildGalleryHtml(resolveGalleryElements(item));
         case 'heading-text':
-            container.innerHTML += `<h1 class="heading-text">${getLinks(escaped, 'heading-text-with-link')}</h1>`;
-            break;
+            const headingId = item.anchor ? ` id="${item.anchor.replace('#', '')}"` : '';
+            return `<h1 class="heading-text"${headingId}>${getLinks(escaped, 'heading-text-with-link')}</h1>`;
         case 'subheading-text':
-            container.innerHTML += `<h2 class="subheading-text">${getLinks(escaped, 'subheading-text-with-link')}</h2>`;
-            break;
+            const subheadingId = item.anchor ? ` id="${item.anchor.replace('#', '')}"` : '';
+            return `<h2 class="subheading-text"${subheadingId}>${getLinks(escaped, 'subheading-text-with-link')}</h2>`;
         case 'sub-subheading-text':
-            container.innerHTML += `<h3 class="sub-subheading-text">${getLinks(escaped, 'sub-subheading-text-with-link')}</h3>`;
-            break;
+            const subsubheadingId = item.anchor ? ` id="${item.anchor.replace('#', '')}"` : '';
+            return `<h3 class="sub-subheading-text"${subsubheadingId}>${getLinks(escaped, 'sub-subheading-text-with-link')}</h3>`;
         case 'info-text':
-            container.innerHTML += `<p class="info-text">${getLinks(escaped, 'info-text-with-link')}</p>`;
-            break;
+            return `<p class="info-text">${getLinks(escaped, 'info-text-with-link')}</p>`;
         case 'text':
-            container.innerHTML += `<p>${getLinks(escaped, 'text-with-link').replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>')}</p>`;
-            break;
+            return `<p>${getLinks(escaped, 'text-with-link').replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>')}</p>`;
         case 'main-image':
             if (item.visible !== 'no') {
-                container.innerHTML += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="main-image">`;
+                return `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="main-image"${scaleStyle}>`;
             }
-            break;
+            return '';
+        case 'raw-main-image':
+            return `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="main-image"${scaleStyle}>`;
         case 'main-video':
-            container.innerHTML += `<div class="main-video-container"><video class="main-video" controls preload="metadata" src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
-            break;
+            return `<div class="main-video-container"${scaleStyle}><video class="main-video" controls preload="metadata" src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}"></video></div>`;
         case 'image':
-            container.innerHTML += `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="image">`;
-            break;
+            return `<img src="${prefixRootPath(getLocalizedValue(item.value) || item.value || '')}" alt="" class="image"${scaleStyle}>`;
         case 'caption-text':
-            container.innerHTML += `<p class="caption-text">${getLinks(escaped, 'caption-text-with-link')}</p>`;
-            break;
+            return `<p class="caption-text">${getLinks(escaped, 'caption-text-with-link')}</p>`;
+        case 'caption':
+            return `<p class="caption-text">${getLinks(escaped, 'caption-text-with-link')}</p>`;
         case 'quote':
-            container.innerHTML += `<div class="quote">${getLinks(escaped, 'quote-text-with-link')}</div>`;
-            break;
+            return `<div class="quote">${getLinks(escaped, 'quote-text-with-link')}</div>`;
         case 'information':
-            container.innerHTML += `<div class="information">${getLinks(escaped, 'information-text-with-link')}</div>`;
-            break;
+            return `<div class="information">${getLinks(escaped, 'information-text-with-link')}</div>`;
         case 'warning':
-            container.innerHTML += `<div class="warning">${escaped}</div>`;
-            break;
+            return `<div class="warning">${escaped}</div>`;
         case 'error':
-            container.innerHTML += `<div class="error">${escaped}</div>`;
-            break;
+            return `<div class="error">${escaped}</div>`;
         case 'video':
             const videoPath = getLocalizedValue(item.value);
-            container.innerHTML += `<div class="video-container"><video controls preload="metadata" src="${prefixRootPath(videoPath)}"></video></div>`;
-            break;
+            return `<div class="video-container"${scaleStyle}><video controls preload="metadata" src="${prefixRootPath(videoPath)}"></video></div>`;
         case 'pdf':
             const pdfPath = getLocalizedValue(item.value);
-            container.innerHTML += `
+            return `
         <div class="pdf-container">
             <div class="pdf-toolbar">
                 <a href="${prefixRootPath(pdfPath)}" target="_blank" rel="noopener" class="pdf-open">${getLocalizedValue(data.openPdf) || 'Open PDF separately'}</a>
             </div>
             <iframe src="${prefixRootPath(pdfPath)}" class="pdf-frame" loading="lazy"></iframe>
         </div>`;
-            break;
+        case 'table-of-contents':
+            const tocTitle = getLocalizedValue(item.title || '');
+            let tocHtml = `
+            <div class="table-of-contents">
+                <div class="toc-header">
+                    <h2 class="toc-title">${tocTitle}</h2>
+                    <svg class="toc-toggle-icon" viewBox="0 0 24 24" width="24" height="24" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="toc-collapsible">
+                    <div class="toc-collapsible-inner">
+            `;
+            if (Array.isArray(item.value)) {
+                tocHtml += '<ol class="toc-list">';
+                item.value.forEach((entry) => {
+                    const entryName = getLocalizedValue(entry.name || '');
+                    let entryAnchor = entry.anchor || '';
+                    if (typeof entryAnchor === 'object') {
+                        entryAnchor = getLocalizedValue(entryAnchor);
+                    }
+                    if (entryName && entryAnchor) {
+                        tocHtml += `<li><a href="${entryAnchor}" class="toc-link">${entryName}</a></li>`;
+                    }
+                });
+                tocHtml += '</ol>';
+            }
+            tocHtml += '</div></div></div>';
+            return tocHtml;
         default:
-            console.warn('Unsupported content item type:', item.type);
+            return '';
     }
 }
 
@@ -168,6 +279,19 @@ function initializeSpoilers() {
     document.querySelectorAll('.spoiler-text').forEach(elem => {
         elem.addEventListener('click', () => {
             elem.classList.toggle('revealed');
+        });
+    });
+}
+
+function initializeTOC() {
+    document.querySelectorAll('.toc-header').forEach(header => {
+        // Prevent multiple bindings if re-rendered
+        if (header.dataset.tocInitialized) return;
+        header.dataset.tocInitialized = 'true';
+
+        header.addEventListener('click', () => {
+            const tocContainer = header.closest('.table-of-contents');
+            tocContainer.classList.toggle('collapsed');
         });
     });
 }

@@ -10,7 +10,11 @@
     <script src="../js/base.js" defer></script>
     <script src="../js/site-data.js" defer></script>
     <script src="../js/content-utils.js" defer></script>
-    <script src="../js/article.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadArticleContent();
+        });
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link

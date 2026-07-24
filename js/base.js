@@ -355,7 +355,7 @@ function populateSidebar(side, data) {
 
                     html += `
             </div>
-            <a href="${rootPrefix}all-publications/?lang=${currentLanguage}" class="live-notes-show-all">
+<a href="${rootPrefix}all-publications/?lang=${currentLanguage}" class="live-notes-show-all">
                 ${getLocalizedValue(data.showAllLiveNotes)}
             </a>
         `;
@@ -419,6 +419,12 @@ function setBaseLocalizedText() {
         if (footerElement) {
             footerElement.innerHTML = getLocalizedValue(data.footer[4]["footer-grid-item-below"][0]);
         }
+        footerElement.querySelectorAll('a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && !href.startsWith('http') && !href.startsWith('#')) {
+                link.setAttribute('href', prefixRootPath(href));
+            }
+        });
 
         // Populate sidebars
         populateSidebar('left', data);
@@ -580,9 +586,9 @@ function insertFooter() {
         <div class="footer-grid-item" id="footer-grid-item3">
             <ul class="footer-grid-item-list">
                 <li><a class="footer-bold-text">Footer text</a></li>
-                <li><a href="${rootPrefix}about/#about-naming-anchor" class="footer-text">Footer text</a></li>
-                <li><a href="${rootPrefix}about/#about-author-anchor" class="footer-text">Footer text</a></li>
-                <li><a href="${rootPrefix}about/#about-contact-anchor" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}about/#name" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}about/#author" class="footer-text">Footer text</a></li>
+                <li><a href="${rootPrefix}about/#contact" class="footer-text">Footer text</a></li>
             </ul>
         </div>
         <div class="footer-grid-item" id="footer-grid-item4">

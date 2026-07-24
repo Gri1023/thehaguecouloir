@@ -12,6 +12,8 @@ body {
     overflow-x: auto;
     /* Allows horizontal scrolling if screen is smaller */
     background-color: whitesmoke;
+    /* Enables smooth scrolling for all anchor links */
+    scroll-behavior: smooth;
 }
 
 .index-layout {
@@ -1591,11 +1593,12 @@ main-text .sub-subheading-text,
 main-text .info-text,
 main-text p,
 main-text .tags-section,
-main-text .pdf-toolbar {
+main-text .pdf-toolbar,
+main-text .table-of-contents {
     margin-left: clamp(4px, 5vw + 1rem, 80px);
     margin-right: clamp(4px, 5vw + 1rem, 80px);
+    scroll-margin-top: 50px;
 }
-
 
 main-text .heading-text {
     font-family: 'Roboto', serif;
@@ -1888,6 +1891,199 @@ main-text .related-topic-tag:hover,
 .tag-option:hover {
     background-color: #979696;
     color: white;
+}
+
+/* Table of Contents Styles */
+
+main-text .table-of-contents {
+    background-color: #f0f4f8;
+    /* Light, airy grayish-blue */
+    border: 1px solid #d9e2ec;
+    /* Soft border to define the edges */
+    padding: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    /* Softer, elegant shadow */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+main-text .toc-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    padding: 16px 20px;
+    background-color: transparent;
+    /* Changed */
+    color: #334155;
+    border-bottom: none;
+    /* Changed */
+    flex-grow: 1;
+    /* Pushes the arrow to the right */
+}
+
+main-text .toc-list {
+    counter-reset: section;
+    list-style-type: none;
+    padding: 12px 10px;
+    /* Gives the list items some breathing room inside the box */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main-text .toc-list li {
+    margin: 2px 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    counter-increment: section;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+    position: relative;
+    /* REQUIRED for the clickable overlay */
+}
+
+/* Updated ::before element to include a smooth color transition */
+main-text .toc-list li::before {
+    content: counter(section) ".";
+    font-size: 18px;
+    font-weight: 600;
+    color: #64748b;
+    /* Softens the number color so it doesn't overpower the text */
+    min-width: 24px;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+    /* Added smooth transition for the color */
+}
+
+main-text .toc-list a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    /* Matches the li border-radius */
+}
+
+/* NEW: Styles for the retractable header */
+main-text .toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e1e7ef;
+    border-bottom: 1px solid #d9e2ec;
+    cursor: pointer;
+    /* Shows the user they can click it */
+    padding-right: 20px;
+    transition: background-color 0.2s ease;
+}
+
+main-text .toc-header:hover {
+    background-color: #d2dbe5;
+    /* Slight hover effect for the header */
+}
+
+/* NEW: The toggle arrow icon */
+main-text .toc-toggle-icon {
+    transition: transform 0.3s ease;
+    /* Smooth rotation */
+}
+
+/* NEW: The collapsible container */
+main-text .toc-collapsible {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+main-text .toc-collapsible-inner {
+    overflow: hidden;
+    /* Hides the content as it shrinks */
+}
+
+/* NEW: Collapsed state styles applied via JavaScript */
+main-text .table-of-contents.collapsed .toc-collapsible {
+    grid-template-rows: 0fr;
+}
+
+main-text .table-of-contents.collapsed .toc-header {
+    border-bottom-color: transparent;
+    /* Removes the line when closed */
+}
+
+main-text .table-of-contents.collapsed .toc-toggle-icon {
+    transform: rotate(180deg);
+    /* Points the arrow upwards */
+}
+
+/* 
+   Unique Number Colors on Hover 
+   Each nth-child represents an item in your list (1st, 2nd, 3rd, etc.)
+*/
+main-text .toc-list li:nth-child(1):hover::before {
+    color: #ef4444;
+    /* Rose Red */
+}
+
+main-text .toc-list li:nth-child(2):hover::before {
+    color: #3b82f6;
+    /* Bright Blue */
+}
+
+main-text .toc-list li:nth-child(3):hover::before {
+    color: #10b981;
+    /* Emerald Green */
+}
+
+main-text .toc-list li:nth-child(4):hover::before {
+    color: #f59e0b;
+    /* Warm Amber */
+}
+
+main-text .toc-list li:nth-child(5):hover::before {
+    color: #8b5cf6;
+    /* Vibrant Purple */
+}
+
+main-text .toc-list li:nth-child(6):hover::before {
+    color: #ec4899;
+    /* Pink */
+}
+
+main-text .toc-list li:nth-child(7):hover::before {
+    color: #0ea5e9;
+    /* Light Blue/Cyan */
+}
+
+main-text .toc-list li:hover {
+    background-color: #e2e8f0;
+    /* Soft hover highlight */
+    transform: translateX(4px);
+    /* Stylish little nudge to the right */
+}
+
+main-text .toc-list a {
+    text-decoration: none;
+    color: #1e293b;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    display: inline;
+    width: auto;
+    flex: 1;
+}
+
+main-text .toc-list li:hover a {
+    color: #0f172a;
+    /* Darkens the text slightly on hover for contrast */
 }
 
 /* Existing styles assumed to be present, adding tag filter specific styles */
