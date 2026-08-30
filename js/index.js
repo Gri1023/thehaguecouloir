@@ -416,7 +416,7 @@ function getMaxItemsPerSection() {
     if (window.innerWidth >= 1024) {
         return 3; // 3 per row (Desktop)
     } else if (window.innerWidth >= 640) {
-        return 4; // 2 per row (Tablet, so 4 in total)
+        return 3; // 2 per row (Tablet, so 4 in total)
     } else {
         return 3; // Default for small screens (Mobile)
     }

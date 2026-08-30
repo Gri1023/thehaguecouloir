@@ -1,8 +1,3 @@
-if (window.innerWidth < 1024 && !sessionStorage.getItem("mobileWarningShown")) {
-    alert("Dear user! It seems that you are using a device with a narrower screen. Unfortunately, this website is not yet fully optimized for smaller screen sizes. As a result, a wider layout was forced, which may require you to scroll both horizontally and vertically to navigate (or just zoom out). The author apologizes for this temporary inconvenience and is working to resolve it as soon as possible.");
-    sessionStorage.setItem("mobileWarningShown", "true");
-}
-
 // Helper to identify if the site is running in a local development environment
 function isLocalDev() {
     const hn = window.location.hostname;
@@ -21,8 +16,68 @@ function isLocalDev() {
 // Evaluates dynamically: uses local relative paths when debugging locally, or the live R2 URL when in production.
 const PRODUCTION_R2_URL = 'https://pub-795f9426259d4926a0308a9099f50d25.r2.dev/';
 window.R2_BASE_URL = isLocalDev() ? getRootPrefix() : PRODUCTION_R2_URL;
+let mobileBannerDismissedForSession = false;
 
 window.currentLanguage = (getCurrentLanguage());
+
+function isMobileLayoutEligiblePage() {
+    const path = (window.location.pathname || '').toLowerCase().replace(/\/+$/, '');
+    if (!path || path === '/' || path === '/index.html') {
+        return false;
+    }
+
+    const eligiblePrefixes = ['/article', '/about', '/bias', '/your-data'];
+    return eligiblePrefixes.some(prefix => path === prefix || path.startsWith(`${prefix}/`));
+}
+
+function getViewportWidth() {
+    if (window.visualViewport && typeof window.visualViewport.width === 'number') {
+        return Math.min(window.visualViewport.width, window.innerWidth || window.visualViewport.width);
+    }
+    return window.innerWidth;
+}
+
+function shouldUseMobileLayout() {
+    if (localStorage.getItem('mobileFullMode') === 'true') {
+        return false;
+    }
+    return getViewportWidth() < 768 && isMobileLayoutEligiblePage();
+}
+
+function updateMobileLayoutState() {
+    const useMobileLayout = shouldUseMobileLayout();
+    const bannerDismissed = mobileBannerDismissedForSession;
+
+    if (useMobileLayout && window.__mobileExperienceData && !document.querySelector('.mobile-site-header')) {
+        setupMobileExperience(window.__mobileExperienceData);
+        return;
+    }
+
+    document.body.classList.toggle('mobile-layout-active', useMobileLayout);
+    document.body.classList.toggle('mobile-banner-closed', bannerDismissed);
+    moveNavigationForLayout(useMobileLayout);
+
+    const header = document.querySelector('.mobile-site-header');
+    if (header) {
+        header.style.display = useMobileLayout ? 'flex' : 'none';
+    }
+
+    document.querySelectorAll('.mobile-limited-banner').forEach(item => {
+        const shouldHide = !useMobileLayout || (item.id === 'mobileLimitedBannerFixed' && bannerDismissed);
+        item.classList.toggle('is-hidden', shouldHide);
+        item.style.display = shouldHide ? 'none' : '';
+    });
+
+    const overlay = document.getElementById('mobileNavOverlay');
+    if (overlay) {
+        overlay.classList.toggle('is-open', false);
+    }
+
+    const panel = document.getElementById('mobileNavPanel');
+    if (panel) {
+        panel.classList.toggle('is-open', false);
+    }
+}
 
 function getCurrentLanguage() {
     let urlParams = new URLSearchParams(window.location.search);
@@ -52,30 +107,89 @@ function getCurrentLanguage() {
     return finalLanguage;
 }
 
-(function setLanguageButton() {
+const languageLabelFallbacks = {
+    en: { full: 'English', short: 'ENG' },
+    ru: { full: '\u0420\u0443\u0441\u0441\u043a\u0438\u0439', short: '\u0420\u0423\u0421' }
+};
+
+async function setLanguageButton() {
     const language = getCurrentLanguage();
-    const rootPrefix = getRootPrefix();
     const languageSelector = document.getElementById('languageSelector');
+    if (!languageSelector) return;
 
-    // Ensure the storage is synced with whatever the final choice was
-    localStorage.setItem('preferredLanguage', language);
+    try {
+        const data = await fetchSiteData();
+        const labels = data.languageLabels || languageLabelFallbacks;
+        const header = labels[language] || languageLabelFallbacks[language];
+        const alternateLanguage = language === 'ru' ? 'en' : 'ru';
+        const alternateHeader = labels[alternateLanguage] || languageLabelFallbacks[alternateLanguage];
 
-    if (language === 'ru') {
+        localStorage.setItem('preferredLanguage', language);
         languageSelector.innerHTML = `
-            <button class="dropbtn"><img src="${window.R2_BASE_URL}media/language-icon-white.png" class="language-icon">Русский</button>
+            <button class="dropbtn" type="button">
+                <img src="${window.R2_BASE_URL}media/language-icon-white.png" class="language-icon" alt="">
+                <span class="lang-text-full" data-i18n="languageLabels.${language}.full">${header.full}</span>
+                <span class="lang-text-short" data-i18n="languageLabels.${language}.short">${header.short}</span>
+            </button>
             <div class="dropdown-menu">
-                <a href="#" onclick="changeLanguage('en')">English</a>
+                <a href="#" onclick="changeLanguage('${alternateLanguage}')">
+                    <span class="lang-option-full">${alternateHeader.full}</span>
+                    <span class="lang-option-short">${alternateHeader.short}</span>
+                </a>
             </div>
         `;
-    } else {
+        bindMobileLanguageSelector();
+    } catch (error) {
+        console.warn('Using fallback language labels:', error);
+        const header = languageLabelFallbacks[language] || languageLabelFallbacks.en;
+        const alternateLanguage = language === 'ru' ? 'en' : 'ru';
+        const alternateHeader = languageLabelFallbacks[alternateLanguage];
         languageSelector.innerHTML = `
-            <button class="dropbtn"><img src="${window.R2_BASE_URL}media/language-icon-white.png" class="language-icon">English</button>
+            <button class="dropbtn" type="button">
+                <img src="${window.R2_BASE_URL}media/language-icon-white.png" class="language-icon" alt="">
+                <span class="lang-text-full" data-i18n="languageLabels.${language}.full">${header.full}</span>
+                <span class="lang-text-short" data-i18n="languageLabels.${language}.short">${header.short}</span>
+            </button>
             <div class="dropdown-menu">
-                <a href="#" onclick="changeLanguage('ru')">Русский</a>
+                <a href="#" onclick="changeLanguage('${alternateLanguage}')">
+                    <span class="lang-option-full">${alternateHeader.full}</span>
+                    <span class="lang-option-short">${alternateHeader.short}</span>
+                </a>
             </div>
         `;
+        bindMobileLanguageSelector();
     }
-})();
+}
+
+function moveNavigationForLayout(useMobileLayout) {
+    const navigation = document.getElementById('navContainer');
+    const mobileContainer = document.querySelector('.mobile-nav-content');
+    const desktopContainer = document.querySelector('.sidebars-left-grid');
+    if (!navigation) return;
+
+    if (useMobileLayout && mobileContainer && navigation.parentElement !== mobileContainer) {
+        mobileContainer.appendChild(navigation);
+    } else if (!useMobileLayout && desktopContainer && navigation.parentElement !== desktopContainer) {
+        desktopContainer.insertBefore(navigation, desktopContainer.firstChild);
+    }
+}
+
+function bindMobileLanguageSelector() {
+    const selector = document.getElementById('languageSelector');
+    if (!selector || selector.dataset.mobileLanguageBound === 'true') return;
+
+    selector.dataset.mobileLanguageBound = 'true';
+    selector.addEventListener('click', (event) => {
+        if (!shouldUseMobileLayout() || !event.target.closest('.dropbtn')) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        const isOpen = selector.classList.toggle('is-open');
+        selector.querySelector('.dropbtn')?.setAttribute('aria-expanded', String(isOpen));
+    });
+}
+
+document.addEventListener('DOMContentLoaded', setLanguageButton);
 
 function changeLanguage(language) {
     // 1. Save the selection to Local Storage immediately
@@ -128,20 +242,12 @@ function getLocalizedValue(value) {
 }
 
 // Function to insert navigation container
-function insertNav(data) {
-    const rootPrefix = getRootPrefix();
-    const grid = document.querySelector('.sidebars-left-grid');
-    if (!grid) return;
-
-    const navDiv = document.createElement('div');
-    navDiv.className = 'sidebars-left-item';
-    navDiv.id = 'navContainer';
-
-    navDiv.innerHTML = `
+function buildNavigationMarkup(data, rootPrefix) {
+    return `
         <a href="${rootPrefix}" id="logo-link">
             <img src="${prefixRootPath('media/logo.png')}" alt="Logo" class="logo">
         </a>
-        <a href="${rootPrefix}" class="navigation-title-text" id="navigation-title-text">${getLocalizedValue(data.siteTitle)}</a>
+        <a href="${rootPrefix}" class="navigation-title-text">${getLocalizedValue(data.siteTitle)}</a>
         <ul>
             <li>
                 <a href="${rootPrefix}" class="navigation-link">
@@ -169,9 +275,181 @@ function insertNav(data) {
             </li>
         </ul>
     `;
+}
+
+function insertNav(data) {
+    const rootPrefix = getRootPrefix();
+    const grid = document.querySelector('.sidebars-left-grid');
+    if (!grid) return;
+
+    const navDiv = document.createElement('div');
+    navDiv.className = 'sidebars-left-item';
+    navDiv.id = 'navContainer';
+    navDiv.innerHTML = buildNavigationMarkup(data, rootPrefix);
 
     // Insert as first child
     grid.insertBefore(navDiv, grid.firstChild);
+}
+
+function setupMobileExperience(data) {
+    if (!shouldUseMobileLayout()) {
+        updateMobileLayoutState();
+        return;
+    }
+
+    if (window.__mobileExperienceData && document.querySelector('.mobile-site-header')) {
+        updateMobileLayoutState();
+        return;
+    }
+
+    window.__mobileExperienceData = data;
+
+    const rootPrefix = getRootPrefix();
+    const title = getLocalizedValue(data.siteTitle);
+    const limitedModeText = getLocalizedValue(data.mobileLimitedBanner) || (currentLanguage === 'ru'
+        ? '\u041e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c \u0434\u043b\u044f \u0442\u0435\u043b\u0435\u0444\u043e\u043d\u043e\u0432. \u0427\u0442\u043e\u0431\u044b \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u0434\u043e\u0441\u0442\u0443\u043f \u043a\u043e \u0432\u0441\u0435\u043c \u0444\u0443\u043d\u043a\u0446\u0438\u044f\u043c \u0441\u0430\u0439\u0442\u0430, \u043e\u0442\u043a\u0440\u043e\u0439\u0442\u0435 \u043f\u043e\u043b\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c.'
+        : 'Limited mode for phones. To access all website features, open full mode');
+
+    if (!document.querySelector('.mobile-site-header')) {
+        const header = document.createElement('header');
+        header.className = 'mobile-site-header';
+        header.innerHTML = `
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Open navigation menu">
+                <span></span><span></span><span></span>
+            </button>
+            <a href="${rootPrefix}" class="mobile-site-brand">
+                <img src="${prefixRootPath('media/logo.png')}" alt="Logo" class="mobile-site-brand-logo">
+                <span>${title}</span>
+            </a>
+        `;
+
+        const pageLanguageSelector = document.getElementById('languageSelector');
+        if (pageLanguageSelector) {
+            header.appendChild(pageLanguageSelector);
+        }
+
+        document.body.insertBefore(header, document.body.firstChild);
+    }
+
+    if (!document.getElementById('mobileNavOverlay')) {
+        const overlay = document.createElement('div');
+        overlay.id = 'mobileNavOverlay';
+        document.body.appendChild(overlay);
+    }
+
+    let panel = document.getElementById('mobileNavPanel');
+    if (!panel) {
+        panel = document.createElement('div');
+        panel.id = 'mobileNavPanel';
+        panel.className = 'mobile-nav-panel';
+        panel.innerHTML = `
+            <div class="mobile-nav-panel-inner">
+                <div class="mobile-nav-panel-header">
+                    <button class="mobile-nav-panel-close" type="button" aria-label="Close navigation">✕</button>
+                </div>
+                <div class="mobile-nav-content"></div>
+            </div>
+        `;
+        document.body.appendChild(panel);
+    }
+
+    moveNavigationForLayout(true);
+
+    const banner = document.getElementById('mobileLimitedBannerFixed');
+    if (!banner) {
+        const fixedBanner = document.createElement('div');
+        fixedBanner.id = 'mobileLimitedBannerFixed';
+        fixedBanner.className = 'mobile-limited-banner mobile-limited-banner-fixed';
+        fixedBanner.innerHTML = `
+            <div class="mobile-limited-banner-copy">
+                <p>${limitedModeText}</p>
+            </div>
+            <!--
+            <div class="mobile-limited-banner-actions">
+                <button class="mobile-limited-banner-button" type="button">Open full mode</button>
+                -->
+                <button class="mobile-limited-banner-close" type="button" aria-label="Close limited mode banner">✕</button>
+            </div>
+        `;
+        document.body.appendChild(fixedBanner);
+    }
+
+    const drawerBanner = document.getElementById('mobileLimitedBannerDrawer');
+    if (!drawerBanner) {
+        const panelBanner = document.createElement('div');
+        panelBanner.id = 'mobileLimitedBannerDrawer';
+        panelBanner.className = 'mobile-limited-banner mobile-limited-banner-drawer';
+        panelBanner.innerHTML = `
+            <div class="mobile-limited-banner-copy">
+                <p>${limitedModeText}</p>
+            </div>
+            <div class="mobile-limited-banner-actions">
+                <button class="mobile-limited-banner-button" type="button">Open full mode</button>
+                <button class="mobile-limited-banner-close" type="button" aria-label="Close limited mode banner">✕</button>
+            </div>
+        `;
+        panel.querySelector('.mobile-nav-panel-inner').appendChild(panelBanner);
+    }
+
+    const toggleButton = document.getElementById('mobileMenuToggle');
+    const closeButton = panel.querySelector('.mobile-nav-panel-close');
+    const overlay = document.getElementById('mobileNavOverlay');
+
+    const openPanel = () => {
+        if (!shouldUseMobileLayout()) return;
+        overlay.classList.add('is-open');
+        panel.classList.add('is-open');
+        document.body.classList.add('mobile-nav-open');
+    };
+
+    const closePanel = () => {
+        overlay.classList.remove('is-open');
+        panel.classList.remove('is-open');
+        document.body.classList.remove('mobile-nav-open');
+    };
+
+    if (toggleButton) {
+        toggleButton.onclick = openPanel;
+    }
+    if (closeButton) {
+        closeButton.onclick = closePanel;
+    }
+    if (overlay) {
+        overlay.onclick = closePanel;
+    }
+
+    bindMobileLanguageSelector();
+
+    document.addEventListener('click', (event) => {
+        const selector = document.querySelector('.mobile-site-header .language-selector');
+        const menu = selector?.querySelector('.dropdown-menu');
+        if (!selector || !menu) return;
+        if (!selector.contains(event.target)) {
+            selector.classList.remove('is-open');
+            selector.querySelector('.dropbtn')?.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    const bannerButtons = document.querySelectorAll('.mobile-limited-banner-button');
+    bannerButtons.forEach(button => {
+        button.onclick = () => {
+            localStorage.setItem('mobileFullMode', 'true');
+            window.location.reload();
+        };
+    });
+
+    const closeBannerButtons = document.querySelectorAll('.mobile-limited-banner-close');
+    closeBannerButtons.forEach(button => {
+        button.onclick = (event) => {
+            event.stopPropagation();
+            mobileBannerDismissedForSession = true;
+            document.body.classList.add('mobile-banner-closed');
+            document.getElementById('mobileLimitedBannerFixed')?.classList.add('is-hidden');
+        };
+    });
+
+    updateMobileLayoutState();
+    window.addEventListener('resize', updateMobileLayoutState);
 }
 
 // Function to populate sidebars dynamically
@@ -282,8 +560,6 @@ function populateSidebar(side, data) {
                         .slice(0, 4);
 
                     itemDiv.classList.add('live-notes-container');
-                    // Set the default telegram wallpaper background dynamically
-                    itemDiv.style.backgroundImage = `url('${R2_BASE_URL}media/telegram-default-wallpaper.png')`;
 
                     // Localized standalone helper function to process markdown links safely
                     const getLinks = (text, className) => {
@@ -293,6 +569,7 @@ function populateSidebar(side, data) {
                     };
 
                     let html = `
+            <div class="live-notes-wallpaper" style="background-image: url('${R2_BASE_URL}media/telegram-default-wallpaper.png');"></div>
             <div class="live-notes-header">
                 <span class="online-indicator"><img src="${R2_BASE_URL}media/live-notes-icon.png" alt=""></span>
                 <h3 class="live-notes-title">${getLocalizedValue(data.liveNotesTitle)}</h3>
@@ -380,6 +657,7 @@ function setBaseLocalizedText() {
 
         // Insert navigation
         insertNav(data);
+        setupMobileExperience(data);
 
         // Update text for footer grid item 1
         const footerGridItem1 = document.querySelector('#footer-grid-item1 .footer-grid-item-list').children;
@@ -514,6 +792,7 @@ function setFavicon() {
 
 // Ensure that setLocalizedText is called on page load
 document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('resize', updateMobileLayoutState);
     insertFooter();
     setBaseLocalizedText(); // Update header and footer text based on the current language
     updateNavigationLinks(); // Update navigation links based on the current language

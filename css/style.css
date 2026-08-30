@@ -1,36 +1,541 @@
+html {
+    /* Baseline: 16px on laptops (<=1400px), scaling smoothly up to 18px on monitors (>=2000px) */
+    font-size: clamp(100%, 0.71rem + 0.33vw, 112.5%);
+}
+
 /* Remove default margin and padding from body and html */
 html,
 body {
     margin: 0;
     padding: 0;
-    width: auto;
-    height: auto;
+    width: 100%;
+    min-height: 100%;
     background-color: #141414;
-    display: grid;
-    min-width: 1024px;
-    /* Ensures content is at least 1024px wide */
-    overflow-x: auto;
-    /* Allows horizontal scrolling if screen is smaller */
+    display: block;
+    min-width: 0;
+    overflow-x: visible;
     background-color: whitesmoke;
-    /* Enables smooth scrolling for all anchor links */
     scroll-behavior: smooth;
+}
+
+@media (min-width: 768px) {
+
+    html,
+    body {
+        min-width: 0;
+        overflow-x: visible;
+    }
+}
+
+body.mobile-layout-active {
+    min-width: 0;
+    overflow-x: hidden;
+    display: block;
+}
+
+body:not(.mobile-layout-active) {
+    min-width: 950px !important;
+    width: 100%;
+    position: relative;
+}
+
+body.mobile-layout-active .index-layout {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+body.mobile-layout-active .sidebars-left,
+body.mobile-layout-active .sidebars-right-partial,
+body.mobile-layout-active .sidebars-right-full,
+body.mobile-layout-active .center-right-content {
+    display: none;
+}
+
+body.mobile-layout-active .center-content {
+    grid-column: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+body.mobile-layout-active .background {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+body.mobile-layout-active .container {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    margin: 12px auto !important;
+    min-height: auto;
+    box-sizing: border-box;
+}
+
+body.mobile-layout-active .content-grid {
+    grid-template-columns: 1fr;
+}
+
+body.mobile-layout-active .publication-section {
+    margin: 20px 12px;
+}
+
+body.mobile-layout-active .news-item,
+body.mobile-layout-active .article-item,
+body.mobile-layout-active .opinion-item,
+body.mobile-layout-active .academic-item,
+body.mobile-layout-active .live-note-item {
+    min-width: 0;
+}
+
+body:not(.mobile-layout-active) .mobile-site-header,
+body:not(.mobile-layout-active) .mobile-limited-banner-fixed {
+    display: none !important;
+}
+
+body.mobile-banner-closed .mobile-limited-banner-fixed {
+    display: none;
+}
+
+body.mobile-nav-open {
+    overflow: hidden;
+}
+
+.mobile-site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #111111, #1b1b1b);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.mobile-site-header .language-selector {
+    position: static;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: auto;
+}
+
+.mobile-site-header .dropbtn {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 4px 6px;
+    font-size: 0.95rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.mobile-site-header .dropdown-menu {
+    top: calc(100% + 4px);
+    right: 0;
+    width: fit-content;
+    padding: 4px 0;
+    border-radius: 6px;
+    background: #1e1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.mobile-site-header .dropdown-menu a {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 4px;
+    color: white;
+    line-height: 1.2;
+}
+
+.mobile-site-header .dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.mobile-menu-toggle {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    padding: 0;
+}
+
+.mobile-menu-toggle span {
+    display: block;
+    height: 2px;
+    width: 22px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 999px;
+}
+
+.mobile-site-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Lobster', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    min-width: 0;
+}
+
+.mobile-site-brand-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 0;
+    flex-shrink: 0;
+}
+
+.mobile-site-brand span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mobile-nav-panel {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 75vw;
+    max-width: none;
+    background: #111111;
+    color: white;
+    transform: translateX(-102%);
+    transition: transform 0.25s ease;
+    z-index: 1400;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    overflow-y: auto;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mobile-nav-panel.is-open {
+    transform: translateX(0);
+}
+
+.mobile-nav-panel-inner {
+    padding: 18px 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+    align-items: center;
+}
+
+.mobile-nav-panel-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+.mobile-nav-panel-close,
+.mobile-limited-banner-close {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#mobileNavOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 1300;
+}
+
+#mobileNavOverlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    align-items: stretch;
+}
+
+.mobile-nav-content #navContainer {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1c1c;
+}
+
+.mobile-nav-content #navContainer .navigation-link {
+    box-sizing: border-box;
+}
+
+.mobile-limited-banner {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 14px;
+    background: linear-gradient(135deg, #fff4d6 0%, #ffd27a 45%, #ffaf5b 100%);
+    color: #5a2e0b;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(92, 46, 12, 0.16);
+    position: relative;
+    border: 1px solid #e3bc2f;
+}
+
+body.mobile-layout-active .mobile-limited-banner {
+    display: flex;
+}
+
+.mobile-limited-banner.is-hidden {
+    display: none !important;
+}
+
+.mobile-limited-banner-copy p {
+    margin: 0;
+    font-size: 0.95rem;
+    font-family: Roboto;
+    text-align: center;
+}
+
+.mobile-limited-banner-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.mobile-limited-banner-button {
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2b2b2b 0%, #111111 100%);
+    color: #ffffff;
+    padding: 10px 12px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(17, 17, 17, 0.16);
+    width: 100%;
+}
+
+.mobile-limited-banner-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0;
+}
+
+.mobile-limited-banner-fixed {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 6px;
+    z-index: 1100;
+}
+
+.mobile-limited-banner-drawer {
+    width: 100%;
+}
+
+.mobile-limited-banner-drawer .mobile-limited-banner-actions {
+    display: none;
 }
 
 .index-layout {
     grid-template-columns: minmax(240px, 18.62%) 1fr minmax(240px, 18.62%);
-    /* originally 18.62% 62.81% 18.62% */
-    /* Ensure no unintended padding */
     box-sizing: border-box;
     display: grid;
     position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: visible;
 }
 
-/* When screen width is less than 1024px, remove side columns
-@media (max-width: 1024px) {
-    .index-layout {
+@media (max-width: 768px) {
+    html {
+        font-size: 100%;
+    }
+
+    html body .all-publications-text,
+    html body .all-publications-text p,
+    html body .article-title,
+    html body main-text .heading-text,
+    html body main-text .heading-text-with-link,
+    html body .publication-section-heading {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    html body main-text .subheading-text {
+        font-size: 1.125rem;
+        line-height: 1.35;
+    }
+
+    html body main-text .sub-subheading-text {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    html body main-text p,
+    html body main-text .text-with-link,
+    html body main-text .spoiler-text,
+    html body main-text .quote,
+    html body main-text .warning,
+    html body main-text .error,
+    html body main-text .news,
+    html body main-text .opinion,
+    html body main-text .article,
+    html body main-text .academic,
+    html body main-text .live-note {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    html body main-text .info-text,
+    html body main-text .info-text-with-link,
+    html body main-text .caption-text,
+    html body .publication-section-subheading,
+    html body .publication-section-button-text,
+    html body .publication-section-button {
+        font-size: 0.8125rem;
+        line-height: 1.4;
+    }
+
+    html body .highlighted-title a {
+        font-size: 1.5rem;
+        line-height: 1.3;
+    }
+
+    html body .highlighted-type {
+        font-size: 1.125rem;
+        line-height: 1.3;
+    }
+
+    html body .highlighted-source,
+    html body .highlighted-date,
+    html body .highlighted-button {
+        font-size: 0.875rem;
+        line-height: 1.3;
+    }
+
+    body:not(.mobile-layout-active) .language-selector {
+        position: absolute !important;
+        top: 20px !important;
+        right: 20px !important;
+        left: auto !important;
+        margin: 0 !important;
+        z-index: 1000;
+    }
+
+    body:not(.mobile-layout-active) footer {
+        background-color: black;
+        width: 100%;
+    }
+
+    body:not(.mobile-layout-active) .footer-below-text {
+        color: #b5b5b5;
+        text-align: center;
+    }
+
+    .highlighted-article {
+        min-height: auto;
+        padding-bottom: 24px;
+    }
+
+    .highlighted-articles-grid {
+        position: relative;
+        margin-top: 0;
+        padding: 12px 12px 0;
+    }
+
+    .grid-container {
         grid-template-columns: 1fr;
     }
-} */
+
+    .container {
+        width: calc(100% - 24px);
+        margin: 12px;
+        min-height: auto;
+        padding: 16px 0;
+    }
+}
+
+.lang-option-full,
+.lang-option-short,
+.lang-text-full,
+.lang-text-short {
+    display: inline-block;
+}
+
+body:not(.mobile-layout-active) .lang-text-full,
+body:not(.mobile-layout-active) .lang-option-full {
+    display: inline-block !important;
+}
+
+body:not(.mobile-layout-active) .lang-text-short,
+body:not(.mobile-layout-active) .lang-option-short {
+    display: none !important;
+}
+
+body.mobile-layout-active .lang-text-full,
+body.mobile-layout-active .lang-option-full {
+    display: none !important;
+}
+
+body.mobile-layout-active .lang-text-short,
+body.mobile-layout-active .lang-option-short {
+    display: inline-block !important;
+}
+
+body.mobile-layout-active .mobile-site-header .language-selector.is-open .dropdown-menu {
+    display: block;
+}
+
+body:not(.mobile-layout-active) .header-container,
+body:not(.mobile-layout-active) .page-wrapper,
+body:not(.mobile-layout-active) header {
+    position: relative;
+    width: 100%;
+    min-width: max-content;
+}
+
+body:not(.mobile-layout-active) .language-selector {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    left: auto;
+    margin: 0;
+    z-index: 1000;
+}
 
 /* .index-layout .left-content{
         grid-column: 1; 
@@ -55,12 +560,11 @@ body {
 
 .background {
     min-width: 0;
-    /* Ensure backgrund extends to the viewport width */
+    width: 100%;
     padding: 0;
-    /* No padding needed for the background container */
     display: flex;
     justify-content: center;
-    /* Center the container horizontally */
+    overflow-x: hidden;
 }
 
 .sidebars-left {
@@ -102,21 +606,20 @@ body {
 
 .container {
     max-width: 950px;
-    /* Max width for the content area */
-    width: calc(100% - 40px);
-    /* Ensure it takes up full width minus padding */
+    width: min(100%, 950px);
     background-color: #fff;
-    /* White background for the content area */
     border-radius: 17px;
-    /* Rounded corners */
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-    /* Added shadow */
     margin: 10px 20px;
-    /* Margin to provide space around the container */
     padding: 20px 0px;
     border: 1px solid rgba(0, 0, 0, .08);
     min-height: 740px;
-    /* Ensure minimum height to prevent black space */
+}
+
+body.mobile-layout-active .container {
+    width: calc(100% - 24px);
+    max-width: none;
+    margin: 12px;
 }
 
 /* header {
@@ -140,7 +643,7 @@ body {
     /* used to be 20 instead of auto */
     z-index: 10;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 1rem;
     border-radius: 10px;
 }
 
@@ -209,7 +712,7 @@ body {
     align-items: center;
     font-size: 1.1rem;
     font-weight: 700;
-    width: fit-content;
+    height: fit-content;
     transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     position: relative;
 }
@@ -398,6 +901,7 @@ body {
 
 /* Fixes conflicting system wrapper styles while preserving important layout positioning */
 #sidebars-right-item1 {
+    position: relative;
     font-family: "Roboto", serif;
     font-weight: regular;
     border-radius: 16px;
@@ -406,6 +910,17 @@ body {
     /* Preserves your essential vertical margins */
     margin-bottom: 20px;
     overflow: hidden;
+    background: transparent;
+}
+
+#sidebars-right-item1 .live-notes-wallpaper {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
 }
 
 #sidebars-right-item1 .live-note-bubble-target a {
@@ -420,13 +935,22 @@ body {
 /* Container adjustments - Deeply zoomed-out wallpaper and custom sage-green gradient wash */
 .live-notes-container {
     position: relative;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
-    background-position: center;
+    min-height: 100%;
     background-color: #94b28a;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
+    isolation: isolate;
+}
+
+.live-notes-container>.live-notes-wallpaper {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* Smoothed, ultra-gradual fade-in blend masks matching image_465904.png */
@@ -495,7 +1019,7 @@ body {
 
 .live-notes-title {
     margin: 0;
-    font-size: 16.5px;
+    font-size: 1.03125rem;
     font-weight: 700;
     color: #111111;
     text-transform: none;
@@ -571,7 +1095,7 @@ body {
 
 /* Strictly forced right-aligned date/time footer string layout */
 .live-note-time {
-    font-size: 11px;
+    font-size: 0.6875rem;
     font-weight: 400;
     color: #707579;
     text-transform: lowercase;
@@ -587,7 +1111,7 @@ body {
 
 /* Paragraph target - Structural multi-line text clamping configuration */
 p.live-note-text {
-    font-size: 14.5px;
+    font-size: 0.90625rem;
     color: #000000;
     font-weight: 400;
     line-height: 1.4;
@@ -645,7 +1169,7 @@ p.live-note-text a:hover,
 
 /* Attachment preview controls and contextual drop-wrappers */
 .live-note-attachments {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #2481CC;
     display: block;
     font-weight: 500;
@@ -713,7 +1237,7 @@ p.live-note-text a:hover,
     color: #111111;
     text-decoration: none;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 0.875rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     transition: all 0.2s ease;
@@ -767,7 +1291,7 @@ p.live-note-text a:hover,
     font-family: 'Lobster', serif;
     margin-top: 10px;
     margin-bottom: 15px;
-    font-size: 26px;
+    font-size: 1.625rem;
     color: white;
     font-weight: 400;
     cursor: pointer;
@@ -797,7 +1321,7 @@ p.live-note-text a:hover,
     /* Ensures clickable area extends */
     width: 100%;
     /* Makes sure it takes the full width */
-    font-size: 18px;
+    font-size: 1.125rem;
     font-family: "Roboto", serif;
 }
 
@@ -835,7 +1359,7 @@ p.live-note-text a:hover,
 .dropbtn {
     background-color: transparent;
     color: white;
-    font-size: 16px;
+    font-size: 1rem;
     border: none;
     cursor: pointer;
 }
@@ -900,7 +1424,7 @@ p.live-note-text a:hover,
     background-color: transparent;
     color: white;
     border: none;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
     padding: 5px;
 }
@@ -966,7 +1490,6 @@ p.live-note-text a:hover,
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
-    max-width: 1150px;
     margin: 0 20;
     justify-content: flex-end;
     /* Aligns content to the bottom */
@@ -988,7 +1511,7 @@ p.live-note-text a:hover,
     cursor: pointer;
     /* Makes grid-item look clickable */
     font-family: 'Roboto', serif;
-    font-size: 12px;
+    font-size: 0.75rem;
 }
 
 /* Make the grid-item fully clickable */
@@ -1083,7 +1606,7 @@ p.live-note-text a:hover,
     gap: 5px;
     margin-top: auto;
     /* Push the type-date div to the bottom */
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #ccc;
 }
 
@@ -1143,7 +1666,7 @@ p.live-note-text a:hover,
 }
 
 .highlighted-title a {
-    font-size: 36px;
+    font-size: 2.25rem;
     font-weight: bold;
     color: inherit;
     text-decoration: none;
@@ -1169,7 +1692,7 @@ p.live-note-text a:hover,
 
     /* Typography & Core Colors */
     font-family: inherit;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.5);
 
     /* Underline Configurations */
@@ -1203,13 +1726,13 @@ p.live-note-text a:hover,
     display: inline-block;
     font-weight: bold;
     font-family: 'Roboto', serif;
-    font-size: 24px;
+    font-size: 1.5rem;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .highlighted-date {
     display: inline-block;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-family: 'Roboto', serif;
     color: grey;
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1221,7 +1744,7 @@ p.live-note-text a:hover,
     bottom: 0px;
     top: 450px;
     right: 50px;
-    font-size: 22px;
+    font-size: 1.375rem;
     z-index: 2;
 }
 
@@ -1284,7 +1807,7 @@ p.live-note-text a:hover,
     font-family: 'Roboto', serif;
 }
 
-/* @media (max-width: 1024px) {
+/* @media (max-width: 768px) {
         .content-grid {
             grid-template-columns: repeat(2, 1fr);
         }
@@ -1302,7 +1825,7 @@ p.live-note-text a:hover,
 }
 
 .publication-section-heading {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
     font-family: 'Roboto', serif;
     margin-top: 24px;
@@ -1310,7 +1833,7 @@ p.live-note-text a:hover,
 }
 
 .publication-section-subheading {
-    font-size: 16px;
+    font-size: 1rem;
     color: grey;
     font-style: italic;
     font-family: 'Roboto', serif;
@@ -1318,7 +1841,7 @@ p.live-note-text a:hover,
 }
 
 .publication-section-button-text {
-    font-size: 16px;
+    font-size: 1rem;
     color: grey;
     font-family: 'Roboto', serif;
     transition: all 0.3s ease;
@@ -1327,7 +1850,7 @@ p.live-note-text a:hover,
 }
 
 .publication-section-button {
-    font-size: 16px;
+    font-size: 1rem;
     color: grey;
     font-family: 'Roboto', serif;
     margin-bottom: 20px;
@@ -1433,7 +1956,7 @@ article.live-note-item img {
     color: inherit;
     text-decoration: none;
     display: block;
-    font-size: 20px;
+    font-size: 1.25rem;
     color: black;
     margin-top: 8px;
 }
@@ -1446,7 +1969,7 @@ article.live-note-item img {
     color: inherit;
     text-decoration: none;
     display: block;
-    font-size: 12px;
+    font-size: 0.75rem;
     color: grey;
     margin-top: auto;
 }
@@ -1500,7 +2023,7 @@ article.live-note-item img {
     background-color: red;
     color: white;
     padding: 5px 8px;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
     border-radius: 4px;
     margin-left: 12px;
@@ -1602,7 +2125,7 @@ main-text .table-of-contents {
 
 main-text .heading-text {
     font-family: 'Roboto', serif;
-    font-size: 24px;
+    font-size: 1.5rem;
     color: inherit;
     margin-bottom: 10px;
     font-weight: bold;
@@ -1612,7 +2135,7 @@ main-text .heading-text-with-link {
     font-family: 'Roboto', serif;
     text-decoration: underline;
     color: inherit;
-    font-size: 24px;
+    font-size: 1.5rem;
     margin-bottom: 10px;
     font-weight: bold;
     color: #2481CC;
@@ -1620,20 +2143,20 @@ main-text .heading-text-with-link {
 
 main-text .subheading-text {
     font-family: 'Roboto', serif;
-    font-size: 22px;
+    font-size: 1.375rem;
     margin-bottom: 10px;
 }
 
 main-text .sub-subheading-text {
     font-family: 'Roboto', serif;
-    font-size: 18px;
+    font-size: 1.125rem;
     margin-bottom: 5px;
 }
 
 main-text p {
     font-family: 'Roboto', serif;
     color: #333;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 150%;
     flex: 1;
     /* Ensures text takes up the remaining space */
@@ -1643,13 +2166,13 @@ main-text .text-with-link {
     font-family: 'Roboto', serif;
     text-decoration: none;
     color: #2481CC;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 150%;
 }
 
 main-text .info-text {
     font-family: 'Roboto', serif;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #7f8c8d;
     margin-bottom: 10px;
 }
@@ -1657,14 +2180,14 @@ main-text .info-text {
 main-text .info-text-with-link {
     font-family: 'Roboto', serif;
     text-decoration: underline;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #7f8c8d;
     margin-bottom: 10px;
 }
 
 main-text .spoiler-text {
     font-family: 'Roboto', serif;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 150%;
     flex: 1;
     color: #333;
@@ -1728,7 +2251,7 @@ main-text .pdf-download {
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 0.875rem;
     transition: all 0.3s ease;
     cursor: pointer;
 }
@@ -1749,7 +2272,7 @@ main-text .caption-text {
     font-family: 'Roboto', serif;
     text-align: center;
     line-height: 110%;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #7f8c8d;
     margin-top: 10px;
 }
@@ -1759,7 +2282,7 @@ main-text .caption-text-with-link {
     text-align: center;
     text-decoration: underline;
     line-height: 95%;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: #7f8c8d;
 }
 
@@ -1789,7 +2312,7 @@ main-text .quote::before {
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 main-text .information {
@@ -1818,7 +2341,7 @@ main-text .information::before {
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 main-text .warning {
@@ -1841,6 +2364,7 @@ main-text .warning::before {
     font-size: 20px;
 }
 
+
 main-text .error {
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
@@ -1858,7 +2382,7 @@ main-text .error::before {
     left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 main-text .tags-section {
@@ -1879,7 +2403,7 @@ main-text .related-topic-tag,
     color: #979696;
     padding: 5px 10px;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 0.875rem;
     margin-bottom: 10px;
     text-decoration: none;
     border: 1px solid rgba(0, 0, 0, .08);
@@ -1911,7 +2435,7 @@ main-text .table-of-contents {
 }
 
 main-text .toc-title {
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: bold;
     text-align: left;
     margin: 0;
@@ -1952,7 +2476,7 @@ main-text .toc-list li {
 /* Updated ::before element to include a smooth color transition */
 main-text .toc-list li::before {
     content: counter(section) ".";
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 600;
     color: #64748b;
     /* Softens the number color so it doesn't overpower the text */
@@ -2073,7 +2597,7 @@ main-text .toc-list li:hover {
 main-text .toc-list a {
     text-decoration: none;
     color: #1e293b;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 500;
     font-family: 'Roboto', sans-serif;
     display: inline;
@@ -2103,15 +2627,33 @@ main-text .toc-list li:hover a {
     color: white;
 }
 
+/* Base footer styles (without min-width locks) */
 footer {
     background-color: black;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
     text-align: center;
     padding: 1%;
     position: relative;
     bottom: 0;
-    width: 1fr;
     height: fit-content;
     font-family: "Roboto", serif;
+}
+
+/* Enforce desktop min-width ONLY when mobile layout is NOT active */
+body:not(.mobile-layout-active) footer {
+    background-color: black !important;
+    width: 100% !important;
+    min-width: 950px !important;
+}
+
+/* Enforce mobile layout reset when active */
+body.mobile-layout-active footer {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 1rem 1.25rem;
 }
 
 .footer-grid {
@@ -2136,7 +2678,7 @@ footer {
 .footer-text {
     text-decoration: none;
     color: #7d7d7d;
-    font-size: 14px;
+    font-size: 0.875rem;
     transition: all 0.3s ease;
 }
 
@@ -2148,7 +2690,7 @@ footer {
     text-decoration: none;
     font-weight: bold;
     color: #b5b5b5;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 /* This keeps your general footer text as is */
@@ -2172,6 +2714,29 @@ footer {
 .footer-below-text a:hover {
     color: #ffffff;
     /* Slight change on hover so user knows it's clickable */
+}
+
+@media (max-width: 768px) {
+    body.mobile-layout-active footer {
+        width: auto;
+        padding: 1rem 1.25rem;
+        background-color: black;
+    }
+
+    body.mobile-layout-active footer .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        text-align: center;
+    }
+
+    body.mobile-layout-active footer .footer-grid-item-list li {
+        margin-bottom: 0.5rem;
+    }
+
+    body.mobile-layout-active footer .footer-below-text {
+        margin: 1rem 0 0;
+        text-align: center;
+    }
 }
 
 
@@ -2362,7 +2927,7 @@ footer {
 }
 
 .all-publications-text {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
     font-family: 'Roboto', serif;
     margin: 0;
@@ -2391,7 +2956,7 @@ footer {
     border: none;
     padding: 8px 15px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.875rem;
     transition: all 0.3s;
     position: relative;
 }
@@ -2409,7 +2974,7 @@ footer {
 
 /* Styles for sub-headings */
 .all-publications-text p {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: bold;
     font-family: 'Roboto', serif;
     /* margin-bottom: 20px; */
@@ -2418,7 +2983,7 @@ footer {
 .tag-filter-container span,
 .type-filter-container span,
 .sort-button span {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold;
     font-family: 'Roboto', serif;
     display: block;
@@ -2525,7 +3090,7 @@ footer {
 
 /* Live Note Article Display Styling */
 .live-note-date {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
     color: #228B22;
     text-transform: uppercase;
@@ -2535,7 +3100,7 @@ footer {
 }
 
 .live-note-full-text {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.6;
     color: #333;
     margin: 20px 0;

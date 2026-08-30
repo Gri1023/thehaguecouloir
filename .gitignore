@@ -372,3 +372,9 @@ FodyWeavers.xsd
 
 # Ignore local media fallback
 /media/
+
+# Ignore local settings for VS Code
+/.vscode/
+
+# Ignore local portable tools
+/portable-tools/
