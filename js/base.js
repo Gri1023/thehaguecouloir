@@ -770,33 +770,13 @@ function updateNavigationLinks() {
     });
 }
 
-// Function to set up the favicon using the R2 bucket URL
-function setFavicon() {
-    // Specify the path to the favicon relative to the site root
-    const faviconUrl = 'media/skull%202-enchanced-cropped%20128x141.png';
-    // Resolve the URL
-    const resolvedHref = [R2_BASE_URL] + faviconUrl;
-    // Find an existing <link rel="icon"> element
-    let linkEl = document.querySelector('link[rel="icon"]');
-    if (!linkEl) {
-        linkEl = document.createElement('link');
-        linkEl.rel = 'icon';
-        linkEl.type = 'image/png';
-        document.head.appendChild(linkEl);
-    }
-    linkEl.href = resolvedHref;
-    //console.log("resolved URL:" + resolvedHref)
-}
-
-
-
 // Ensure that setLocalizedText is called on page load
 document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', updateMobileLayoutState);
     insertFooter();
     setBaseLocalizedText(); // Update header and footer text based on the current language
     updateNavigationLinks(); // Update navigation links based on the current language
-    setFavicon(); // Set the site favicon
+    // setFavicon(); // Set the site favicon
     // Call other initialization functions here if needed
 });
 

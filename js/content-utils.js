@@ -138,6 +138,9 @@ function loadArticleContent() {
                 .map(item => buildContentItemHtml(item, data))
                 .join('');
 
+            // Inject JSON-LD structured data for SEO
+            injectArticleSchema(articleData);
+
             renderArticleTags(tagsDiv, articleData, data, rootPrefix);
             initializeGallery();
             initializeSpoilers();
@@ -470,4 +473,158 @@ function initializeGallery() {
             closeZoom();
         });
     });
+}
+
+/**
+ * Injects JSON-LD structured data for article/schema.org NewsArticle
+ * @param {Object} item - The publication item object
+ */
+function injectArticleSchema(item) {
+    // Cleanup: Remove existing JSON-LD article element to prevent duplicates
+    const existingSchema = document.getElementById('json-ld-article');
+    if (existingSchema) {
+        existingSchema.remove();
+    }
+
+    // Skip if item is not valid
+    if (!item || typeof item !== 'object') return;
+
+    // Determine schema type based on item.type
+    const typeMap = {
+        'news': 'NewsArticle',
+        'article': 'Article',
+        'opinion': 'Article',
+        'academic': 'Article',
+        'live-note': 'Article'
+    };
+    const schemaType = typeMap[item.type] || 'NewsArticle';
+
+    // Get localized values
+    const getLocalizedValue = (value) => {
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+            const current = value[window.currentLanguage];
+            if (current !== undefined && current !== '') {
+                return current;
+            }
+            const en = value.en;
+            if (en !== undefined && en !== '') {
+                return en;
+            }
+            const ru = value.ru;
+            if (ru !== undefined && ru !== '') {
+                return ru;
+            }
+            return '';
+        }
+        return value || '';
+    };
+
+    // Extract properties for schema
+    const title = getLocalizedValue(item.title) || '';
+    const date = item.date || '';
+    const updatedDate = item.updatedDate || item.date || '';
+
+    // Get image - prefer item.image, fallback to favicon
+    let imageUrl = getLocalizedValue(item.image);
+    if (!imageUrl) {
+        imageUrl = 'https://thehaguecouloir.com/favicon/web-app-manifest-512x512.png';
+    } else if (imageUrl.startsWith('media/') || imageUrl.startsWith('images/')) {
+        // Convert relative paths to absolute URLs using R2_BASE_URL
+        imageUrl = `${window.R2_BASE_URL || ''}${imageUrl}`;
+    }
+
+    // Get author - first check item.author, then extract from content if needed
+    let authorName = getLocalizedValue(item.author);
+    if (!authorName && item.content && Array.isArray(item.content)) {
+        // Try to extract author from content (pattern: [Name](/about/))
+        const firstTextBlock = item.content.find(block =>
+            block.type === 'text' || block.type === 'info-text');
+        if (firstTextBlock) {
+            const textContent = getLocalizedValue(firstTextBlock.value);
+            const authorMatch = textContent.match(/^\[([^\]]+)\]\(\/about\/?\)/);
+            if (authorMatch && authorMatch[1]) {
+                authorName = authorMatch[1];
+            }
+        }
+    }
+    // Fallback to editorial if still not found
+    if (!authorName) {
+        authorName = 'The Hague Couloir Editorial';
+    }
+
+    // Generate description from content or summary with proper text cleaning
+    let description = '';
+    if (item.summary) {
+        description = getLocalizedValue(item.summary);
+    } else if (item.content && Array.isArray(item.content)) {
+        // Extract text from content blocks
+        description = item.content
+            .map(block => {
+                if (block.type === 'text' || block.type === 'info-text' || block.type === 'caption-text') {
+                    return getLocalizedValue(block.value);
+                }
+                return '';
+            })
+            .join(' ');
+
+        // Remove leading author and date prefix (e.g., "[Author](/about/), Month DD, YYYY" or "Author, Month DD, YYYY")
+        description = description.replace(
+            /^(?:\[([^\]]+)\]\(\/about\/\)|([^,]+)),\s*(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2},\s+\d{4}/,
+            ''
+        );
+
+        // Then continue with the existing cleaning steps
+        description = description
+            .replace(/<[^>]*>/g, '') // Strip HTML tags
+            .replace(/\[([^\]]+)\]\([^)]+\)$/g, '$1') // Strip markdown links at end
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Strip markdown links anywhere
+            .replace(/[*_#]/g, '') // Strip markdown formatting symbols
+            .trim();
+    }
+
+    // Limit description to ~155 characters and fallback to title
+    if (!description || description.length < 10) {
+        description = title;
+    }
+    if (description.length > 155) {
+        description = description.substring(0, 152) + '...';
+    }
+
+    // Build schema object with canonical domain for mainEntityOfPage
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": schemaType,
+        "headline": title,
+        "description": description,
+        "image": [
+            imageUrl
+        ],
+        "datePublished": date,
+        "dateModified": updatedDate,
+        "author": [
+            {
+                "@type": "Person",
+                "name": authorName
+            }
+        ],
+        "publisher": {
+            "@type": "Organization",
+            "name": "The Hague Couloir",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://thehaguecouloir.com/favicon/web-app-manifest-512x512.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": window.location.href.replace(/^https?:\/\/localhost:\d+|^https?:\/\/127\.0\.0\.1:\d+/, 'https://thehaguecouloir.com')
+        }
+    };
+
+    // Create and inject JSON-LD element
+    const script = document.createElement('script');
+    script.id = 'json-ld-article';
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
 }
