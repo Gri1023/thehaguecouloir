@@ -6,8 +6,8 @@ export async function onRequest(context) {
     const url = new URL(context.request.url);
     const pathname = url.pathname.toLowerCase().replace(/\/$/, '') || '/';
 
-    // Skip static assets (.js, .css, images, fonts, manifests)
-    if (pathname.match(/\.(js|css|pcss|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|json|webmanifest)$/)) {
+    // Skip static assets (.js, .css, images, fonts, manifests, sitemaps, robots)
+    if (pathname.match(/\.(js|css|pcss|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|json|webmanifest|xml|txt|map)$/)) {
         return context.next();
     }
 
