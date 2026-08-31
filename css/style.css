@@ -34,9 +34,15 @@ body.mobile-layout-active {
 }
 
 body:not(.mobile-layout-active) {
-    min-width: 950px !important;
+    min-width: 0;
     width: 100%;
     position: relative;
+}
+
+@media (min-width: 769px) {
+    body:not(.mobile-layout-active) {
+        min-width: 950px !important;
+    }
 }
 
 body.mobile-layout-active .index-layout {
@@ -371,12 +377,13 @@ body.mobile-layout-active .mobile-limited-banner {
 }
 
 .index-layout {
-    grid-template-columns: minmax(240px, 18.62%) 1fr minmax(240px, 18.62%);
+    grid-template-columns: minmax(0, 18.62%) 1fr minmax(0, 18.62%);
     box-sizing: border-box;
     display: grid;
     position: relative;
     width: 100%;
-    max-width: 100%;
+    max-width: 1460px;
+    margin: 0 auto;
     overflow-x: visible;
 }
 
@@ -525,7 +532,16 @@ body:not(.mobile-layout-active) .page-wrapper,
 body:not(.mobile-layout-active) header {
     position: relative;
     width: 100%;
-    min-width: max-content;
+    min-width: 0;
+}
+
+@media (min-width: 769px) {
+
+    body:not(.mobile-layout-active) .header-container,
+    body:not(.mobile-layout-active) .page-wrapper,
+    body:not(.mobile-layout-active) header {
+        min-width: max-content;
+    }
 }
 
 body:not(.mobile-layout-active) .language-selector {
@@ -605,8 +621,6 @@ body:not(.mobile-layout-active) .language-selector {
 }
 
 .container {
-    max-width: 950px;
-    width: min(100%, 950px);
     background-color: #fff;
     border-radius: 17px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
@@ -2118,9 +2132,34 @@ main-text p,
 main-text .tags-section,
 main-text .pdf-toolbar,
 main-text .table-of-contents {
-    margin-left: clamp(4px, 5vw + 1rem, 80px);
-    margin-right: clamp(4px, 5vw + 1rem, 80px);
+    margin-left: clamp(24px, 4vw + 1rem, 72px);
+    margin-right: clamp(24px, 4vw + 1rem, 72px);
     scroll-margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+
+    main-text .opinion,
+    main-text .article,
+    main-text .news,
+    main-text .academic,
+    main-text .live-note,
+    main-text .caption-text,
+    main-text .information,
+    main-text .warning,
+    main-text .error,
+    main-text .quote,
+    main-text .heading-text,
+    main-text .subheading-text,
+    main-text .sub-subheading-text,
+    main-text .info-text,
+    main-text p,
+    main-text .tags-section,
+    main-text .pdf-toolbar,
+    main-text .table-of-contents {
+        margin-left: clamp(12px, 3.5vw + 0.5rem, 36px);
+        margin-right: clamp(12px, 3.5vw + 0.5rem, 36px);
+    }
 }
 
 main-text .heading-text {
@@ -2642,10 +2681,12 @@ footer {
 }
 
 /* Enforce desktop min-width ONLY when mobile layout is NOT active */
-body:not(.mobile-layout-active) footer {
-    background-color: black !important;
-    width: 100% !important;
-    min-width: 950px !important;
+@media (min-width: 769px) {
+    body:not(.mobile-layout-active) footer {
+        background-color: black !important;
+        width: 100% !important;
+        min-width: 950px !important;
+    }
 }
 
 /* Enforce mobile layout reset when active */
@@ -2740,12 +2781,23 @@ body.mobile-layout-active footer {
 }
 
 
-/* Gallery Container */
+/* Gallery wrapper keeps the entire gallery clipped to its own bounds on mobile */
+.gallery-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
 .gallery-container {
     position: relative;
+    width: 100%;
     max-width: 90%;
     margin: auto;
     margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 8px;
 }
 
 /* Stage reserves a fixed-size box for the active media so swapping
@@ -2759,7 +2811,7 @@ body.mobile-layout-active footer {
     /* Keep the fixed stage for stable navigation controls, but let the
        page background show through around media with a different ratio. */
     background-color: transparent;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -2768,7 +2820,9 @@ body.mobile-layout-active footer {
 
 /* Main Image Display */
 .gallery-main-image,
-.gallery-main-video {
+.gallery-main-video,
+.gallery-zoom-image,
+.gallery-zoom-video {
     display: block;
     width: 100%;
     height: 100%;
@@ -2776,6 +2830,7 @@ body.mobile-layout-active footer {
     object-fit: contain;
     cursor: pointer;
     transition: all .3s ease;
+    border-radius: 8px;
 }
 
 /* Thumbnail Container */
@@ -2783,6 +2838,8 @@ body.mobile-layout-active footer {
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 /* Individual Thumbnail */
@@ -2791,10 +2848,11 @@ body.mobile-layout-active footer {
     height: 60px;
     object-fit: contain;
     border-radius: 5px;
-    margin: 0 5px;
+    margin: 0;
     cursor: pointer;
     opacity: 0.7;
     transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    overflow: hidden;
 }
 
 .gallery-thumbnail:hover,
@@ -2856,17 +2914,25 @@ body.mobile-layout-active footer {
     left: 0;
     width: 100%;
     height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.85);
     justify-content: center;
     align-items: center;
     z-index: 97;
+    isolation: isolate;
 }
 
-.gallery-zoom-image {
-    max-width: 90%;
-    max-height: 90%;
+.gallery-zoom-image,
+.gallery-zoom-video {
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+    max-height: 90vh;
     object-fit: contain;
-    border-radius: 5px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
 }
 
 .gallery-zoom-overlay.active {
@@ -2875,9 +2941,9 @@ body.mobile-layout-active footer {
 
 /* Close (X) button in the zoom overlay - grey by default, white on hover */
 .gallery-zoom-close {
-    position: absolute;
-    top: 18px;
-    right: 18px;
+    position: fixed;
+    top: max(18px, env(safe-area-inset-top));
+    right: max(18px, env(safe-area-inset-right));
     width: 40px;
     height: 40px;
     display: flex;
@@ -2891,7 +2957,8 @@ body.mobile-layout-active footer {
     padding: 0;
     cursor: pointer;
     border-radius: 50%;
-    z-index: 98;
+    z-index: 999;
+    pointer-events: auto;
     transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
 

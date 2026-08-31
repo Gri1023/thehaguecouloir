@@ -112,6 +112,11 @@ const languageLabelFallbacks = {
     ru: { full: '\u0420\u0443\u0441\u0441\u043a\u0438\u0439', short: '\u0420\u0423\u0421' }
 };
 
+function resolveLanguageLabelSet(language, labels = languageLabelFallbacks) {
+    const safeLanguage = language && labels[language] ? language : 'en';
+    return labels[safeLanguage] || languageLabelFallbacks[safeLanguage] || languageLabelFallbacks.en;
+}
+
 async function setLanguageButton() {
     const language = getCurrentLanguage();
     const languageSelector = document.getElementById('languageSelector');
@@ -120,9 +125,9 @@ async function setLanguageButton() {
     try {
         const data = await fetchSiteData();
         const labels = data.languageLabels || languageLabelFallbacks;
-        const header = labels[language] || languageLabelFallbacks[language];
+        const header = resolveLanguageLabelSet(language, labels);
         const alternateLanguage = language === 'ru' ? 'en' : 'ru';
-        const alternateHeader = labels[alternateLanguage] || languageLabelFallbacks[alternateLanguage];
+        const alternateHeader = resolveLanguageLabelSet(alternateLanguage, labels);
 
         localStorage.setItem('preferredLanguage', language);
         languageSelector.innerHTML = `
@@ -141,9 +146,9 @@ async function setLanguageButton() {
         bindMobileLanguageSelector();
     } catch (error) {
         console.warn('Using fallback language labels:', error);
-        const header = languageLabelFallbacks[language] || languageLabelFallbacks.en;
+        const header = resolveLanguageLabelSet(language, languageLabelFallbacks);
         const alternateLanguage = language === 'ru' ? 'en' : 'ru';
-        const alternateHeader = languageLabelFallbacks[alternateLanguage];
+        const alternateHeader = resolveLanguageLabelSet(alternateLanguage, languageLabelFallbacks);
         languageSelector.innerHTML = `
             <button class="dropbtn" type="button">
                 <img src="${window.R2_BASE_URL}media/language-icon-white.png" class="language-icon" alt="">
@@ -648,16 +653,20 @@ function populateSidebar(side, data) {
 
 // Function to set localized text
 function setBaseLocalizedText() {
-    //console.log('Setting localized text for base elements');
-    const language = getCurrentLanguage();  // Get the current language setting
+    const language = getCurrentLanguage();
     const rootPrefix = getRootPrefix();
+
     fetchSiteData().then(data => {
-        // Set the site title
-        document.title = getLocalizedValue(data.siteTitle);
+        // Only set generic site title on non-article pages
+        // const isArticlePage = window.location.pathname.includes('/article');
+        // if (!isArticlePage) {
+        //     document.title = getLocalizedValue(data.siteTitle);
+        // }
 
         // Insert navigation
         insertNav(data);
         setupMobileExperience(data);
+        // ... rest of your existing function code ...
 
         // Update text for footer grid item 1
         const footerGridItem1 = document.querySelector('#footer-grid-item1 .footer-grid-item-list').children;
