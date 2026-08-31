@@ -2963,6 +2963,12 @@ body.mobile-layout-active footer {
     transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
 
+body.mobile-layout-active .gallery-zoom-close {
+    top: calc(64px + env(safe-area-inset-top));
+    right: 16px;
+    z-index: 1500;
+}
+
 .gallery-zoom-close:hover {
     color: #ffffff;
     background-color: rgba(0, 0, 0, 0.55);
