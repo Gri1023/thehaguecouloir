@@ -3,8 +3,9 @@ export async function onRequest(context) {
         // Dynamically derive 'http://localhost:8788' or 'https://thehaguecouloir.com'
         const origin = new URL(context.request.url).origin;
 
-        // Fetch data using the absolute origin
-        const dataResponse = await fetch(`${origin}/json/site-data.json`);
+        // Use the site-content API because the public JSON path may resolve to
+        // the SPA shell in production rather than the data asset.
+        const dataResponse = await fetch(`${origin}/api/site-content`);
 
         if (!dataResponse.ok) {
             throw new Error(`Failed to load data: ${dataResponse.status}`);

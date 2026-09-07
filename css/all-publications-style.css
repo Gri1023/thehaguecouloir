@@ -1,0 +1,267 @@
+.all-publications-container {
+    margin: 20px 0;
+}
+
+.all-publications-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    margin: 0;
+}
+
+.filter-button {
+    position: relative;
+    font-family: 'Roboto', serif;
+}
+
+.sort-button {
+    text-align: center;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Roboto', serif;
+}
+
+.filter-option,
+.sort-option {
+    background-color: transparent;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.filter-option:hover,
+.filter-option.active,
+.sort-option:hover,
+.sort-option.active {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.all-publications-text p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+}
+
+.filter-option-news,
+.filter-option-article,
+.filter-option-opinion,
+.filter-option-academic,
+.filter-option-live-note {
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-news {
+    color: red;
+    border: 1px solid red;
+}
+
+.filter-option-article {
+    color: #438afc;
+    border: 1px solid #438afc;
+}
+
+.filter-option-opinion {
+    color: #ffa500;
+    border: 1px solid #ffa500;
+}
+
+.filter-option-academic {
+    color: burlywood;
+    border: 1px solid burlywood;
+}
+
+.filter-option-live-note {
+    color: green;
+    border: 1px solid green;
+}
+
+.filter-option-news.active {
+    color: white;
+    background: linear-gradient(to right, #ff0000, #ff6666);
+    border: none;
+}
+
+.filter-option-article.active {
+    color: white;
+    background: linear-gradient(to right, #438afc, #85b9fd);
+    border: none;
+}
+
+.filter-option-opinion.active {
+    color: white;
+    background: linear-gradient(to right, #ffa500, #ffc766);
+    border: none;
+}
+
+.filter-option-academic.active {
+    color: white;
+    background: linear-gradient(to right, burlywood, #c7b39a);
+    border: none;
+}
+
+.filter-option-live-note.active {
+    color: white;
+    background: linear-gradient(to right, green, rgb(61, 255, 47));
+    border: none;
+}
+
+.all-publications-container {
+    margin: 0 0;
+}
+
+.all-publications-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    margin: 0;
+}
+
+.filter-button {
+    position: relative;
+    font-family: 'Roboto', serif;
+}
+
+.sort-button {
+    text-align: center;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Roboto', serif;
+}
+
+.filter-option,
+.sort-option {
+    background-color: transparent;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.filter-option:hover,
+.filter-option.active,
+.sort-option:hover,
+.sort-option.active {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Styles for sub-headings */
+.all-publications-text p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    /* margin-bottom: 20px; */
+}
+
+/* Specific styles for type filter buttons */
+.filter-option-news {
+    color: red;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border: 1px solid red;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-news.active {
+    color: white;
+    background: linear-gradient(to right, #ff0000, #ff6666);
+    border: none;
+}
+
+.filter-option-article {
+    color: #438afc;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border: 1px solid #438afc;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-article.active {
+    color: white;
+    background: linear-gradient(to right, #438afc, #85b9fd);
+    border: none;
+}
+
+.filter-option-opinion {
+    color: #ffa500;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border: 1px solid #ffa500;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-opinion.active {
+    color: white;
+    background: linear-gradient(to right, #ffa500, #ffc766);
+    border: none;
+}
+
+.filter-option-academic {
+    color: burlywood;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border: 1px solid burlywood;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-academic.active {
+    color: white;
+    background: linear-gradient(to right, burlywood, #c7b39a);
+    border: none;
+}
+
+.filter-option-live-note {
+    color: green;
+    background-color: white;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    border: 1px solid green;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-option-live-note.active {
+    color: white;
+    background: linear-gradient(to right, green, rgb(61, 255, 47));
+    border: none;
+}

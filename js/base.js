@@ -572,6 +572,7 @@ function populateSidebar(side, data) {
                             `<a href="${prefixRootPath(url)}" target="_blank" class="${className}">${label}</a>`
                         );
                     };
+                    const stripInlineFormatting = text => `${text}`.replace(/<\/?(?:b|strong|i|em|u|mark|small|sub|sup)\b[^>]*>/gi, '');
 
                     let html = `
             <div class="live-notes-wallpaper" style="background-image: url('${R2_BASE_URL}media/telegram-default-wallpaper.png');"></div>
@@ -587,7 +588,9 @@ function populateSidebar(side, data) {
                         const textContent = note.content.find(item => item.type === 'text');
 
                         // Process text content precisely, converting links and spoilers inline
-                        const rawText = textContent ? getLocalizedValue(textContent.value || '') : '';
+                        const rawText = textContent
+                            ? stripInlineFormatting(getLocalizedValue(textContent.value || ''))
+                            : '';
                         const noteText = rawText ? getLinks(rawText, 'text-with-link').replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>') : '';
 
                         // Count attachments

@@ -44,6 +44,10 @@ function isVisibleForCurrentLanguage(item) {
     return !item.lang || item.lang === 'all' || item.lang === currentLanguage;
 }
 
+function stripInlineFormatting(text) {
+    return `${text}`.replace(/<\/?(?:b|strong|i|em|u|mark|small|sub|sup)\b[^>]*>/gi, '');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page loaded, initializing loadAllPublications');
 
@@ -288,7 +292,7 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
         if (!displayTitle && item.type === 'live-note' && item.content) {
             const textItem = item.content.find(c => c.type === 'text');
             if (textItem) {
-                let textValue = getLocalizedValue(textItem.value || '');
+                let textValue = stripInlineFormatting(getLocalizedValue(textItem.value || ''));
 
                 // 1. Strip Markdown links: converts "[Text](URL)" into plain "Text"
                 textValue = textValue.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1');
@@ -301,12 +305,14 @@ function renderArticles(types = [], tags = [], sortOrder = 'newest') {
             }
         }
 
+        const displayTitleText = stripInlineFormatting(displayTitle || '');
+
         articleElement.innerHTML = `
             <a>
                 ${mediaHTML}
                 <div class="content">
                     <p class="${item.type}">${getLocalizedValue(data.types[item.type])}</p>
-                    <h3 class="title">${displayTitle || ''}</h3>
+                    <h3 class="title">${displayTitleText}</h3>
                     <p class="date">${timeAgo(item.date)}</p>
                 </div>
             </a>

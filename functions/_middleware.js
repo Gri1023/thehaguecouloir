@@ -6,8 +6,13 @@ export async function onRequest(context) {
     const url = new URL(context.request.url);
     const pathname = url.pathname.toLowerCase().replace(/\/$/, '') || '/';
 
+    // The SEO middleware must not wrap the data function that it consumes.
+    if (pathname === '/api/site-content') {
+        return context.next();
+    }
+
     // Skip static assets (.js, .css, images, fonts, manifests, sitemaps, robots)
-    if (pathname.match(/\.(js|css|pcss|png|jpg|jpeg|gif|ico|svg|webp|woff|woff2|ttf|json|webmanifest|xml|txt|map)$/)) {
+    if (pathname.match(/\.(js|css|pcss|png|jpg|jpeg|gif|ico|svg|webp|pdf|woff|woff2|ttf|json|webmanifest|xml|txt|map)$/)) {
         return context.next();
     }
 
@@ -16,11 +21,10 @@ export async function onRequest(context) {
     const lang = url.searchParams.get('lang');
 
     try {
-        // Fetch site-data.json dynamically to read global site properties
-        const dataUrl = `${url.origin}/json/site-data.json`;
-        const dataResponse = context.env?.ASSETS
-            ? await context.env.ASSETS.fetch(new Request(dataUrl))
-            : await fetch(dataUrl);
+        // Use the same JSON API as the client. The public JSON path is routed
+        // to the SPA shell in production, so it cannot be parsed as data.
+        const dataUrl = `${url.origin}/api/site-content`;
+        const dataResponse = await fetch(dataUrl);
 
         if (!dataResponse.ok) {
             return nextWithDebug(context, `Bypassed - site-data.json fetch failed (${dataResponse.status})`);

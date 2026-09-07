@@ -1,0 +1,695 @@
+.sidebars-left-item,
+.sidebars-right-item {
+    z-index: 10;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 10px;
+    /* margin: 0 clamp(12px, 1.3vw, 24px); */
+}
+
+.sidebars-left {
+    grid-column: 1;
+    grid-row: 1/3;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.sidebars-left-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.sidebars-right-partial {
+    grid-column: 3;
+    grid-row: 2;
+    width: 100%;
+    background-color: whitesmoke;
+    margin-top: clamp(10px, 1.5vw, 20px);
+}
+
+.sidebars-right-full {
+    grid-column: 3;
+    grid-row: 1/3;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.sidebars-right-partial .sidebars-right-grid,
+.sidebars-right-full .sidebars-right-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.sidebars-right-full .sidebars-right-grid {
+    margin-top: 50px;
+}
+
+body.mobile-layout-active .sidebars-left,
+body.mobile-layout-active .sidebars-right-partial,
+body.mobile-layout-active .sidebars-right-full {
+    display: none;
+}
+
+#sidebars-left-item2 {
+    background: linear-gradient(135deg,
+            /* Diagonal gradient (top-left to bottom-right) */
+            #a9dffc 10%,
+            /* Light blue at the center */
+            #4b8abe 90%
+            /* Primary blue at the end */
+        );
+    font-family: "Roboto", serif;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#sidebars-left-item2 a {
+    margin: 15px 15px 15px 15px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    display: block;
+    float: none;
+    /* Ensure it doesn’t overlap */
+}
+
+.bias-card {
+    position: relative;
+    overflow: hidden;
+    background: #111;
+    padding: 200% 20px 20px;
+    min-height: 320px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: "Roboto", serif;
+}
+
+.bias-card> :not(.bias-image-wrapper) {
+    position: relative;
+    z-index: 2;
+}
+
+.bias-card-heading h3 {
+    color: white;
+    margin: 0 0 10px;
+    font-size: 1.05rem;
+    line-height: 1.3;
+}
+
+.bias-card-heading p {
+    margin: 0;
+    color: lightgrey;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.bias-card-button {
+    background: transparent;
+    color: #f4ecd8;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    height: fit-content;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    position: relative;
+}
+
+.bias-card-button::after {
+    content: '❯';
+    margin-left: 12px;
+    font-size: 1.1em;
+}
+
+.bias-card-button-active {
+    background: linear-gradient(135deg, #f8d96a, #ebb349);
+    color: #111;
+    padding: min(10%, 16.7px);
+    border-color: transparent;
+    box-shadow: 0 10px 30px rgba(239, 196, 81, 0.25);
+}
+
+.bias-card-button-inactive {
+    background: transparent;
+    color: #f8d96a;
+    padding: min(10%, 15px);
+    border-color: rgba(248, 217, 106, 0.9);
+    border: 2px solid rgba(248, 217, 106, 0.9);
+}
+
+.bias-card-button:hover {
+    transform: scale(1.05);
+}
+
+.bias-card-button-inactive:hover {
+    box-shadow: 0 5px 15px rgba(239, 196, 81, 0.25);
+}
+
+.bias-image-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #101010 0%, #181818 100%);
+    margin: 0;
+    z-index: 0;
+}
+
+.bias-image-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.bias-image {
+    position: relative;
+    transform: translateY(-20px);
+    inset: 0;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    z-index: 1;
+}
+
+.bias-image-off {
+    opacity: 1;
+    z-index: 2;
+}
+
+.bias-image-on {
+    opacity: 0;
+    z-index: 1;
+}
+
+.bias-image-wrapper.bias-image-active .bias-image-off {
+    opacity: 0;
+    z-index: 1;
+}
+
+.bias-image-wrapper.bias-image-active .bias-image-on {
+    opacity: 1;
+    z-index: 2;
+}
+
+.bias-image-placeholder {
+    display: none;
+}
+
+.bias-visibility-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bias-visibility-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.bias-visibility-count {
+    min-width: auto;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.bias-visibility-count.bias-on {
+    color: green;
+}
+
+.bias-visibility-count.bias-off {
+    color: red;
+}
+
+.bias-switch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    /* Prevents the user from highlighting the image */
+    user-select: none;
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+
+    /* Prevents the 'ghost' image when trying to drag */
+    -webkit-user-drag: none;
+
+    /* Disables the long-press 'Save Image' menu on mobile */
+    -webkit-touch-callout: none;
+}
+
+.bias-switch input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.bias-switch-image {
+    display: block;
+    width: min(160px, 72%);
+    max-width: 160px;
+    height: auto;
+    pointer-events: none;
+}
+
+.join-telegram-button {
+    background: linear-gradient(135deg, #2196f3, #00c6ff);
+    /* Blue gradient */
+    color: white;
+    padding: 5px;
+    margin: 15px;
+    border-radius: 7px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.join-telegram-button:hover {
+    transform: scale(1.05);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.telegram-3d-icon {
+    width: 70px;
+    height: 70px;
+    position: relative;
+    left: 8px;
+    top: -8px;
+    float: right;
+    /* Float image to the right */
+}
+
+#navContainer {
+    padding: 20px 0;
+    color: white;
+    background-color: #1e1c1c;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#logo-link {
+    display: flex;
+    align-self: center;
+}
+
+#navContainer .logo {
+    width: 75px;
+    height: 75px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#navContainer .navigation-title-text {
+    font-family: 'Lobster', serif;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 1.625rem;
+    color: white;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+#navContainer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#navContainer li {
+    display: block;
+}
+
+#navContainer .navigation-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding: min(10%, 15px);
+    margin-left: min(1%, 10px);
+    width: 100%;
+    font-size: 1.125rem;
+    font-family: "Roboto", serif;
+}
+
+#navContainer .navigation-icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    fill: #939393;
+    filter: brightness(0.7);
+    transition: all .3s ease;
+    margin-right: 10px;
+}
+
+#navContainer li:hover .navigation-icon {
+    filter: brightness(1);
+}
+
+#navContainer li:hover {
+    background-color: #1a1818;
+}
+
+.mobile-nav-content #navContainer {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1c1c;
+}
+
+.mobile-nav-content #navContainer .navigation-link {
+    box-sizing: border-box;
+}
+
+/* Fixes conflicting system wrapper styles while preserving important layout positioning */
+#sidebars-right-item1 {
+    position: relative;
+    font-family: "Roboto", serif;
+    font-weight: regular;
+    border-radius: 16px;
+    /* Preserves your essential vertical margins */
+    margin-bottom: 20px;
+    overflow: hidden;
+    background: transparent;
+}
+
+#sidebars-right-item1 .live-notes-wallpaper {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+}
+
+#sidebars-right-item1 .live-note-bubble-target a {
+    margin: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    display: block;
+    float: none;
+}
+
+/* Container adjustments - Deeply zoomed-out wallpaper and custom sage-green gradient wash */
+.live-notes-container {
+    position: relative;
+    min-height: 100%;
+    background-color: #94b28a;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
+    isolation: isolate;
+}
+
+.live-notes-container>.live-notes-wallpaper {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Smoothed, ultra-gradual fade-in blend masks matching image_465904.png */
+.live-notes-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, #94b28a 5%, rgba(148, 178, 138, 0.9) 35%, rgba(148, 178, 138, 0));
+    z-index: 5;
+    pointer-events: none;
+}
+
+.live-notes-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: linear-gradient(to top, #94b28a 8%, rgba(148, 178, 138, 0.9) 40%, rgba(148, 178, 138, 0));
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Floating top capsule */
+.live-notes-header {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(254, 254, 254, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 10px 24px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    z-index: 10;
+    width: 85%;
+    white-space: nowrap;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.online-indicator {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.online-indicator img {
+    width: 100%;
+    height: 100%;
+    height: 48px;
+    width: 48px;
+    object-fit: contain;
+}
+
+/* Attachment preview controls and contextual drop-wrappers */
+.live-note-attachments {
+    font-size: 0.75rem;
+    color: #2481CC;
+    display: block;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 2px;
+}
+
+.live-note-attachments:hover {
+    text-decoration: underline;
+}
+
+.live-note-attachments-wrapper {
+    position: relative;
+    display: block;
+    width: fit-content;
+    z-index: 3;
+    /* Elevated hover layout focus layer */
+}
+
+.attachment-preview {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+
+.live-note-attachments-wrapper:hover .attachment-preview {
+    display: block;
+}
+
+.live-note-attachments:hover+.attachment-preview {
+    display: block;
+}
+
+.preview-thumbnails {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 4px;
+    align-items: center;
+}
+
+.preview-image-thumbnail,
+.preview-video-thumbnail {
+    height: 60px;
+    width: auto;
+    max-width: 120px;
+    flex: 0 0 auto;
+    border-radius: 4px;
+}
+
+/* Floating bottom capsule button link layout */
+.live-notes-show-all {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(254, 254, 254, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 12px 0;
+    border-radius: 24px;
+    color: #111111;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-align: center;
+    width: 85%;
+    z-index: 10;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.live-notes-show-all:hover {
+    background-color: #ffffff;
+    transform: translateX(-50%) scale(1.02);
+}
+
+.nav-container-background {
+    background-color: transparent;
+    z-index: 200;
+    height: 675px;
+    position: relative;
+}
+
+.live-notes-title {
+    margin: 0;
+    font-size: 1.03125rem;
+    font-weight: 700;
+    color: #111111;
+    text-transform: none;
+    letter-spacing: -0.2px;
+}
+
+/* Chat stream scroll listing region */
+.live-notes-list {
+    padding: 70px 10px 85px 24px;
+    /* Balanced protective padding to keep tail clear of edges */
+    max-height: 510px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Target only live note items inside the live notes list to beat line 1320 */
+.live-notes-list .live-note-item {
+    padding: 11px 14px;
+    gap: 4px;
+    color: #000000;
+    background-color: #ffffff;
+    position: relative;
+    width: 94%;
+    box-sizing: border-box;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    /* 1. FORCE THE LAYOUT (Overrides line 1320's display: block) */
+    display: flex !important;
+    flex-direction: column;
+
+    /* 2. REMOVE GENERIC CARD BORDER (Overrides line 1320's border) */
+    border: none !important;
+
+    /* 3. APPLY CORRECT TELEGRAM CORNERS (Overrides line 1320's border-radius) */
+    border-radius: 12px 12px 12px 0px !important;
+
+    /* 4. SHADOWS */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* Hover state override */
+.live-notes-list .live-note-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+/* Invisible block click target layer - Handles full bubble clicking safely */
+.live-note-bubble-target {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: auto;
+    /* Sits over the bubble base layout */
+}
+
+/* White Telegram-style tail */
+.live-notes-list .live-note-item::before {
+    content: "";
+    position: absolute;
+    left: -11px;
+    bottom: 0;
+    width: 12px;
+    height: 16px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='16' viewBox='0 0 12 16'><path d='M12 0C12 6 8 12 0 16H12V0Z' fill='%23ffffff'/></svg>");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+/* Strictly forced right-aligned date/time footer string layout */
+.live-note-time {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: #707579;
+    text-transform: lowercase;
+    text-align: right;
+    /* Aligns text block to the right */
+    display: block;
+    pointer-events: none;
+    width: 100%;
+    margin-top: 4px;
+    position: relative;
+    z-index: 2;
+    /* Keeps text element layer on top */
+}

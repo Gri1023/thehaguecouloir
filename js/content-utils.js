@@ -278,6 +278,9 @@ function buildContentItemHtml(item, data = {}) {
 
 function initializeSpoilers() {
     document.querySelectorAll('.spoiler-text').forEach(elem => {
+        if (elem.dataset.spoilerInitialized) return;
+        elem.dataset.spoilerInitialized = 'true';
+
         elem.addEventListener('click', () => {
             elem.classList.toggle('revealed');
         });
