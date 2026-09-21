@@ -1,0 +1,785 @@
+/* Ensure the flag font is checked first on every element */
+*,
+*::before,
+*::after {
+    font-family: "Twemoji Country Flags", 'Roboto', serif;
+}
+
+/* CONTAINER SECTION  */
+
+.container {
+    background-color: #fff;
+    border-radius: 17px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px 0px;
+    border: 1px solid rgba(0, 0, 0, .08);
+    /* min-height: 740px; */
+    z-index: 1;
+}
+
+body.mobile-layout-active .container {
+    width: calc(100% - 24px);
+    max-width: none;
+    margin: 12px;
+}
+
+main-text {
+    font-family: 'Roboto', serif;
+}
+
+/* Base styles for padding with responsive adjustment */
+main-text .opinion,
+main-text .article,
+main-text .news,
+main-text .academic,
+main-text .live-note,
+main-text .caption-text,
+main-text .information,
+main-text .warning,
+main-text .error,
+main-text .quote,
+main-text .heading-text,
+main-text .subheading-text,
+main-text .sub-subheading-text,
+main-text .info-text,
+main-text p,
+main-text .tags-section,
+main-text .pdf-toolbar,
+main-text .table-of-contents {
+    margin-left: clamp(24px, 4vw + 1rem, 72px);
+    margin-right: clamp(24px, 4vw + 1rem, 72px);
+    scroll-margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+
+    main-text .opinion,
+    main-text .article,
+    main-text .news,
+    main-text .academic,
+    main-text .live-note,
+    main-text .caption-text,
+    main-text .information,
+    main-text .warning,
+    main-text .error,
+    main-text .quote,
+    main-text .heading-text,
+    main-text .subheading-text,
+    main-text .sub-subheading-text,
+    main-text .info-text,
+    main-text p,
+    main-text .tags-section,
+    main-text .pdf-toolbar,
+    main-text .table-of-contents {
+        margin-left: clamp(12px, 3.5vw + 0.5rem, 36px);
+        margin-right: clamp(12px, 3.5vw + 0.5rem, 36px);
+    }
+}
+
+main-text .heading-text {
+    font-family: 'Roboto', serif;
+    font-size: 1.5rem;
+    color: inherit;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+main-text .heading-text-with-link {
+    font-family: 'Roboto', serif;
+    text-decoration: underline;
+    color: inherit;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #2481CC;
+}
+
+main-text .subheading-text {
+    font-family: 'Roboto', serif;
+    font-size: 1.375rem;
+    margin-bottom: 10px;
+}
+
+main-text .sub-subheading-text {
+    font-family: 'Roboto', serif;
+    font-size: 1.125rem;
+    margin-bottom: 5px;
+}
+
+main-text p {
+    font-family: 'Roboto', serif;
+    color: #333;
+    font-size: 1.125rem;
+    line-height: 150%;
+    flex: 1;
+    /* Ensures text takes up the remaining space */
+}
+
+main-text .text-with-link {
+    font-family: 'Roboto', serif;
+    text-decoration: none;
+    color: #2481CC;
+    font-size: 1.125rem;
+    line-height: 150%;
+}
+
+main-text .info-text {
+    font-family: 'Roboto', serif;
+    font-size: 0.875rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+main-text .info-text-with-link {
+    font-family: 'Roboto', serif;
+    text-decoration: underline;
+    font-size: 0.875rem;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+}
+
+main-text .spoiler-text {
+    font-family: 'Roboto', serif;
+    font-size: 1.125rem;
+    line-height: 150%;
+    flex: 1;
+    color: #333;
+    text-shadow: none;
+    filter: blur(3px);
+    background-color: transparent;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+main-text .spoiler-text:hover {
+    color: #333;
+    filter: none;
+}
+
+main-text .spoiler-text.revealed {
+    filter: none;
+    color: inherit;
+}
+
+main-text .main-image {
+    display: block;
+    margin: 0 auto;
+    align-items: center;
+    border-radius: 13px;
+    max-height: 500px;
+    max-width: 95%;
+}
+
+main-text .main-video {
+    display: block;
+    margin: auto;
+    max-width: 95%;
+    margin-bottom: 10px;
+    border-radius: 13px;
+    object-fit: cover;
+    /* Ensures the video fits nicely within the container */
+}
+
+main-text .image {
+    display: block;
+    margin: auto;
+    max-width: 90%;
+    max-height: 500px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+main-text .pdf-container {
+    margin: 1rem 0;
+}
+
+main-text .pdf-toolbar {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 10px;
+}
+
+main-text .pdf-open,
+main-text .pdf-download {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #438afc;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+main-text .pdf-open:hover,
+main-text .pdf-download:hover {
+    background-color: #2e5fbf;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+main-text .pdf-frame {
+    width: 100%;
+    height: 850px;
+    border: none;
+}
+
+main-text .caption-text {
+    font-family: 'Roboto', serif;
+    text-align: center;
+    line-height: 110%;
+    font-size: 0.875rem;
+    color: #7f8c8d;
+    margin-top: 10px;
+}
+
+main-text .caption-text-with-link {
+    font-family: 'Roboto', serif;
+    text-align: center;
+    text-decoration: underline;
+    line-height: 95%;
+    font-size: 0.875rem;
+    color: #7f8c8d;
+}
+
+main-text .quote {
+    font-family: 'Roboto', serif;
+    background-color: #f0e6ff;
+    line-height: 140%;
+    padding: 10px 20px 10px 45px;
+    /* Adjusted padding for the entire quote block */
+    border-radius: 7px;
+    position: relative;
+    border-left: 7px solid #9966ff;
+    margin-bottom: 10px;
+}
+
+main-text .quote-text-with-link {
+    font-family: 'Roboto', serif;
+    line-height: 140%;
+    position: relative;
+    text-decoration: none;
+    color: #7333cc;
+}
+
+main-text .quote::before {
+    content: "🗨️";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem;
+}
+
+main-text .information {
+    font-family: 'Roboto', serif;
+    background-color: #0091ff37;
+    line-height: 140%;
+    padding: 10px 20px 10px 45px;
+    /* Adjusted padding for the entire quote block */
+    border-radius: 7px;
+    position: relative;
+    border-left: 7px solid #00aaff;
+    margin-bottom: 10px;
+}
+
+main-text .information-text-with-link {
+    font-family: 'Roboto', serif;
+    line-height: 140%;
+    position: relative;
+    text-decoration: none;
+    color: rgb(0, 60, 255);
+}
+
+main-text .information::before {
+    content: "ℹ️";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem;
+}
+
+main-text .warning {
+    background-color: #fff3cd;
+    border: 1px solid #e5d39b;
+    padding: 10px 20px 10px 45px;
+    /* Adjusted padding for the entire quote block */
+    border-radius: 7px;
+    position: relative;
+    border-left: 6px solid #d39e00;
+    margin-bottom: 10px;
+}
+
+main-text .warning::before {
+    content: "⚠️";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+}
+
+
+main-text .error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px 20px 10px 45px;
+    /* Adjusted padding for the entire quote block */
+    border-radius: 7px;
+    position: relative;
+    border-left: 6px solid #a92631;
+    margin-bottom: 10px;
+}
+
+main-text .error::before {
+    content: "🛑";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem;
+}
+
+main-text .tags-section {
+    margin-top: 20px;
+}
+
+main-text .related-topics-tags {
+    display: flex;
+    justify-content: flex-end;
+    /* Aligns tags to the right */
+    gap: 10px;
+}
+
+main-text .related-topic-tag,
+.tag-option {
+    display: inline-block;
+    background-color: #d9d9d9;
+    color: #979696;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.875rem;
+    margin-bottom: 10px;
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 0, .08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+main-text .related-topic-tag:hover,
+.tag-option:hover {
+    background-color: #979696;
+    color: white;
+}
+
+/* TABLE OF CONTENTS SECTION */
+
+main-text .table-of-contents {
+    background-color: #f0f4f8;
+    /* Light, airy grayish-blue */
+    border: 1px solid #d9e2ec;
+    /* Soft border to define the edges */
+    padding: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    /* Softer, elegant shadow */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+main-text .toc-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    padding: 16px 20px;
+    background-color: transparent;
+    /* Changed */
+    color: #334155;
+    border-bottom: none;
+    /* Changed */
+    flex-grow: 1;
+    /* Pushes the arrow to the right */
+}
+
+main-text .toc-list {
+    counter-reset: section;
+    list-style-type: none;
+    padding: 12px 10px;
+    /* Gives the list items some breathing room inside the box */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main-text .toc-list li {
+    margin: 2px 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    counter-increment: section;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+    position: relative;
+    /* REQUIRED for the clickable overlay */
+}
+
+/* Updated ::before element to include a smooth color transition */
+main-text .toc-list li::before {
+    content: counter(section) ".";
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #64748b;
+    /* Softens the number color so it doesn't overpower the text */
+    min-width: 24px;
+    flex-shrink: 0;
+    transition: color 0.2s ease;
+    /* Added smooth transition for the color */
+}
+
+main-text .toc-list a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    /* Matches the li border-radius */
+}
+
+/* NEW: Styles for the retractable header */
+main-text .toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e1e7ef;
+    border-bottom: 1px solid #d9e2ec;
+    cursor: pointer;
+    /* Shows the user they can click it */
+    padding-right: 20px;
+    transition: background-color 0.2s ease;
+}
+
+main-text .toc-header:hover {
+    background-color: #d2dbe5;
+    /* Slight hover effect for the header */
+}
+
+/* NEW: The toggle arrow icon */
+main-text .toc-toggle-icon {
+    transition: transform 0.3s ease;
+    /* Smooth rotation */
+}
+
+/* NEW: The collapsible container */
+main-text .toc-collapsible {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+main-text .toc-collapsible-inner {
+    overflow: hidden;
+    /* Hides the content as it shrinks */
+}
+
+/* NEW: Collapsed state styles applied via JavaScript */
+main-text .table-of-contents.collapsed .toc-collapsible {
+    grid-template-rows: 0fr;
+}
+
+main-text .table-of-contents.collapsed .toc-header {
+    border-bottom-color: transparent;
+    /* Removes the line when closed */
+}
+
+main-text .table-of-contents.collapsed .toc-toggle-icon {
+    transform: rotate(180deg);
+    /* Points the arrow upwards */
+}
+
+/* 
+   Unique Number Colors on Hover 
+   Each nth-child represents an item in your list (1st, 2nd, 3rd, etc.)
+*/
+main-text .toc-list li:nth-child(1):hover::before {
+    color: #ef4444;
+    /* Rose Red */
+}
+
+main-text .toc-list li:nth-child(2):hover::before {
+    color: #3b82f6;
+    /* Bright Blue */
+}
+
+main-text .toc-list li:nth-child(3):hover::before {
+    color: #10b981;
+    /* Emerald Green */
+}
+
+main-text .toc-list li:nth-child(4):hover::before {
+    color: #f59e0b;
+    /* Warm Amber */
+}
+
+main-text .toc-list li:nth-child(5):hover::before {
+    color: #8b5cf6;
+    /* Vibrant Purple */
+}
+
+main-text .toc-list li:nth-child(6):hover::before {
+    color: #ec4899;
+    /* Pink */
+}
+
+main-text .toc-list li:nth-child(7):hover::before {
+    color: #0ea5e9;
+    /* Light Blue/Cyan */
+}
+
+main-text .toc-list li:hover {
+    background-color: #e2e8f0;
+    /* Soft hover highlight */
+    transform: translateX(4px);
+    /* Stylish little nudge to the right */
+}
+
+main-text .toc-list a {
+    text-decoration: none;
+    color: #1e293b;
+    font-size: 1.125rem;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    display: inline;
+    width: auto;
+    flex: 1;
+}
+
+main-text .toc-list li:hover a {
+    color: #0f172a;
+    /* Darkens the text slightly on hover for contrast */
+}
+
+/* GALLERY SECTION */
+
+/* Gallery wrapper keeps the entire gallery clipped to its own bounds on mobile */
+.gallery-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gallery-container {
+    position: relative;
+    width: 100%;
+    max-width: 90%;
+    margin: auto;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* Stage reserves a fixed-size box for the active media so swapping
+   between an image and a video (different aspect ratios) doesn't
+   shift the surrounding article layout. The box is bounded by both
+   an aspect-ratio and a max-height so tall videos still fit. */
+.gallery-stage {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 500px;
+    /* Keep the fixed stage for stable navigation controls, but let the
+       page background show through around media with a different ratio. */
+    background-color: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Main Image Display */
+.gallery-main-image,
+.gallery-main-video,
+.gallery-zoom-image,
+.gallery-zoom-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: all .3s ease;
+    border-radius: 8px;
+}
+
+/* Thumbnail Container */
+.gallery-thumbnails {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Individual Thumbnail */
+.gallery-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 5px;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.gallery-thumbnail:hover,
+.gallery-thumbnail.active {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Navigation Buttons - round, semi-transparent, with a glassy backdrop */
+.gallery-nav-button {
+    position: absolute;
+    top: 50%;
+    /* Position the button over the image area, not the thumbnails row.
+       The stage is capped at 500px max-height; we anchor to the
+       gallery-container's top with a slight offset so it lands roughly
+       on the image. */
+    transform: translateY(calc(-50% - 30px));
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 2;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(calc(-50% - 30px)) scale(1.05);
+}
+
+.gallery-nav-button svg {
+    display: block;
+}
+
+.gallery-nav-button.left {
+    left: 14px;
+}
+
+.gallery-nav-button.right {
+    right: 14px;
+}
+
+/* GALLERY ZOOM */
+.gallery-zoom-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    z-index: 97;
+    isolation: isolate;
+}
+
+.gallery-zoom-image,
+.gallery-zoom-video {
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-zoom-overlay.active {
+    display: flex;
+}
+
+/* Close (X) button in the zoom overlay - grey by default, white on hover */
+.gallery-zoom-close {
+    position: fixed;
+    top: max(18px, env(safe-area-inset-top));
+    right: max(18px, env(safe-area-inset-right));
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(220, 220, 220, 0.85);
+    padding: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 999;
+    pointer-events: auto;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+body.mobile-layout-active .gallery-zoom-close {
+    top: calc(64px + env(safe-area-inset-top));
+    right: 16px;
+    z-index: 1500;
+}
+
+.gallery-zoom-close:hover {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.55);
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: scale(1.05);
+}
+
+.gallery-zoom-close svg {
+    display: block;
+}
+
+/* Styles for the video container */
+.video-container {
+    display: block;
+    margin: auto;
+    max-width: 90%;
+    margin-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}

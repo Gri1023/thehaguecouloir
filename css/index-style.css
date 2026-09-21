@@ -1,0 +1,418 @@
+/* Ensure the flag font is checked first on every element */
+*,
+*::before,
+*::after {
+    font-family: "Twemoji Country Flags", 'Roboto', serif;
+}
+
+/* HIGHLIGHTED ACTICLE/CONTENT SECTION */
+
+.highlighted-content {
+    position: relative;
+    z-index: 2;
+    margin-top: 150px;
+    /* Ensure the content stays above the background and vignette */
+    text-align: left;
+    /* Horizontally center the text */
+    margin-right: 150px;
+    margin-left: 20px;
+    height: fit-content;
+    font-family: 'Roboto', serif;
+    position: relative;
+}
+
+.type-date {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto;
+    /* Each item takes up width based on its content */
+    gap: 5px;
+    margin-top: auto;
+    /* Push the type-date div to the bottom */
+    font-size: 0.75rem;
+    color: #ccc;
+}
+
+/* Container for the image */
+/* Styles for the highlighted article section */
+#highlighted-article {
+    position: relative;
+    display: flex;
+    background-size: cover;
+    background-position: center;
+    height: 675px;
+    color: white;
+    background-blend-mode: multiply;
+    overflow: hidden;
+}
+
+/* 4. This now safely targets only your main large featured text elements */
+#highlighted-article span {
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* The vignette effect (always visible) */
+.highlighted-article::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle, transparent 0%, rgba(0, 0, 0, 0.6) 80%),
+        /* Radial gradient for soft edges */
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0.9) 100%),
+        /* Vertical gradient from center */
+        linear-gradient(to left, rgba(0, 0, 0, 0) 90%, rgba(0, 0, 0, 0.9) 100%);
+    /* Horizontal gradient from center */
+    z-index: 1;
+    /* Above the image */
+    pointer-events: none;
+    /* Ensure it doesn't block interaction */
+}
+
+.highlighted-title a {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+    font-family: 'Roboto', serif;
+    margin-top: 20px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.highlighted-title {
+    align-items: center;
+    /* Vertically center children */
+    gap: 8px;
+    /* Optional: space between title and indicator */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 2. Position the source above the text block without pushing content down */
+.highlighted-source {
+    position: absolute;
+    margin-top: 20px;
+    top: -140px;
+    display: block;
+
+    /* Typography & Core Colors */
+    font-family: inherit;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+
+    /* Underline Configurations */
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.25);
+    /* 👈 FIX: Forcing lower opacity bypasses the pixel-snapping bug */
+    text-underline-offset: 2px;
+
+    /* Handles all animations (switch, fade, slide, and hover) smoothly both ways */
+    transition: all 0.3s ease;
+}
+
+/* Make sure .highlighted-image stays at the back */
+.highlighted-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.highlighted-image.fade-in {
+    opacity: 1;
+}
+
+/* HIGHLIGHTED GRID SECTION */
+
+/* Highlighted articles */
+.highlighted-articles-grid {
+    position: absolute;
+    margin-top: 495px;
+    color: white;
+    padding: 20px;
+    justify-content: flex-end;
+    /* Aligns content to the bottom */
+    z-index: 5;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 0 20;
+    justify-content: flex-end;
+    /* Aligns content to the bottom */
+}
+
+/* General styling for grid-item */
+.grid-item {
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    /* Smooth transition for hover effects */
+    background-color: transparent;
+    /* Default background */
+    box-shadow: none;
+    /* No shadow by default */
+    cursor: pointer;
+    /* Makes grid-item look clickable */
+    font-family: 'Roboto', serif;
+    font-size: 0.75rem;
+}
+
+/* Make the grid-item fully clickable */
+.grid-item-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    /* Inherit text color to keep the design consistent */
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    /* Ensure link is on top of other content */
+}
+
+/* Add hover effect to emphasize interaction */
+.grid-item:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+    /* Slight lift effect */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    /* Optional for extra polish */
+}
+
+/* Slim grey stick on top of grid-item */
+.grid-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 4px;
+    /* Slim stick */
+    background-color: grey;
+    transition: all 0.3s ease;
+}
+
+.grid-item h3 {
+    color: lightgrey;
+    opacity: 0.9;
+    z-index: 10;
+    transition: color 0.3s ease;
+
+    /* CRUCIAL: Keep this -webkit-box so it clips text and forces "ACADEMIC" to the next line */
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2em;
+    max-height: calc(1.2em * 6);
+
+    /* Safe shadow that doesn't create the ugly dark box outline */
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.7));
+}
+
+/* 2. Block the global text-shadow from messing up your grid items */
+#highlighted-article .grid-item h3 span,
+#highlighted-article .grid-item {
+    text-shadow: none !important;
+}
+
+/* Purple stick when grid-item is active */
+.grid-item.active::before {
+    background-color: #d500f9;
+    height: 5px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 4px rgba(128, 0, 128, 0.5);
+    /* Slightly thicker stick */
+}
+
+/* Highlighted h3 color */
+.grid-item.active h3 {
+    color: white;
+    opacity: 1;
+}
+
+/* Safe clean up if no image source is present, without breaking transitions */
+.highlighted-source:empty {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+.highlighted-source a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+/* 👈 FIX: Hovering the block now transitions BOTH text and underline to white together */
+.highlighted-source:hover {
+    color: #ffffff;
+    text-decoration-color: rgba(255, 255, 255, 0.6);
+}
+
+.highlighted-type {
+    display: inline-block;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    font-size: 1.5rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.highlighted-date {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-family: 'Roboto', serif;
+    color: grey;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Button styles for the lower-right corner */
+.highlighted-button {
+    position: absolute;
+    bottom: 0px;
+    top: 450px;
+    right: 50px;
+    font-size: 1.375rem;
+    z-index: 2;
+}
+
+.highlighted-button-link {
+    display: inline-block;
+    padding: 15px 30px;
+    /* Increased padding for a bigger button */
+    background: linear-gradient(45deg, #7c4dff, #d500f9, #7c4dff);
+    background-size: 200% 200%;
+    background-position: 0% 50%;
+    /* More contrasting colors */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    /* Slightly more rounded corners */
+    box-shadow: 0 0 10px rgba(117, 43, 255, 0.5);
+    /* Glow effect */
+    transition: all .3s ease, background-position 3s ease;
+    /* Added transition for glow and scale */
+    will-change: transform, background;
+}
+
+.highlighted-button-link:hover {
+    /* Swapped colors for hover effect */
+    transform: scale(1.1);
+    /* Slightly increase size on hover */
+    box-shadow: 0 0 20px rgba(117, 43, 255, 1);
+    background-position: 100% 50%;
+    transition: all .3s ease, background-position 3s ease;
+    /* More intense glow on hover */
+}
+
+
+/* VIDEO INDICATOR SECTION */
+
+.video-indicator {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Roboto', serif;
+    background-color: red;
+    color: white;
+    padding: 5px 8px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-left: 12px;
+    margin-bottom: 11px;
+    position: static;
+    vertical-align: middle;
+    /* Add this for inline alignment */
+    line-height: 1;
+    /* Prevent extra vertical space */
+
+}
+
+.video-indicator .dot {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    /* Add this for dot alignment */
+}
+
+/* Safe clean up if no image source is present, without breaking transitions */
+.video-indicator:empty {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+/* PUBLICATION SECTION AT INDEX */
+
+.publication-section {
+    margin: 20px 0;
+    font-family: 'Roboto', serif;
+}
+
+.publication-section-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Roboto', serif;
+    margin-top: 24px;
+    margin-bottom: 0;
+}
+
+.publication-section-subheading {
+    font-size: 1rem;
+    color: grey;
+    font-style: italic;
+    font-family: 'Roboto', serif;
+    margin-bottom: 20px;
+}
+
+.publication-section-button-text {
+    font-size: 1rem;
+    color: grey;
+    font-family: 'Roboto', serif;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.publication-section-button {
+    font-size: 1rem;
+    color: grey;
+    font-family: 'Roboto', serif;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #d9d9d9;
+    color: #979696;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, .08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.publication-section-button:hover {
+    background-color: #979696;
+    color: white;
+    transition: all 0.3s ease;
+}

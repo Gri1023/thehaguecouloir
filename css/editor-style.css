@@ -1,3 +1,10 @@
+/* Ensure the flag font is checked first on every element */
+*,
+*::before,
+*::after {
+    font-family: "Twemoji Country Flags", 'Roboto', serif;
+}
+
 /* Ensure the editor styling matches the article */
 body {
     font-family: 'Aptos', Arial, sans-serif;

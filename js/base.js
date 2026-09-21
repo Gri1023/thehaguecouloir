@@ -12,6 +12,19 @@ function isLocalDev() {
     );
 }
 
+// EMOJI LOAD (With Debug Logging)
+console.log("🚩 [Emoji Fix] Starting polyfill import...");
+
+import("https://cdn.skypack.dev/country-flag-emoji-polyfill")
+    .then((module) => {
+        console.log("🚩 [Emoji Fix] Polyfill module fetched successfully.");
+        module.polyfillCountryFlagEmojis();
+        console.log("🚩 [Emoji Fix] polyfillCountryFlagEmojis() executed!");
+    })
+    .catch((error) => {
+        console.error("🚩 [Emoji Fix] Failed to load polyfill script:", error);
+    });
+
 // Cloudflare R2 public bucket base URL. 
 // Evaluates dynamically: uses local relative paths when debugging locally, or the live R2 URL when in production.
 const PRODUCTION_R2_URL = 'https://pub-795f9426259d4926a0308a9099f50d25.r2.dev/';
@@ -26,7 +39,7 @@ function isMobileLayoutEligiblePage() {
         return false;
     }
 
-    const eligiblePrefixes = ['/article', '/about', '/bias', '/your-data'];
+    const eligiblePrefixes = ['/article', '/about', '/bias', '/your-data', '/all-publications'];
     return eligiblePrefixes.some(prefix => path === prefix || path.startsWith(`${prefix}/`));
 }
 
@@ -541,17 +554,21 @@ function populateSidebar(side, data) {
             }
 
             if (item.type === 'telegram') {
+                const titleText = getLocalizedValue(item.title);
+                const bodyText = getLocalizedValue(item.text);
+                const buttonText = getLocalizedValue(item.button);
+
                 itemDiv.innerHTML = `
-                <img src="${R2_BASE_URL}media/Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
-                <a href="${item.link}">
-                    ${getLocalizedValue(item.text)}
-                </a>
-                <div class="join-telegram-button">
-                    <a href="${item.link}"></a>
-                    <a href="${item.link}">${getLocalizedValue(item.button)}</a>
-                </div>
-                `;
-                //console.log(`Adding sidebar item: ${getLocalizedValue(item.text)}`, { side });
+        <img src="${R2_BASE_URL}media/Telegram_Logo_old.png" class="telegram-3d-icon" alt="Telegram Icon">
+        <div class="telegram-card-content">
+            <h4 class="telegram-title">${titleText}</h4>
+            <p class="telegram-text">${bodyText}</p>
+        </div>
+        <a href="${item.link}" class="join-telegram-button" target="_blank" rel="noopener">
+            ${buttonText}
+        </a>
+    `;
+
                 grid.appendChild(itemDiv);
             }
 

@@ -155,7 +155,10 @@ function renderArticleTags(tagsDiv, articleData, data, rootPrefix) {
     tagsDiv.innerHTML = '';
     if (!Array.isArray(articleData.tags) || articleData.tags.length === 0) return;
 
-    const tags = data.tags || {};
+    const tags = Object.values(data.tagCategories || {}).reduce((lookup, category) => {
+        Object.assign(lookup, category.tags || {});
+        return lookup;
+    }, {});
     const links = articleData.tags
         .filter(tagKey => Object.prototype.hasOwnProperty.call(tags, tagKey))
         .map(tagKey => {
