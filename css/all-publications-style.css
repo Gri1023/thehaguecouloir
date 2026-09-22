@@ -3,36 +3,39 @@
 *::before,
 *::after {
     font-family: "Twemoji Country Flags", 'Roboto', serif;
+    box-sizing: border-box;
 }
 
 /* ===== ALL PUBLICATIONS STYLES ===== */
 
-/* .all-publications-container {
-} */
+.all-publications-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
 
-/* Publications Header Container - wraps title and tag filters */
-.publications-header-container {
+/* Shared Card Styling — Fluid Padding replacing fixed 640px step */
+.publications-header-container,
+.type-sort-container-wrapper {
     background-color: #fff;
     border-radius: 17px;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-    padding: 20px 24px;
     border: 1px solid rgba(0, 0, 0, .08);
-    margin-bottom: 20px;
-}
-
-body.mobile-layout-active .publications-header-container {
-    width: calc(100% - 24px);
-    max-width: none;
-    margin: 12px auto 20px;
-    padding: 16px 16px;
+    margin-bottom: 15px;
+    /* Scales padding smoothly between 16px and 24px based on screen width */
+    padding: clamp(1rem, 2.5vw, 1.25rem) clamp(1rem, 3.5vw, 1.5rem);
+    min-width: 0;
+    flex: 1;
 }
 
 .all-publications-text p {
-    font-size: 1.5rem;
+    /* Fluid font size: scales smoothly between 1.25rem and 1.5rem */
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
     font-weight: bold;
     margin: 0;
 }
 
+/* Search Controls */
 .publication-search-container {
     position: relative;
     margin-top: 16px;
@@ -67,7 +70,6 @@ body.mobile-layout-active .publications-header-container {
 
 .publication-search-input {
     width: 100%;
-    box-sizing: border-box;
     min-width: 0;
     padding: 11px 0 10px;
     border: none;
@@ -75,6 +77,7 @@ body.mobile-layout-active .publications-header-container {
     background: transparent;
     color: #333;
     font: inherit;
+    font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .publication-search-input::placeholder {
@@ -89,6 +92,7 @@ body.mobile-layout-active .publications-header-container {
     cursor: pointer;
 }
 
+/* Tag Suggestions */
 .tag-suggestions {
     position: absolute;
     top: calc(100% + 6px);
@@ -140,10 +144,9 @@ body.mobile-layout-active .publications-header-container {
     font-size: .85rem;
 }
 
+/* Advanced Filters Accordion */
 .advanced-filters {
     margin-top: 16px;
-    border-top: 1px solid rgba(0, 0, 0, .08);
-    padding-top: 14px;
 }
 
 .advanced-filters summary {
@@ -184,14 +187,12 @@ body.mobile-layout-active .publications-header-container {
 }
 
 .advanced-filters.open .advanced-filters-panel {
-    max-height: 100vh;
+    /* Fluid max height ensuring phone displays have enough room */
+    max-height: clamp(280px, 50vh, 500px);
     opacity: 1;
+    overflow: auto;
+    margin-bottom: 20px;
 }
-
-/* Tag Filter Container with Categories */
-/* .tag-filter-container-with-categories {
-    font-family: 'Roboto', serif;
-} */
 
 .advanced-filters .tag-filter-container-with-categories {
     margin-top: 0;
@@ -209,7 +210,7 @@ body.mobile-layout-active .publications-header-container {
 .tag-categories {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: clamp(12px, 2vw, 16px);
 }
 
 .tag-category {
@@ -232,15 +233,15 @@ body.mobile-layout-active .publications-header-container {
     gap: 0.5rem;
 }
 
-/* Tag Option - similar to related tags in content utils */
+/* Tag Option */
 .tag-option {
     display: inline-flex;
     align-items: center;
     background-color: #d9d9d9;
     color: #979696;
-    padding: 5px 10px;
+    padding: clamp(4px, 1vw, 5px) clamp(8px, 1.5vw, 10px);
     border-radius: 5px;
-    font-size: 0.875rem;
+    font-size: clamp(0.8125rem, 1.5vw, 0.875rem);
     text-decoration: none;
     border: 1px solid rgba(0, 0, 0, .08);
     cursor: pointer;
@@ -262,46 +263,28 @@ body.mobile-layout-active .publications-header-container {
     background-color: #0069d9;
 }
 
-/* Type & Sort Container Wrapper - identical to publications-header-container */
-.type-sort-container-wrapper {
-    background-color: #fff;
-    border-radius: 17px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-    padding: 20px 24px;
-    border: 1px solid rgba(0, 0, 0, .08);
-    margin-bottom: 20px;
-    flex: 1;
-}
-
-body.mobile-layout-active .type-sort-container-wrapper {
-    width: calc(100% - 24px);
-    max-width: none;
-    margin: 12px auto 20px;
-    padding: 16px 16px;
-}
-
-/* Type & Sort Container - side by side */
+/* Type & Sort Container - Fluid wrapping layout */
 .type-sort-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 15px;
-    align-items: center;
+    align-items: flex-start;
+    gap: 16px;
 }
 
-/* .type-filter-container,
-.sort-container {
-    font-family: 'Roboto', serif;
-} */
-
 .type-filter-container {
+    flex: 1 1 320px;
+    /* Takes primary space */
     min-width: 0;
 }
 
 .sort-container {
+    flex: 0 0 auto;
+    /* Pushes to the far right when on the same row */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
+    min-width: 0;
 }
 
 .type-filter-container .filter-label,
@@ -313,54 +296,34 @@ body.mobile-layout-active .type-sort-container-wrapper {
     color: #333;
 }
 
-.type-buttons {
+.type-buttons,
+.sort-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
 }
 
 .sort-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
+/* Completely Fluid Content Grid — No Media Query Breakpoints Needed */
 .content-grid {
-    grid-template-columns: repeat(3, 1fr);
+    display: grid;
+    /* Automatically fits 3, 2, or 1 column based on container width */
+    grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+    gap: 16px;
 }
 
-@media (min-width: 1024px) {
-    body.mobile-layout-active .content-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+/* .content-grid .content {
+    padding: clamp(14px, 2vw, 20px);
 }
 
-@media (max-width: 1023px) {
+.content-grid .title {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+} */
 
-    .content-grid,
-    body.mobile-layout-active .content-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 539px) {
-
-    .content-grid,
-    body.mobile-layout-active .content-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .content-grid .content {
-        padding: 14px;
-    }
-
-    .content-grid .title {
-        font-size: 1rem;
-    }
-}
-
-/* Type Filter Buttons */
+/* Filter Option Button Base Styling */
 .filter-option-news,
 .filter-option-article,
 .filter-option-opinion,
@@ -374,6 +337,7 @@ body.mobile-layout-active .type-sort-container-wrapper {
     cursor: pointer;
     transition: all 0.3s;
     border: 1px solid transparent;
+    flex: 0 0 auto;
 }
 
 .filter-option-news {
@@ -442,6 +406,7 @@ body.mobile-layout-active .type-sort-container-wrapper {
     transition: all 0.3s;
     border: 1px solid #d9d9d9;
     color: #979696;
+    flex: 0 0 auto;
 }
 
 .sort-option:hover {
@@ -460,65 +425,15 @@ body.mobile-layout-active .type-sort-container-wrapper {
     background-color: #0069d9;
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .publication-search-input {
-        font-size: 1rem;
-    }
-
-    .tag-suggestions {
-        max-height: 220px;
-    }
-
-    .type-sort-container {
-        flex-direction: column;
-        gap: 16px;
-        align-items: stretch;
-    }
-
-    .type-filter-container,
-    .sort-container {
-        width: 100%;
-    }
-
-    .sort-container {
-        align-items: flex-start;
-    }
+/* Optional horizontal scroll overflow for small devices */
+@media (max-width: 480px) {
 
     .type-buttons,
     .sort-buttons {
         flex-wrap: nowrap;
-        justify-content: flex-start;
         overflow-x: auto;
         white-space: nowrap;
-        gap: 8px;
         padding-bottom: 4px;
         scrollbar-width: thin;
-    }
-
-    .tag-categories {
-        gap: 12px;
-    }
-
-    .tag-category-tags {
-        gap: 0.4rem;
-    }
-
-    .tag-option {
-        font-size: 0.8125rem;
-        padding: 4px 8px;
-    }
-}
-
-@media (max-width: 640px) {
-    .type-sort-container-wrapper {
-        padding: 16px;
-    }
-
-    .type-buttons>button,
-    .sort-buttons>button {
-        flex: 0 0 auto;
-        min-height: 36px;
-        white-space: nowrap;
     }
 }

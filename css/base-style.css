@@ -35,17 +35,33 @@
     min-width: auto;
 }
 
-.mobile-site-header .dropbtn {
+.mobile-site-header .language-selector .dropbtn {
     background: rgba(255, 255, 255, 0.08);
     color: white;
     border: none;
-    padding: 10px 10px;
-    font-size: 0.95rem;
+    padding: 10px 12px;
+    font-size: 0.9rem;
     line-height: 1;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     border-radius: 10px;
+}
+
+.mobile-site-header .language-selector .language-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0.8);
+    transition: filter 0.2s ease;
+}
+
+.mobile-site-header .language-selector .dropbtn:hover .language-icon {
+    filter: brightness(1);
+}
+
+.mobile-site-header .language-selector .lang-text-full,
+.mobile-site-header .language-selector .lang-text-short {
+    font-weight: 500;
 }
 
 .mobile-site-header .dropdown-menu {
@@ -122,12 +138,14 @@ body.mobile-nav-open {
     width: 34px;
     height: 34px;
     flex-shrink: 0;
+    font-family: 'Lobster', serif;
 }
 
 .mobile-site-brand span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-family: 'Lobster', serif;
 }
 
 .mobile-nav-panel {
@@ -322,6 +340,11 @@ body.mobile-layout-active .mobile-limited-banner {
     font-family: 'Roboto', serif;
 }
 
+/* Hide language selector when it contains no content */
+.language-selector:empty {
+    display: none !important;
+}
+
 .language-selector:hover {
     background-color: #1a1818;
 }
@@ -384,6 +407,107 @@ body.mobile-layout-active .mobile-limited-banner {
 /* Show dropdown menu on button hover or click */
 .language-selector:hover .dropdown-menu {
     display: block;
+}
+
+/* ===== SIDEBAR LANGUAGE SWITCH WIDGET ===== */
+
+/* Container inside the right sidebar */
+.sidebar-lang-switch-container {
+    width: 100%;
+}
+
+/* Sliding track wrapper */
+.sidebar-lang-switch {
+    position: relative;
+    display: flex;
+    width: 100%;
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    border-radius: 14px;
+    padding: 4px;
+    box-sizing: border-box;
+    user-select: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Base button options */
+.lang-switch-option {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
+    border-radius: 10px;
+}
+
+.lang-switch-option:hover {
+    color: #ddd;
+    transform: scale(1.02);
+}
+
+.lang-switch-option.active {
+    color: #ffffff;
+}
+
+/* Flag icons in sidebar switch */
+.lang-switch-flag {
+    font-size: 1.1rem;
+    line-height: 1;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Animated sliding pill indicator */
+.lang-switch-glider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    width: calc(50% - 4px);
+    background: linear-gradient(135deg, #438afc 0%, #2d6cdf 100%);
+    border-radius: 10px;
+    z-index: 1;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 12px rgba(67, 138, 252, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Glider movement states */
+.sidebar-lang-switch[data-active-lang="en"] .lang-switch-glider {
+    transform: translateX(100%);
+}
+
+.sidebar-lang-switch[data-active-lang="ru"] .lang-switch-glider {
+    transform: translateX(0%);
+}
+
+/* Hide top-right float on non-index pages with sidebar */
+.top-right-lang-selector:not([style*="display: none"]) {
+    /* This will be controlled by JS */
+}
+
+/* Hide top-right float and sidebar switch on mobile layout */
+body.mobile-layout-active .top-right-lang-selector,
+body.mobile-layout-active .sidebar-lang-switch-container {
+    display: none !important;
+}
+
+/* Mobile header language selector - show properly */
+body.mobile-layout-active .mobile-site-header .language-selector {
+    display: inline-flex !important;
+}
+
+body.mobile-layout-active .mobile-site-header .language-selector .dropbtn {
+    display: inline-flex !important;
 }
 
 .lang-option-full,
@@ -461,9 +585,9 @@ body.mobile-layout-active .mobile-site-header .language-selector.is-open .dropdo
     gap: 20px;
 }
 
-.sidebars-right-full .sidebars-right-grid {
+/* .sidebars-right-full .sidebars-right-grid {
     margin-top: 50px;
-}
+} */
 
 body.mobile-layout-active .sidebars-left,
 body.mobile-layout-active .sidebars-right-partial,

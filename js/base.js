@@ -81,6 +81,17 @@ function updateMobileLayoutState() {
         item.style.display = shouldHide ? 'none' : '';
     });
 
+    // Handle language selectors visibility on mobile and sidebar pages
+    const floatingSelector = document.getElementById('languageSelector');
+    if (floatingSelector) {
+        const shouldHideFloating = useMobileLayout || (hasRightSidebarContainer() && !isIndexPageCheck());
+        floatingSelector.style.display = shouldHideFloating ? 'none' : '';
+    }
+    const sidebarSwitchContainer = document.querySelector('.sidebar-lang-switch-container');
+    if (sidebarSwitchContainer) {
+        sidebarSwitchContainer.style.display = useMobileLayout ? 'none' : '';
+    }
+
     const overlay = document.getElementById('mobileNavOverlay');
     if (overlay) {
         overlay.classList.toggle('is-open', false);
@@ -135,6 +146,41 @@ async function setLanguageButton() {
     const languageSelector = document.getElementById('languageSelector');
     if (!languageSelector) return;
 
+    const isMobile = shouldUseMobileLayout();
+    const hasRightSidebar = hasRightSidebarContainer();
+    const isIndexPage = isIndexPageCheck();
+
+    // Always render mobile header selector if mobile layout is active or page has no sidebar
+    if (isMobile || !hasRightSidebar || isIndexPage) {
+        languageSelector.classList.add('top-right-lang-selector');
+        languageSelector.style.display = '';
+        await renderFloatingLanguageSelector(language, languageSelector);
+    } else {
+        // Desktop view with right sidebar: hide header selector and render sidebar switch
+        languageSelector.classList.add('top-right-lang-selector');
+        languageSelector.style.display = 'none';
+        languageSelector.innerHTML = '';
+        await renderSidebarLanguageSwitch(language);
+    }
+}
+
+// Check if the page has a right sidebar container
+function hasRightSidebarContainer() {
+    // Check for right sidebar grid containers
+    const rightSidebarGrid = document.querySelector('.sidebars-right-grid');
+    const rightSidebarPartial = document.querySelector('.sidebars-right-partial');
+    const rightSidebarFull = document.querySelector('.sidebars-right-full');
+    return !!(rightSidebarGrid || rightSidebarPartial || rightSidebarFull);
+}
+
+// Check if this is the index page
+function isIndexPageCheck() {
+    const path = window.location.pathname;
+    return path === '/' || path === '/index.html' || path.endsWith('/index.html');
+}
+
+// Render the floating language selector (top-right)
+async function renderFloatingLanguageSelector(language, languageSelector) {
     try {
         const data = await fetchSiteData();
         const labels = data.languageLabels || languageLabelFallbacks;
@@ -179,6 +225,128 @@ async function setLanguageButton() {
     }
 }
 
+// Render the sidebar language switch widget
+async function renderSidebarLanguageSwitch(language) {
+    const rightSidebarGrid = document.querySelector('.sidebars-right-grid');
+    if (!rightSidebarGrid) return;
+
+    // Check if already rendered
+    if (document.querySelector('.sidebar-lang-switch-container')) return;
+
+    try {
+        const data = await fetchSiteData();
+        const labels = data.languageLabels || languageLabelFallbacks;
+        const ruLabel = resolveLanguageLabelSet('ru', labels);
+        const enLabel = resolveLanguageLabelSet('en', labels);
+
+        const container = document.createElement('div');
+        container.className = 'sidebar-lang-switch-container';
+        container.innerHTML = `
+            <div class="sidebar-lang-switch" data-active-lang="${language}">
+                <button class="lang-switch-option ${language === 'ru' ? 'active' : ''}" data-lang="ru" onclick="switchLanguageFromSidebar('ru')">
+                    <span class="lang-switch-text">${ruLabel.full}</span>
+                </button>
+                <button class="lang-switch-option ${language === 'en' ? 'active' : ''}" data-lang="en" onclick="switchLanguageFromSidebar('en')">
+                    <span class="lang-switch-text">${enLabel.full}</span>
+                </button>
+                <div class="lang-switch-glider"></div>
+            </div>
+        `;
+
+        // Insert as first child of the right sidebar grid
+        rightSidebarGrid.insertBefore(container, rightSidebarGrid.firstChild);
+    } catch (error) {
+        console.warn('Using fallback language labels for sidebar switch:', error);
+        const ruLabel = resolveLanguageLabelSet('ru', languageLabelFallbacks);
+        const enLabel = resolveLanguageLabelSet('en', languageLabelFallbacks);
+
+        const container = document.createElement('div');
+        container.className = 'sidebar-lang-switch-container';
+        container.innerHTML = `
+            <div class="sidebar-lang-switch" data-active-lang="${language}">
+                <button class="lang-switch-option ${language === 'ru' ? 'active' : ''}" data-lang="ru" onclick="switchLanguageFromSidebar('ru')">
+                    <span class="lang-switch-flag">🇷🇺</span>
+                    <span class="lang-switch-text">${ruLabel.full}</span>
+                </button>
+                <button class="lang-switch-option ${language === 'en' ? 'active' : ''}" data-lang="en" onclick="switchLanguageFromSidebar('en')">
+                    <span class="lang-switch-flag">🇺🇸</span>
+                    <span class="lang-switch-text">${enLabel.full}</span>
+                </button>
+                <div class="lang-switch-glider"></div>
+            </div>
+        `;
+
+        const rightSidebarGrid = document.querySelector('.sidebars-right-grid');
+        if (rightSidebarGrid) {
+            rightSidebarGrid.insertBefore(container, rightSidebarGrid.firstChild);
+        }
+    }
+}
+
+// Switch language from sidebar widget
+function switchLanguageFromSidebar(language) {
+    // Update the sidebar switch UI
+    const sidebarSwitch = document.querySelector('.sidebar-lang-switch');
+    if (sidebarSwitch) {
+        sidebarSwitch.dataset.activeLang = language;
+        sidebarSwitch.querySelectorAll('.lang-switch-option').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === language);
+        });
+    }
+
+    // Handle language selectors visibility
+    const floatingSelector = document.getElementById('languageSelector');
+    if (floatingSelector) {
+        if (useMobileLayout) {
+            floatingSelector.style.display = '';
+            // If innerHTML was cleared during desktop mode, re-render it
+            if (!floatingSelector.children.length) {
+                setLanguageButton();
+            }
+        } else {
+            const hideForDesktopSidebar = hasRightSidebarContainer() && !isIndexPageCheck();
+            floatingSelector.style.display = hideForDesktopSidebar ? 'none' : '';
+            if (hideForDesktopSidebar) {
+                floatingSelector.innerHTML = '';
+            } else if (!floatingSelector.children.length) {
+                setLanguageButton();
+            }
+        }
+    }
+
+    // Call the existing changeLanguage function
+    changeLanguage(language);
+}
+
+// Update floating selector display without triggering navigation
+function updateFloatingSelectorDisplay(language) {
+    const labels = languageLabelFallbacks; // Use fallbacks for immediate update
+    const header = resolveLanguageLabelSet(language, labels);
+
+    const floatingSelector = document.getElementById('languageSelector');
+    if (!floatingSelector) return;
+
+    const dropbtn = floatingSelector.querySelector('.dropbtn');
+    if (dropbtn) {
+        const fullText = dropbtn.querySelector('.lang-text-full');
+        const shortText = dropbtn.querySelector('.lang-text-short');
+        if (fullText) fullText.textContent = header.full;
+        if (shortText) shortText.textContent = header.short;
+    }
+
+    // Update dropdown menu
+    const alternateLanguage = language === 'ru' ? 'en' : 'ru';
+    const alternateHeader = resolveLanguageLabelSet(alternateLanguage, labels);
+    const dropdownLink = floatingSelector.querySelector('.dropdown-menu a');
+    if (dropdownLink) {
+        dropdownLink.onclick = () => changeLanguage(alternateLanguage);
+        const fullOption = dropdownLink.querySelector('.lang-option-full');
+        const shortOption = dropdownLink.querySelector('.lang-option-short');
+        if (fullOption) fullOption.textContent = alternateHeader.full;
+        if (shortOption) shortOption.textContent = alternateHeader.short;
+    }
+}
+
 function moveNavigationForLayout(useMobileLayout) {
     const navigation = document.getElementById('navContainer');
     const mobileContainer = document.querySelector('.mobile-nav-content');
@@ -215,7 +383,22 @@ function changeLanguage(language) {
 
     currentLanguage = language;
 
-    // 2. Update the URL and reload
+    // 2. Update the sidebar switch UI if it exists
+    const sidebarSwitch = document.querySelector('.sidebar-lang-switch');
+    if (sidebarSwitch) {
+        sidebarSwitch.dataset.activeLang = language;
+        sidebarSwitch.querySelectorAll('.lang-switch-option').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === language);
+        });
+    }
+
+    // 3. Update the floating selector if it exists
+    const floatingSelector = document.getElementById('languageSelector');
+    if (floatingSelector) {
+        updateFloatingSelectorDisplay(language);
+    }
+
+    // 4. Update the URL and reload
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('lang', language);
     window.location.search = urlParams.toString();

@@ -98,9 +98,9 @@ body.mobile-layout-active .container {
     box-sizing: border-box;
 }
 
-body.mobile-layout-active .content-grid {
+/* body.mobile-layout-active .content-grid {
     grid-template-columns: 1fr;
-}
+} */
 
 body.mobile-layout-active .publication-section {
     margin: 20px 12px;
@@ -282,9 +282,9 @@ article.live-note-item img {
 
 .content {
     font-family: 'Roboto', serif;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-bottom: 3%;
+    margin-left: 4%;
+    margin-right: 4%;
+    margin-bottom: 4%;
     display: flex;
     flex-direction: column;
     height: 100%;
