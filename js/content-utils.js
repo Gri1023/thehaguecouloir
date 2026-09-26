@@ -79,6 +79,8 @@ function loadJsonSection(sectionName, containerId) {
                 initializeGallery();
                 initializeSpoilers();
                 initializeTOC();
+                initializeExpandableText();
+
 
                 // THE REAL SOLUTION: Handle scroll restoration after content renders
                 if (window.location.hash) {
@@ -143,6 +145,7 @@ function loadArticleContent() {
             initializeGallery();
             initializeSpoilers();
             initializeTOC();
+            initializeExpandableText(); // Add here
         })
         .catch(error => {
             console.error('Error loading article content:', error);
@@ -245,15 +248,13 @@ function buildContentItemHtml(item, data = {}) {
             </div>
             <iframe src="${prefixRootPath(pdfPath)}" class="pdf-frame" loading="lazy"></iframe>
         </div>`;
-        case 'table-of-contents':
-            const tocTitle = getLocalizedValue(item.title || '');
+        case 'table-of-contents': {
+            const tocTitle = getLocalizedValue(item.title || '') || 'Table of Contents';
             let tocHtml = `
             <div class="table-of-contents">
                 <div class="toc-header">
                     <h2 class="toc-title">${tocTitle}</h2>
-                    <svg class="toc-toggle-icon" viewBox="0 0 24 24" width="24" height="24" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
+                    <img src="${prefixRootPath('media/ui/arrow-down-icon.svg')}" alt="" class="toc-toggle-icon" width="24" height="24">
                 </div>
                 <div class="toc-collapsible">
                     <div class="toc-collapsible-inner">
@@ -274,6 +275,27 @@ function buildContentItemHtml(item, data = {}) {
             }
             tocHtml += '</div></div></div>';
             return tocHtml;
+        }
+
+        case 'expandable-text': {
+            let expandableInnerHtml = '';
+            if (Array.isArray(item.value)) {
+                expandableInnerHtml = item.value.map(childItem => buildContentItemHtml(childItem, data)).join('');
+            } else {
+                const val = getLocalizedValue(item.value || '');
+                expandableInnerHtml = `<p>${getLinks(val, 'expandable-text-with-link').replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>')}</p>`;
+            }
+
+            return `
+            <div class="expandable-text collapsed">
+                <div class="expandable-text-content">
+                    ${expandableInnerHtml}
+                </div>
+                <button class="expandable-text-toggle" aria-label="Toggle text expansion">
+                    <img src="${prefixRootPath('media/ui/arrow-down-icon.svg')}" alt="" class="expandable-toggle-icon">
+                </button>
+            </div>`;
+        }
         default:
             return '';
     }
@@ -302,6 +324,43 @@ function initializeTOC() {
         });
     });
 }
+function initializeExpandableText() {
+    document.querySelectorAll('.expandable-text').forEach(container => {
+        if (container.dataset.expandableInitialized) return;
+        container.dataset.expandableInitialized = 'true';
+
+        const content = container.querySelector('.expandable-text-content');
+
+        container.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+
+            const isCollapsing = container.classList.contains('expanded');
+
+            if (!isCollapsing) {
+                // Set exact pixel height before expanding
+                content.style.setProperty('--content-height', content.scrollHeight + 'px');
+            }
+
+            container.classList.toggle('collapsed');
+            container.classList.toggle('expanded');
+
+            if (isCollapsing) {
+                const rect = container.getBoundingClientRect();
+                const topOffset = 200; // Pixels of breathing room above element (adjust as needed)
+
+                // Only scroll if the top of the container has scrolled off-screen above the viewport
+                if (rect.top < topOffset) {
+                    const targetY = window.scrollY + rect.top - topOffset;
+                    window.scrollTo({
+                        top: targetY,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+}
+
 
 let galleryInstanceCount = 0;
 

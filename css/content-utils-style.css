@@ -45,7 +45,8 @@ main-text .info-text,
 main-text p,
 main-text .tags-section,
 main-text .pdf-toolbar,
-main-text .table-of-contents {
+main-text .table-of-contents,
+main-text .expandable-text {
     margin-left: clamp(24px, 4vw + 1rem, 72px);
     margin-right: clamp(24px, 4vw + 1rem, 72px);
     scroll-margin-top: 50px;
@@ -70,7 +71,8 @@ main-text .table-of-contents {
     main-text p,
     main-text .tags-section,
     main-text .pdf-toolbar,
-    main-text .table-of-contents {
+    main-text .table-of-contents,
+    main-text .expandable-text {
         margin-left: clamp(12px, 3.5vw + 0.5rem, 36px);
         margin-right: clamp(12px, 3.5vw + 0.5rem, 36px);
     }
@@ -473,10 +475,11 @@ main-text .toc-header:hover {
     /* Slight hover effect for the header */
 }
 
-/* NEW: The toggle arrow icon */
 main-text .toc-toggle-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
     transition: transform 0.3s ease;
-    /* Smooth rotation */
 }
 
 /* NEW: The collapsible container */
@@ -566,6 +569,110 @@ main-text .toc-list a {
 main-text .toc-list li:hover a {
     color: #0f172a;
     /* Darkens the text slightly on hover for contrast */
+}
+
+/* EXPANDABLE TEXT SECTION */
+
+main-text .expandable-text {
+    font-family: 'Roboto', serif;
+    background-color: #f0e6ff;
+    line-height: 140%;
+    padding: 12px 36px 12px 20px;
+    border-radius: 7px;
+    position: relative;
+    border-left: 7px solid #9966ff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* Bottom fade-out gradient overlay */
+main-text .expandable-text::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2.5em;
+    background: linear-gradient(to bottom, rgba(240, 230, 255, 0) 0%, #f0e6ff 100%);
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease-in-out;
+}
+
+/* Show gradient only when collapsed */
+main-text .expandable-text.collapsed::after {
+    opacity: 1;
+}
+
+/* Keep the arrow button above the gradient overlay */
+main-text .expandable-text-toggle {
+    z-index: 2;
+}
+
+main-text .expandable-text-content {
+    font-family: 'Roboto', serif;
+    color: #333;
+    font-size: 1.125rem;
+    line-height: 150%;
+    overflow: hidden;
+    transition: max-height 0.35s ease-in-out;
+}
+
+/* Collapsed state (~3 lines) */
+main-text .expandable-text.collapsed .expandable-text-content {
+    max-height: 4.5em;
+}
+
+/* Expanded state uses dynamic content height (no ceiling, perfectly smooth) */
+main-text .expandable-text.expanded .expandable-text-content {
+    max-height: var(--content-height, 1000px);
+}
+
+/* Reset side margins for all nested elements inside expandable field */
+main-text .expandable-text-content * {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+main-text .expandable-text-content>*:first-child {
+    margin-top: 0;
+}
+
+main-text .expandable-text-content>*:last-child {
+    margin-bottom: 0;
+}
+
+main-text .expandable-text-toggle {
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main-text .expandable-toggle-icon {
+    display: block;
+    transition: transform 0.3s ease;
+    /* Transforms the #334155 slate color into #7333cc purple */
+    filter: invert(24%) sepia(82%) saturate(2800%) hue-rotate(256deg) brightness(88%) contrast(92%);
+}
+
+main-text .expandable-toggle-icon,
+main-text .toc-toggle-icon {
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+main-text .expandable-text.expanded .expandable-toggle-icon {
+    transform: rotate(180deg);
 }
 
 /* GALLERY SECTION */

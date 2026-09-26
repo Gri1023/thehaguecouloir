@@ -17,12 +17,12 @@ console.log("🚩 [Emoji Fix] Starting polyfill import...");
 
 import("https://cdn.skypack.dev/country-flag-emoji-polyfill")
     .then((module) => {
-        console.log("🚩 [Emoji Fix] Polyfill module fetched successfully.");
+        // console.log("🚩 [Emoji Fix] Polyfill module fetched successfully.");
         module.polyfillCountryFlagEmojis();
-        console.log("🚩 [Emoji Fix] polyfillCountryFlagEmojis() executed!");
+        // console.log("🚩 [Emoji Fix] polyfillCountryFlagEmojis() executed!");
     })
     .catch((error) => {
-        console.error("🚩 [Emoji Fix] Failed to load polyfill script:", error);
+        // console.error("🚩 [Emoji Fix] Failed to load polyfill script:", error);
     });
 
 // Cloudflare R2 public bucket base URL. 
@@ -156,7 +156,7 @@ function getCurrentLanguage() {
 
 const languageLabelFallbacks = {
     en: { full: 'English', short: 'ENG' },
-    ru: { full: '\u0420\u0443\u0441\u0441\u043a\u0438\u0439', short: '\u0420\u0423\u0421' }
+    ru: { full: 'Русский', short: 'РУС' }
 };
 
 function resolveLanguageLabelSet(language, labels = languageLabelFallbacks) {
@@ -189,20 +189,36 @@ async function setLanguageButton() {
     if (!languageSelector) return;
 
     const currentLang = getCurrentLanguage();
-    const currentLabel = currentLang === 'ru' ? 'Русский' : 'English';
+    const isMobile = shouldUseMobileLayout();
+    const labelSet = resolveLanguageLabelSet(currentLang);
+    const currentLabel = isMobile ? labelSet.short : labelSet.full;
+
+    const triggerContent = isMobile
+        ? `<img src="${prefixRootPath('media/ui/lang-globe-icon.svg')}" alt="" class="lang-icon-svg" />`
+        : `<img src="${prefixRootPath('media/ui/lang-globe-icon.svg')}" alt="" class="lang-icon-svg" />
+       <span class="mini-lang-label" id="miniLangCurrentLabel">${currentLabel}</span>`;
+
+    const dropdownOptions = isMobile
+        ? `
+        <button type="button" class="mini-lang-option ${currentLang === 'ru' ? 'active' : ''}" data-lang="ru" onclick="selectMiniLanguage('ru')">РУС</button>
+        <button type="button" class="mini-lang-option ${currentLang === 'en' ? 'active' : ''}" data-lang="en" onclick="selectMiniLanguage('en')">ENG</button>
+      `
+        : `
+        <button type="button" class="mini-lang-option ${currentLang === 'ru' ? 'active' : ''}" data-lang="ru" onclick="selectMiniLanguage('ru')">Русский</button>
+        <button type="button" class="mini-lang-option ${currentLang === 'en' ? 'active' : ''}" data-lang="en" onclick="selectMiniLanguage('en')">English</button>
+      `;
 
     languageSelector.innerHTML = `
-        <div class="mini-lang-selector" id="miniLangSelector">
-            <button type="button" class="mini-lang-trigger" onclick="toggleLanguageDropdown(event)" aria-label="Select Language">
-                <img src="${prefixRootPath('media/ui/lang-globe-icon.svg')}" alt="" class="lang-icon-svg" />
-                <span class="mini-lang-label" id="miniLangCurrentLabel">${currentLabel}</span>
-            </button>
-            <div class="mini-lang-dropdown" id="miniLangDropdown">
-                <button type="button" class="mini-lang-option ${currentLang === 'ru' ? 'active' : ''}" data-lang="ru" onclick="selectMiniLanguage('ru')">Русский</button>
-                <button type="button" class="mini-lang-option ${currentLang === 'en' ? 'active' : ''}" data-lang="en" onclick="selectMiniLanguage('en')">English</button>
-            </div>
+    <div class="mini-lang-selector" id="miniLangSelector">
+        <button type="button" class="mini-lang-trigger" onclick="toggleLanguageDropdown(event)" aria-label="Select Language">
+            ${triggerContent}
+        </button>
+
+        <div class="mini-lang-dropdown" id="miniLangDropdown">
+            ${dropdownOptions}
         </div>
-    `;
+    </div>
+`;
 
     if (hasRightSidebarContainer() && !isIndexPageCheck() && !shouldUseMobileLayout()) {
         await renderSidebarLanguageSwitch(currentLang);
@@ -281,20 +297,8 @@ function changeLanguage(language) {
     const sidebarSwitch = document.querySelector('.sidebar-lang-switch');
     if (sidebarSwitch) {
         sidebarSwitch.dataset.activeLang = language;
+
         sidebarSwitch.querySelectorAll('.lang-switch-option').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.lang === language);
-        });
-    }
-
-    // Update Mini Selector UI if active
-    const currentLabel = document.getElementById('miniLangCurrentLabel');
-    if (currentLabel) {
-        currentLabel.textContent = language === 'ru' ? 'Русский' : 'English';
-    }
-
-    const miniDropdown = document.getElementById('miniLangDropdown');
-    if (miniDropdown) {
-        miniDropdown.querySelectorAll('.mini-lang-option').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === language);
         });
     }
@@ -595,7 +599,7 @@ function populateSidebar(side, data) {
                             <h3>${titleText}</h3>
                             <p>${descriptionText}</p>
                         </div>
-                        <a href="${biasLink}" class="${buttonClass}">${buttonText}</a>
+                        <!-- <a href="${biasLink}" class="${buttonClass}">${buttonText}</a> -->
                         <div class="bias-visibility-panel">
                             <div class="bias-visibility-control">
                                 <span class="bias-visibility-count bias-off">OFF</span>
@@ -610,7 +614,7 @@ function populateSidebar(side, data) {
                 `;
 
                 const toggle = itemDiv.querySelector('#biasVisibilityToggle');
-                const button = itemDiv.querySelector('.bias-card-button');
+                // const button = itemDiv.querySelector('.bias-card-button');
                 const imageWrapper = itemDiv.querySelector('.bias-image-wrapper');
                 const imageOff = itemDiv.querySelector('.bias-image-off');
                 const imageOn = itemDiv.querySelector('.bias-image-on');
@@ -620,8 +624,8 @@ function populateSidebar(side, data) {
                     toggle.addEventListener('change', () => {
                         const active = toggle.checked;
                         localStorage.setItem('biasVisibility', active ? '1' : '0');
-                        button.classList.toggle('bias-card-button-active', active);
-                        button.classList.toggle('bias-card-button-inactive', !active);
+                        // button.classList.toggle('bias-card-button-active', active); 
+                        // button.classList.toggle('bias-card-button-inactive', !active);
                         imageWrapper.classList.toggle('bias-image-active', active);
                         if (imageOff) imageOff.style.display = active ? 'none' : 'block';
                         if (imageOn) imageOn.style.display = active ? 'block' : 'none';
