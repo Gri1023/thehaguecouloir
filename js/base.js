@@ -698,9 +698,21 @@ function populateSidebar(side, data) {
                             : '';
                         const noteText = rawText ? getLinks(rawText, 'text-with-link').replace(/\|\|(.+?)\|\|/g, '<span class="spoiler-text">$1</span>') : '';
 
-                        // Count attachments
-                        const videoCount = note.content.filter(item => item.type === 'video' || item.type === 'main-video').length;
-                        const photoCount = note.content.filter(item => item.type === 'image' || item.type === 'main-image').length;
+                        // Count standalone media and items nested in galleries
+                        const mediaAttachments = note.content.flatMap(item => {
+                            if (item.type === 'gallery') {
+                                return Array.isArray(item.value) ? item.value : [];
+                            }
+                            if (['video', 'main-video', 'image', 'main-image'].includes(item.type)) {
+                                return [{
+                                    mediaType: item.type.includes('video') ? 'video' : 'image',
+                                    src: item.value
+                                }];
+                            }
+                            return [];
+                        });
+                        const videoCount = mediaAttachments.filter(item => item.mediaType === 'video').length;
+                        const photoCount = mediaAttachments.filter(item => item.mediaType === 'image').length;
 
                         // Build attachment notification with preview
                         let attachmentNotif = '';
@@ -711,9 +723,9 @@ function populateSidebar(side, data) {
                             if (videoCount > 0) {
                                 const videoLabel = videoCount === 1 ? getLocalizedValue(data.attachments.video) : getLocalizedValue(data.attachments.videos);
                                 attachments.push(`${videoCount} ${videoLabel}`);
-                                note.content.forEach(item => {
-                                    if (item.type === 'video' || item.type === 'main-video') {
-                                        const videoValue = getLocalizedValue(item.value) || item.value || '';
+                                mediaAttachments.forEach(item => {
+                                    if (item.mediaType === 'video') {
+                                        const videoValue = getLocalizedValue(item.src) || item.src || '';
                                         previewHTML += `<video class="preview-video-thumbnail" src="${prefixRootPath(videoValue)}" muted autoplay loop></video>`;
                                     }
                                 });
@@ -721,9 +733,9 @@ function populateSidebar(side, data) {
                             if (photoCount > 0) {
                                 const photoLabel = photoCount === 1 ? getLocalizedValue(data.attachments.photo) : getLocalizedValue(data.attachments.photos);
                                 attachments.push(`${photoCount} ${photoLabel}`);
-                                note.content.forEach(item => {
-                                    if (item.type === 'image' || item.type === 'main-image') {
-                                        const imageValue = getLocalizedValue(item.value) || item.value || '';
+                                mediaAttachments.forEach(item => {
+                                    if (item.mediaType === 'image') {
+                                        const imageValue = getLocalizedValue(item.src) || item.src || '';
                                         previewHTML += `<img class="preview-image-thumbnail" src="${prefixRootPath(imageValue)}" alt="">`;
                                     }
                                 });
